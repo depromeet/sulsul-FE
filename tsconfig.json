@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true
   },
+  "extends": "./tsconfig.paths.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
