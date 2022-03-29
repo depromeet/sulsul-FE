@@ -11,6 +11,7 @@ lerna-debug.log*
 
 # build
 .next
+storybook-static
 
 # env
 .env

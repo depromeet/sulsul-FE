@@ -1,5 +1,7 @@
-const theme = {} as const;
+export const lightTheme = {};
 
-export type EmotionTheme = typeof theme;
+export const darkTheme = {};
 
-export default theme;
+export type EmotionTheme = typeof lightTheme;
+
+export { default as GlobalStyle } from './GlobalStyle';
