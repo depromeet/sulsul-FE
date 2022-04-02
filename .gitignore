@@ -1,0 +1,17 @@
+# modules
+node_modules
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# build
+.next
+storybook-static
+
+# env
+.env
