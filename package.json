@@ -23,6 +23,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "prettier --write **/*.{ts,tsx}",
+    "tsc": "tsc",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

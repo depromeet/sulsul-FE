@@ -12,6 +12,7 @@ lerna-debug.log*
 # build
 .next
 storybook-static
+tsconfig.tsbuildinfo
 
 # env
 .env
