@@ -1,6 +1,13 @@
 {
   "extends": ["eslint:recommended", "next", "prettier"],
   "rules": {
-    "prefer-const": "warn"
+    "prefer-const": "warn",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", ["parent", "sibling"], "index"],
+        "newlines-between": "always"
+      }
+    ]
   }
 }
