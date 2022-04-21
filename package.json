@@ -34,7 +34,8 @@
     "emotion-reset": "^3.0.1",
     "next": "12.1.2",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "recoil": "^0.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
