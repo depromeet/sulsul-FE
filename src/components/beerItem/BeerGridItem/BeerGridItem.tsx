@@ -77,12 +77,17 @@ const Emoji = styled.img`
 `;
 
 const BeerImage = styled.img`
-  width: 34px;
-  height: 80px;
+  width: 100%;
+  height: auto;
 `;
 
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
 const BeerImageMask = styled.div`
+  width: 34px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   -webkit-mask-box-image: url('https://ifh.cc/g/KQ8NLv.png');
   mask-image: url('https://ifh.cc/g/KQ8NLv.png');
   -webkit-mask-repeat: no-repeat;

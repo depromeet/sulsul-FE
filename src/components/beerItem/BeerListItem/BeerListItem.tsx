@@ -10,13 +10,16 @@ const BeerListItem = () => {
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
-    <BeerListItemContainer style={{ margin: '50px' }}> {/* NOTE: style linie은 storybook에서 안보여서 임시로 추가*/}
+    <BeerListItemContainer style={{ margin: '50px' }}>
+      {/* NOTE: style linie은 storybook에서 안보여서 임시로 추가*/}
       <ColorBar />
       <Emoji src="https://static.toss.im/2d-emojis/svg/u1F619.svg" />
       <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
         {isBookMarked ? <BookmarkIconFill /> : <BookmarkIcon />}
       </BookmarkButton>
-      <BeerImage />
+      <BeerImageMask>
+        <BeerImage src="https://ifh.cc/g/X6B8Ra.png" />
+      </BeerImageMask>
       <TextContainer>
         <BeerName>제주 페일 에일</BeerName>
         <BeerInfo>대한민국 · 페일 에일 · 5.5%</BeerInfo>
@@ -70,11 +73,23 @@ const Emoji = styled.img`
   transform: translateY(-50%);
 `;
 
-const BeerImage = styled.div`
+// NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
+const BeerImageMask = styled.div`
   width: 40px;
   height: 60px;
-  background: rgba(255, 255, 255, 0.35);
   margin: 0 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-mask-box-image: url('https://ifh.cc/g/KQ8NLv.png');
+  mask-image: url('https://ifh.cc/g/KQ8NLv.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+`;
+
+const BeerImage = styled.img`
+  width: 100%;
+  height: auto;
 `;
 
 const TextContainer = styled.div`
