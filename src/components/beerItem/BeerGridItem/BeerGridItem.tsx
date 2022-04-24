@@ -16,7 +16,9 @@ const BeerGridItem = () => {
           {isBookMarked ? <BookmarkIconFill /> : <BookmarkIcon />}
         </BookmarkButton>
         <Emoji src="https://static.toss.im/2d-emojis/svg/u1F619.svg" />
-        <BeerImage src="../../../../public/images/beers/jeju_wit_ale.png" />
+        <BeerImageMask>
+          <BeerImage src="https://ifh.cc/g/X6B8Ra.png" />
+        </BeerImageMask>
       </BeerGridItemContainer>
       <BeerName>제주 위트 에일</BeerName>
     </BeerGridItemWrapper>
@@ -77,4 +79,12 @@ const Emoji = styled.img`
 const BeerImage = styled.img`
   width: 34px;
   height: 80px;
+`;
+
+// NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
+const BeerImageMask = styled.div`
+  -webkit-mask-box-image: url('https://ifh.cc/g/KQ8NLv.png');
+  mask-image: url('https://ifh.cc/g/KQ8NLv.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 `;
