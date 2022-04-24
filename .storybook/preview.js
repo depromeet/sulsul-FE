@@ -27,6 +27,8 @@ export const decorators = [
         styles={css`
           body {
             padding: 0 !important;
+            background-color: black;
+            padding: 0 20px;
           }
         `}
       />
