@@ -1,16 +1,46 @@
-export const lightTheme = {
-  sample: {
-    PRIMARY: '#084B8A',
-    BUTTON_PRIMARY: '#ABCCEC',
-    BUTTON_DEFAULT_FONT: '#435A6F',
+import { ColorTheme } from './types';
+
+export const lightTheme: Readonly<ColorTheme> = {
+  color: {
+    white: '#ffffff',
+
+    black100: '#000000',
+    black80: '#323232',
+
+    whiteOpacity80: 'rgba(255, 255, 255, 0.8)',
+    whiteOpacity65: 'rgba(255, 255, 255, 0.65)',
+    whiteOpacity50: 'rgba(255, 255, 255, 0.5)',
+    whiteOpacity35: 'rgba(255, 255, 255, 0.35)',
+    whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
+  },
+  semanticColor: {
+    background: '#000000',
+    backgroundLow: '#323232',
+
+    primary: '#3E3BE6',
+    secondary: '#FFD953',
   },
 };
 
-export const darkTheme = {
-  sample: {
-    PRIMARY: '#084B8A',
-    BUTTON_PRIMARY: '#565656',
-    BUTTON_DEFAULT_FONT: '#999999',
+export const darkTheme: Readonly<ColorTheme> = {
+  color: {
+    white: '#ffffff',
+
+    black100: '#000000',
+    black80: '#323232',
+
+    whiteOpacity80: 'rgba(255, 255, 255, 0.8)',
+    whiteOpacity65: 'rgba(255, 255, 255, 0.65)',
+    whiteOpacity50: 'rgba(255, 255, 255, 0.5)',
+    whiteOpacity35: 'rgba(255, 255, 255, 0.35)',
+    whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
+  },
+  semanticColor: {
+    background: '#000000',
+    backgroundLow: '#323232',
+
+    primary: '#3E3BE6',
+    secondary: '#FFD953',
   },
 };
 

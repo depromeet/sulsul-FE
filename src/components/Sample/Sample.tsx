@@ -7,9 +7,9 @@ interface StyledSampleProps {
 
 const StyledSample = styled.button<StyledSampleProps>`
   background-color: ${({ buttonType, theme }) =>
-    buttonType === 'default' ? 'rgba(0,0,0,0)' : theme.sample.BUTTON_PRIMARY};
+    buttonType === 'default' ? 'rgba(0,0,0,0)' : theme.color.black80};
   color: ${({ buttonType, theme }) =>
-    buttonType === 'default' ? theme.sample.BUTTON_DEFAULT_FONT : theme.sample.PRIMARY};
+    buttonType === 'default' ? theme.color.black80 : theme.color.whiteOpacity50};
   border: none;
   padding: 4px 12px;
   font-size: 12px;
