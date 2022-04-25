@@ -2,8 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 
 import useSearchHistory from '@/hooks/useSearchHistory';
-import { ReactComponent as HistoryIcon } from '@/assets/history.svg';
-import { ReactComponent as SearchIcon } from '@/assets/search.svg';
+import { HistoryIcon, SearchIcon } from '@/assets/icon';
 
 export type SearchIconType = 'search' | 'history';
 
