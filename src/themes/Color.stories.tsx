@@ -82,6 +82,30 @@ const StyledRow = styled.div`
   flex-wrap: wrap;
 `;
 
+const ColorList = ({
+  colors,
+  title,
+  namespace,
+  excludeNamespace,
+}: {
+  colors: Record<string, string>;
+  title?: string;
+  namespace?: string;
+  excludeNamespace?: string;
+}) => (
+  <>
+    <StyledH3>{title || namespace}</StyledH3>
+    <StyledRow>
+      {Object.entries(colors)
+        .filter(([key]) => (namespace ? key.includes(namespace) : true))
+        .filter(([key]) => (excludeNamespace ? !key.includes(excludeNamespace) : true))
+        .map(([key, value]) => (
+          <Color key={key} name={key} color={value} />
+        ))}
+    </StyledRow>
+  </>
+);
+
 const Template: ComponentStory<any> = () => {
   const { color, semanticColor } = lightTheme;
 
@@ -94,32 +118,13 @@ const Template: ComponentStory<any> = () => {
         <StyledRow>
           <Color name="white" color={color.white} />
         </StyledRow>
-        <StyledH3>black</StyledH3>
-        <StyledRow>
-          <Color name="black100" color={color.black100} />
-          <Color name="black80" color={color.black80} />
-        </StyledRow>
-        <StyledH3>whiteOpacity</StyledH3>
-        <StyledRow>
-          <Color name="whiteOpacity80" color={color.whiteOpacity80} />
-          <Color name="whiteOpacity65" color={color.whiteOpacity65} />
-          <Color name="whiteOpacity50" color={color.whiteOpacity50} />
-          <Color name="whiteOpacity35" color={color.whiteOpacity35} />
-          <Color name="whiteOpacity20" color={color.whiteOpacity20} />
-        </StyledRow>
+        <ColorList colors={color} namespace="black" />
+        <ColorList colors={color} namespace="whiteOpacity" />
       </section>
       <section>
         <StyledH2>Semantic Color</StyledH2>
-        <StyledH3>background</StyledH3>
-        <StyledRow>
-          <Color name="background" color={semanticColor.background} />
-          <Color name="backgroundLow" color={semanticColor.backgroundLow} />
-        </StyledRow>
-        <StyledH3>point</StyledH3>
-        <StyledRow>
-          <Color name="primary" color={semanticColor.primary} />
-          <Color name="secondary" color={semanticColor.secondary} />
-        </StyledRow>
+        <ColorList colors={semanticColor} namespace="background" />
+        <ColorList colors={semanticColor} title="point" excludeNamespace="background" />
       </section>
     </StyledWrapper>
   );
