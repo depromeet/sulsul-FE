@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 
+import useSearchHistory from '@/hooks/useSearchHistory';
 import { ReactComponent as HistoryIcon } from '@/assets/history.svg';
 import { ReactComponent as SearchIcon } from '@/assets/search.svg';
 
@@ -28,6 +29,7 @@ const SearchItem: React.FC<SearchItemProps> = ({
   hasDeleteButton = false,
   onClick,
 }) => {
+  const { removeSearchHistory } = useSearchHistory();
   const renderedText = useMemo(() => {
     if (!searchText?.trim()) {
       return text;
@@ -40,9 +42,13 @@ const SearchItem: React.FC<SearchItemProps> = ({
       .map((v) => (searchTextRegExp.test(v) ? <strong>{v}</strong> : v));
   }, [text, searchText]);
 
-  const handleDelete = useCallback<React.MouseEventHandler<HTMLButtonElement>>((e) => {
-    e.stopPropagation();
-  }, []);
+  const handleDelete = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      e.stopPropagation();
+      removeSearchHistory(text);
+    },
+    [removeSearchHistory, text],
+  );
 
   return (
     <StyledSearchItem onClick={onClick} className={className}>
