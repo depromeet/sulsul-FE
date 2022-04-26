@@ -8,7 +8,7 @@ import { useElementSize } from '@/hooks/useElementSize';
 
 const showUp = (height?: number) => keyframes`
   from {
-    bottom: -${height ?? '100'}px;
+    bottom: ${height ? `-${height}px` : `-100vh`};
   }
   to {
     bottom: 0;
@@ -17,10 +17,10 @@ const showUp = (height?: number) => keyframes`
 
 const hideDown = (height?: number) => keyframes`
   from {
-      bottom: 0;
+    bottom: 0;
   }
   to {
-      bottom: -${height ?? '100'}px;
+    bottom: ${height ? `-${height}px` : `-100vh`};
   }
 `;
 
