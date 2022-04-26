@@ -10,6 +10,8 @@ type MakeTokenSet<
 > = `${TGroup}${TLightness[number]}`;
 export type ColorToken =
   | 'white'
+  | 'blue'
+  | 'yellow'
   | MakeTokenSet<'black', [100, 80]>
   | MakeTokenSet<'whiteOpacity', [80, 65, 50, 35, 20]>;
 

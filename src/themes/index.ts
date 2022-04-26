@@ -1,8 +1,11 @@
 import { ColorTheme } from './types';
+import { parseColorTheme } from './utils';
 
-export const lightTheme: Readonly<ColorTheme> = {
+export const lightTheme: Readonly<ColorTheme> = parseColorTheme({
   color: {
     white: '#ffffff',
+    blue: '#3E3BE6',
+    yellow: '#FFD953',
 
     black100: '#000000',
     black80: '#323232',
@@ -14,17 +17,19 @@ export const lightTheme: Readonly<ColorTheme> = {
     whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
   },
   semanticColor: {
-    background: '#000000',
-    backgroundLow: '#323232',
+    background: 'black100',
+    backgroundLow: 'black80',
 
-    primary: '#3E3BE6',
-    secondary: '#FFD953',
+    primary: 'blue',
+    secondary: 'yellow',
   },
-};
+});
 
-export const darkTheme: Readonly<ColorTheme> = {
+export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
   color: {
     white: '#ffffff',
+    blue: '#3E3BE6',
+    yellow: '#FFD953',
 
     black100: '#000000',
     black80: '#323232',
@@ -36,13 +41,13 @@ export const darkTheme: Readonly<ColorTheme> = {
     whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
   },
   semanticColor: {
-    background: '#000000',
-    backgroundLow: '#323232',
+    background: 'black100',
+    backgroundLow: 'black80',
 
-    primary: '#3E3BE6',
-    secondary: '#FFD953',
+    primary: 'blue',
+    secondary: 'yellow',
   },
-};
+});
 
 export type EmotionTheme = typeof lightTheme;
 

@@ -51,29 +51,29 @@ const StyledWrapper = styled.div`
   padding: 1.6rem;
 
   background-color: #262626;
-`;
 
-const StyledH1 = styled.h1`
-  margin: 0 0 0.8rem;
-  font-size: 2rem;
-  font-weight: 700;
-  color: ${(p) => p.theme.color.white};
-`;
+  h1 {
+    margin: 0 0 0.8rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: ${(p) => p.theme.color.white};
+  }
 
-const StyledH2 = styled.h2`
-  margin: 1.4em 0 1.2rem;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: ${(p) => p.theme.color.white};
-`;
+  h2 {
+    margin: 1.4em 0 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: ${(p) => p.theme.color.white};
+  }
 
-const StyledH3 = styled.h3`
-  margin: 1em 0 0.4rem;
-  border-bottom: 0.1rem solid ${(p) => p.theme.color.whiteOpacity80};
-  padding-bottom: 0.4rem;
+  h3 {
+    margin: 1em 0 0.4rem;
+    border-bottom: 0.1rem solid ${(p) => p.theme.color.whiteOpacity80};
+    padding-bottom: 0.4rem;
 
-  font-weight: bold;
-  color: ${(p) => p.theme.color.white};
+    font-weight: bold;
+    color: ${(p) => p.theme.color.white};
+  }
 `;
 
 const StyledRow = styled.div`
@@ -94,7 +94,7 @@ const ColorList = ({
   excludeNamespace?: string;
 }) => (
   <>
-    <StyledH3>{title || namespace}</StyledH3>
+    <h3>{title || namespace}</h3>
     <StyledRow>
       {Object.entries(colors)
         .filter(([key]) => (namespace ? key.includes(namespace) : true))
@@ -111,18 +111,17 @@ const Template: ComponentStory<any> = () => {
 
   return (
     <StyledWrapper>
-      <StyledH1>Design System : Color</StyledH1>
+      <h1>Design System : Color</h1>
       <section>
-        <StyledH2>Color</StyledH2>
-        <StyledH3>white</StyledH3>
-        <StyledRow>
-          <Color name="white" color={color.white} />
-        </StyledRow>
+        <h2>Color</h2>
+        <ColorList colors={color} namespace="white" excludeNamespace="whiteOpacity" />
+        <ColorList colors={color} namespace="blue" />
+        <ColorList colors={color} namespace="yellow" />
         <ColorList colors={color} namespace="black" />
         <ColorList colors={color} namespace="whiteOpacity" />
       </section>
       <section>
-        <StyledH2>Semantic Color</StyledH2>
+        <h2>Semantic Color</h2>
         <ColorList colors={semanticColor} namespace="background" />
         <ColorList colors={semanticColor} title="point" excludeNamespace="background" />
       </section>
