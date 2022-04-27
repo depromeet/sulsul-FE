@@ -15,9 +15,7 @@ const useSearchHistory = () => {
         return;
       }
 
-      let addedSearchHistories = [...searchHistories];
-      addedSearchHistories.unshift(searchText);
-      addedSearchHistories = uniq(addedSearchHistories);
+      let addedSearchHistories = uniq([searchText, ...searchHistories]);
 
       if (addedSearchHistories.length > MAX_HISTORY_LENGTH) {
         addedSearchHistories = addedSearchHistories.slice(0, MAX_HISTORY_LENGTH);
