@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from '@emotion/styled';
 
 import SearchItem, { SearchIconType, DEFAULT_ICON_TYPE } from '../SearchItem';
 
@@ -16,14 +15,12 @@ const SearchList: React.FC<SearchListProps> = ({ type = DEFAULT_ICON_TYPE, searc
   const renderedSearchList = searchList || searchHistories;
 
   return (
-    <StyledSearchList>
+    <div>
       {renderedSearchList.map((item) => (
         <SearchItem key={item} text={item} type={type} hasDeleteButton={type === 'history'} />
       ))}
-    </StyledSearchList>
+    </div>
   );
 };
-
-const StyledSearchList = styled.div``;
 
 export default SearchList;
