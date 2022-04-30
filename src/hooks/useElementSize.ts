@@ -16,7 +16,7 @@ export const useElementSize = <T extends HTMLElement>(
   const ref = useRef<T>(null);
   const [size, setSize] = useState<{ width: number; height: number } | null>(null);
 
-  const callback: ResizeObserverCallback = useCallback((entries) => {
+  const resizeHandler: ResizeObserverCallback = useCallback((entries) => {
     const entry = entries[0];
     if (entry.contentRect) {
       setSize({
@@ -29,13 +29,15 @@ export const useElementSize = <T extends HTMLElement>(
   useEffect(() => {
     if (!ref.current) return;
 
-    const debouncedCallback = _debounce(callback, DEBOUNCE_WAIT_TIME);
-    const resizeObserver = new ResizeObserver(option?.debounce ? debouncedCallback : callback);
+    const debouncedResizeHandler = _debounce(resizeHandler, DEBOUNCE_WAIT_TIME);
+    const resizeObserver = new ResizeObserver(
+      option?.debounce ? debouncedResizeHandler : resizeHandler,
+    );
 
     resizeObserver.observe(ref.current);
 
     return () => resizeObserver.disconnect();
-  }, [ref]);
+  }, [ref, resizeHandler, option]);
 
   return { ref, size };
 };
