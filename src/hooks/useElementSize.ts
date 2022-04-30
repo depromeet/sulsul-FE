@@ -7,9 +7,7 @@ interface useElementSizeOptions {
   debounce?: boolean;
 }
 
-export const useElementSize = <T extends HTMLElement>(
-  option?: useElementSizeOptions,
-): {
+export const useElementSize = <T extends HTMLElement>({ debounce }: useElementSizeOptions = {}): {
   ref: RefObject<T>;
   size: { width: number; height: number } | null;
 } => {
@@ -30,14 +28,12 @@ export const useElementSize = <T extends HTMLElement>(
     if (!ref.current) return;
 
     const debouncedResizeHandler = _debounce(resizeHandler, DEBOUNCE_WAIT_TIME);
-    const resizeObserver = new ResizeObserver(
-      option?.debounce ? debouncedResizeHandler : resizeHandler,
-    );
+    const resizeObserver = new ResizeObserver(debounce ? debouncedResizeHandler : resizeHandler);
 
     resizeObserver.observe(ref.current);
 
     return () => resizeObserver.disconnect();
-  }, [ref, resizeHandler, option]);
+  }, [ref, resizeHandler, debounce]);
 
   return { ref, size };
 };
