@@ -7,7 +7,7 @@ export default {
   title: 'Components/BottomSheet',
   component: BottomSheet,
   argTypes: {
-    open: { control: 'boolean', defaultValue: false },
+    open: { control: 'boolean', defaultValue: true },
     isFull: { control: 'boolean', defaultValue: false },
     backgroundColor: { control: 'color' },
     children: { control: 'readonly' },

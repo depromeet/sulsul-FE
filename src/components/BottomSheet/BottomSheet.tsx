@@ -67,7 +67,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   isFull = false,
   backgroundColor = DEFAULT_BACKGROUND_COLOR,
 }) => {
-  const { ref, size } = useElementSize<HTMLDivElement>();
+  const { ref, size } = useElementSize<HTMLDivElement>({
+    debounce: true,
+  });
 
   return (
     <ModalLayout open={open} onClose={onClose}>
