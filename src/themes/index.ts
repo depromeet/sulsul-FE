@@ -15,6 +15,7 @@ export const lightTheme: Readonly<ColorTheme> = parseColorTheme({
     whiteOpacity50: 'rgba(255, 255, 255, 0.5)',
     whiteOpacity35: 'rgba(255, 255, 255, 0.35)',
     whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
+    whiteOpacity0: 'rgba(255, 255, 255, 0)',
   },
   semanticColor: {
     background: 'black100',
@@ -39,6 +40,7 @@ export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
     whiteOpacity50: 'rgba(255, 255, 255, 0.5)',
     whiteOpacity35: 'rgba(255, 255, 255, 0.35)',
     whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
+    whiteOpacity0: 'rgba(255, 255, 255, 0)',
   },
   semanticColor: {
     background: 'black100',
