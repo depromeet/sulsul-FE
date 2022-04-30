@@ -10,11 +10,20 @@ export const useElementSize = <T extends HTMLElement>(): {
   useEffect(() => {
     if (!ref.current) return;
 
-    setSize({
-      width: ref.current.clientWidth,
-      height: ref.current.clientHeight,
+    const resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry.contentRect) {
+        setSize({
+          width: entry.contentRect.width,
+          height: entry.contentRect.height,
+        });
+      }
     });
-  }, [ref.current?.clientWidth, ref.current?.clientHeight]);
+
+    resizeObserver.observe(ref.current);
+
+    return () => resizeObserver.disconnect();
+  }, [ref]);
 
   return { ref, size };
 };
