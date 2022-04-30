@@ -6,21 +6,21 @@ import ModalLayout from '../ModalLayout';
 
 import { useElementSize } from '@/hooks/useElementSize';
 
-const showUp = (height?: number) => keyframes`
+const showUp = keyframes`
   from {
-    bottom: ${height ? `-${height}px` : `-100vh`};
+    transform: translateY(100%);
   }
   to {
-    bottom: 0;
+    transform: translateY(0);
   }
 `;
 
-const hideDown = (height?: number) => keyframes`
+const hideDown = keyframes`
   from {
-    bottom: 0;
+    transform: translateY(0);
   }
   to {
-    bottom: ${height ? `-${height}px` : `-100vh`};
+    transform: translateY(100%);
   }
 `;
 
@@ -42,9 +42,11 @@ const StyledWrapper = styled.div<StyledWrapperProps>`
 
   overflow: hidden;
 
+  transform: ${(p) => (p.open ? `translateY(0)` : `translateY(100%)`)};
+
   ${(p) =>
     css`
-      animation: ${p.open ? showUp(p.height) : hideDown(p.height)} 0.1s forwards;
+      animation: ${p.open ? showUp : hideDown} 0.1s forwards;
     `};
 `;
 
