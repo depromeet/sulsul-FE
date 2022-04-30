@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from 'react';
+import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
 
@@ -45,7 +45,7 @@ const StyledWrapper = styled.div<StyledWrapperProps>`
   ${(p) =>
     css`
       animation: ${p.open ? showUp(p.height) : hideDown(p.height)} 0.1s forwards;
-    `}
+    `};
 `;
 
 const DEFAULT_BACKGROUND_COLOR = '#fff';
@@ -67,12 +67,12 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   isFull = false,
   backgroundColor = DEFAULT_BACKGROUND_COLOR,
 }) => {
-  const { ref, size } = useElementSize();
+  const { ref, size } = useElementSize<HTMLDivElement>();
 
   return (
     <ModalLayout open={open} onClose={onClose}>
       <StyledWrapper
-        ref={ref as RefObject<HTMLDivElement>}
+        ref={ref}
         open={open}
         height={size?.height}
         isFull={isFull}
