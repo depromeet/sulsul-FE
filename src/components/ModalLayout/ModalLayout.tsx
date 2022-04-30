@@ -1,6 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
+
+import { useModalLayoutVisible } from './hooks/useModalLayoutVisible';
 
 const StyledContainer = styled.div<{ open: boolean }>`
   position: fixed;
@@ -56,25 +58,8 @@ interface ModalLayoutProps {
 }
 
 const ModalLayout: React.FC<ModalLayoutProps> = ({ open, children, onClose }) => {
-  const [isVisible, setIsVisible] = useState<boolean>(open);
-
-  /** 애니메이션이 끝난 후에 모달이 안보이도록 하기 위함 */
-  useEffect(() => {
-    if (open && !isVisible) {
-      setIsVisible(true);
-      return;
-    }
-
-    let timerId: NodeJS.Timeout;
-
-    if (!open && isVisible) {
-      timerId = setTimeout(() => {
-        setIsVisible(false);
-      }, 300);
-    }
-
-    () => clearTimeout(timerId);
-  }, [open, isVisible]);
+  const dimRef = useRef<HTMLDivElement>(null);
+  const isVisible = useModalLayoutVisible(open, dimRef);
 
   if (!isVisible) {
     return null;
@@ -82,7 +67,7 @@ const ModalLayout: React.FC<ModalLayoutProps> = ({ open, children, onClose }) =>
 
   return (
     <StyledContainer open={open}>
-      <StyledDim open={open} onClick={onClose} />
+      <StyledDim ref={dimRef} open={open} onClick={onClose} />
       {children}
     </StyledContainer>
   );
