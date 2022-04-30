@@ -46,7 +46,7 @@ const StyledWrapper = styled.div<StyledWrapperProps>`
 
   ${(p) =>
     css`
-      animation: ${p.open ? showUp : hideDown} 0.1s forwards;
+      animation: ${p.open ? showUp : hideDown} 0.3s forwards;
     `};
 `;
 
