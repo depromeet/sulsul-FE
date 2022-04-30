@@ -1,3 +1,5 @@
+import { SerializedStyles } from "@emotion/react";
+
 const globalColorGroupNames = ['white', 'black', 'whiteOpacity'] as const;
 export type GlobalColorGroup = typeof globalColorGroupNames[number];
 export function isGlobalColorGroup(str: string): str is GlobalColorGroup {
@@ -31,4 +33,19 @@ export type ColorTheme = {
    * Sematic color object
    */
   semanticColor: SemanticColorScheme;
+};
+
+export type FontToken =
+  | 'mainTitle'
+  | 'subTitle'
+  | 'subTitleEng'
+  | 'contentTitle'
+  | 'content'
+  | 'beerNameGrid'
+  | 'beerNameList';
+
+export type FontScheme = Record<FontToken, SerializedStyles>;
+
+export type FontTheme = {
+  fonts: FontScheme;
 };

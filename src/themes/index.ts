@@ -1,5 +1,6 @@
-import { ColorTheme } from './types';
+import { ColorTheme, FontTheme } from './types';
 import { parseColorTheme } from './utils';
+import { fonts } from './fonts';
 
 export const lightTheme: Readonly<ColorTheme> = parseColorTheme({
   color: {
@@ -49,6 +50,10 @@ export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
   },
 });
 
-export type EmotionTheme = typeof lightTheme;
+export const fontTheme: Readonly<FontTheme> = {
+  fonts,
+};
+
+export type EmotionTheme = typeof lightTheme & typeof fontTheme;
 
 export { default as GlobalStyle } from './GlobalStyle';
