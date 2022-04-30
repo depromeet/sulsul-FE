@@ -41,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
     >
       {icon && <span className="common-button-icon-wrapper">{icon}</span>}
-      {children}
+      <span className="common-button-text">{children}</span>
     </StyledButton>
   );
 };
@@ -67,6 +67,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${({ theme, buttonType }) => getColorByType(buttonType, theme)};
   color: ${({ theme, buttonType }) => getFontColorByType(buttonType, theme)};
   min-width: 125px;
+  height: 3.7rem;
   border-radius: 200px;
   padding: 1.12rem 2.5rem;
   font-size: 1.25rem;
@@ -79,9 +80,20 @@ const StyledButton = styled.button<StyledButtonProps>`
   cursor: pointer;
 
   & > .common-button-icon-wrapper {
-    width: 20px;
     height: 20px;
     margin-right: 0.75rem;
+
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  & > .common-button-text {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &:active {
