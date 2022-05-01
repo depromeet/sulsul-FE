@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
-import { ReactComponent as BookmarkIcon } from '@/assets/bookmark.svg';
-import { ReactComponent as BookmarkIconFill } from '@/assets/bookmark_fill.svg';
+import { BookmarkIcon, BookmarkFillIcon } from '@/assets/icon';
 
 // TODO: 페이지 단위에서 mock data 만들며 하드코딩한 이미지, 이름 등 맥주 정보 prop으로 받도록 수정하기
 
@@ -13,7 +12,7 @@ const BeerGridItem = () => {
     <BeerGridItemWrapper>
       <BeerGridItemContainer isBookMarked={isBookMarked}>
         <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-          {isBookMarked ? <BookmarkIconFill /> : <BookmarkIcon />}
+          {isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
         </BookmarkButton>
         <Emoji src="https://static.toss.im/2d-emojis/svg/u1F619.svg" />
         <BeerImageMask>
