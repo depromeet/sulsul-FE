@@ -14,19 +14,24 @@ interface CountryType {
 }
 
 interface BeerListItemProps {
-  beer: {
-    country: CountryType;
-    type: string;
-    name: string;
-    imageUrl: string;
-    alcohol: number;
-    feel: number | null;
-    isLiked?: boolean;
-  };
+  country: CountryType;
+  type: string;
+  name: string;
+  imageUrl: string;
+  alcohol: number;
+  feel: number | null;
+  isLiked?: boolean;
 }
 
-const BeerListItem = ({ beer }: BeerListItemProps) => {
-  const { name, type, alcohol, country, imageUrl, feel, isLiked } = beer;
+const BeerListItem = ({
+  name,
+  type,
+  alcohol,
+  country,
+  imageUrl,
+  feel,
+  isLiked,
+}: BeerListItemProps) => {
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
