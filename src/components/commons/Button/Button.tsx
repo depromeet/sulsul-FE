@@ -66,7 +66,6 @@ const getFontColorByType = (type: ButtonType, theme: ColorTheme) =>
   type === 'secondary' ? theme.semanticColor.backgroundLow : theme.color.white;
 
 const StyledButton = styled.button<StyledButtonProps>`
-  border: none;
   background-color: ${({ theme, buttonType }) => getColorByType(buttonType, theme)};
   color: ${({ theme, buttonType }) => getFontColorByType(buttonType, theme)};
   min-width: 125px;
@@ -80,7 +79,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   transition: filter 0.2s;
   ${({ buttonWidth }) => (buttonWidth ? ` width: ${buttonWidth};` : '')}
-  cursor: pointer;
 
   & > .common-button-icon-wrapper {
     height: 20px;
