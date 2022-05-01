@@ -1,5 +1,6 @@
 import { ColorTheme, FontTheme } from './types';
 import { parseColorTheme } from './utils';
+
 import { fonts } from './fonts';
 
 export const theme: Readonly<ColorTheme & FontTheme> = {
@@ -17,6 +18,7 @@ export const theme: Readonly<ColorTheme & FontTheme> = {
       whiteOpacity50: 'rgba(255, 255, 255, 0.5)',
       whiteOpacity35: 'rgba(255, 255, 255, 0.35)',
       whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
+      whiteOpacity0: 'rgba(255, 255, 255, 0)',
     },
     semanticColor: {
       background: 'black100',
