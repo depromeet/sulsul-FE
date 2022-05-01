@@ -1,6 +1,5 @@
 import { ColorTheme, FontTheme } from './types';
 import { parseColorTheme } from './utils';
-
 import { fonts } from './fonts';
 
 export const theme: Readonly<ColorTheme & FontTheme> = {
