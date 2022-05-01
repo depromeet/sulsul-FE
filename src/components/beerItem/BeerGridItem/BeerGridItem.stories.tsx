@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof BeerGridItem> = (args) => <BeerGridItem {.
 
 export const DefaultBeerGridItem = Template.bind({});
 DefaultBeerGridItem.args = {
-  name: '삿포로',
+  name: '제주 위트 에일',
   imageUrl: 'https://ifh.cc/g/X6B8Ra.png',
   feel: 5,
   isLiked: false,

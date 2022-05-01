@@ -98,7 +98,7 @@ const StyledEmoji = styled.div`
 
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
 const BeerImageMask = styled.div`
-  width: 3rem;
+  width: 2.5rem;
   height: 4.5rem;
   margin: 0 1.1rem;
   display: flex;
@@ -124,6 +124,10 @@ const TextContainer = styled.div`
 const BeerName = styled.div`
   ${({ theme }) => theme.fonts.beerNameList}
   color:  ${({ theme }) => theme.color.white};
+  max-width: 14rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const BeerInfo = styled.div`
