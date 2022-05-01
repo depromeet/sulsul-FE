@@ -6,14 +6,15 @@ interface StyledSampleProps {
 }
 
 const StyledSample = styled.button<StyledSampleProps>`
+  ${({ theme }) => theme.fonts.subTitle}
   background-color: ${({ buttonType, theme }) =>
     buttonType === 'default' ? 'rgba(0,0,0,0)' : theme.color.black80};
   color: ${({ buttonType, theme }) =>
     buttonType === 'default' ? theme.color.black80 : theme.color.whiteOpacity50};
   border: none;
   padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 900;
+  /* font-size: 12px;
+  font-weight: 900; */
   transition: opacity 0.5s;
   cursor: pointer;
   &:focus {
