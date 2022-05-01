@@ -4,6 +4,10 @@ import emotionReset from 'emotion-reset';
 const global = css`
   ${emotionReset}
 
+  html {
+    font-size: 13px;
+  }
+
   body {
     // https://github.com/orioncactus/pretendard
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue',

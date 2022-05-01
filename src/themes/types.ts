@@ -15,7 +15,7 @@ export type ColorToken =
   | 'blue'
   | 'yellow'
   | MakeTokenSet<'black', [100, 80]>
-  | MakeTokenSet<'whiteOpacity', [80, 65, 50, 35, 20]>;
+  | MakeTokenSet<'whiteOpacity', [80, 65, 50, 35, 20, 0]>;
 
 export type ColorScheme = Record<ColorToken, string>;
 

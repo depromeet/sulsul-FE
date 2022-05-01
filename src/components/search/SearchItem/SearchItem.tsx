@@ -88,6 +88,11 @@ const StyledSearchItem = styled.div`
     height: 28px;
     border-radius: 14px;
     margin-right: 16px;
+
+    & svg {
+      width: 18px;
+      height: 18px;
+    }
   }
 
   & .search-item-content {
