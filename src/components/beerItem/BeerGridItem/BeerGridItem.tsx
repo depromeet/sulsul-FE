@@ -45,6 +45,10 @@ const BeerName = styled.div`
   ${({ theme }) => theme.fonts.beerNameGrid}
   color: ${({ theme }) => theme.color.white};
   text-align: center;
+  max-width: 7.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const BeerGridItemContainer = styled.div<{ feel: number | null }>`
@@ -80,7 +84,7 @@ const BeerImage = styled.img`
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
 const BeerImageMask = styled.div`
   width: 2.6rem;
-  height: 6.15rem;
+  height: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
