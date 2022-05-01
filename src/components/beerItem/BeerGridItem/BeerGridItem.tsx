@@ -8,7 +8,7 @@ interface BeerGridItemProps {
   beer: {
     name: string;
     imageUrl: string;
-    feel?: number;
+    feel: number | null;
     isLiked?: boolean;
   };
 }
@@ -50,12 +50,12 @@ const BeerName = styled.div`
   text-align: center;
 `;
 
-const BeerGridItemContainer = styled.div<{ feel?: number }>`
+const BeerGridItemContainer = styled.div<{ feel: number | null }>`
   position: relative;
   width: 8rem;
   height: 8rem;
   background: ${({ feel, theme }) =>
-    feel !== undefined ? theme.color.blue : theme.color.whiteOpacity20};
+    feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
   border-radius: 0.77rem;
   display: flex;
   justify-content: center;
@@ -95,6 +95,6 @@ const BeerImageMask = styled.div`
 
 const StyledEmoji = styled.div`
   position: absolute;
-  bottom: -5px;
-  right: -5px;
+  bottom: -3px;
+  right: -3px;
 `;

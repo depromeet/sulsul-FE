@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Emoji from './Emoji';
@@ -31,5 +32,5 @@ Chaos.args = {
 };
 export const None = Template.bind({});
 Chaos.args = {
-  feel: undefined,
+  feel: null,
 };

@@ -1,10 +1,17 @@
 import styled from '@emotion/styled';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import BeerListItem from './BeerListItem';
 
 export default {
   title: 'Components/BeerListItem',
-  component: 'BeerListItem',
-};
+  component: BeerListItem,
+} as ComponentMeta<typeof BeerListItem>;
+
+const Template: ComponentStory<typeof BeerListItem> = (args) => (
+  <Container>
+    <BeerListItem {...args} />
+  </Container>
+);
 
 const BeerList = [
   {
@@ -26,18 +33,20 @@ const BeerList = [
       alcohol: 5.0,
       price: 4000,
       volume: 500,
-      feel: 5,
+      feel: null,
       isLiked: false,
     },
   },
 ];
 
-export const DefaultBeerListItem = () => {
-  return (
-    <Container>
-      <BeerListItem beer={BeerList[0].beer} />
-    </Container>
-  );
+export const LikedBeerListItem = Template.bind({});
+LikedBeerListItem.args = {
+  beer: { ...BeerList[0].beer, feel: 5 },
+};
+
+export const DefaultBeerListItem = Template.bind({});
+DefaultBeerListItem.args = {
+  beer: { ...BeerList[0].beer },
 };
 
 const Container = styled.div`

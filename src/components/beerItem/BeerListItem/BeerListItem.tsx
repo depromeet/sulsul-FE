@@ -20,7 +20,7 @@ interface BeerListItemProps {
     name: string;
     imageUrl: string;
     alcohol: number;
-    feel?: number;
+    feel: number | null;
     isLiked?: boolean;
   };
 }
@@ -44,7 +44,7 @@ const BeerListItem = ({ beer }: BeerListItemProps) => {
       <TextContainer>
         <BeerName>{name}</BeerName>
         <BeerInfo>
-          {country.name} · {type} · {alcohol}%
+          {country.name} · {type} · {alcohol.toFixed(1)}%
         </BeerInfo>
       </TextContainer>
     </StyledBeerListItem>
@@ -76,11 +76,11 @@ const BookmarkButton = styled.button`
   margin: 0;
 `;
 
-const ColorBar = styled.div<{ feel?: number }>`
+const ColorBar = styled.div<{ feel: number | null }>`
   width: 1.23rem;
   height: 100%;
   background: ${({ feel, theme }) =>
-    feel !== undefined ? theme.color.blue : theme.color.whiteOpacity20};
+    feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
   border-radius: 0.46rem 0rem 0rem 0.46rem;
 `;
 
