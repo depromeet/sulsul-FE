@@ -36,10 +36,10 @@ const StyledH2 = styled.h2`
   border-bottom: 0.1rem solid ${(p) => p.theme.color.whiteOpacity80};
 `;
 
-const typographyWrapper = styled.div`
+const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.4rem;
 `;
 
 const StyledMainTitle = styled.h1`
@@ -68,7 +68,7 @@ const Template: ComponentStory<any> = () => {
   return (
     <StyledWrapper>
       <StyledH1>Design System : Font</StyledH1>
-      <section>
+      <StyledSection>
         <StyledH2>Font</StyledH2>
         <StyledMainTitle>메인 타이틀</StyledMainTitle>
         <StyledSubTitle>서브 타이틀</StyledSubTitle>
@@ -77,11 +77,11 @@ const Template: ComponentStory<any> = () => {
         <StyledContent>본문</StyledContent>
         <StyledBeerNameGrid>beer name_grid</StyledBeerNameGrid>
         <StyledBeerNameList>beer name_list</StyledBeerNameList>
-      </section>
-      <section>
-        <StyledH2>Semantic Font</StyledH2>
+      </StyledSection>
+      <StyledH2>Semantic Font</StyledH2>
+      <StyledSection>
         <div>준비중...</div>
-      </section>
+      </StyledSection>
     </StyledWrapper>
   );
 };
