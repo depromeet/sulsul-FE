@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
-import { BookmarkIcon, BookmarkFillIcon } from '@/assets/icon';
+import { BookmarkIcon } from '@/assets/icon';
 import Emoji from '@/components/Emoji';
 
 interface CountryType {
@@ -41,7 +41,7 @@ const BeerListItem = ({
         <Emoji feel={feel} />
       </StyledEmoji>
       <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-        {isLiked || isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
+        <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
       </BookmarkButton>
       <BeerImageMask>
         <BeerImage src={imageUrl} />
@@ -133,4 +133,11 @@ const BeerName = styled.div`
 const BeerInfo = styled.div`
   font-size: 1rem;
   color: ${({ theme }) => theme.color.whiteOpacity80};
+`;
+
+const StyledBookMarkIcon = styled(BookmarkIcon)<{ isLiked: boolean; isBookMarked: boolean }>`
+  path {
+    fill: ${({ theme, isLiked, isBookMarked }) =>
+      isLiked || isBookMarked ? theme.color.white : 'none'};
+  }
 `;

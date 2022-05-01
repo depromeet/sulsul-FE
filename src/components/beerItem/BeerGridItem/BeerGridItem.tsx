@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
-import { BookmarkIcon, BookmarkFillIcon } from '@/assets/icon';
+import { BookmarkIcon } from '@/assets/icon';
 import Emoji from '@/components/Emoji';
 
 interface BeerGridItemProps {
@@ -18,7 +18,7 @@ const BeerGridItem = ({ name, imageUrl, feel, isLiked }: BeerGridItemProps) => {
     <StyledBeerGridItem>
       <BeerGridItemContainer feel={feel}>
         <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-          {isLiked || isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
+          <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
         </BookmarkButton>
         <StyledEmoji>
           <Emoji feel={feel} />
@@ -98,4 +98,11 @@ const StyledEmoji = styled.div`
   position: absolute;
   bottom: -3px;
   right: -3px;
+`;
+
+const StyledBookMarkIcon = styled(BookmarkIcon)<{ isLiked: boolean; isBookMarked: boolean }>`
+  path {
+    fill: ${({ theme, isLiked, isBookMarked }) =>
+      isLiked || isBookMarked ? theme.color.white : 'none'};
+  }
 `;
