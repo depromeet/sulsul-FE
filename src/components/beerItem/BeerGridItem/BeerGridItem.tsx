@@ -5,16 +5,13 @@ import { BookmarkIcon, BookmarkFillIcon } from '@/assets/icon';
 import Emoji from '@/components/Emoji';
 
 interface BeerGridItemProps {
-  beer: {
-    name: string;
-    imageUrl: string;
-    feel: number | null;
-    isLiked?: boolean;
-  };
+  name: string;
+  imageUrl: string;
+  feel: number | null;
+  isLiked?: boolean;
 }
 
-const BeerGridItem = ({ beer }: BeerGridItemProps) => {
-  const { name, imageUrl, feel, isLiked } = beer;
+const BeerGridItem = ({ name, imageUrl, feel, isLiked }: BeerGridItemProps) => {
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
