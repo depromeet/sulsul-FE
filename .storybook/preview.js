@@ -29,6 +29,7 @@ export const decorators = [
           styles={css`
             body {
               padding: 0 !important;
+              background-color: ${({ theme }) => theme.semanticColor.background};
             }
           `}
         />
