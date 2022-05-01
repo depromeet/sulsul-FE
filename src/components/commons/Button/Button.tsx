@@ -9,8 +9,8 @@ interface ButtonProps {
   type?: ButtonType;
   htmlType?: 'button' | 'submit';
   width?: string;
-  prefixIcon?: React.ReactNode;
-  postfixIcon?: React.ReactNode;
+  leftAddon?: React.ReactNode;
+  rightAddon?: React.ReactNode;
   disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
@@ -28,8 +28,8 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   width,
   className,
-  prefixIcon,
-  postfixIcon,
+  leftAddon,
+  rightAddon,
   children,
   onClick,
 }) => {
@@ -42,9 +42,9 @@ const Button: React.FC<ButtonProps> = ({
       className={className}
       onClick={onClick}
     >
-      {prefixIcon && <span className="common-button-icon-wrapper margin-right">{prefixIcon}</span>}
+      {leftAddon && <span className="common-button-icon-wrapper margin-right">{leftAddon}</span>}
       <span className="common-button-text">{children}</span>
-      {postfixIcon && <span className="common-button-icon-wrapper margin-left">{postfixIcon}</span>}
+      {rightAddon && <span className="common-button-icon-wrapper margin-left">{rightAddon}</span>}
     </StyledButton>
   );
 };

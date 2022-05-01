@@ -12,8 +12,8 @@ export default {
     width: { control: 'text' },
     disabled: { control: 'boolean' },
     type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
-    prefixIcon: { control: 'boolean' },
-    postfixIcon: { control: 'boolean' },
+    leftAddon: { control: 'boolean' },
+    rightAddon: { control: 'boolean' },
     htmlType: { control: 'select', options: ['button', 'submit'] },
   },
   args: {
@@ -24,11 +24,11 @@ export default {
   },
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = ({ prefixIcon, postfixIcon, ...args }) => (
+const Template: ComponentStory<typeof Button> = ({ leftAddon, rightAddon, ...args }) => (
   <Button
     {...args}
-    prefixIcon={prefixIcon ? <FlightTakeOffIcon /> : undefined}
-    postfixIcon={postfixIcon ? <FlightTakeOffIcon /> : undefined}
+    leftAddon={leftAddon ? <FlightTakeOffIcon /> : undefined}
+    rightAddon={rightAddon ? <FlightTakeOffIcon /> : undefined}
   />
 );
 
