@@ -2,38 +2,62 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { BookmarkIcon, BookmarkFillIcon } from '@/assets/icon';
+import Emoji from '@/components/Emoji';
 
-// TODO: 페이지 단위에서 mock data 만들며 하드코딩한 이미지, 이름 등 맥주 정보 prop으로 받도록 수정하기
+interface CountryType {
+  id: number;
+  name: string;
+  continent: {
+    id: number;
+    name: string;
+  };
+}
 
-const BeerListItem = () => {
+interface BeerListItemProps {
+  beer: {
+    country: CountryType;
+    type: string;
+    name: string;
+    imageUrl: string;
+    alcohol: number;
+    feel?: number;
+    isLiked?: boolean;
+  };
+}
+
+const BeerListItem = ({ beer }: BeerListItemProps) => {
+  const { name, type, alcohol, country, imageUrl, feel, isLiked } = beer;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
-    <BeerListItemContainer style={{ margin: '50px' }}>
-      {/* NOTE: style linie은 storybook에서 안보여서 임시로 추가*/}
-      <ColorBar />
-      <Emoji src="https://static.toss.im/2d-emojis/svg/u1F619.svg" />
+    <StyledBeerListItem>
+      <ColorBar feel={feel} />
+      <StyledEmoji>
+        <Emoji feel={feel} />
+      </StyledEmoji>
       <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-        {isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
+        {isLiked || isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
       </BookmarkButton>
       <BeerImageMask>
-        <BeerImage src="https://ifh.cc/g/X6B8Ra.png" />
+        <BeerImage src={imageUrl} />
       </BeerImageMask>
       <TextContainer>
-        <BeerName>제주 페일 에일</BeerName>
-        <BeerInfo>대한민국 · 페일 에일 · 5.5%</BeerInfo>
+        <BeerName>{name}</BeerName>
+        <BeerInfo>
+          {country.name} · {type} · {alcohol}%
+        </BeerInfo>
       </TextContainer>
-    </BeerListItemContainer>
+    </StyledBeerListItem>
   );
 };
 
 export default BeerListItem;
 
-const BeerListItemContainer = styled.div`
-  width: 315px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+const StyledBeerListItem = styled.div`
+  width: 24.2rem;
+  height: 6.15rem;
+  background-color: ${({ theme }) => theme.color.whiteOpacity20};
+  border-radius: 0.46rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -50,33 +74,28 @@ const BookmarkButton = styled.button`
   align-items: center;
   padding: 0;
   margin: 0;
-  border: 0;
-  outline: none;
-  background: none;
-  cursor: pointer;
 `;
 
-const ColorBar = styled.div`
-  width: 16px;
+const ColorBar = styled.div<{ feel?: number }>`
+  width: 1.23rem;
   height: 100%;
-  background: #3e3be6;
-  border-radius: 6px 0px 0px 6px;
+  background: ${({ feel, theme }) =>
+    feel !== undefined ? theme.color.blue : theme.color.whiteOpacity20};
+  border-radius: 0.46rem 0rem 0rem 0.46rem;
 `;
 
-const Emoji = styled.img`
+const StyledEmoji = styled.div`
   position: absolute;
-  width: 36px;
-  height: 36px;
-  left: -25px;
+  left: -2rem;
   top: 50%;
   transform: translateY(-50%);
 `;
 
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
 const BeerImageMask = styled.div`
-  width: 40px;
-  height: 60px;
-  margin: 0 14px;
+  width: 3rem;
+  height: 4.5rem;
+  margin: 0 1.1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,21 +113,15 @@ const BeerImage = styled.img`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.6rem;
 `;
 
 const BeerName = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 19px;
-  color: #ffffff;
+  ${({ theme }) => theme.fonts.beerNameList}
+  color:  ${({ theme }) => theme.color.white};
 `;
 
 const BeerInfo = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  color: ${({ theme }) => theme.color.whiteOpacity80};
 `;
