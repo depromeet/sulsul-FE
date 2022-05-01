@@ -5,6 +5,18 @@ export default {
   component: 'BeerGridItem',
 };
 
+const BeerList = [
+  {
+    beer: {
+      id: 1,
+      name: '삿포로',
+      imageUrl: 'https://ifh.cc/g/X6B8Ra.png',
+      feel: 5,
+      isLiked: false,
+    },
+  },
+];
+
 export const DefaultBeerGridItem = () => {
-  return <BeerGridItem />;
+  return <BeerGridItem beer={BeerList[0].beer} />;
 };

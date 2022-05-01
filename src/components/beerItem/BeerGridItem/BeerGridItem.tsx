@@ -2,49 +2,61 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { BookmarkIcon, BookmarkFillIcon } from '@/assets/icon';
+import Emoji from '@/components/Emoji';
 
-// TODO: 페이지 단위에서 mock data 만들며 하드코딩한 이미지, 이름 등 맥주 정보 prop으로 받도록 수정하기
+interface BeerGridItemProps {
+  beer: {
+    name: string;
+    imageUrl: string;
+    feel?: number;
+    isLiked?: boolean;
+  };
+}
 
-const BeerGridItem = () => {
+const BeerGridItem = ({ beer }: BeerGridItemProps) => {
+  const { name, imageUrl, feel, isLiked } = beer;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
-    <BeerGridItemWrapper>
-      <BeerGridItemContainer isBookMarked={isBookMarked}>
+    <StyledBeerGridItem>
+      <BeerGridItemContainer feel={feel}>
         <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-          {isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
+          {isLiked || isBookMarked ? <BookmarkFillIcon /> : <BookmarkIcon />}
         </BookmarkButton>
-        <Emoji src="https://static.toss.im/2d-emojis/svg/u1F619.svg" />
+        <StyledEmoji>
+          <Emoji feel={feel} />
+        </StyledEmoji>
         <BeerImageMask>
-          <BeerImage src="https://ifh.cc/g/X6B8Ra.png" />
+          <BeerImage src={imageUrl} />
         </BeerImageMask>
       </BeerGridItemContainer>
-      <BeerName>제주 위트 에일</BeerName>
-    </BeerGridItemWrapper>
+      <BeerName>{name}</BeerName>
+    </StyledBeerGridItem>
   );
 };
 
 export default BeerGridItem;
 
-const BeerGridItemWrapper = styled.div`
+const StyledBeerGridItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 0.6rem;
 `;
 
 const BeerName = styled.div`
-  font-size: 13px;
-  color: white;
+  ${({ theme }) => theme.fonts.beerNameGrid}
+  color: ${({ theme }) => theme.color.white};
   text-align: center;
 `;
 
-const BeerGridItemContainer = styled.div<{ isBookMarked: boolean }>`
+const BeerGridItemContainer = styled.div<{ feel?: number }>`
   position: relative;
-  width: 104px;
-  height: 104px;
-  background: ${({ isBookMarked }) => (isBookMarked ? '#3e3be6' : 'rgba(255, 255, 255, 0.2)')};
-  border-radius: 10px;
+  width: 8rem;
+  height: 8rem;
+  background: ${({ feel, theme }) =>
+    feel !== undefined ? theme.color.blue : theme.color.whiteOpacity20};
+  border-radius: 0.77rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,18 +73,6 @@ const BookmarkButton = styled.button`
   align-items: center;
   padding: 0;
   margin: 0;
-  border: 0;
-  outline: none;
-  background: none;
-  cursor: pointer;
-`;
-
-const Emoji = styled.img`
-  width: 34px;
-  height: 34px;
-  position: absolute;
-  bottom: -5px;
-  right: -5px;
 `;
 
 const BeerImage = styled.img`
@@ -82,8 +82,8 @@ const BeerImage = styled.img`
 
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
 const BeerImageMask = styled.div`
-  width: 34px;
-  height: 80px;
+  width: 2.6rem;
+  height: 6.15rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,4 +91,10 @@ const BeerImageMask = styled.div`
   mask-image: url('https://ifh.cc/g/KQ8NLv.png');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+`;
+
+const StyledEmoji = styled.div`
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
 `;
