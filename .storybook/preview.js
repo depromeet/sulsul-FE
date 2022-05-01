@@ -18,6 +18,7 @@ export const parameters = {
     viewports: INITIAL_VIEWPORTS,
     defaultViewport: 'iphone12',
   },
+  layout: 'fullscreen',
 };
 
 export const decorators = [
