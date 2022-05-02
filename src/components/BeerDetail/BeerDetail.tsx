@@ -7,22 +7,25 @@ import { Beer } from '@/types/Beer';
 
 type BeerDetailProp = {
   url: string;
+  isCompact: boolean;
 };
 type BeerDetailProps = Omit<Beer, 'id' | 'content' | 'feel'> & BeerDetailProp;
 
-const BeerDetail = ({
-  country,
-  type,
-  name,
-  nameEng,
-  imageUrl,
-  alcohol,
-  price,
-  volume,
-  isLiked,
-  url,
-  ...props
-}: BeerDetailProps) => {
+const BeerDetail = (props: BeerDetailProps) => {
+  const {
+    country,
+    type,
+    name,
+    nameEng,
+    imageUrl,
+    alcohol,
+    price,
+    volume,
+    isLiked,
+    url,
+    isCompact,
+    ...rest
+  } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
   const beerInfo = [
     { title: '종류', content: type },
@@ -33,21 +36,28 @@ const BeerDetail = ({
   ];
 
   return (
-    <StyledBeerDetail {...props}>
-      <TitleAndIconContainer>
-        <BeerNameWrapper>
-          <BeerName>{name}</BeerName>
-          <BeerNameEng>{nameEng}</BeerNameEng>
-        </BeerNameWrapper>
-        <IconWrapper>
-          <IconButton onClick={async () => await clipboard.writeText(url)}>
-            <ShareIcon />
-          </IconButton>
-          <IconButton onClick={() => setIsBookmarked((prev) => !prev)}>
-            <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
-          </IconButton>
-        </IconWrapper>
-      </TitleAndIconContainer>
+    <StyledBeerDetail isCompact={isCompact} {...rest}>
+      {!isCompact ? (
+        <TitleAndIconContainer>
+          <BeerNameWrapper>
+            <BeerName>{name}</BeerName>
+            <BeerNameEng>{nameEng}</BeerNameEng>
+          </BeerNameWrapper>
+          <IconWrapper>
+            <IconButton
+              onClick={() => {
+                clipboard.writeText(url);
+                alert(url);
+              }}
+            >
+              <ShareIcon />
+            </IconButton>
+            <IconButton onClick={() => setIsBookmarked((prev) => !prev)}>
+              <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
+            </IconButton>
+          </IconWrapper>
+        </TitleAndIconContainer>
+      ) : undefined}
       <InfoAndBeerImage>
         <InfoTableWrapper>
           {beerInfo.map(({ title, content }) => (
@@ -67,9 +77,12 @@ const BeerDetail = ({
 
 export default BeerDetail;
 
-const StyledBeerDetail = styled.div`
+const StyledBeerDetail = styled.div<{ isCompact: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: auto;
-  min-height: 17.48rem;
+  min-height: ${(p) => (p.isCompact ? '11.87rem' : '17.48rem')};
   padding: 1.7rem;
   background-color: ${({ theme }) => theme.color.black80};
   border-radius: 0.9rem;

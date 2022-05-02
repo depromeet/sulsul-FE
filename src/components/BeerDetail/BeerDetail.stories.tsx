@@ -37,4 +37,6 @@ DefaultBeerDetail.args = {
   price: 4200,
   volume: 50,
   isLiked: false,
+  url: 'www.naver.com',
+  isCompact: false,
 };
