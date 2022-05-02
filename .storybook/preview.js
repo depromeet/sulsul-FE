@@ -17,6 +17,7 @@ export const parameters = {
     viewports: INITIAL_VIEWPORTS,
     defaultViewport: 'iphone12',
   },
+  layout: 'fullscreen',
 };
 
 export const decorators = [
@@ -28,6 +29,7 @@ export const decorators = [
           styles={css`
             body {
               padding: 0 !important;
+              background-color: ${({ theme }) => theme.semanticColor.background};
             }
           `}
         />
