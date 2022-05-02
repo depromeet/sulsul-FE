@@ -8,16 +8,17 @@ interface BeerStyleFilterItemProps {
   imageUrl: string;
   /** 선택 여부 (default:false) */
   isSelected?: boolean;
-  /** 하단 디바이더 유무 (default:true) */
-  hasDivider?: boolean;
 }
 
-const StyledWrapper = styled.li<Pick<BeerStyleFilterItemProps, 'hasDivider'>>`
+const StyledWrapper = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 1.4rem 2rem;
-  ${(p) => (p.hasDivider ? `border-bottom: 0.1rem solid ${p.theme.color.whiteOpacity35};` : '')};
+
+  & + li {
+    ${(p) => `border-top: 0.1rem solid ${p.theme.color.whiteOpacity35};`};
+  }
 
   > *:not(:last-child) {
     margin-right: 2rem;
@@ -78,10 +79,9 @@ const BeerStyleFilterItem = ({
   description,
   imageUrl,
   isSelected,
-  hasDivider = true,
 }: BeerStyleFilterItemProps) => {
   return (
-    <StyledWrapper hasDivider={hasDivider}>
+    <StyledWrapper>
       <img src={imageUrl} alt="" />
       <StyledInfo>
         <b>{title}</b>
