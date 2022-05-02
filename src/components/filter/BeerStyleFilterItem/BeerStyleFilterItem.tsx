@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
 
+const IMAGE_WIDTH = '7rem';
+const CHECK_ICON_WIDTH = '3rem';
+
 interface BeerStyleFilterItemProps {
   title: string;
   description: string;
@@ -26,14 +29,14 @@ const StyledWrapper = styled.li`
 
   img {
     flex-shrink: 0;
-    width: 7rem;
-    height: 7rem;
+    width: ${IMAGE_WIDTH};
+    height: ${IMAGE_WIDTH};
   }
 
   .check-icon {
     flex-shrink: 0;
-    width: 3rem;
-    height: 3rem;
+    width: ${CHECK_ICON_WIDTH};
+    height: ${CHECK_ICON_WIDTH};
     margin-left: auto;
     fill: ${(p) => p.theme.semanticColor.secondary};
   }
@@ -43,7 +46,8 @@ const StyledInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: calc(100% - 14rem);
+  /** 4rem -> 요소 사이 간격 합 */
+  max-width: calc(100% - ${IMAGE_WIDTH} - ${CHECK_ICON_WIDTH} - 4rem);
   height: 100%;
 
   color: ${(p) => p.theme.color.white};
