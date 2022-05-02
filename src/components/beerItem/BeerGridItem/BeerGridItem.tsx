@@ -11,7 +11,8 @@ interface BeerGridItemProps {
   isLiked?: boolean;
 }
 
-const BeerGridItem = ({ name, imageUrl, feel, isLiked }: BeerGridItemProps) => {
+const BeerGridItem = (props: BeerGridItemProps) => {
+  const { name, imageUrl, feel, isLiked } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
