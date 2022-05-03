@@ -8,6 +8,7 @@ export const theme: Readonly<ColorTheme & FontTheme> = {
       white: '#ffffff',
       blue: '#3E3BE6',
       yellow: '#FFD953',
+      grey: '#989898',
 
       black100: '#000000',
       black80: '#323232',

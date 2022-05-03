@@ -23,15 +23,8 @@ interface BeerListItemProps {
   isLiked?: boolean;
 }
 
-const BeerListItem = ({
-  name,
-  type,
-  alcohol,
-  country,
-  imageUrl,
-  feel,
-  isLiked,
-}: BeerListItemProps) => {
+const BeerListItem = (props: BeerListItemProps) => {
+  const { name, type, alcohol, country, imageUrl, feel, isLiked } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (

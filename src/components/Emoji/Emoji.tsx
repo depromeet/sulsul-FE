@@ -18,6 +18,5 @@ const StyledEmoji = styled.div<{ feel: number | null }>`
   border-radius: ${({ feel }) => !feel && '50%'};
   background: ${({ feel }) =>
     !feel &&
-    'linear-gradient(180deg, rgba(255, 255, 255, 0.3) 6.25%, rgba(255, 255, 255, 0.1) 87.5%, rgba(255, 255, 255, 0) 87.5%)'};
-  //FIXME: 원이 잘려서 나옴...
+    'linear-gradient(180deg, rgba(255, 255, 255, 0.3) 6.25%, rgba(255, 255, 255, 0.1) 87.5%, rgba(255, 255, 255, 0.05) 100%);'};
 `;
