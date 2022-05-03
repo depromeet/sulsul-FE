@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
 
-const IMAGE_WIDTH = '7rem';
-const CHECK_ICON_WIDTH = '3rem';
+const IMAGE_WIDTH = '70px';
+const CHECK_ICON_WIDTH = '30px';
 
 interface BeerStyleFilterItemProps {
   title: string;
@@ -17,14 +17,14 @@ const StyledWrapper = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 1.4rem 2rem;
+  padding: 14px 20px;
 
   & + li {
-    ${(p) => `border-top: 0.1rem solid ${p.theme.color.whiteOpacity35};`};
+    ${(p) => `border-top: 1px solid ${p.theme.color.whiteOpacity35};`};
   }
 
   > *:not(:last-child) {
-    margin-right: 2rem;
+    margin-right: 20px;
   }
 
   img {
@@ -46,18 +46,17 @@ const StyledInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /** 4rem -> 요소 사이 간격 합 */
-  max-width: calc(100% - ${IMAGE_WIDTH} - ${CHECK_ICON_WIDTH} - 4rem);
+  max-width: calc(100% - ${IMAGE_WIDTH} - ${CHECK_ICON_WIDTH} - 40px);
   height: 100%;
 
   color: ${(p) => p.theme.color.white};
 
   > b {
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 
     font-weight: 700;
-    font-size: 1.6rem;
-    line-height: 1.9rem;
+    font-size: 16px;
+    line-height: 19px;
 
     text-overflow: ellipsis;
     overflow: hidden;
@@ -65,9 +64,9 @@ const StyledInfo = styled.div`
   }
 
   > p {
-    font-size: 1.3rem;
+    font-size: 13px;
     font-weight: 500;
-    line-height: 1.8rem;
+    line-height: 18px;
 
     text-overflow: ellipsis;
     overflow: hidden;
