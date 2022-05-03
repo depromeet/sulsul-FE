@@ -130,6 +130,11 @@ const IconButton = styled.button`
   align-items: center;
   padding: 0;
   margin: 0;
+
+  > svg {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 const StyledBookMarkIcon = styled(BookmarkIcon)<{ isLiked: boolean; isBookMarked: boolean }>`
@@ -152,7 +157,8 @@ const InfoTableWrapper = styled.div`
 
 const InfoTable = styled.div`
   display: flex;
-  width: 200px;
+  min-width: 150px;
+  //width: 200px;
 `;
 
 const Title = styled.p`
@@ -187,5 +193,6 @@ const BeerImageMask = styled.div`
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   margin-left: auto;
-  margin-right: 2rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
 `;
