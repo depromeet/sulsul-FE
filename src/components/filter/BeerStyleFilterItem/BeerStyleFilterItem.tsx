@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
+import { ellipsis } from '@/styles/common';
 
 const IMAGE_WIDTH = '70px';
 const CHECK_ICON_WIDTH = '30px';
@@ -58,9 +59,7 @@ const StyledInfo = styled.div`
     font-size: 16px;
     line-height: 19px;
 
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    ${ellipsis(1)};
   }
 
   > p {
@@ -68,12 +67,7 @@ const StyledInfo = styled.div`
     font-weight: 500;
     line-height: 18px;
 
-    text-overflow: ellipsis;
-    overflow: hidden;
-    word-break: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; // 원하는 라인수
-    -webkit-box-orient: vertical;
+    ${ellipsis(2)};
   }
 `;
 
