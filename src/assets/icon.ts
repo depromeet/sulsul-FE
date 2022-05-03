@@ -7,4 +7,5 @@ export { ReactComponent as SosoIcon } from './emoji_soso.svg';
 export { ReactComponent as BestIcon } from './emoji_best.svg';
 export { ReactComponent as BadIcon } from './emoji_bad.svg';
 export { ReactComponent as ChaosIcon } from './emoji_chaos.svg';
+export { ReactComponent as FlyingAirplaineIcon } from './flying_airplaine.svg';
 export { ReactComponent as ShareIcon } from './share.svg';
