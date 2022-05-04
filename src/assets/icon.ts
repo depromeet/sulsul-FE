@@ -1,4 +1,5 @@
 export { ReactComponent as CheckIcon } from './check.svg';
 export { ReactComponent as HistoryIcon } from './history.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
+export { ReactComponent as XIcon } from './x.svg';
 export { ReactComponent as FlightTakeOffIcon } from './flight_takeoff.svg';
