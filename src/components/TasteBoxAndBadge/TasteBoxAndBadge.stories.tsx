@@ -10,7 +10,7 @@ export default {
     likeCount: { control: 'text' },
   },
   args: {
-    text: 'TasteBox 말고 더 좋은 이름 없을까',
+    text: '목넘김이 부드러워요',
     likeCount: 12,
   },
 } as ComponentMeta<typeof TasteBoxAndBadge>;
