@@ -12,7 +12,7 @@ export default {
     size: { control: 'select', options: ['long', 'short'] },
   },
   args: {
-    children: 'TasteBox 말고 더 좋은 이름 없을까',
+    children: '목넘김이 부드러워요',
   },
 } as ComponentMeta<typeof TasteBox>;
 
@@ -34,12 +34,12 @@ export const PrimaryShort = Template.bind({});
 PrimaryShort.args = {
   type: 'primary',
   size: 'short',
-  children: '나랑 맥주 먹고 갈래?',
+  children: '과일 향이 나요',
 };
 
 export const DefaultShort = Template.bind({});
 DefaultShort.args = {
   type: 'default',
   size: 'short',
-  children: '나랑 맥주 먹고 갈래?',
+  children: '과일 향이 나요',
 };

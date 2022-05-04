@@ -3,7 +3,7 @@ import Badge from './Badge';
 import { ThumbUpIcon } from '@/assets/icon';
 
 interface Props {
-  likeCount: number;
+  likeCount?: number;
 }
 
 const ThumbUpBadge = (props: Props) => {

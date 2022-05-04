@@ -49,6 +49,9 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   height: 49px;
   border-radius: 8px;
   padding: 16px 20px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 155.02%;
 
   &.tasteBox--primary {
     background-color: ${({ theme }) => theme.semanticColor.primary};

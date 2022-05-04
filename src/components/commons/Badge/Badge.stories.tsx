@@ -38,7 +38,7 @@ export const Medium = Template.bind({});
 Medium.args = {
   type: 'default',
   size: 'medium',
-  children: '어쩔티비',
+  children: '과일 향이 나요',
 };
 
 export const Small = Template.bind({});
