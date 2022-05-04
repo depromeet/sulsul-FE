@@ -131,15 +131,15 @@ const StyledBadge = styled.div<StyledBadgeProps>`
   }
 
   & > .badge--text-medium {
-    font-weight: 700;
+    font-weight: 400;
     font-size: 10px;
     line-height: 12px;
   }
 
   & > .badge--text-large {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
   }
 
   &:active {
