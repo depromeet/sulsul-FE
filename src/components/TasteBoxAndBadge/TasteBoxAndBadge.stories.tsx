@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import TasteBoxAndBadge from './TasteBoxAndBadge';
 
 export default {
-  title: 'Commons/TasteBoxAndBadge',
+  title: 'Components/TasteBoxAndBadge',
   component: TasteBoxAndBadge,
   argTypes: {
     text: { control: 'text' },
