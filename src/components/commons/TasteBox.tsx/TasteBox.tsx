@@ -13,6 +13,7 @@ interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   width?: string;
   children?: React.ReactNode;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 interface StyledBadgeProps {
@@ -22,7 +23,7 @@ interface StyledBadgeProps {
 }
 
 const TasteBox = (props: BadgeProps) => {
-  const { type = 'primary', size = 'long', width, children, className, ...attrs } = props;
+  const { type = 'primary', size = 'long', width, children, className, onClick, ...attrs } = props;
 
   return (
     <StyledTasteBox
@@ -30,6 +31,7 @@ const TasteBox = (props: BadgeProps) => {
       boxSize={size}
       boxWidth={width}
       className={cx(`tasteBox--${type}`, `tasteBox--size-${size}`, className)}
+      onClick={onClick}
       {...attrs}
     >
       {children}
