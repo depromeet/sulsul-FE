@@ -67,7 +67,7 @@ const UserAndDate = styled.div`
   margin-bottom: 13px;
 `;
 
-const User = styled.div`
+const User = styled.p`
   display: flex;
   gap: 8px;
   font-weight: 700;
@@ -76,14 +76,14 @@ const User = styled.div`
   color: ${({ theme }) => theme.color.white};
 `;
 
-const Date = styled.div`
+const Date = styled.p`
   font-weight: 400;
   font-size: 10px;
   line-height: 155.02%;
   color: ${({ theme }) => theme.color.whiteOpacity80};
 `;
 
-const Content = styled.div`
+const Content = styled.p`
   font-weight: 400;
   font-size: 14px;
   line-height: 160%;
