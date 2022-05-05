@@ -22,13 +22,11 @@ interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
 
 interface StyledBadgeProps {
   badgeType: BadgeType;
-  badgeSize: BadgeSize;
   badgeWidth?: string;
 }
 
 const Badge: React.FC<BadgeProps> = ({
   type = 'default',
-  size = 'large',
   width,
   className,
   leftAddon,
@@ -37,15 +35,9 @@ const Badge: React.FC<BadgeProps> = ({
   ...attrs
 }) => {
   return (
-    <StyledBadge
-      badgeType={type}
-      badgeSize={size}
-      badgeWidth={width}
-      className={cx(`badge--${size}`, className)}
-      {...attrs}
-    >
+    <StyledBadge badgeType={type} badgeWidth={width} className={className} {...attrs}>
       {leftAddon && <span className="common-badge-icon-wrapper margin-right">{leftAddon}</span>}
-      <span className={cx('common-badge-text', `badge--text-${size}`)}>{children}</span>
+      <span className={cx('common-badge-text')}>{children}</span>
       {rightAddon && <span className={`common-badge-icon-wrapper margin-left`}>{rightAddon}</span>}
     </StyledBadge>
   );
@@ -88,21 +80,9 @@ const StyledBadge = styled.div<StyledBadgeProps>`
   width: fit-content;
   ${({ badgeWidth }) => (badgeWidth ? ` width: ${badgeWidth};` : '')};
 
-  &.badge--small {
-    border-radius: 13px;
-    padding: 2px 8px;
-    height: 16px;
-  }
-  &.badge--medium {
-    border-radius: 12px;
-    padding: 6px 11px;
-    height: 24px;
-  }
-  &.badge--large {
-    border-radius: 38px;
-    padding: 7px 13px;
-    height: 28px;
-  }
+  border-radius: 12px;
+  padding: 6px 11px;
+  height: 24px;
 
   & > .common-badge-icon-wrapper {
     height: 14px;
@@ -122,24 +102,9 @@ const StyledBadge = styled.div<StyledBadgeProps>`
 
   & > .common-badge-text {
     display: inline-block;
-  }
-
-  & > .badge--text-small {
-    font-weight: 700;
-    font-size: 10px;
-    line-height: 12px;
-  }
-
-  & > .badge--text-medium {
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
-  }
-
-  & > .badge--text-large {
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
   }
 
   &:active {

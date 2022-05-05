@@ -10,7 +10,7 @@ const ThumbUpBadge = (props: Props) => {
   const { likeCount } = props;
 
   return (
-    <Badge type="primary" size="large" leftAddon={<ThumbUpIcon />} width="65px">
+    <Badge type="primary" leftAddon={<ThumbUpIcon />} width="65px">
       {likeCount}
     </Badge>
   );

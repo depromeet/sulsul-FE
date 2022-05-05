@@ -11,7 +11,6 @@ export default {
     children: { control: 'text', name: 'text' },
     width: { control: 'text' },
     type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
     leftAddon: { control: 'boolean' },
     rightAddon: { control: 'boolean' },
   },
@@ -26,24 +25,25 @@ const Template: ComponentStory<typeof Badge> = ({ leftAddon, rightAddon, ...args
   />
 );
 
-export const Large = Template.bind({});
-Large.args = {
-  type: 'primary',
-  size: 'large',
-  children: '999',
-  leftAddon: true,
-};
-
-export const Medium = Template.bind({});
-Medium.args = {
-  type: 'default',
-  size: 'medium',
+export const Default = Template.bind({});
+Default.args = {
   children: '과일 향이 나요',
 };
 
-export const Small = Template.bind({});
-Small.args = {
+export const Primary = Template.bind({});
+Primary.args = {
   type: 'primary',
-  size: 'small',
-  children: 'ME',
+  children: '과일 향이 나요',
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  type: 'secondary',
+  children: '과일 향이 나요',
+};
+
+export const Ghost = Template.bind({});
+Ghost.args = {
+  type: 'ghost',
+  children: '과일 향이 나요',
 };
