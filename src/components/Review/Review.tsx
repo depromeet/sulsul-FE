@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import type { HTMLAttributes } from 'react';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   feel: number;
   me?: boolean;
   userName?: string;
@@ -31,12 +32,7 @@ const Review = (props: Props) => {
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>
-          {tags &&
-            tags.map((tag, index) => (
-              <Badge type="default" key={index}>
-                {tag}
-              </Badge>
-            ))}
+          {tags && tags.map((tag, index) => <Badge type="default" lable={tag} key={index} />)}
         </BadgeContainer>
       </ReviewWrapper>
     </StyledReview>
