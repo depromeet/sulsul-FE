@@ -7,16 +7,13 @@ import { ColorTheme } from '@/themes/types';
 
 type BadgeType = 'primary' | 'secondary' | 'ghost' | 'default';
 
-type BadgeSize = 'small' | 'medium' | 'large';
-
 interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   type?: BadgeType;
-  size?: BadgeSize;
   width?: string;
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
   disabled?: boolean;
-  children?: React.ReactNode;
+  lable?: React.ReactNode;
   className?: string;
 }
 
@@ -31,13 +28,13 @@ const Badge: React.FC<BadgeProps> = ({
   className,
   leftAddon,
   rightAddon,
-  children,
+  lable,
   ...attrs
 }) => {
   return (
     <StyledBadge badgeType={type} badgeWidth={width} className={className} {...attrs}>
       {leftAddon && <span className="common-badge-icon-wrapper margin-right">{leftAddon}</span>}
-      <span className={cx('common-badge-text')}>{children}</span>
+      <span className={cx('common-badge-text')}>{lable}</span>
       {rightAddon && <span className={`common-badge-icon-wrapper margin-left`}>{rightAddon}</span>}
     </StyledBadge>
   );

@@ -8,7 +8,7 @@ export default {
   title: 'Commons/Badge',
   component: Badge,
   argTypes: {
-    children: { control: 'text', name: 'text' },
+    lable: { control: 'text', name: 'text' },
     width: { control: 'text' },
     type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
     leftAddon: { control: 'boolean' },
@@ -27,23 +27,23 @@ const Template: ComponentStory<typeof Badge> = ({ leftAddon, rightAddon, ...args
 
 export const Default = Template.bind({});
 Default.args = {
-  children: '과일 향이 나요',
+  lable: '과일 향이 나요',
 };
 
 export const Primary = Template.bind({});
 Primary.args = {
   type: 'primary',
-  children: '과일 향이 나요',
+  lable: '과일 향이 나요',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   type: 'secondary',
-  children: '과일 향이 나요',
+  lable: '과일 향이 나요',
 };
 
 export const Ghost = Template.bind({});
 Ghost.args = {
   type: 'ghost',
-  children: '과일 향이 나요',
+  lable: '과일 향이 나요',
 };
