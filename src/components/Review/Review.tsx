@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
 import Emoji from '@/components/Emoji';
-import MeBadge from '@/components/commons/Badge/MeBadge';
-import Badge from '@/components/commons/Badge/index';
+import MeBadge from '@/components/commons/MeBadge';
+import Badge from '@/components/commons/Badge';
 
 interface Props {
   feel: number;
@@ -33,7 +33,7 @@ const Review = (props: Props) => {
         <BadgeContainer>
           {tags &&
             tags.map((tag, index) => (
-              <Badge type="default" size="medium" key={index}>
+              <Badge type="default" key={index}>
                 {tag}
               </Badge>
             ))}
