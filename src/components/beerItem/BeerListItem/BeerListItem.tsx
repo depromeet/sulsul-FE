@@ -85,6 +85,7 @@ const StyledBeerImageMasking = styled(BeerImageMasking)`
 const BeerImage = styled.img`
   width: 100%;
   height: auto;
+  object-fit: cover;
 `;
 
 const TextContainer = styled.div`

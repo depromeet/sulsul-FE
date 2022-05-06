@@ -77,6 +77,7 @@ const BookmarkButton = styled.button`
 const BeerImage = styled.img`
   width: 100%;
   height: auto;
+  object-fit: cover;
 `;
 
 const StyledEmoji = styled.div`

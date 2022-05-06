@@ -21,7 +21,7 @@ export default BeerImageMasking;
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
 const StyledBeerImageMasking = styled.div<Props>`
   width: ${(p) => p.width};
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 17 / 40;
   display: flex;
   justify-content: center;
   align-items: center;
