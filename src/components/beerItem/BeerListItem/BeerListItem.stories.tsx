@@ -3,6 +3,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import BeerListItem from './BeerListItem';
 import { cloneDeep } from 'lodash';
 
+import { BeerList } from '@/constants/BeerList';
+
 export default {
   title: 'Components/BeerListItem',
   component: BeerListItem,
@@ -38,19 +40,13 @@ const Template: ComponentStory<typeof BeerListItem | any> = ({
   );
 };
 
-export const DefulteerListItem = Template.bind({});
-DefulteerListItem.args = {
-  countryName: '한국',
-  continentName: '아시아',
-  type: '위트 에일',
-  name: '제주 위트 에일',
-  imageUrl: 'https://ifh.cc/g/X6B8Ra.png',
-  alcohol: 4.5,
-  feel: 5,
-  isLiked: false,
+export const DefulBeerListItem = Template.bind({});
+DefulBeerListItem.args = {
+  ...BeerList[0],
 };
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  padding: 0 20px;
 `;

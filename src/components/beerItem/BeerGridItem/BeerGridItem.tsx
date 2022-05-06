@@ -3,15 +3,12 @@ import styled from '@emotion/styled';
 
 import { BookmarkIcon } from '@/assets/icon';
 import Emoji from '@/components/Emoji';
+import { Beer } from '@/types/Beer';
+import BeerImageMasking from '@/components/commons/BeerImageMasking';
 
-interface BeerGridItemProps {
-  name: string;
-  imageUrl: string;
-  feel: number | null;
-  isLiked?: boolean;
-}
+// type BeerGridItemProps = Pick<Beer, 'name' | 'imageUrl' | 'feel' | 'isLiked'>;
 
-const BeerGridItem = (props: BeerGridItemProps) => {
+const BeerGridItem = (props: Beer) => {
   const { name, imageUrl, feel, isLiked } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
@@ -24,9 +21,9 @@ const BeerGridItem = (props: BeerGridItemProps) => {
         <StyledEmoji>
           <Emoji feel={feel} />
         </StyledEmoji>
-        <BeerImageMask>
+        <BeerImageMasking width="30%">
           <BeerImage src={imageUrl} />
-        </BeerImageMask>
+        </BeerImageMasking>
       </BeerGridItemContainer>
       <BeerName>{name}</BeerName>
     </StyledBeerGridItem>
@@ -52,10 +49,10 @@ const BeerName = styled.div`
   text-overflow: ellipsis;
 `;
 
-const BeerGridItemContainer = styled.div<{ feel: number | null }>`
+const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
   position: relative;
-  width: 8rem;
-  height: 8rem;
+  aspect-ratio: 1 / 1;
+  width: 100%;
   background: ${({ feel, theme }) =>
     feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
   border-radius: 0.77rem;
@@ -80,19 +77,6 @@ const BookmarkButton = styled.button`
 const BeerImage = styled.img`
   width: 100%;
   height: auto;
-`;
-
-// NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
-const BeerImageMask = styled.div`
-  width: 2.6rem;
-  height: 6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-mask-box-image: url('https://ifh.cc/g/KQ8NLv.png');
-  mask-image: url('https://ifh.cc/g/KQ8NLv.png');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
 `;
 
 const StyledEmoji = styled.div`
