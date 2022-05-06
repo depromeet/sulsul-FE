@@ -6,15 +6,27 @@ interface EmojiProps {
   feel: number | null;
 }
 
-const Emoji = ({ feel }: EmojiProps) => {
-  return <StyledEmoji feel={feel}>{feel && getEmoji(feel)}</StyledEmoji>;
+const Emoji = (props: EmojiProps) => {
+  const { feel, ...attrs } = props;
+  return (
+    <StyledEmoji feel={feel} {...attrs}>
+      {feel && getEmoji(feel)}
+    </StyledEmoji>
+  );
 };
 
 export default Emoji;
 
 const StyledEmoji = styled.div<{ feel: number | null }>`
-  width: 2.7rem;
-  height: 2.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  > svg {
+    width: 36px;
+    height: 36px;
+  }
+
   border-radius: ${({ feel }) => !feel && '50%'};
   background: ${({ feel }) =>
     !feel &&
