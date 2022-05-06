@@ -31,12 +31,15 @@
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@hookform/devtools": "^4.1.0",
     "clipboard-polyfill": "^4.0.0-rc1",
+    "classnames": "^2.3.1",
     "emotion-reset": "^3.0.1",
     "lodash": "^4.17.21",
     "next": "12.1.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-hook-form": "^7.30.0",
     "recoil": "^0.7.2"
   },
   "devDependencies": {
