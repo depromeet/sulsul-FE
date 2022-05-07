@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactChild, useRef } from 'react';
+import { useState, useEffect, ReactChild, useRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 
 import { ColorTheme } from '@/themes/types';
@@ -118,13 +118,13 @@ const Tab = ({
   const tabListRef = useRef<HTMLUListElement>(null);
   const tabItemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const activatedTabItem = tabItemRefs.current[activatedIndex];
-
   useEffect(() => {
     setActivatedIndex(outerActivatedIndex);
   }, [outerActivatedIndex]);
 
-  const scrollToActivatedTabItem = () => {
+  const scrollToActivatedTabItem = useCallback(() => {
+    const activatedTabItem = tabItemRefs.current[activatedIndex];
+
     if (!activatedTabItem || !tabListRef.current) return;
 
     const isFirstTab = activatedIndex === 0;
@@ -138,7 +138,7 @@ const Tab = ({
         : activatedTabItem.offsetLeft,
       behavior: 'smooth',
     });
-  };
+  }, [activatedIndex, tabItems]);
 
   useEffect(() => {
     onChange(activatedIndex);
@@ -150,6 +150,8 @@ const Tab = ({
       }
     });
 
+    const activatedTabItem = tabItemRefs.current[activatedIndex];
+
     activatedTabItem && intersectionObserver.observe(activatedTabItem);
 
     /** tabListRef 스크롤시에는 활성화된 탭버튼으로 자동 스크롤되지 않도록 막아야한다. */
@@ -158,7 +160,7 @@ const Tab = ({
     });
 
     return () => intersectionObserver.disconnect();
-  }, [activatedIndex, onChange, tabItemRefs]);
+  }, [activatedIndex, onChange, scrollToActivatedTabItem]);
 
   return (
     <StyledWrapper className={className}>

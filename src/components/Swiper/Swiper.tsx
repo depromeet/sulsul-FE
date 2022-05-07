@@ -9,9 +9,7 @@ const carouselInitialProps: Partial<CarouselProps> = {
   emulateTouch: true,
 };
 
-interface SwiperProps extends Partial<CarouselProps> {}
-
-const Swiper = (props: SwiperProps) => {
+const Swiper = (props: Partial<CarouselProps>) => {
   return <Carousel {...carouselInitialProps} {...props} />;
 };
 
