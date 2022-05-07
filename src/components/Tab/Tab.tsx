@@ -9,6 +9,7 @@ const carouselInitialProps: Partial<CarouselProps> = {
   showArrows: false,
   showStatus: false,
   showIndicators: false,
+  showThumbs: false,
 };
 
 type TabType = 'primary' | 'secondary';
