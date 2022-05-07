@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import type { PropsWithChildren } from 'react';
 
 export interface IconProps {
+  // width, height를 지정하지 않으면 size에 값이 들어갑니다 (기본 40*40)
   size?: number;
+  // width, height는 svg의 크기가 아니라 Icon Wrapper의 크기입니다
   width?: number;
   height?: number;
   color?: string;
@@ -16,14 +18,9 @@ interface StyledIconProps {
 }
 
 const Icon = (props: PropsWithChildren<IconProps>) => {
-  const { size, width, height, children, className, ...rest } = props;
+  const { size = 40, width, height, children, className, ...rest } = props;
   return (
-    <StyledIcon
-      width={width ?? size ?? 40}
-      height={height ?? size ?? 40}
-      className={className}
-      {...rest}
-    >
+    <StyledIcon width={width ?? size} height={height ?? size} className={className} {...rest}>
       {children}
     </StyledIcon>
   );

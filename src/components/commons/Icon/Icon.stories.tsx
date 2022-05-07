@@ -7,7 +7,10 @@ import { LikeIcon } from '@/assets/icon';
 export default {
   title: 'Commons/Icon',
   argTypes: {
-    color: { control: 'text', name: 'color' },
+    color: { control: 'color', name: 'color' },
+    size: { control: 'text', name: 'size(px)' },
+    width: { control: 'text', name: 'width(px)' },
+    height: { control: 'text', name: 'height(px)' },
   },
   args: {},
 } as ComponentMeta<typeof Icon>;
