@@ -165,19 +165,23 @@ const Tab = ({
   return (
     <StyledWrapper className={className}>
       <StyledTabList ref={tabListRef} size={size}>
-        {tabItems.map((tabItem, index) => (
-          <StyledTabItem
-            ref={(element) => (tabItemRefs.current[index] = element)}
-            key={tabItem}
-            isSelected={activatedIndex === index}
-            onClick={() => setActivatedIndex(index)}
-            tabType={type}
-            isGhost={isGhost}
-            size={size}
-          >
-            <button>{tabItem}</button>
-          </StyledTabItem>
-        ))}
+        {tabItems.map((tabItem, index) => {
+          const isSelected = activatedIndex === index;
+          return (
+            <StyledTabItem
+              ref={(element) => (tabItemRefs.current[index] = element)}
+              key={tabItem}
+              isSelected={isSelected}
+              aria-checked={isSelected}
+              onClick={() => setActivatedIndex(index)}
+              tabType={type}
+              isGhost={isGhost}
+              size={size}
+            >
+              <button>{tabItem}</button>
+            </StyledTabItem>
+          );
+        })}
       </StyledTabList>
       {/**
        * 배열인 경우 activatedIndex번째의 children을 렌더링하고,
