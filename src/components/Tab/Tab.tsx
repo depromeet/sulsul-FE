@@ -12,18 +12,23 @@ const carouselInitialProps: Partial<CarouselProps> = {
 };
 
 type TabType = 'primary' | 'secondary';
+type TabSize = 'small' | 'large';
 
 interface TabProps {
-  /** 탭 타입 (default: 'primary') */
-  type: TabType;
-  // eslint-disable-next-line no-unused-vars
-  onChange: (activatedIndex: number) => void;
   tabItems: string[];
   children: ReactChild[] | undefined;
   defaultActivatedIndex?: number;
+  /** 탭 타입 (default: 'primary') */
+  type?: TabType;
+  /** 고스트 타입 여부 (default:false) */
+  isGhost?: boolean;
+  /** 탭 사이즈 (default:'small') */
+  size?: TabSize;
   /** 스와이프 가능 여부 (default:false) */
   isSwipable?: boolean;
   className?: string;
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (activatedIndex: number) => void;
 }
 
 const StyledWrapper = styled.div`
@@ -31,10 +36,12 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 `;
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.div<Pick<TabProps, 'size'>>`
   display: flex;
   flex-shrink: 0;
-  padding: 12px 20px;
+  width: 100%;
+  padding: ${(p) => (p.size ? '12px 20px;' : '8px 20px;')};
+  overflow-x: scroll;
 `;
 
 const StyledCarousel = styled(Carousel)`
@@ -46,11 +53,13 @@ const getTabButtonBackgroundColor = ({
   type,
   isSelected,
   theme,
+  isGhost,
 }: {
-  type: TabType;
   isSelected: boolean;
   theme: ColorTheme;
-}) => {
+} & Pick<TabProps, 'type' | 'isGhost'>) => {
+  if (isGhost && !isSelected) return 'transparent';
+
   if (type === 'primary') {
     return isSelected ? theme.semanticColor.primary : theme.color.whiteOpacity20;
   }
@@ -61,31 +70,41 @@ const getTabButtonColor = ({
   type,
   isSelected,
   theme,
+  isGhost,
 }: {
-  type: TabType;
   isSelected: boolean;
   theme: ColorTheme;
-}) => {
+} & Pick<TabProps, 'type' | 'isGhost'>) => {
+  if (isGhost && !isSelected) return theme.color.whiteOpacity50;
+
   if (type === 'primary') {
     return isSelected ? theme.color.whiteOpacity80 : theme.color.white;
   }
   return isSelected ? theme.color.black80 : theme.color.whiteOpacity80;
 };
 
-const StyledTabButton = styled.button<{ isSelected: boolean; tabType: TabType }>`
+const StyledTabButton = styled.button<
+  { isSelected: boolean; tabType: TabType } & Pick<TabProps, 'isGhost' | 'size'>
+>`
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
-  height: 36px;
-  border-radius: 20px;
+  min-width: fit-content;
+  height: ${(p) => (p.size === 'large' ? '36px' : '29px')};
+  border-radius: ${(p) => (p.size === 'large' ? '20px' : '25px')};
+  padding: 0 24px;
 
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 18px;
+  font-weight: ${(p) => (p.size === 'large' ? '600' : '500')};
+  font-size: ${(p) => (p.size === 'large' ? '15px' : '14px')};
+  line-height: ${(p) => (p.size === 'large' ? '18px' : '17px')};
 
   background-color: ${(p) => getTabButtonBackgroundColor({ ...p, type: p.tabType })};
   color: ${(p) => getTabButtonColor({ ...p, type: p.tabType })};
+  ${(p) =>
+    `border: 1px solid ${
+      p.isGhost && !p.isSelected ? p.theme.color.whiteOpacity65 : 'transparent'
+    };`};
 
   & + button {
     margin-left: 10px;
@@ -93,13 +112,15 @@ const StyledTabButton = styled.button<{ isSelected: boolean; tabType: TabType }>
 `;
 
 const Tab = ({
-  type = 'primary',
-  onChange,
   tabItems = [],
   children,
   defaultActivatedIndex = 0,
+  type = 'primary',
+  isGhost = false,
+  size = 'small',
   isSwipable = false,
   className,
+  onChange = () => null,
 }: TabProps) => {
   const [activatedIndex, setActivatedIndex] = useState(defaultActivatedIndex);
 
@@ -111,19 +132,17 @@ const Tab = ({
     onChange(activatedIndex);
   }, [activatedIndex, onChange]);
 
-  const handleTabChange = (index: number) => {
-    setActivatedIndex(index);
-  };
-
   return (
     <StyledWrapper className={className}>
-      <StyledHeader>
+      <StyledHeader size={size}>
         {tabItems.map((tabItem, index) => (
           <StyledTabButton
-            tabType={type}
             key={tabItem}
             isSelected={activatedIndex === index}
-            onClick={() => handleTabChange(index)}
+            onClick={() => setActivatedIndex(index)}
+            tabType={type}
+            isGhost={isGhost}
+            size={size}
           >
             {tabItem}
           </StyledTabButton>
@@ -133,7 +152,7 @@ const Tab = ({
         {...carouselInitialProps}
         emulateTouch={isSwipable}
         selectedItem={activatedIndex}
-        onChange={handleTabChange}
+        onChange={setActivatedIndex}
       >
         {children}
       </StyledCarousel>
