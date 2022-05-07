@@ -11,6 +11,7 @@
         "newlines-between": "always"
       }
     ],
-    "@typescript-eslint/no-unnecessary-type-constraint": "off"
+    "@typescript-eslint/no-unnecessary-type-constraint": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
