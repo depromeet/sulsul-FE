@@ -57,6 +57,7 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   font-weight: 700;
   font-size: 12px;
   line-height: 155.02%;
+  transition: background 0.3s;
 
   &.tasteBox--cursor {
     cursor: pointer;
@@ -84,6 +85,6 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   }
   &.tasteBox--size-short {
     text-align: center;
-    width: calc(50% - 20px); //FixMe: 디자인 보고 조정 필요
+    width: calc(50% - 8px); //FixMe: 디자인 보고 조정 필요
   }
 `;
