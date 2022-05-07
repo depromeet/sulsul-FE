@@ -10,6 +10,7 @@
         "groups": ["builtin", "external", ["parent", "sibling"], "index"],
         "newlines-between": "always"
       }
-    ]
+    ],
+    "@typescript-eslint/no-unnecessary-type-constraint": "off"
   }
 }
