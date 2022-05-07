@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
 
 import Tab from './Tab';
+import Swiper from '../Swiper';
 
 export default {
   title: 'Components/Tab',
@@ -12,7 +14,13 @@ export default {
   },
 } as ComponentMeta<typeof Tab>;
 
-const TabPage = styled.div`
+const StyledH1 = styled.h1`
+  margin: 12px 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+const StyledTabPage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,15 +28,36 @@ const TabPage = styled.div`
   background-color: ${(p) => p.theme.color.whiteOpacity20};
 `;
 
-const Template: ComponentStory<typeof Tab> = (args) => (
-  <Tab {...args} onChange={(index) => console.log(index)}>
-    {Array(args.tabItems.length)
-      .fill(0)
-      .map((_, index) => (
-        <TabPage key={index}>page {index + 1}</TabPage>
-      ))}
-  </Tab>
-);
+const Template: ComponentStory<typeof Tab> = (args) => {
+  const [activatedIndex, setActivatedIndex] = useState(0);
+
+  return (
+    <>
+      <div>
+        <StyledH1>children 타입: ReactChild[]</StyledH1>
+        <Tab {...args} outerActivatedIndex={activatedIndex} onChange={setActivatedIndex}>
+          {Array(args.tabItems.length)
+            .fill(0)
+            .map((_, index) => (
+              <StyledTabPage key={index}>page {index + 1}</StyledTabPage>
+            ))}
+        </Tab>
+      </div>
+      <div>
+        <StyledH1>children 타입: ReactChild (children에 스와이프 적용)</StyledH1>
+        <Tab {...args} outerActivatedIndex={activatedIndex} onChange={setActivatedIndex}>
+          <Swiper selectedItem={activatedIndex} onChange={setActivatedIndex}>
+            {Array(args.tabItems.length)
+              .fill(0)
+              .map((_, index) => (
+                <StyledTabPage key={index}>page {index + 1}</StyledTabPage>
+              ))}
+          </Swiper>
+        </Tab>
+      </div>
+    </>
+  );
+};
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -53,15 +82,13 @@ Primary_Ghost_small.args = {
 };
 
 const Template2: ComponentStory<typeof Tab> = (args) => (
-  <Tab {...args} isSwipable={false}>
-    <TabPage>page1</TabPage>
-    <Tab tabItems={countries} size="small" type="primary" isGhost isSwipable>
+  <Tab {...args}>
+    <StyledTabPage>page1</StyledTabPage>
+    <Tab tabItems={countries} size="small" type="primary" isGhost>
       {Array(countries.length)
         .fill(0)
         .map((_, index) => (
-          <div key={index}>
-            <TabPage>page {index + 1}</TabPage>
-          </div>
+          <StyledTabPage key={index}>page {index + 1}</StyledTabPage>
         ))}
     </Tab>
   </Tab>

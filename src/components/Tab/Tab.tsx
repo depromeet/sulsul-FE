@@ -1,34 +1,23 @@
 import { useState, useEffect, ReactChild, useRef } from 'react';
 import styled from '@emotion/styled';
-import { Carousel, CarouselProps } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { ColorTheme } from '@/themes/types';
-
-const carouselInitialProps: Partial<CarouselProps> = {
-  showArrows: false,
-  showStatus: false,
-  showIndicators: false,
-  showThumbs: false,
-};
 
 type TabType = 'primary' | 'secondary';
 type TabSize = 'small' | 'large';
 
 interface TabProps {
   tabItems: string[];
-  children: ReactChild[] | undefined;
-  defaultActivatedIndex?: number;
+  children?: ReactChild | ReactChild[];
+  /** 컴포넌트 외부에서 activatedIndex를 제어할 수 있게 하기 위한 속성  */
+  outerActivatedIndex?: number;
   /** 탭 타입 (default: 'primary') */
   type?: TabType;
   /** 고스트 타입 여부 (default:false) */
   isGhost?: boolean;
   /** 탭 사이즈 (default:'small') */
   size?: TabSize;
-  /** 스와이프 가능 여부 (default:false) */
-  isSwipable?: boolean;
   className?: string;
-  // eslint-disable-next-line no-unused-vars
   onChange?: (activatedIndex: number) => void;
 }
 
@@ -37,7 +26,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 `;
 
-const StyledHeader = styled.div<Pick<TabProps, 'size'>>`
+const StyledTabList = styled.ul<Pick<TabProps, 'size'>>`
   display: flex;
   flex-shrink: 0;
   width: 100%;
@@ -45,12 +34,7 @@ const StyledHeader = styled.div<Pick<TabProps, 'size'>>`
   overflow-x: scroll;
 `;
 
-const StyledCarousel = styled(Carousel)`
-  width: 100%;
-  flex: 1;
-`;
-
-const getTabButtonBackgroundColor = ({
+const getTabItemBackgroundColor = ({
   type,
   isSelected,
   theme,
@@ -67,7 +51,7 @@ const getTabButtonBackgroundColor = ({
   return isSelected ? theme.semanticColor.secondary : theme.color.whiteOpacity20;
 };
 
-const getTabButtonColor = ({
+const getTabItemColor = ({
   type,
   isSelected,
   theme,
@@ -84,30 +68,37 @@ const getTabButtonColor = ({
   return isSelected ? theme.color.black80 : theme.color.whiteOpacity80;
 };
 
-const StyledTabButton = styled.button<
+const StyledTabItem = styled.li<
   { isSelected: boolean; tabType: TabType } & Pick<TabProps, 'isGhost' | 'size'>
 >`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex: 1;
   min-width: fit-content;
   height: ${(p) => (p.size === 'large' ? '36px' : '29px')};
   border-radius: ${(p) => (p.size === 'large' ? '20px' : '25px')};
-  padding: 0 24px;
-
-  font-weight: ${(p) => (p.size === 'large' ? '600' : '500')};
-  font-size: ${(p) => (p.size === 'large' ? '15px' : '14px')};
-  line-height: ${(p) => (p.size === 'large' ? '18px' : '17px')};
-
-  background-color: ${(p) => getTabButtonBackgroundColor({ ...p, type: p.tabType })};
-  color: ${(p) => getTabButtonColor({ ...p, type: p.tabType })};
   ${(p) =>
     `border: 1px solid ${
       p.isGhost && !p.isSelected ? p.theme.color.whiteOpacity65 : 'transparent'
     };`};
+  background-color: ${(p) => getTabItemBackgroundColor({ ...p, type: p.tabType })};
+  color: ${(p) => getTabItemColor({ ...p, type: p.tabType })};
 
-  & + button {
+  > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    padding: 0 24px;
+
+    font-weight: ${(p) => (p.size === 'large' ? '600' : '500')};
+    font-size: ${(p) => (p.size === 'large' ? '15px' : '14px')};
+    line-height: ${(p) => (p.size === 'large' ? '18px' : '17px')};
+
+    color: inherit;
+  }
+
+  & + li {
     margin-left: 10px;
   }
 `;
@@ -115,37 +106,36 @@ const StyledTabButton = styled.button<
 const Tab = ({
   tabItems = [],
   children,
-  defaultActivatedIndex = 0,
+  outerActivatedIndex = 0,
   type = 'primary',
   isGhost = false,
   size = 'small',
-  isSwipable = false,
   className,
   onChange = () => null,
 }: TabProps) => {
-  const [activatedIndex, setActivatedIndex] = useState(defaultActivatedIndex);
+  const [activatedIndex, setActivatedIndex] = useState(outerActivatedIndex);
 
-  const tabHeaderRef = useRef<HTMLDivElement>(null);
-  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabListRef = useRef<HTMLUListElement>(null);
+  const tabItemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const activatedTabButton = tabButtonRefs.current[activatedIndex];
+  const activatedTabItem = tabItemRefs.current[activatedIndex];
 
   useEffect(() => {
-    setActivatedIndex(defaultActivatedIndex);
-  }, [defaultActivatedIndex]);
+    setActivatedIndex(outerActivatedIndex);
+  }, [outerActivatedIndex]);
 
-  const scrollToActivatedTabButton = () => {
-    if (!activatedTabButton || !tabHeaderRef.current) return;
+  const scrollToActivatedTabItem = () => {
+    if (!activatedTabItem || !tabListRef.current) return;
 
     const isFirstTab = activatedIndex === 0;
     const isLastTab = activatedIndex === tabItems.length - 1;
 
-    tabHeaderRef.current.scrollTo({
+    tabListRef.current.scrollTo({
       left: isFirstTab
         ? 0
         : isLastTab
-        ? tabHeaderRef.current.scrollWidth
-        : activatedTabButton.offsetLeft,
+        ? tabListRef.current.scrollWidth
+        : activatedTabItem.offsetLeft,
       behavior: 'smooth',
     });
   };
@@ -156,26 +146,26 @@ const Tab = ({
     const intersectionObserver = new IntersectionObserver((entries) => {
       const entry = entries[0];
       if (entry.intersectionRatio < 1) {
-        scrollToActivatedTabButton();
+        scrollToActivatedTabItem();
       }
     });
 
-    activatedTabButton && intersectionObserver.observe(activatedTabButton);
+    activatedTabItem && intersectionObserver.observe(activatedTabItem);
 
-    /** tabHeader 스크롤시에는 활성화된 탭버튼으로 자동 스크롤되지 않도록 막아야한다. */
-    tabHeaderRef.current?.addEventListener('scroll', () => {
+    /** tabListRef 스크롤시에는 활성화된 탭버튼으로 자동 스크롤되지 않도록 막아야한다. */
+    tabListRef.current?.addEventListener('scroll', () => {
       intersectionObserver.disconnect();
     });
 
     return () => intersectionObserver.disconnect();
-  }, [activatedIndex, onChange, tabButtonRefs]);
+  }, [activatedIndex, onChange, tabItemRefs]);
 
   return (
     <StyledWrapper className={className}>
-      <StyledHeader ref={tabHeaderRef} size={size}>
+      <StyledTabList ref={tabListRef} size={size}>
         {tabItems.map((tabItem, index) => (
-          <StyledTabButton
-            ref={(element) => (tabButtonRefs.current[index] = element)}
+          <StyledTabItem
+            ref={(element) => (tabItemRefs.current[index] = element)}
             key={tabItem}
             isSelected={activatedIndex === index}
             onClick={() => setActivatedIndex(index)}
@@ -183,18 +173,14 @@ const Tab = ({
             isGhost={isGhost}
             size={size}
           >
-            {tabItem}
-          </StyledTabButton>
+            <button>{tabItem}</button>
+          </StyledTabItem>
         ))}
-      </StyledHeader>
-      <StyledCarousel
-        {...carouselInitialProps}
-        emulateTouch={isSwipable}
-        selectedItem={activatedIndex}
-        onChange={setActivatedIndex}
-      >
-        {children}
-      </StyledCarousel>
+      </StyledTabList>
+      {/**
+       * 배열인 경우 activatedIndex번째의 children을 렌더링하고,
+       * 배열이 아닌 경우 children을 그대로 랜더링한다. */}
+      {Array.isArray(children) ? children[activatedIndex] : children}
     </StyledWrapper>
   );
 };
