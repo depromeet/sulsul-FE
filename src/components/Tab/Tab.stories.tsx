@@ -32,8 +32,16 @@ const Template: ComponentStory<typeof Tab> = (args) => (
   </>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Primary = Template.bind({});
+Primary.args = {
+  type: 'primary',
   tabItems: ['종류', '대륙'],
+  defaultActivatedIndex: 0,
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  type: 'secondary',
+  tabItems: ['안 마셔본 맥주', '반한 맥주'],
   defaultActivatedIndex: 0,
 };
