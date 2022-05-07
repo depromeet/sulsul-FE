@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactChild } from 'react';
+import { useState, useEffect, ReactChild, useRef } from 'react';
 import styled from '@emotion/styled';
 import { Carousel, CarouselProps } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -124,19 +124,57 @@ const Tab = ({
 }: TabProps) => {
   const [activatedIndex, setActivatedIndex] = useState(defaultActivatedIndex);
 
+  const tabHeaderRef = useRef<HTMLDivElement>(null);
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const activatedTabButton = tabButtonRefs.current[activatedIndex];
+
   useEffect(() => {
     setActivatedIndex(defaultActivatedIndex);
   }, [defaultActivatedIndex]);
 
+  const scrollToActivatedTabButton = () => {
+    if (!activatedTabButton || !tabHeaderRef.current) return;
+
+    const isFirstTab = activatedIndex === 0;
+    const isLastTab = activatedIndex === tabItems.length - 1;
+
+    tabHeaderRef.current.scrollTo({
+      left: isFirstTab
+        ? 0
+        : isLastTab
+        ? tabHeaderRef.current.scrollWidth
+        : activatedTabButton.offsetLeft,
+      behavior: 'smooth',
+    });
+  };
+
   useEffect(() => {
     onChange(activatedIndex);
-  }, [activatedIndex, onChange]);
+
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry.intersectionRatio < 1) {
+        scrollToActivatedTabButton();
+      }
+    });
+
+    activatedTabButton && intersectionObserver.observe(activatedTabButton);
+
+    /** tabHeader 스크롤시에는 활성화된 탭버튼으로 자동 스크롤되지 않도록 막아야한다. */
+    tabHeaderRef.current?.addEventListener('scroll', () => {
+      intersectionObserver.disconnect();
+    });
+
+    return () => intersectionObserver.disconnect();
+  }, [activatedIndex, onChange, tabButtonRefs]);
 
   return (
     <StyledWrapper className={className}>
-      <StyledHeader size={size}>
+      <StyledHeader ref={tabHeaderRef} size={size}>
         {tabItems.map((tabItem, index) => (
           <StyledTabButton
+            ref={(element) => (tabButtonRefs.current[index] = element)}
             key={tabItem}
             isSelected={activatedIndex === index}
             onClick={() => setActivatedIndex(index)}
