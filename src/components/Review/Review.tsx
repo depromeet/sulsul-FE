@@ -17,7 +17,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Review = (props: Props) => {
-  const { feel, me, userName, reviewCount, content, date, tags, border, ...attrs } = props;
+  const { feel, me = false, userName, reviewCount, content, date, tags, border, ...attrs } = props;
 
   return (
     <StyledReview border={border} {...attrs}>
@@ -43,6 +43,7 @@ export default Review;
 
 const StyledReview = styled.div<{ border?: boolean }>`
   display: flex;
+  width: 100%;
   padding: 12px 0;
   border-bottom: ${({ border }) => border && '0.25px solid #cccccc'};
 `;

@@ -5,31 +5,25 @@ import clipboard from 'clipboard-polyfill';
 import { ShareIcon, BookmarkIcon } from '@/assets/icon';
 import { Beer } from '@/types/Beer';
 
-type BeerDetailProp = {
-  url: string;
-  isCompact: boolean;
-};
-type BeerDetailProps = Omit<Beer, 'id' | 'content' | 'feel'> & BeerDetailProp;
+export type BeerDetailProps = Omit<Beer, 'id' | 'content' | 'feel'>;
 
-const BeerDetail = (props: BeerDetailProps) => {
+type Props = {
+  url: string;
+  isCompact?: boolean;
+  beer: BeerDetailProps;
+};
+
+const BeerDetail = (props: Props) => {
   const {
-    country,
-    type,
-    name,
-    nameEng,
-    imageUrl,
-    alcohol,
-    price,
-    volume,
-    isLiked,
+    beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume, isLiked },
     url,
-    isCompact,
+    isCompact = false,
     ...rest
   } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
   const beerInfo = [
     { title: '종류', content: type },
-    { title: '원산지', content: country.name },
+    { title: '원산지', content: country?.name },
     { title: '도수', content: `${alcohol}%` },
     { title: '용량', content: `${volume}ml` },
     { title: '가격', content: `${price}원` },
