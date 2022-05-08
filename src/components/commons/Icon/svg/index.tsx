@@ -11,6 +11,8 @@ import {
   ShareIcon as Share,
   LikeIcon as Like,
   BookmarkIcon as Bookmark,
+  HomeIcon as Home,
+  PhotoIcon as Photo,
 } from '@/assets/icon';
 
 export const svg = {
@@ -26,4 +28,6 @@ export const svg = {
   Share,
   Like,
   Bookmark,
+  Home,
+  Photo,
 };
