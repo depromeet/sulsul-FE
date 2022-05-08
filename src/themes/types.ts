@@ -15,6 +15,7 @@ export type ColorToken =
   | 'blue'
   | 'yellow'
   | 'grey'
+  | 'red'
   | MakeTokenSet<'black', [100, 80]>
   | MakeTokenSet<'whiteOpacity', [80, 65, 50, 35, 20, 0]>;
 
