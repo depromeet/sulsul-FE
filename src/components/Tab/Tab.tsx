@@ -154,12 +154,17 @@ const Tab = ({
 
     activatedTabItem && intersectionObserver.observe(activatedTabItem);
 
-    /** tabListRef 스크롤시에는 활성화된 탭버튼으로 자동 스크롤되지 않도록 막아야한다. */
-    tabListRef.current?.addEventListener('scroll', () => {
+    const handleTabListScroll = () => {
       intersectionObserver.disconnect();
-    });
+    };
 
-    return () => intersectionObserver.disconnect();
+    /** tabListRef 스크롤시에는 활성화된 탭버튼으로 자동 스크롤되지 않도록 막아야한다. */
+    tabListRef.current?.addEventListener('scroll', handleTabListScroll);
+
+    return () => {
+      intersectionObserver.disconnect();
+      tabListRef.current?.removeEventListener('scroll', handleTabListScroll);
+    };
   }, [activatedIndex, onChange, scrollToActivatedTabItem]);
 
   return (
