@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { getEmoji } from '@/utils';
 
 interface EmojiProps {
-  feel: number | null;
+  feel?: number | null;
 }
 
 const Emoji = (props: EmojiProps) => {
@@ -17,7 +17,7 @@ const Emoji = (props: EmojiProps) => {
 
 export default Emoji;
 
-const StyledEmoji = styled.div<{ feel: number | null }>`
+const StyledEmoji = styled.div<EmojiProps>`
   display: flex;
   justify-content: center;
   align-items: center;
