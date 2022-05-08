@@ -9,6 +9,7 @@ export const theme: Readonly<ColorTheme & FontTheme> = {
       blue: '#3E3BE6',
       yellow: '#FFD953',
       grey: '#989898',
+      red: '#ff3939', // TODO: 추후 에러 색상 확정되면 변경
 
       black100: '#000000',
       black80: '#323232',
