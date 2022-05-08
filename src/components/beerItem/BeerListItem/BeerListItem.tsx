@@ -6,13 +6,19 @@ import Emoji from '@/components/Emoji';
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 
-// type BeerListItemProps = Pick<
-//   Beer,
-//   'country' | 'type' | 'name' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
-// >;
+type BeerListItemProps = Pick<
+  Beer,
+  'country' | 'type' | 'name' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
+>;
 
-const BeerListItem = (props: Beer) => {
-  const { name, type, alcohol, country, imageUrl, feel, isLiked } = props;
+interface Props {
+  beer: BeerListItemProps;
+}
+
+const BeerListItem = (props: Props) => {
+  const {
+    beer: { name, type, alcohol, country, imageUrl, feel, isLiked },
+  } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (

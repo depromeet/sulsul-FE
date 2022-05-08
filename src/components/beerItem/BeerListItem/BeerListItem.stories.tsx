@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import BeerListItem from './BeerListItem';
 import { cloneDeep } from 'lodash';
 
-import { BeerList } from '@/constants/BeerList';
+import { Beers } from '@/constants/Beers';
 
 export default {
   title: 'Components/BeerListItem',
@@ -42,7 +42,7 @@ const Template: ComponentStory<typeof BeerListItem | any> = ({
 
 export const DefulBeerListItem = Template.bind({});
 DefulBeerListItem.args = {
-  ...BeerList[0],
+  beer: { ...Beers[0] },
 };
 
 const Container = styled.div`

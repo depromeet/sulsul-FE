@@ -6,10 +6,16 @@ import Emoji from '@/components/Emoji';
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 
-// type BeerGridItemProps = Pick<Beer, 'name' | 'imageUrl' | 'feel' | 'isLiked'>;
+type BeerGridItemProps = Pick<Beer, 'name' | 'imageUrl' | 'feel' | 'isLiked'>;
 
-const BeerGridItem = (props: Beer) => {
-  const { name, imageUrl, feel, isLiked } = props;
+interface Props {
+  beer: BeerGridItemProps;
+}
+
+const BeerGridItem = (props: Props) => {
+  const {
+    beer: { name, imageUrl, feel, isLiked },
+  } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (

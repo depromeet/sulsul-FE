@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import BeerGridItem from './BeerGridItem';
 
-import { BeerList } from '@/constants/BeerList';
+import { Beers } from '@/constants/Beers';
 
 export default {
   title: 'Components/BeerGridItem',
@@ -16,5 +16,5 @@ const Template: ComponentStory<typeof BeerGridItem> = (args) => <BeerGridItem {.
 
 export const DefaultBeerGridItem = Template.bind({});
 DefaultBeerGridItem.args = {
-  ...BeerList[0],
+  beer: { ...Beers[0] },
 };

@@ -5,8 +5,8 @@ import BeerGridItem from '@/components/beerItem/BeerGridItem';
 import BeerListItem from '@/components/beerItem/BeerListItem';
 
 interface Props {
-  type?: string;
-  beers?: Beer[];
+  type: string;
+  beers: Beer[];
 }
 
 const BeerList = (props: Props) => {
@@ -16,16 +16,7 @@ const BeerList = (props: Props) => {
     return (
       <StyledBeerList className={`${type}`} type={type} {...rest}>
         {beers?.map((beer) => (
-          <BeerListItem
-            key={beer.id}
-            name={beer.name}
-            type={beer.type}
-            alcohol={beer.alcohol}
-            country={beer.country}
-            imageUrl={beer.imageUrl}
-            feel={beer.feel}
-            isLiked={beer.isLiked}
-          />
+          <BeerListItem key={beer.id} beer={beer} />
         ))}
       </StyledBeerList>
     );
@@ -34,13 +25,7 @@ const BeerList = (props: Props) => {
   return (
     <StyledBeerList className={`${type}`} type={type} {...rest}>
       {beers?.map((beer) => (
-        <BeerGridItem
-          key={beer.id}
-          name={beer.name}
-          imageUrl={beer.imageUrl}
-          feel={beer.feel}
-          isLiked={beer.isLiked}
-        />
+        <BeerGridItem key={beer.id} beer={beer} />
       ))}
     </StyledBeerList>
   );

@@ -1,6 +1,6 @@
 import { Beer } from '@/types/Beer';
 
-export const BeerList: Beer[] = [
+export const Beers: Beer[] = [
   {
     id: 1,
     country: {
