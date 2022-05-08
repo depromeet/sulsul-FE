@@ -117,6 +117,7 @@ const Template: ComponentStory<any> = () => {
         <ColorList colors={color} namespace="white" excludeNamespace="whiteOpacity" />
         <ColorList colors={color} namespace="blue" />
         <ColorList colors={color} namespace="yellow" />
+        <ColorList colors={color} namespace="red" />
         <ColorList colors={color} namespace="black" />
         <ColorList colors={color} namespace="whiteOpacity" />
       </section>
