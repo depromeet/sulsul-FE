@@ -5,15 +5,15 @@ import clipboard from 'clipboard-polyfill';
 import { ShareIcon, BookmarkIcon } from '@/assets/icon';
 import { Beer } from '@/types/Beer';
 
-export type BeerDetailProps = Omit<Beer, 'id' | 'content' | 'feel'>;
+export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
 
-type Props = {
+export type BeerDetailProps = {
   url: string;
   isCompact?: boolean;
-  beer: BeerDetailProps;
+  beer: BeerDetailType;
 };
 
-const BeerDetail = (props: Props) => {
+const BeerDetail = (props: BeerDetailProps) => {
   const {
     beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume, isLiked },
     url,

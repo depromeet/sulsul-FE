@@ -5,8 +5,8 @@ import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  feel: number;
+export interface ReviewProps extends HTMLAttributes<HTMLDivElement> {
+  feel?: number;
   me?: boolean;
   userName?: string;
   reviewCount?: number;
@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   border?: boolean;
 }
 
-const Review = (props: Props) => {
+const Review = (props: ReviewProps) => {
   const { feel, me = false, userName, reviewCount, content, date, tags, border, ...attrs } = props;
 
   return (

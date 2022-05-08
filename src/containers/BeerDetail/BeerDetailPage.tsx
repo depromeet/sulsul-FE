@@ -2,21 +2,27 @@ import styled from '@emotion/styled';
 
 import BeerDetail, { BeerDetailProps } from '@/components/BeerDetail';
 import AirPort, { AirPortProps } from '@/components/AirPort';
-import TasteBoxAndBadge from '@/components/TasteBoxAndBadge';
+import TasteBoxAndBadge, { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
 import Button from '@/components/commons/Button';
-import Review from '@/components/Review';
+import Review, { ReviewProps } from '@/components/Review';
+import { Reviews } from '@/constants/Reviews';
+import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
 
 interface Props {
-  beer: BeerDetailProps;
-  backgroundImageUrl?: string;
+  beerDetail: BeerDetailProps;
+  backgroundImageUrl: string;
   airPort: AirPortProps;
+  beerContent: string;
+  tasteBoxAndBadge: TasteBoxAndBadgeProps[];
+  review: ReviewProps[];
 }
 
 const BeerDetailPage = (props: Props) => {
   const {
-    beer,
+    beerDetail: { url, isCompact, beer },
     backgroundImageUrl,
     airPort: { departureKor, departureEng, destinationKor, destinationEng },
+    beerContent,
   } = props;
   return (
     <StyledBeerDetailPage>
@@ -34,48 +40,29 @@ const BeerDetailPage = (props: Props) => {
           destinationKor={destinationKor}
           destinationEng={destinationEng}
         />
-        <BeerContent>
-          ‘제주 위트 에일’은 제주 청정 재료인 유기농 제주 감귤 껍질을 사용해 은은한 감귤 향의 산뜻한
-          끝 맛이 특징이다. 독일산 보리 맥아와 밀 맥아를 함께 사용해 부드러운 음용감으로 에일 맥주
-          입문자들도 편하게 즐길 수 있다.
-        </BeerContent>
+        <BeerContent>{beerContent}</BeerContent>
         <TasteBoxAndBadgeContainer>
-          <TasteBoxAndBadge text="맛있어요" likeCount={10} />
-          <TasteBoxAndBadge text="맛있어요" likeCount={10} />
-          <TasteBoxAndBadge text="맛있어요" likeCount={10} />
+          {TasteBoxAndBadges.map((box, index) => (
+            <TasteBoxAndBadge key={index} text={box.text} likeCount={box.likeCount} />
+          ))}
         </TasteBoxAndBadgeContainer>
       </div>
       <HorizontalDivider />
       <div className="container">
         <ThisBeer>이 맥주는 말이지</ThisBeer>
-        <Review
-          feel={5}
-          me
-          userName="호딩"
-          reviewCount={2}
-          content="날씨도 좋은데 놀러가지도 못하고..! 기분 내려고 한 잔 한다. 이순간 만큼은 제주다 이거야~"
-          date="1주전"
-          tags={['목넘김이 부드러워요', '과일향이 나요', '깔끔해요', '어쩌구저쩌구']}
-          border
-        />
-        <Review
-          feel={1}
-          userName="만만수"
-          reviewCount={3}
-          content="날씨도 좋은데 놀러가지도 못하고..! 기분 내려고 한 잔 한다. 이순간 만큼은 제주다 이거야~"
-          date="1주전"
-          tags={['목넘김이 부드러워요', '과일향이 나요', '깔끔해요']}
-          border
-        />
-        <Review
-          feel={3}
-          userName="호딩"
-          reviewCount={2}
-          content="날씨도 좋은데 놀러가지도 못하고..! 기분 내려고 한 잔 한다. 이순간 만큼은 제주다 이거야~"
-          date="1주전"
-          tags={['목넘김이 부드러워요', '과일향이 나요', '깔끔해요']}
-          border
-        />
+        {Reviews.map((review, index) => (
+          <Review
+            key={index}
+            feel={review.feel}
+            me={review.me}
+            userName={review.userName}
+            reviewCount={2}
+            content={review.content}
+            date={review.date}
+            tags={review.tags}
+            border={review.border}
+          />
+        ))}
       </div>
       <BottomGradientContainer>
         <Button type="primary" width="244px">
