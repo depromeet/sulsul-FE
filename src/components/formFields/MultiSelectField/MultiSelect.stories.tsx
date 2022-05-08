@@ -52,4 +52,5 @@ BasicMultiSelectField.args = {
   options,
   name: 'multiSelectField',
   height: '400px',
+  maxLength: 3,
 };

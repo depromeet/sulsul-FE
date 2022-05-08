@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
+import { isNil } from 'lodash';
 
 import TasteBox from '@/components/commons/TasteBox';
 import { SelectOption } from '@/types/select';
@@ -11,9 +12,12 @@ type ClickEventHandler<T> = (value: T[] | undefined, event: ClickEvent) => void;
 interface MultiSelectProps<T = any> {
   options: SelectOption<T>[];
   value: T[];
+  maxLength?: number;
   height?: string;
   disabled?: boolean;
   onChange?: ClickEventHandler<T>;
+  setError?: (errorMessage: string) => void;
+  clearError?: () => void;
 }
 
 interface StyledMultiSelectProps {
@@ -61,9 +65,12 @@ const StyledMultiSelect = styled.div<StyledMultiSelectProps>`
 const MultiSelect: React.FC<MultiSelectProps> = <T extends any>({
   options,
   value,
+  maxLength,
   height,
   disabled,
   onChange,
+  setError,
+  clearError,
 }: MultiSelectProps<T>) => {
   const triggerChange = useCallback(
     (value: T[] | undefined, e: ClickEvent) => {
@@ -85,12 +92,16 @@ const MultiSelect: React.FC<MultiSelectProps> = <T extends any>({
         const valueIndex = changedValue.findIndex((v) => v === value);
         changedValue.splice(valueIndex, 1);
       } else {
+        if (!isNil(maxLength) && maxLength <= changedValue.length) {
+          setError?.(`${maxLength}개 까지만 선택할 수 있어요 ㅜㅜ`);
+          return;
+        }
         changedValue.push(clickedValue);
       }
-
+      clearError?.();
       triggerChange(changedValue, e);
     },
-    [value, triggerChange],
+    [value, triggerChange, maxLength, setError, clearError],
   );
 
   return (
