@@ -21,7 +21,7 @@ const Template: ComponentStory<typeof IconButton> = ({ children, ...args }) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'like',
+  name: 'Like',
   iconColor: 'blue',
   backgroundColor: 'white',
 };
