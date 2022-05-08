@@ -32,7 +32,7 @@ const options = [
   { value: '5', label: '단맛과 쓴 맛이 어우러저요', key: '5' },
   { value: '6', label: '톡 쏘는 맛이 강해요', key: '6' },
   { value: '7', label: '탄 맛이 나요', key: '7' },
-  { value: '8', label: '깔끔한 맛이에요', key: '8' },
+  { value: '8', label: '깔끔한 맛이예요', key: '8' },
   { value: '9', label: '구수한 맛이 나요', key: '9' },
   { value: '10', label: '텁텁한 느낌이 있어요', key: '10' },
   { value: '11', label: '단 맛이 나요', key: '11' },
@@ -42,7 +42,7 @@ const options = [
   { value: '15', label: '단맛과 쓴 맛이 어우러저요', key: '15' },
   { value: '16', label: '톡 쏘는 맛이 강해요', key: '16' },
   { value: '17', label: '탄 맛이 나요', key: '17' },
-  { value: '18', label: '깔끔한 맛이에요', key: '18' },
+  { value: '18', label: '깔끔한 맛이예요', key: '18' },
   { value: '19', label: '구수한 맛이 나요', key: '19' },
   { value: '20', label: '텁텁한 느낌이 있어요', key: '20' },
 ];
