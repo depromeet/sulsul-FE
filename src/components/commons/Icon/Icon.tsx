@@ -20,11 +20,17 @@ interface StyledIconProps {
 }
 
 const Icon = (props: IconProps) => {
-  const { name, size = 30, width, height, className, ...rest } = props;
+  const { name, size = 30, width, height, color, className, ...rest } = props;
   const CurrentIcon = svg[name];
 
   return (
-    <StyledIcon width={width ?? size} height={height ?? size} className={className} {...rest}>
+    <StyledIcon
+      width={width ?? size}
+      height={height ?? size}
+      color={color}
+      className={className}
+      {...rest}
+    >
       <CurrentIcon name={name} />
     </StyledIcon>
   );
@@ -42,7 +48,7 @@ const StyledIcon = styled.svg<StyledIconProps>`
     height: ${({ height }) => height}px;
 
     path {
-      fill: ${({ color }) => (color ? color : 'none')};
+      fill: ${({ color }) => (color ? color : undefined)};
     }
   }
 `;
