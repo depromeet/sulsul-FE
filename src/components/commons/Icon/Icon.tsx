@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
-import type { PropsWithChildren } from 'react';
+import { SVGProps } from 'react';
 
-export interface IconProps {
-  // width, height를 지정하지 않으면 size에 값이 들어갑니다 (기본 40*40)
+import { svg } from './svg';
+
+export type IconNameType = keyof typeof svg;
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  name: IconNameType;
   size?: number;
-  // width, height는 svg의 크기가 아니라 Icon Wrapper의 크기입니다
   width?: number;
   height?: number;
   color?: string;
@@ -17,27 +19,27 @@ interface StyledIconProps {
   color?: string;
 }
 
-const Icon = (props: PropsWithChildren<IconProps>) => {
-  const { size = 40, width, height, children, className, ...rest } = props;
+const Icon = (props: IconProps) => {
+  const { name, size = 30, width, height, className, ...rest } = props;
+  const CurrentIcon = svg[name];
+
   return (
     <StyledIcon width={width ?? size} height={height ?? size} className={className} {...rest}>
-      {children}
+      <CurrentIcon name={name} />
     </StyledIcon>
   );
 };
 
 export default Icon;
 
-const StyledIcon = styled.div<StyledIconProps>`
+const StyledIcon = styled.svg<StyledIconProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
 
   > svg {
-    width: 30px;
-    height: 30px;
+    width: ${({ width }) => width}px;
+    height: ${({ height }) => height}px;
 
     path {
       fill: ${({ color }) => (color ? color : 'none')};
