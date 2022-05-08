@@ -30,7 +30,12 @@ const TasteBox = (props: BadgeProps) => {
       boxType={type}
       boxSize={size}
       boxWidth={width}
-      className={cx(`tasteBox--${type}`, `tasteBox--size-${size}`, className)}
+      className={cx(
+        `tasteBox--${type}`,
+        `tasteBox--size-${size}`,
+        onClick && 'tasteBox--cursor',
+        className,
+      )}
       onClick={onClick}
       {...attrs}
     >
@@ -52,6 +57,11 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   font-weight: 700;
   font-size: 12px;
   line-height: 155.02%;
+  transition: background 0.3s;
+
+  &.tasteBox--cursor {
+    cursor: pointer;
+  }
 
   &.tasteBox--primary {
     background-color: ${({ theme }) => theme.semanticColor.primary};
@@ -75,6 +85,6 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   }
   &.tasteBox--size-short {
     text-align: center;
-    width: calc(50% - 20px); //FixMe: 디자인 보고 조정 필요
+    width: calc(50% - 8px); //FixMe: 디자인 보고 조정 필요
   }
 `;
