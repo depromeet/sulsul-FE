@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
 import { Beer } from '@/types/Beer';
-import BeerGridItem from '@/components/BeerItem/BeerGridItem';
-import BeerListItem from '@/components/BeerItem/BeerListItem';
+import BeerGridItem from '@/components/beerItem/BeerGridItem';
+import BeerListItem from '@/components/beerItem/BeerListItem';
 
 interface Props {
   type: string;
