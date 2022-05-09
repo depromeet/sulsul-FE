@@ -10,3 +10,5 @@ export { ReactComponent as ChaosIcon } from './emoji_chaos.svg';
 export { ReactComponent as FlyingAirplaineIcon } from './flying_airplaine.svg';
 export { ReactComponent as ShareIcon } from './share.svg';
 export { ReactComponent as LikeIcon } from './like.svg';
+export { ReactComponent as HomeIcon } from './home.svg';
+export { ReactComponent as PhotoIcon } from './photo.svg';
