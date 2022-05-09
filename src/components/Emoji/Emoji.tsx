@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
-const getEmoji = (feel: number) => {
+const getEmoji = (feel?: number) => {
   switch (feel) {
     case 1:
       return 'Chaos';
