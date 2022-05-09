@@ -25,8 +25,8 @@ const StyledBeerImageMasking = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
-  -webkit-mask-box-image: url('https://ifh.cc/g/KQ8NLv.png');
-  mask-image: url('https://ifh.cc/g/KQ8NLv.png');
+  -webkit-mask-box-image: url('https://ifh.cc/g/lCaosK.png');
+  mask-image: url('https://ifh.cc/g/lCaosK.png');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 `;

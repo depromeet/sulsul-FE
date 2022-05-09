@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import clipboard from 'clipboard-polyfill';
+import * as clipboard from 'clipboard-polyfill/text';
 
 import { ShareIcon, BookmarkIcon } from '@/assets/icon';
 import { Beer } from '@/types/Beer';
+import BeerImageMasking from '@/components/commons/BeerImageMasking';
 
 export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
 
 export type BeerDetailProps = {
-  url: string;
   isCompact?: boolean;
   beer: BeerDetailType;
 };
@@ -16,7 +16,6 @@ export type BeerDetailProps = {
 const BeerDetail = (props: BeerDetailProps) => {
   const {
     beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume, isLiked },
-    url,
     isCompact = false,
     ...rest
   } = props;
@@ -40,8 +39,8 @@ const BeerDetail = (props: BeerDetailProps) => {
           <IconWrapper>
             <IconButton
               onClick={() => {
-                clipboard.writeText(url);
-                alert(url);
+                clipboard.writeText(window.location.href);
+                alert(`주소가 복사되었습니다. ${window.location.href}`);
               }}
             >
               <ShareIcon />
@@ -61,9 +60,9 @@ const BeerDetail = (props: BeerDetailProps) => {
             </InfoTable>
           ))}
         </InfoTableWrapper>
-        <BeerImageMask>
+        <StyledBeerImageMasking width="24%">
           <BeerImage src={imageUrl} />
-        </BeerImageMask>
+        </StyledBeerImageMasking>
       </InfoAndBeerImage>
     </StyledBeerDetail>
   );
@@ -175,18 +174,7 @@ const BeerImage = styled.img`
   height: 100%;
 `;
 
-// NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
-const BeerImageMask = styled.div`
-  width: auto;
-  height: 13rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-mask-box-image: url('https://ifh.cc/g/20C3ZR.png');
-  mask-image: url('https://ifh.cc/g/20C3ZR.png');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+const StyledBeerImageMasking = styled(BeerImageMasking)`
   margin-left: auto;
-  margin-right: 1rem;
-  flex-shrink: 0;
+  margin-right: 17px;
 `;

@@ -44,7 +44,7 @@ export default Review;
 const StyledReview = styled.div<{ border?: boolean }>`
   display: flex;
   width: 100%;
-  padding: 12px 0;
+  padding: 15px 0;
   border-bottom: ${({ border }) => border && '0.25px solid #cccccc'};
 `;
 
@@ -56,12 +56,14 @@ const ReviewWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+  width: 100%;
 `;
 
 const UserAndDate = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 13px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 `;
 
 const User = styled.p`
@@ -85,7 +87,7 @@ const Content = styled.p`
   font-size: 14px;
   line-height: 160%;
   color: ${({ theme }) => theme.color.white};
-  margin-bottom: 9px;
+  margin-bottom: 19px;
   word-break: break-word;
 `;
 

@@ -13,8 +13,8 @@ const AirPortItem = (props: AirPortItemProps) => {
   return (
     <StyledAirPortItem>
       <Title>{title}</Title>
-      <Kor>{kor}</Kor>
       <Eng>{eng}</Eng>
+      <Kor>{kor}</Kor>
     </StyledAirPortItem>
   );
 };
@@ -32,13 +32,13 @@ const Title = styled.div`
   line-height: 160%;
   color: #dddddd;
 `;
-const Kor = styled.div`
+const Eng = styled.div`
   font-weight: 700;
   font-size: 1.85rem;
   line-height: 29px;
   color: ${({ theme }) => theme.color.white};
 `;
-const Eng = styled.div`
+const Kor = styled.div`
   font-weight: 400;
   font-size: 0.77rem;
   line-height: 155.02%;
@@ -84,6 +84,7 @@ const StyledAirPort = styled.div`
   margin-bottom: 20px;
 `;
 const StyledFlyingAirplaineIcon = styled(FlyingAirplaineIcon)`
-  width: 8.38rem;
+  width: 33%;
+  aspect-ratio: 109 / 46;
   padding-bottom: 10px;
 `;

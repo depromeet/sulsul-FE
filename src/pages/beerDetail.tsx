@@ -9,7 +9,6 @@ const BeerDetail: NextPage = () => {
     <BeerDetailPage
       beerDetail={{
         beer: { ...Beers[0] },
-        url: 'www.naver.com',
       }}
       backgroundImageUrl={'https://ifh.cc/g/PsFadM.jpg'}
       airPort={{

@@ -7,6 +7,7 @@ import Button from '@/components/commons/Button';
 import Review, { ReviewProps } from '@/components/Review';
 import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
+import { useEffect, useState } from 'react';
 
 interface Props {
   beerDetail: BeerDetailProps;
@@ -18,22 +19,40 @@ interface Props {
 }
 
 const BeerDetailPage = (props: Props) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const scrollEventListener = () => {
+      const scrollY = window.scrollY ?? window.pageYOffset;
+
+      if (scrollY > 128) {
+        setIsScrolled(true);
+      } else if (scrollY < 20) {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', scrollEventListener, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', scrollEventListener);
+    };
+  }, []);
+
   const {
-    beerDetail: { url, isCompact, beer },
+    beerDetail: { beer },
     backgroundImageUrl,
     airPort: { departureKor, departureEng, destinationKor, destinationEng },
     beerContent,
   } = props;
   return (
     <StyledBeerDetailPage>
-      <BackgroundImage>
+      <BackgroundImage isScrolled={isScrolled}>
         <div className="image-container">
           <img src={backgroundImageUrl} alt="" />
           <div className="gradient" />
         </div>
       </BackgroundImage>
       <div className="container">
-        <StyledBeerDetail beer={beer} url="" />
+        <StyledBeerDetail beer={beer} isCompact={isScrolled ? true : false} />
         <StyledAirPort
           departureKor={departureKor}
           departureEng={departureEng}
@@ -49,7 +68,7 @@ const BeerDetailPage = (props: Props) => {
       </div>
       <HorizontalDivider />
       <div className="container">
-        <ThisBeer>이 맥주는 말이지</ThisBeer>
+        <ThisBeer>이 맥주는 말이지,</ThisBeer>
         {Reviews.map((review, index) => (
           <Review
             key={index}
@@ -81,7 +100,7 @@ const StyledBeerDetailPage = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: ${({ theme }) => theme.semanticColor.background}; // 제거 예정
 
   & > .container {
     padding: 0 20px;
@@ -89,15 +108,17 @@ const StyledBeerDetailPage = styled.div`
   }
 `;
 
-const BackgroundImage = styled.div`
+const BackgroundImage = styled.div<{ isScrolled: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   z-index: 0;
   width: 100%;
+  background-color: ${({ theme }) => theme.semanticColor.background};
 
   & > .image-container {
     position: relative;
+    display: ${({ isScrolled }) => (isScrolled ? 'none' : 'block')};
 
     & > img {
       width: 100%;
@@ -117,10 +138,6 @@ const BackgroundImage = styled.div`
   }
 `;
 
-const Container = styled.div`
-  padding: 0 20px;
-`;
-
 const StyledBeerDetail = styled(BeerDetail)`
   width: 100%;
   z-index: 2;
@@ -134,7 +151,6 @@ const BeerContent = styled.p`
   font-size: 13px;
   line-height: 16px;
   color: #dddddd;
-  margin-bottom: 22px;
   padding: 0 10px;
 `;
 
@@ -144,6 +160,7 @@ const TasteBoxAndBadgeContainer = styled.div`
   align-items: center;
   gap: 6px;
   width: 100%;
+  margin: 26px 0;
 `;
 
 const BottomGradientContainer = styled.div`
@@ -162,7 +179,6 @@ const HorizontalDivider = styled.div`
   width: 100%;
   height: 8px;
   background: rgba(255, 255, 255, 0.1);
-  margin: 26px 0;
 `;
 
 const ThisBeer = styled.p`
@@ -172,5 +188,5 @@ const ThisBeer = styled.p`
   letter-spacing: -0.03em;
   color: #ffffff;
   margin-right: auto;
-  margin-bottom: 28px;
+  margin: 26px 0;
 `;
