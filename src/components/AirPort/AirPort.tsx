@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { FlyingAirplaineIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 interface AirPortItemProps {
   title: string;
@@ -66,7 +66,7 @@ const AirPort = (props: AirPortProps) => {
   return (
     <StyledAirPort {...rest} className={className}>
       <AirPortItem title="출발지" kor={departureKor} eng={departureEng} />
-      <StyledFlyingAirplaineIcon />
+      <Icon name="FlyingAirplaine" className="flying-airplane-icon" />
       <AirPortItem title="도착지" kor={destinationKor} eng={destinationEng} />
     </StyledAirPort>
   );
@@ -82,9 +82,10 @@ const StyledAirPort = styled.div`
   width: 100%;
   margin-top: 40px;
   margin-bottom: 20px;
-`;
-const StyledFlyingAirplaineIcon = styled(FlyingAirplaineIcon)`
-  width: 33%;
-  aspect-ratio: 109 / 46;
-  padding-bottom: 10px;
+
+  & > .flying-airplane-icon {
+    width: 33%;
+    aspect-ratio: 109 / 46;
+    padding-bottom: 10px;
+  }
 `;

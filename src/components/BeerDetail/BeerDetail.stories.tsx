@@ -39,6 +39,5 @@ DefaultBeerDetail.args = {
     volume: 50,
     isLiked: false,
   },
-  url: 'www.naver.com',
   isCompact: false,
 };

@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import * as clipboard from 'clipboard-polyfill/text';
 
-import { ShareIcon, BookmarkIcon } from '@/assets/icon';
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
+import Icon from '@/components/commons/Icon';
 
 export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
 
@@ -37,17 +37,21 @@ const BeerDetail = (props: BeerDetailProps) => {
             <BeerNameEng>{nameEng}</BeerNameEng>
           </BeerNameWrapper>
           <IconWrapper>
-            <IconButton
+            <Icon
+              name="Share"
+              size={40}
               onClick={() => {
                 clipboard.writeText(window.location.href);
                 alert(`주소가 복사되었습니다. ${window.location.href}`);
               }}
-            >
-              <ShareIcon />
-            </IconButton>
-            <IconButton onClick={() => setIsBookmarked((prev) => !prev)}>
-              <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
-            </IconButton>
+            />
+
+            <Icon
+              name="Bookmark"
+              size={40}
+              color={isLiked || isBookMarked ? 'white' : 'none'}
+              onClick={() => setIsBookmarked((prev) => !prev)}
+            />
           </IconWrapper>
         </TitleAndIconContainer>
       ) : undefined}
@@ -92,7 +96,6 @@ const TitleAndIconContainer = styled.div`
 const BeerNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
 `;
 
 const BeerName = styled.div`
@@ -123,18 +126,6 @@ const IconButton = styled.button`
   align-items: center;
   padding: 0;
   margin: 0;
-
-  > svg {
-    width: 30px;
-    height: 30px;
-  }
-`;
-
-const StyledBookMarkIcon = styled(BookmarkIcon)<{ isLiked: boolean; isBookMarked: boolean }>`
-  path {
-    fill: ${({ theme, isLiked, isBookMarked }) =>
-      isLiked || isBookMarked ? theme.color.white : 'none'};
-  }
 `;
 
 const InfoAndBeerImage = styled.div`
@@ -151,7 +142,6 @@ const InfoTableWrapper = styled.div`
 const InfoTable = styled.div`
   display: flex;
   min-width: 150px;
-  //width: 200px;
 `;
 
 const Title = styled.p`

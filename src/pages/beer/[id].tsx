@@ -1,10 +1,17 @@
 import { NextPage } from 'next';
-import BeerDetailPage from '@/containers/BeerDetail';
+import { useRouter } from 'next/router';
+
+import BeerDetailPage from '@/containers/BeerDetailPage';
 import { Beers } from '@/constants/Beers';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
 import { Reviews } from '@/constants/Reviews';
 
 const BeerDetail: NextPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  console.log(id);
+
   return (
     <BeerDetailPage
       beerDetail={{

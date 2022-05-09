@@ -4,6 +4,7 @@ import BeerDetail, { BeerDetailProps } from '@/components/BeerDetail';
 import AirPort, { AirPortProps } from '@/components/AirPort';
 import TasteBoxAndBadge, { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
 import Button from '@/components/commons/Button';
+import Icon from '@/components/commons/Icon';
 import Review, { ReviewProps } from '@/components/Review';
 import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
@@ -84,7 +85,7 @@ const BeerDetailPage = (props: Props) => {
         ))}
       </div>
       <BottomGradientContainer>
-        <Button type="primary" width="244px">
+        <Button type="primary" width="244px" leftAddon={<Icon name="FlightTakeOff" size={20} />}>
           기록하기
         </Button>
       </BottomGradientContainer>
