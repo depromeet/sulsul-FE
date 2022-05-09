@@ -3,28 +3,22 @@ import styled from '@emotion/styled';
 
 import { BookmarkIcon } from '@/assets/icon';
 import Emoji from '@/components/Emoji';
+import { Beer } from '@/types/Beer';
+import BeerImageMasking from '@/components/commons/BeerImageMasking';
 
-interface CountryType {
-  id: number;
-  name: string;
-  continent: {
-    id: number;
-    name: string;
-  };
+type BeerListItemProps = Pick<
+  Beer,
+  'country' | 'type' | 'name' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
+>;
+
+interface Props {
+  beer: BeerListItemProps;
 }
 
-interface BeerListItemProps {
-  country: CountryType;
-  type: string;
-  name: string;
-  imageUrl: string;
-  alcohol: number;
-  feel: number | null;
-  isLiked?: boolean;
-}
-
-const BeerListItem = (props: BeerListItemProps) => {
-  const { name, type, alcohol, country, imageUrl, feel, isLiked } = props;
+const BeerListItem = (props: Props) => {
+  const {
+    beer: { name, type, alcohol, country, imageUrl, feel, isLiked },
+  } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
   return (
@@ -36,13 +30,13 @@ const BeerListItem = (props: BeerListItemProps) => {
       <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
         <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
       </BookmarkButton>
-      <BeerImageMask>
+      <StyledBeerImageMasking width="9%">
         <BeerImage src={imageUrl} />
-      </BeerImageMask>
+      </StyledBeerImageMasking>
       <TextContainer>
         <BeerName>{name}</BeerName>
         <BeerInfo>
-          {country.name} · {type} · {alcohol.toFixed(1)}%
+          {country?.name} · {type} · {alcohol?.toFixed(1)}%
         </BeerInfo>
       </TextContainer>
     </StyledBeerListItem>
@@ -52,13 +46,14 @@ const BeerListItem = (props: BeerListItemProps) => {
 export default BeerListItem;
 
 const StyledBeerListItem = styled.div`
-  width: 24.2rem;
-  height: 6.15rem;
+  width: calc(100% - 26px);
+  aspect-ratio: 315 / 80;
   background-color: ${({ theme }) => theme.color.whiteOpacity20};
   border-radius: 0.46rem;
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: 26px;
 `;
 
 const BookmarkButton = styled.button`
@@ -74,8 +69,8 @@ const BookmarkButton = styled.button`
   margin: 0;
 `;
 
-const ColorBar = styled.div<{ feel: number | null }>`
-  width: 1.23rem;
+const ColorBar = styled.div<{ feel?: number | null }>`
+  width: 4%;
   height: 100%;
   background: ${({ feel, theme }) =>
     feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
@@ -89,23 +84,14 @@ const StyledEmoji = styled.div`
   transform: translateY(-50%);
 `;
 
-// NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
-const BeerImageMask = styled.div`
-  width: 2.5rem;
-  height: 4.5rem;
-  margin: 0 1.1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-mask-box-image: url('https://ifh.cc/g/KQ8NLv.png');
-  mask-image: url('https://ifh.cc/g/KQ8NLv.png');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+const StyledBeerImageMasking = styled(BeerImageMasking)`
+  margin: 0 3%;
 `;
 
 const BeerImage = styled.img`
   width: 100%;
   height: auto;
+  object-fit: cover;
 `;
 
 const TextContainer = styled.div`

@@ -29,7 +29,7 @@ const BeerDetail = (props: BeerDetailProps) => {
   const [isBookMarked, setIsBookmarked] = useState(false);
   const beerInfo = [
     { title: '종류', content: type },
-    { title: '원산지', content: country.name },
+    { title: '원산지', content: country?.name },
     { title: '도수', content: `${alcohol}%` },
     { title: '용량', content: `${volume}ml` },
     { title: '가격', content: `${price}원` },

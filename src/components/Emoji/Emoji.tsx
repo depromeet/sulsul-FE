@@ -18,7 +18,7 @@ const getEmoji = (feel: number) => {
 };
 
 interface EmojiProps {
-  feel: number | null;
+  feel?: number | null;
 }
 
 const Emoji = (props: EmojiProps) => {
