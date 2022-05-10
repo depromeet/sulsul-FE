@@ -12,3 +12,4 @@ export { ReactComponent as ShareIcon } from './share.svg';
 export { ReactComponent as LikeIcon } from './like.svg';
 export { ReactComponent as HomeIcon } from './home.svg';
 export { ReactComponent as PhotoIcon } from './photo.svg';
+export { ReactComponent as AirplaneIcon } from './airplane.svg';

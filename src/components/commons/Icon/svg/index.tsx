@@ -13,6 +13,7 @@ import {
   BookmarkIcon as Bookmark,
   HomeIcon as Home,
   PhotoIcon as Photo,
+  AirplaneIcon as Airplane,
 } from '@/assets/icon';
 
 export const svg = {
@@ -30,4 +31,5 @@ export const svg = {
   Bookmark,
   Home,
   Photo,
+  Airplane,
 };
