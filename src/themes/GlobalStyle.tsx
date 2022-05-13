@@ -22,6 +22,7 @@ const customReset = css`
     background-color: transparent;
     border: 0;
     border: none;
+    padding: 0;
     cursor: pointer;
   }
 
