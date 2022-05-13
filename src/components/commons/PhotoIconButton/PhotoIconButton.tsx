@@ -2,9 +2,13 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
-const PhotoIconButton = () => {
+interface PhotoIconButtonProps {
+  onClick?: () => void;
+}
+
+const PhotoIconButton: React.FC<PhotoIconButtonProps> = ({ onClick }) => {
   return (
-    <StyledPhotoIconButton>
+    <StyledPhotoIconButton type="button" onClick={onClick}>
       <Icon name="Photo" size={30} color="white" />
     </StyledPhotoIconButton>
   );
