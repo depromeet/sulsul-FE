@@ -1,15 +1,35 @@
 import React, { useCallback, useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import styled from '@emotion/styled';
 
 import PhotoIconButton from '@/components/commons/PhotoIconButton';
 
 interface ImageUploadFieldProps {
   name: string;
+  title?: string;
   className?: string;
   uploadCallback?: (data: FormData) => Promise<any>;
 }
 
-const ImageUploadField: React.FC<ImageUploadFieldProps> = ({ name, className, uploadCallback }) => {
+const StyledImageUploadField = styled.div`
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+
+  & > .upload-field-title {
+    color: ${({ theme }) => theme.color.white};
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+`;
+
+const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
+  name,
+  title,
+  className,
+  uploadCallback,
+}) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const { control } = useFormContext();
 
@@ -39,7 +59,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({ name, className, up
       control={control}
       name={name}
       render={({ field }) => (
-        <>
+        <StyledImageUploadField>
           <input
             {...field}
             onChange={(e) => triggerChange(e, field.onChange)}
@@ -50,7 +70,8 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({ name, className, up
             hidden
           />
           <PhotoIconButton onClick={handleClick} />
-        </>
+          <span className="upload-field-title">{title}</span>
+        </StyledImageUploadField>
       )}
     />
   );

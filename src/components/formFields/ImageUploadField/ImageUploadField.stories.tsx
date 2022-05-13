@@ -25,4 +25,5 @@ const Template: ComponentStory<typeof ImageUploadField> = (args) => <ImageUpload
 export const BasicTextAreaField = Template.bind({});
 BasicTextAreaField.args = {
   name: 'imageUploadField',
+  title: '사진 바꾸기',
 };
