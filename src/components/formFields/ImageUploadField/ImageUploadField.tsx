@@ -2,9 +2,12 @@ import React, { useCallback, useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled from '@emotion/styled';
 
+import { Beer } from '@/types/Beer';
 import PhotoIconButton from '@/components/commons/PhotoIconButton';
+import BeerTicketTitle from '@/components/BeerTicketTitle';
 
 interface ImageUploadFieldProps {
+  beer: Beer;
   name: string;
   title?: string;
   className?: string;
@@ -12,19 +15,31 @@ interface ImageUploadFieldProps {
 }
 
 const StyledImageUploadField = styled.div`
-  display: inline-flex;
-  align-items: center;
-  flex-direction: column;
+  position: relative;
 
-  & > .upload-field-title {
-    color: ${({ theme }) => theme.color.white};
-    margin-top: 8px;
-    font-weight: 700;
-    font-size: 12px;
+  & > .photo-upload-button {
+    border-left: 1px dashed ${({ theme }) => theme.color.white};
+    position: absolute;
+    width: 120px;
+    height: 180px;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    & > .upload-field-title {
+      color: ${({ theme }) => theme.color.white};
+      margin-top: 8px;
+      font-weight: 700;
+      font-size: 12px;
+    }
   }
 `;
 
 const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
+  beer,
   name,
   title,
   className,
@@ -69,8 +84,11 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
             className={className}
             hidden
           />
-          <PhotoIconButton onClick={handleClick} />
-          <span className="upload-field-title">{title}</span>
+          <BeerTicketTitle beer={beer} background={field.value} type="form" />
+          <div className="photo-upload-button">
+            <PhotoIconButton onClick={handleClick} />
+            <span className="upload-field-title">{title}</span>
+          </div>
         </StyledImageUploadField>
       )}
     />
