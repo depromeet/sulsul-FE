@@ -2,6 +2,12 @@ import { Global, css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 
 const customReset = css`
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   img,
   picture,
   video,
@@ -16,6 +22,7 @@ const customReset = css`
     background-color: transparent;
     border: 0;
     border: none;
+    padding: 0;
     cursor: pointer;
   }
 

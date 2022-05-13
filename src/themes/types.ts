@@ -1,4 +1,4 @@
-import { SerializedStyles } from "@emotion/react";
+import { SerializedStyles } from '@emotion/react';
 
 const globalColorGroupNames = ['white', 'black', 'whiteOpacity'] as const;
 export type GlobalColorGroup = typeof globalColorGroupNames[number];
@@ -14,6 +14,8 @@ export type ColorToken =
   | 'white'
   | 'blue'
   | 'yellow'
+  | 'grey'
+  | 'red'
   | MakeTokenSet<'black', [100, 80]>
   | MakeTokenSet<'whiteOpacity', [80, 65, 50, 35, 20, 0]>;
 

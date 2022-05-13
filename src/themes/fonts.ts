@@ -33,13 +33,13 @@ export const fonts = {
 
   //FIXME: 네이밍을 좀 더 제너럴하게 지으면 좋을 것 같아요. 이렇게 지으면 확장할 수 없을 것 같아서..
   beerNameGrid: css`
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     line-height: 16px;
   `,
 
   beerNameList: css`
-    font-size: 1.4rem;
+    font-size: 1.23rem;
     font-weight: 600;
     line-height: 19px;
   `,

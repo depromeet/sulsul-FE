@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
 
 export default {
-  title: 'DESIGN SYSTEM/Font',
+  title: 'Design System/Font',
   component: () => null,
   parameters: {
     viewport: {
