@@ -101,7 +101,7 @@ const TextContainer = styled.div`
 `;
 
 const BeerName = styled.div`
-  ${({ theme }) => theme.fonts.beerNameList}
+  ${({ theme }) => theme.fonts.SubTitle5}
   color:  ${({ theme }) => theme.color.white};
   max-width: 14rem;
   white-space: nowrap;
