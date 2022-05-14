@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
-export default function PlusIconButton(){
+export default function PlusIconButton() {
   return (
     <StyledPlusIconButton>
       <Icon name="Plus" size={14} />
