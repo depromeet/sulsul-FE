@@ -6,9 +6,11 @@ export const theme: Readonly<ColorTheme & FontTheme> = {
   ...parseColorTheme({
     color: {
       white: '#ffffff',
-      blue: '#3E3BE6',
-      yellow: '#FFD953',
       red: '#ff3939', // TODO: 추후 에러 색상 확정되면 변경
+      blue: '#3E3BE6',
+      blueOpacity25: 'rgba(62, 59, 230, 0.25)',
+      yellow: '#FFD953',
+      yellowOpacity20: 'rgba(255, 217, 83, 0.25)',
 
       black100: '#000000',
       black80: '#323232',
