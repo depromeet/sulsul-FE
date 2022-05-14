@@ -2,6 +2,7 @@ import { useState, useEffect, ReactChild, useRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 
 import { ColorTheme } from '@/themes/types';
+import { hideScrollbar } from '@/styles/common';
 
 type TabType = 'primary' | 'secondary';
 type TabSize = 'small' | 'large';
@@ -27,6 +28,8 @@ const StyledTabList = styled.ul<Pick<TabProps, 'size'>>`
   width: 100%;
   padding: ${(p) => (p.size ? '12px 20px;' : '8px 20px;')};
   overflow-x: scroll;
+
+  ${hideScrollbar};
 `;
 
 const getTabItemBackgroundColor = ({

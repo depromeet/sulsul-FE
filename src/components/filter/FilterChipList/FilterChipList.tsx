@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import Chip from '@/components/Chip';
+import { hideScrollbar } from '@/styles/common';
 
 interface FilterChipListPros {
   /** @todo 현재 적용된 필터값 리스트, api 구조에 따라 변경될 여지가 있습니다.  */
@@ -15,6 +16,8 @@ const StyledWrapper = styled.div`
   padding: 0 20px;
   overflow-x: auto;
   overflow-y: hidden;
+
+  ${hideScrollbar};
 `;
 
 const FilterChipList = ({ currentFilterValues = [] }: FilterChipListPros) => {
