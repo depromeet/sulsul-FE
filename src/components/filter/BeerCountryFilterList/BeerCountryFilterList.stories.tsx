@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { useState } from 'react';
 
 import BeerCountryFilterList from './BeerCountryFilterList';
 
@@ -10,8 +11,16 @@ export default {
   },
 } as ComponentMeta<typeof BeerCountryFilterList>;
 
-const Template: ComponentStory<typeof BeerCountryFilterList> = (args) => (
-  <BeerCountryFilterList {...args} />
-);
+const Template: ComponentStory<typeof BeerCountryFilterList> = (args) => {
+  const [selectedCountryIds, setSelectedCountryIds] = useState<number[]>([]);
+
+  return (
+    <BeerCountryFilterList
+      {...args}
+      selectedCountryIds={selectedCountryIds}
+      setSelectedCountryIds={setSelectedCountryIds}
+    />
+  );
+};
 
 export const Default = Template.bind({});
