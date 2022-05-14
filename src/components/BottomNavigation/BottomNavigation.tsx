@@ -56,8 +56,8 @@ export default function BottomNavigation() {
 }
 
 const StyledBottomNavigation = styled.div`
-position:sticky;
-bottom: 0;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   height: 64px;
   display: flex;
@@ -69,6 +69,11 @@ bottom: 0;
   line-height: 12px;
   background-color: ${({ theme }) => theme.semanticColor.background};
   padding: 0 15px;
+
+  /** 아이폰 하단 인디케이터 영역 대응 */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 
   .nav-link {
     display: flex;
