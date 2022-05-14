@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 import FilterChipList from '../FilterChipList';
 
-import { useElementSize } from '@/hooks/useElementSize';
 import Button from '@/components/commons/Button';
 
 const MOCK_FILTER_VALUES = [
@@ -22,10 +21,11 @@ interface FilterFooterProps {
 }
 
 const StyledWrapper = styled.section`
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -52,21 +52,15 @@ const StyledWrapper = styled.section`
 `;
 
 const FilterFooter = ({ onApplyClick }: FilterFooterProps) => {
-  const { ref, size } = useElementSize();
-
   return (
-    <>
-      {/* 푸터 영역에 밑에 필터 리스트가 가려지지 않도록 빈 공간 렌더링 */}
-      <div style={{ height: size?.height }} />
-      <StyledWrapper ref={ref}>
-        <FilterChipList currentFilterValues={MOCK_FILTER_VALUES} />
-        <div className="FilterFooter__button-wrapper">
-          <Button type="primary" onClick={onApplyClick}>
-            필터 적용
-          </Button>
-        </div>
-      </StyledWrapper>
-    </>
+    <StyledWrapper>
+      <FilterChipList currentFilterValues={MOCK_FILTER_VALUES} />
+      <div className="FilterFooter__button-wrapper">
+        <Button type="primary" onClick={onApplyClick}>
+          필터 적용
+        </Button>
+      </div>
+    </StyledWrapper>
   );
 };
 
