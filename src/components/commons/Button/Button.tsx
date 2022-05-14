@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import cx from 'classnames';
+import { isNil } from 'lodash';
 
 import { ColorTheme } from '@/themes/types';
 
@@ -11,7 +12,7 @@ interface ButtonProps {
   htmlType?: 'button' | 'submit';
   line?: boolean;
   width?: 'small' | 'large' | string;
-
+  count?: 1 | 2 | 3 | 4 | 5 | 7 | 8 | 9;
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
   disabled?: boolean;
@@ -31,6 +32,7 @@ const Button: React.FC<ButtonProps> = ({
   line = false,
   disabled = false,
   width: _width,
+  count,
   className,
   leftAddon,
   rightAddon,
@@ -50,6 +52,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {leftAddon && <span className="common-button-icon-wrapper margin-right">{leftAddon}</span>}
       <span className="common-button-text">{children}</span>
+      {!isNil(count) && <span className="common-button-count">{count}</span>}
       {rightAddon && <span className="common-button-icon-wrapper margin-left">{rightAddon}</span>}
     </StyledButton>
   );
@@ -100,7 +103,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   height: 48px;
   border-radius: 200px;
   padding: 1.12rem 2.5rem;
-  font-size: 1.25rem;
+  font-size: 16px;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -133,6 +136,19 @@ const StyledButton = styled.button<StyledButtonProps>`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  & > .common-button-count {
+    display: block;
+    margin-left: 4px;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme, buttonType }) => getColorByType(buttonType, theme)};
+    color: ${({ theme }) => theme.color.white};
   }
 
   &.common-button-line {

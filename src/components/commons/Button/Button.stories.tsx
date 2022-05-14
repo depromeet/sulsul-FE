@@ -13,6 +13,7 @@ export default {
     disabled: { control: 'boolean' },
     type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
     line: { control: 'boolean' },
+    count: { control: 'number' },
     leftAddon: { control: 'boolean' },
     rightAddon: { control: 'boolean' },
     htmlType: { control: 'select', options: ['button', 'submit'] },
