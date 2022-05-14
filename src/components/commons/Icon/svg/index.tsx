@@ -13,6 +13,15 @@ import {
   BookmarkIcon as Bookmark,
   HomeIcon as Home,
   PhotoIcon as Photo,
+  NavHome,
+  NavProfile,
+  NavBeer,
+  NavTravel,
+  NavHomeActive,
+  NavProfileActive,
+  NavBeerActive,
+  NavTravelActive,
+  Plus
 } from '@/assets/icon';
 
 export const svg = {
@@ -30,4 +39,13 @@ export const svg = {
   Bookmark,
   Home,
   Photo,
+  NavHome,
+  NavProfile,
+  NavBeer,
+  NavTravel,
+  NavHomeActive,
+  NavProfileActive,
+  NavBeerActive,
+  NavTravelActive,
+  Plus
 };

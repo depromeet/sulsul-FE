@@ -9,6 +9,7 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     'storybook-dark-mode',
+    "storybook-addon-next-router",
     {
       name: '@storybook/addon-storysource',
       options: {
