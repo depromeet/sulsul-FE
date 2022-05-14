@@ -16,7 +16,7 @@ interface HeaderProps {
 }
 
 const StyledHeader = styled.header<Pick<HeaderProps, 'isTransparent'>>`
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -25,7 +25,6 @@ const StyledHeader = styled.header<Pick<HeaderProps, 'isTransparent'>>`
   width: 100%;
   height: ${HEADER_HEIGHT}px;
   padding: 0 20px;
-  margin-bottom: 60px;
 
   background-color: ${(p) => (p.isTransparent ? 'transparent' : p.theme.color.black100)};
 
@@ -87,17 +86,13 @@ const Header = ({
   className,
 }: HeaderProps) => {
   return (
-    <div>
-      <StyledHeader className={className} isTransparent={isTransparent}>
-        <StyledLeftExtras>{leftExtras}</StyledLeftExtras>
-        <StyledTitle>
-          {typeof children === 'string' ? <StyledH1>{children}</StyledH1> : children}
-        </StyledTitle>
-        <StyledRightExtras>{rightExtras}</StyledRightExtras>
-      </StyledHeader>
-      {/** 헤더 아래에 콘텐츠가 숨겨지지 않도록 하단 빈 공간 */}
-      <div style={{ height: `${HEADER_HEIGHT}px` }} />
-    </div>
+    <StyledHeader className={className} isTransparent={isTransparent}>
+      <StyledLeftExtras>{leftExtras}</StyledLeftExtras>
+      <StyledTitle>
+        {typeof children === 'string' ? <StyledH1>{children}</StyledH1> : children}
+      </StyledTitle>
+      <StyledRightExtras>{rightExtras}</StyledRightExtras>
+    </StyledHeader>
   );
 };
 

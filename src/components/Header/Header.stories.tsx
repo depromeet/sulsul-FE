@@ -92,7 +92,7 @@ export const 맥주_상세_페이지: ComponentStoryObj<typeof Header> = {
   },
   decorators: [
     (Story) => (
-      <main>
+      <>
         <Story />
         <p>
           맥주 상세 페이지 스토리만 아래처럼 동작하도록 설정했습니다.
@@ -106,7 +106,7 @@ export const 맥주_상세_페이지: ComponentStoryObj<typeof Header> = {
           <br />
           <br />
         </p>
-      </main>
+      </>
     ),
   ],
 };
