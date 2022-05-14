@@ -12,6 +12,7 @@ export default {
     width: { control: 'text' },
     disabled: { control: 'boolean' },
     type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
+    line: { control: 'boolean' },
     leftAddon: { control: 'boolean' },
     rightAddon: { control: 'boolean' },
     htmlType: { control: 'select', options: ['button', 'submit'] },
