@@ -33,7 +33,7 @@ const StyledH2 = styled.h2`
   font-weight: 700;
   color: ${(p) => p.theme.color.white};
   padding-bottom: 0.4rem;
-  border-bottom: 0.1rem solid ${(p) => p.theme.color.whiteOpacity80};
+  border-bottom: 0.1rem solid ${(p) => p.theme.semanticColor.secondary};
 `;
 
 const StyledSection = styled.section`
@@ -42,26 +42,59 @@ const StyledSection = styled.section`
   gap: 1.4rem;
 `;
 
-const StyledMainTitle = styled.h1`
-  ${({ theme }) => theme.fonts.mainTitle}
+const H1 = styled.p`
+  ${({ theme }) => theme.fonts.H1}
 `;
-const StyledSubTitle = styled.h1`
-  ${({ theme }) => theme.fonts.subTitle}
+const H2 = styled.p`
+  ${({ theme }) => theme.fonts.H2}
 `;
-const StyledSubTitleEng = styled.h1`
-  ${({ theme }) => theme.fonts.subTitleEng}
+const H3 = styled.p`
+  ${({ theme }) => theme.fonts.H3}
 `;
-const StyledContentTitle = styled.h1`
-  ${({ theme }) => theme.fonts.contentTitle}
+const H4 = styled.p`
+  ${({ theme }) => theme.fonts.H4}
 `;
-const StyledContent = styled.h1`
-  ${({ theme }) => theme.fonts.content}
+const H5 = styled.p`
+  ${({ theme }) => theme.fonts.H5}
 `;
-const StyledBeerNameGrid = styled.h1`
-  ${({ theme }) => theme.fonts.beerNameGrid}
+const H6 = styled.p`
+  ${({ theme }) => theme.fonts.H6}
 `;
-const StyledBeerNameList = styled.h1`
-  ${({ theme }) => theme.fonts.beerNameList}
+const SubTitle1 = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle1}
+`;
+const SubTitle2 = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle2}
+`;
+const SubTitle3 = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle3}
+`;
+const SubTitle4 = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle4}
+`;
+const SubTitle5 = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle5}
+`;
+const SmallBold1 = styled.p`
+  ${({ theme }) => theme.fonts.SmallBold1}
+`;
+const SmallBold2 = styled.p`
+  ${({ theme }) => theme.fonts.SmallBold2}
+`;
+const SmallBold3 = styled.p`
+  ${({ theme }) => theme.fonts.SmallBold3}
+`;
+const Abbr1 = styled.p`
+  ${({ theme }) => theme.fonts.Abbr1}
+`;
+const Abbr2 = styled.p`
+  ${({ theme }) => theme.fonts.Abbr2}
+`;
+const BarlowBig = styled.p`
+  ${({ theme }) => theme.fonts.BarlowBig}
+`;
+const BarlowSmall = styled.p`
+  ${({ theme }) => theme.fonts.BarlowSmall}
 `;
 
 const Template: ComponentStory<any> = () => {
@@ -69,18 +102,32 @@ const Template: ComponentStory<any> = () => {
     <StyledWrapper>
       <StyledH1>Design System : Font</StyledH1>
       <StyledSection>
-        <StyledH2>Font</StyledH2>
-        <StyledMainTitle>메인 타이틀</StyledMainTitle>
-        <StyledSubTitle>서브 타이틀</StyledSubTitle>
-        <StyledSubTitleEng>서브 타이틀 - 영문</StyledSubTitleEng>
-        <StyledContentTitle>본문 타이틀</StyledContentTitle>
-        <StyledContent>본문</StyledContent>
-        <StyledBeerNameGrid>beer name_grid</StyledBeerNameGrid>
-        <StyledBeerNameList>beer name_list</StyledBeerNameList>
+        <StyledH2>Pretendard</StyledH2>
+        <H1>H1 Headline</H1>
+        <H2>H2 Headline</H2>
+        <H3>H3 Headline</H3>
+        <H4>H4 Headline</H4>
+        <H5>H5 Headline</H5>
+        <H6>H6 Headline</H6>
+        <div style={{ height: '20px' }}></div>
+        <SubTitle1>SubTitle1</SubTitle1>
+        <SubTitle2>SubTitle2</SubTitle2>
+        <SubTitle3>SubTitle3</SubTitle3>
+        <SubTitle4>SubTitle4</SubTitle4>
+        <SubTitle5>SubTitle5</SubTitle5>
+        <div style={{ height: '20px' }}></div>
+        <SmallBold1>SmallBold1</SmallBold1>
+        <SmallBold2>SmallBold2</SmallBold2>
+        <SmallBold3>SmallBold3</SmallBold3>
+        <div style={{ height: '20px' }}></div>
+        <Abbr1>Abbr1</Abbr1>
+        <Abbr2>Abbr1</Abbr2>
       </StyledSection>
-      <StyledH2>Semantic Font</StyledH2>
+      <div style={{ height: '20px' }}></div>
+      <StyledH2>Barlow Condensed</StyledH2>
       <StyledSection>
-        <div>준비중...</div>
+        <BarlowBig>BarlowBig</BarlowBig>
+        <BarlowSmall>BarlowSmall</BarlowSmall>
       </StyledSection>
     </StyledWrapper>
   );

@@ -47,13 +47,29 @@ export type ColorTheme = {
 };
 
 export type FontToken =
-  | 'mainTitle'
-  | 'subTitle'
-  | 'subTitleEng'
-  | 'contentTitle'
-  | 'content'
-  | 'beerNameGrid'
-  | 'beerNameList';
+  | 'H1'
+  | 'H2'
+  | 'H3'
+  | 'H4'
+  | 'H5'
+  | 'H6'
+  | 'SubTitle1'
+  | 'SubTitle2'
+  | 'SubTitle3'
+  | 'SubTitle4'
+  | 'SubTitle5'
+  | 'Body1'
+  | 'Body2'
+  | 'Body3'
+  | 'Body4'
+  | 'Body5'
+  | 'SmallBold1'
+  | 'SmallBold2'
+  | 'SmallBold3'
+  | 'Abbr1'
+  | 'Abbr2'
+  | 'BarlowBig'
+  | 'BarlowSmall';
 
 export type FontScheme = Record<FontToken, SerializedStyles>;
 
