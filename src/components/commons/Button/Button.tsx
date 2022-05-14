@@ -151,7 +151,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     color: ${({ theme }) => theme.color.white};
   }
 
-  &.common-button-line {
+  &.common-button-line:not(:disabled) {
     outline: ${({ theme, buttonType }) => getColorByType(buttonType, theme)} solid 2px;
     outline-offset: -2px;
     color: ${({ theme, buttonType }) => getColorByType(buttonType, theme)};
