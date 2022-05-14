@@ -8,6 +8,7 @@ interface ChipProps {
 }
 
 const StyledWrapper = styled.span`
+  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
@@ -12,6 +13,7 @@ interface BeerStyleFilterItemProps {
   imageUrl: string;
   /** 선택 여부 (default:false) */
   isSelected?: boolean;
+  onClick?: (e?: MouseEvent) => void;
 }
 
 const StyledWrapper = styled.li`
@@ -76,9 +78,10 @@ const BeerStyleFilterItem = ({
   description,
   imageUrl,
   isSelected,
+  onClick = () => null,
 }: BeerStyleFilterItemProps) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper aria-checked={isSelected} onClick={onClick}>
       <img src={imageUrl} alt="" />
       <StyledInfo>
         <b>{title}</b>
