@@ -61,7 +61,7 @@ const FilterFooter = ({ onApplyClick }: FilterFooterProps) => {
       <StyledWrapper ref={ref}>
         <FilterChipList currentFilterValues={MOCK_FILTER_VALUES} />
         <div className="FilterFooter__button-wrapper">
-          <Button type="secondary" onClick={onApplyClick}>
+          <Button type="primary" onClick={onApplyClick}>
             필터 적용
           </Button>
         </div>
