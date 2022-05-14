@@ -35,6 +35,11 @@ module.exports = {
       use: ['@svgr/webpack'],
     });
 
+    /** refs: https://minoo.medium.com/storybook%EC%97%90%EC%84%9C-nextjs-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A0-%EB%95%8C-85ec0b3662af */
+    config.resolve.alias['next/router'] = require.resolve('../__mocks__/next/router.js');
+    config.resolve.alias['next/link'] = require.resolve('../__mocks__/next/link.js');
+    config.resolve.alias['next/image'] = require.resolve('../__mocks__/next/image.js');
+
     return config;
   },
   typescript: {
