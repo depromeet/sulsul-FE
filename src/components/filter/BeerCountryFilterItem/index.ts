@@ -1,1 +1,1 @@
-export { default } from './BeerCountryFilterItem';
+export { default, SelectAllButton } from './BeerCountryFilterItem';

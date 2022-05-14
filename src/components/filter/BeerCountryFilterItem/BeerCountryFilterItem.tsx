@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
+import { ellipsis } from '@/styles/common';
+
+const GRAY1 = '#dddddd';
 
 const StyledWrapper = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90px;
+  margin: 7px;
 `;
 
 const ImageWrapper = styled.div`
@@ -16,6 +20,8 @@ const ImageWrapper = styled.div`
   height: 60px;
   border-radius: 6px;
   overflow: hidden;
+
+  background-color: ${GRAY1};
 
   > img {
     width: 100%;
@@ -52,6 +58,8 @@ const Name = styled.p<Pick<BeerCountryFilterItemProps, 'isSelected'>>`
   line-height: 16.8px;
   font-weight: 500;
   text-align: center;
+
+  ${ellipsis()};
 `;
 
 interface BeerCountryFilterItemProps {
@@ -70,7 +78,7 @@ const BeerCountryFilterItem: React.FC<BeerCountryFilterItemProps> = ({
   onClick = () => null,
 }) => {
   return (
-    <StyledWrapper onClick={onClick}>
+    <StyledWrapper aria-checked={isSelected} onClick={onClick}>
       <ImageWrapper>
         <img src={flagImageUrl} alt="" />
         {isSelected && (
@@ -85,3 +93,16 @@ const BeerCountryFilterItem: React.FC<BeerCountryFilterItemProps> = ({
 };
 
 export default BeerCountryFilterItem;
+
+interface SelectAllButtonPros {
+  onClick: MouseEventHandler;
+}
+
+export const SelectAllButton = ({ onClick }: SelectAllButtonPros) => {
+  return (
+    <StyledWrapper onClick={onClick}>
+      <ImageWrapper></ImageWrapper>
+      <Name>전체</Name>
+    </StyledWrapper>
+  );
+};
