@@ -18,6 +18,7 @@ export default {
 const StyledWrapper = styled.div`
   height: 6rem;
   padding: 1.6rem;
+  color: ${(p) => p.theme.color.white};
 
   h1 {
     font-size: 1.3rem;
