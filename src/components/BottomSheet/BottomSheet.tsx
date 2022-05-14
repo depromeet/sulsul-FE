@@ -60,6 +60,7 @@ interface BottomSheetProps {
   isFull?: boolean;
   /** 백그라운드 색상 (default: #222222) */
   backgroundColor?: string;
+  className?: string;
 }
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
@@ -68,6 +69,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   onClose,
   isFull = false,
   backgroundColor = DEFAULT_BACKGROUND_COLOR,
+  className,
 }) => {
   const { ref, size } = useElementSize<HTMLDivElement>({
     debounce: true,
@@ -82,6 +84,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
         isFull={isFull}
         backgroundColor={backgroundColor}
         aria-modal="true"
+        className={className}
       >
         {children}
       </StyledWrapper>
