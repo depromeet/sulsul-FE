@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FlightTakeOffIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 import Button from './Button';
 
@@ -12,6 +12,8 @@ export default {
     width: { control: 'text' },
     disabled: { control: 'boolean' },
     type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
+    line: { control: 'boolean' },
+    count: { control: 'number' },
     leftAddon: { control: 'boolean' },
     rightAddon: { control: 'boolean' },
     htmlType: { control: 'select', options: ['button', 'submit'] },
@@ -27,8 +29,8 @@ export default {
 const Template: ComponentStory<typeof Button> = ({ leftAddon, rightAddon, ...args }) => (
   <Button
     {...args}
-    leftAddon={leftAddon ? <FlightTakeOffIcon /> : undefined}
-    rightAddon={rightAddon ? <FlightTakeOffIcon /> : undefined}
+    leftAddon={leftAddon ? <Icon name="FlightTakeOff" /> : undefined}
+    rightAddon={rightAddon ? <Icon name="FlightTakeOff" /> : undefined}
   />
 );
 

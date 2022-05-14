@@ -50,7 +50,7 @@ const StyledWrapper = styled.div<StyledWrapperProps>`
     `};
 `;
 
-const DEFAULT_BACKGROUND_COLOR = '#fff';
+const DEFAULT_BACKGROUND_COLOR = '#222222';
 
 interface BottomSheetProps {
   open: boolean;
@@ -58,7 +58,7 @@ interface BottomSheetProps {
   onClose?: VoidFunction;
   /** 화면의 90%를 차지하는 바텀시트임의 여부 (default: false) */
   isFull?: boolean;
-  /** 백그라운드 색상 (default: #fff) */
+  /** 백그라운드 색상 (default: #222222) */
   backgroundColor?: string;
 }
 
