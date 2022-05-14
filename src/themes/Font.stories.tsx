@@ -90,6 +90,9 @@ const Abbr1 = styled.p`
 const Abbr2 = styled.p`
   ${({ theme }) => theme.fonts.Abbr2}
 `;
+const Abbr3 = styled.p`
+  ${({ theme }) => theme.fonts.Abbr3}
+`;
 const BarlowBig = styled.p`
   ${({ theme }) => theme.fonts.BarlowBig}
 `;
@@ -121,7 +124,8 @@ const Template: ComponentStory<any> = () => {
         <SmallBold3>SmallBold3</SmallBold3>
         <div style={{ height: '20px' }}></div>
         <Abbr1>Abbr1</Abbr1>
-        <Abbr2>Abbr1</Abbr2>
+        <Abbr2>Abbr2</Abbr2>
+        <Abbr3>Abbr3</Abbr3>
       </StyledSection>
       <div style={{ height: '20px' }}></div>
       <StyledH2>Barlow Condensed</StyledH2>

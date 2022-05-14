@@ -68,6 +68,7 @@ export type FontToken =
   | 'SmallBold3'
   | 'Abbr1'
   | 'Abbr2'
+  | 'Abbr3'
   | 'BarlowBig'
   | 'BarlowSmall';
 

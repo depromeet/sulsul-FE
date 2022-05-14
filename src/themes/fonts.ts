@@ -131,6 +131,12 @@ export const fonts = {
     line-height: normal;
     letter-spacing: 0;
   `,
+  Abbr3: css`
+    font-size: 20px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
 
   BarlowBig: css`
     font-size: 32px;
