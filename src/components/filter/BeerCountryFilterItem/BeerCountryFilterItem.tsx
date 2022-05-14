@@ -94,13 +94,14 @@ export default BeerCountryFilterItem;
 
 interface SelectAllButtonPros {
   onClick: MouseEventHandler;
+  continentName: string;
 }
 
-export const SelectAllButton = ({ onClick }: SelectAllButtonPros) => {
+export const SelectAllButton = ({ onClick, continentName }: SelectAllButtonPros) => {
   return (
     <StyledWrapper onClick={onClick}>
       <ImageWrapper></ImageWrapper>
-      <Name>전체</Name>
+      <Name>{continentName} 전체</Name>
     </StyledWrapper>
   );
 };

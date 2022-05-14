@@ -83,7 +83,8 @@ const BeerCountryFilterTab = () => {
           .map((_, index) => (
             <BeerCountryFilterList
               key={index}
-              hasSelectAllButton={index === 0}
+              continent={{ id: index, name: countryTabItems[index] }}
+              hasSelectAllButton={index !== 0}
               selectedCountryIds={selectedCountryIds}
               setSelectedCountryIds={setSelectedCountryIds}
             />

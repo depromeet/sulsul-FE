@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import BeerCountryFilterItem, { SelectAllButton } from '../BeerCountryFilterItem';
 
 interface BeerCountryFilterListProps {
+  continent: { id: number; name: string };
   selectedCountryIds: number[];
   setSelectedCountryIds: (selectedCountryIds: number[]) => void;
   /** 전체보기 버튼 여부 (default:false) */
@@ -29,6 +30,7 @@ const StyledWrapper = styled.div`
 `;
 
 const BeerCountryFilterList = ({
+  continent,
   selectedCountryIds,
   setSelectedCountryIds,
   hasSelectAllButton = false,
@@ -46,7 +48,8 @@ const BeerCountryFilterList = ({
 
   const selectAll = () => {
     /** @todo 전체 선택 api에 맞게 설정  */
-    setSelectedCountryIds([]);
+    // 해당 대륙의 모든 나라 선택, 아시아 칩필터 추가
+    setSelectedCountryIds([...selectedCountryIds, ...MOCK_COUNTRIES.map((country) => country.id)]);
   };
 
   const handleItemClick = (id: number) => () => {
@@ -56,7 +59,7 @@ const BeerCountryFilterList = ({
 
   return (
     <StyledWrapper>
-      {hasSelectAllButton && <SelectAllButton onClick={selectAll} />}
+      {hasSelectAllButton && <SelectAllButton onClick={selectAll} continentName={continent.name} />}
       {MOCK_COUNTRIES.map((country) => (
         <BeerCountryFilterItem
           key={country.id}
