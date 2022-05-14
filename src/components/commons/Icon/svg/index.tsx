@@ -7,12 +7,13 @@ import {
   BestIcon as Best,
   BadIcon as Bad,
   ChaosIcon as Chaos,
-  FlyingAirplaineIcon as FlyingAirplaine,
+  FlyingAirplaneIcon as FlyingAirplane,
   ShareIcon as Share,
   LikeIcon as Like,
   BookmarkIcon as Bookmark,
   HomeIcon as Home,
   PhotoIcon as Photo,
+  AirplaneIcon as Airplane,
 } from '@/assets/icon';
 
 export const svg = {
@@ -24,10 +25,11 @@ export const svg = {
   Best,
   Bad,
   Chaos,
-  FlyingAirplaine,
+  FlyingAirplane,
   Share,
   Like,
   Bookmark,
   Home,
   Photo,
+  Airplane,
 };
