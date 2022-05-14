@@ -63,7 +63,7 @@ bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid ${({ theme }) => theme.color.whiteOpacity50};
   font-weight: 600;
   font-size: 10px;
   line-height: 12px;
@@ -76,7 +76,7 @@ bottom: 0;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: ${({ theme }) => theme.color.whiteOpacity50};
 
     span {
       margin-top: 3px;
