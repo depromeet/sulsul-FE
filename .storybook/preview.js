@@ -2,6 +2,7 @@ import { Global, css } from '@emotion/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from 'emotion-theming';
 import { RecoilRoot } from 'recoil';
+import { RouterContext } from "next/dist/shared/lib/router-context";
 
 import { theme, GlobalStyle } from '../src/themes';
 
@@ -22,6 +23,9 @@ export const parameters = {
     storySort: {
       order: ['Design System', 'Commons', 'Components', 'Pages'],
     },
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 };
 
