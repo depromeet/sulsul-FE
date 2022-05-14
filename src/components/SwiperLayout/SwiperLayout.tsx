@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { CarouselProps } from 'react-responsive-carousel';
 import styled from '@emotion/styled';
 import cx from 'classnames';
@@ -48,6 +48,7 @@ const StyledSwiperLayout = styled.section`
 
 interface SwiperLayoutProps extends Partial<CarouselProps> {
   children?: JSX.Element[];
+  triggerChange?: (pageIndex: number) => void;
   className?: string;
 }
 
@@ -56,7 +57,12 @@ export interface SwiperLayoutChildProps {
   onMoveNext?: () => void;
 }
 
-const SwiperLayout: React.FC<SwiperLayoutProps> = ({ children, className, ...props }) => {
+const SwiperLayout: React.FC<SwiperLayoutProps> = ({
+  children,
+  triggerChange,
+  className,
+  ...props
+}) => {
   const [pageIndex, setPageIndex] = useState(0);
 
   const length = children?.length || 0;
@@ -72,6 +78,10 @@ const SwiperLayout: React.FC<SwiperLayoutProps> = ({ children, className, ...pro
       setPageIndex(pageIndex + 1);
     }
   }, [pageIndex, length]);
+
+  useEffect(() => {
+    triggerChange?.(pageIndex);
+  }, [pageIndex, triggerChange]);
 
   return (
     <StyledSwiperLayout className={className}>
