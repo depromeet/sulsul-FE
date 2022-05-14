@@ -70,6 +70,11 @@ const StyledBottomNavigation = styled.div`
   background-color: ${({ theme }) => theme.semanticColor.background};
   padding: 0 15px;
 
+  /** 아이폰 하단 인디케이터 영역 대응 */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
   .nav-link {
     display: flex;
     flex-direction: column;
