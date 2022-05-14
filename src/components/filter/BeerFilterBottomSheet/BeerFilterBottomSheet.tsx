@@ -10,7 +10,7 @@ import Tab from '@/components/Tab';
 import BottomSheet from '@/components/BottomSheet';
 import Swiper from '@/components/Swiper';
 
-interface FilterBottomSheetProps {
+interface BeerFilterBottomSheetProps {
   open: boolean;
   onClose: () => void;
   onApplyClick: () => void;
@@ -93,7 +93,7 @@ const BeerCountryFilterTab = () => {
   );
 };
 
-const FilterBottomSheet = ({ open, onClose, onApplyClick }: FilterBottomSheetProps) => {
+const BeerFilterBottomSheet = ({ open, onClose, onApplyClick }: BeerFilterBottomSheetProps) => {
   const onClear = () => null;
 
   return (
@@ -115,4 +115,4 @@ const FilterBottomSheet = ({ open, onClose, onApplyClick }: FilterBottomSheetPro
   );
 };
 
-export default FilterBottomSheet;
+export default BeerFilterBottomSheet;
