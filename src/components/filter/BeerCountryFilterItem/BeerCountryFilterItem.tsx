@@ -4,8 +4,6 @@ import styled from '@emotion/styled';
 import { CheckIcon } from '@/assets/icon';
 import { ellipsis } from '@/styles/common';
 
-const GRAY1 = '#dddddd';
-
 const StyledWrapper = styled.li`
   display: flex;
   flex-direction: column;
@@ -21,7 +19,7 @@ const ImageWrapper = styled.div`
   border-radius: 6px;
   overflow: hidden;
 
-  background-color: ${GRAY1};
+  background-color: ${(p) => p.theme.color.grey1};
 
   > img {
     width: 100%;
