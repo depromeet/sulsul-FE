@@ -52,6 +52,18 @@ const StyledTab = styled(Tab)`
 
 const countryTabItems = ['전체', '아시아', '유럽', '북아메리카', '남아메리카', '호주'];
 
+const StyledSwiper = styled(Swiper)`
+  flex: 1;
+  overflow-y: auto;
+
+  .carousel-slider,
+  .slider-wrapper,
+  .slider,
+  .slide {
+    height: 100%;
+  }
+`;
+
 const BeerCountryFilterTab = () => {
   const [activatedIndex, setActivatedIndex] = useState(0);
   const [selectedCountryIds, setSelectedCountryIds] = useState<number[]>([]);
@@ -65,7 +77,7 @@ const BeerCountryFilterTab = () => {
       outerActivatedIndex={activatedIndex}
       onChange={setActivatedIndex}
     >
-      <Swiper selectedItem={activatedIndex} onChange={setActivatedIndex}>
+      <StyledSwiper selectedItem={activatedIndex} onChange={setActivatedIndex}>
         {Array(countryTabItems.length)
           .fill(0)
           .map((_, index) => (
@@ -76,7 +88,7 @@ const BeerCountryFilterTab = () => {
               setSelectedCountryIds={setSelectedCountryIds}
             />
           ))}
-      </Swiper>
+      </StyledSwiper>
     </Tab>
   );
 };

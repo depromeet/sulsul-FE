@@ -22,8 +22,10 @@ const StyledWrapper = styled.div`
   grid-gap: 16px 12px;
   grid-template-columns: repeat(auto-fill, minmax(90px, auto));
   justify-items: center;
-
   padding: 16px 20px;
+  height: 100%;
+
+  overflow-y: auto;
 `;
 
 const BeerCountryFilterList = ({
