@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import clipboard from 'clipboard-polyfill';
 
 import { Beer } from '@/types/Beer';
-import Icon from '@/components/commons/Icon';
+import BeerImageMasking from '@/components/commons/BeerImageMasking';
+import { LikeToggleButton, ShareButton } from '@/components/Header/extras';
 
 type BeerDetailProp = {
   url: string;
@@ -44,21 +45,17 @@ const BeerDetail = (props: BeerDetailProps) => {
             <BeerNameEng>{nameEng}</BeerNameEng>
           </BeerNameWrapper>
           <IconWrapper>
-            <IconButton
-              onClick={() => {
-                clipboard.writeText(url);
+            <ShareButton
+              onClick={async () => {
+                await clipboard.writeText(url);
                 alert(url);
               }}
-            >
-              <Icon name="Share" size={30} />
-            </IconButton>
-            <IconButton onClick={() => setIsBookmarked((prev) => !prev)}>
-              {isLiked || isBookMarked ? (
-                <Icon name="Bookmark" size={30} />
-              ) : (
-                <Icon name="BookmarkActive" size={30} />
-              )}
-            </IconButton>
+            />
+            <LikeToggleButton
+              defaultIsLiking={true}
+              onLike={async () => alert('좋아요')}
+              onUnLike={async () => alert('좋아요 해제')}
+            />
           </IconWrapper>
         </TitleAndIconContainer>
       ) : undefined}
@@ -71,9 +68,9 @@ const BeerDetail = (props: BeerDetailProps) => {
             </InfoTable>
           ))}
         </InfoTableWrapper>
-        <BeerImageMask>
+        <StyledBeerImageMasking width="70px">
           <BeerImage src={imageUrl} />
-        </BeerImageMask>
+        </StyledBeerImageMasking>
       </InfoAndBeerImage>
     </StyledBeerDetail>
   );
@@ -123,22 +120,8 @@ const BeerNameEng = styled.div`
 
 const IconWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
-`;
-
-const IconButton = styled.button`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-
-  > svg {
-    width: 30px;
-    height: 30px;
-  }
+  height: fit-content;
+  gap: 10px;
 `;
 
 const InfoAndBeerImage = styled.div`
@@ -155,7 +138,6 @@ const InfoTableWrapper = styled.div`
 const InfoTable = styled.div`
   display: flex;
   min-width: 150px;
-  //width: 200px;
 `;
 
 const Title = styled.p`
@@ -179,17 +161,7 @@ const BeerImage = styled.img`
 `;
 
 // NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
-const BeerImageMask = styled.div`
-  width: auto;
-  height: 13rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-mask-box-image: url('https://ifh.cc/g/20C3ZR.png');
-  mask-image: url('https://ifh.cc/g/20C3ZR.png');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+const StyledBeerImageMasking = styled(BeerImageMasking)`
   margin-left: auto;
   margin-right: 1rem;
-  flex-shrink: 0;
 `;
