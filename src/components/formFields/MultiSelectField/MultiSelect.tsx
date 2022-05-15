@@ -16,8 +16,7 @@ interface MultiSelectProps<T = any> {
   height?: string;
   disabled?: boolean;
   onChange?: ClickEventHandler<T>;
-  setError?: (errorMessage: string) => void;
-  clearError?: () => void;
+  onBlur?: () => void;
 }
 
 interface StyledMultiSelectProps {
@@ -69,18 +68,18 @@ const MultiSelect: React.FC<MultiSelectProps> = <T extends any>({
   height,
   disabled,
   onChange,
-  setError,
-  clearError,
+  onBlur,
 }: MultiSelectProps<T>) => {
   const triggerChange = useCallback(
     (value: T[] | undefined, e: ClickEvent) => {
       if (!disabled) {
         onChange?.(value, e);
+        onBlur?.();
       }
 
       return value;
     },
-    [disabled, onChange],
+    [disabled, onChange, onBlur],
   );
 
   const handleClick = useCallback(
@@ -93,15 +92,13 @@ const MultiSelect: React.FC<MultiSelectProps> = <T extends any>({
         changedValue.splice(valueIndex, 1);
       } else {
         if (!isNil(maxLength) && maxLength <= changedValue.length) {
-          setError?.(`${maxLength}개 까지만 선택할 수 있어요 ㅜㅜ`);
           return;
         }
         changedValue.push(clickedValue);
       }
-      clearError?.();
       triggerChange(changedValue, e);
     },
-    [value, triggerChange, maxLength, setError, clearError],
+    [value, triggerChange, maxLength],
   );
 
   return (
