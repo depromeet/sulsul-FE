@@ -6,7 +6,7 @@ interface StyledSampleProps {
 }
 
 const StyledSample = styled.button<StyledSampleProps>`
-  ${({ theme }) => theme.fonts.subTitle}
+  ${({ theme }) => theme.fonts.SubTitle5}
   background-color: ${({ buttonType, theme }) =>
     buttonType === 'default' ? 'rgba(0,0,0,0)' : theme.color.black80};
   color: ${({ buttonType, theme }) =>

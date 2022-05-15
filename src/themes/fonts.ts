@@ -1,46 +1,155 @@
 import { css } from '@emotion/react';
 
 export const fonts = {
-  mainTitle: css`
-    font-size: 1.6rem;
+  H1: css`
+    font-size: 24px;
     font-weight: 700;
-    line-height: 26px;
+    line-height: normal; // NOTE: 디자이너분이 작성해주신 auto를 normal로 설정
+    letter-spacing: 0;
   `,
-
-  subTitle: css`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 160%;
-  `,
-
-  subTitleEng: css`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 17px;
-  `,
-
-  contentTitle: css`
-    font-size: 1.2rem;
+  H2: css`
+    font-size: 22px;
     font-weight: 700;
-    line-height: 19px;
+    line-height: normal;
+    letter-spacing: 0;
   `,
-
-  content: css`
-    font-size: 1.1rem;
+  H3: css`
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: -0em;
+  `,
+  H4: css`
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  H5: css`
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+  `,
+  H6: css`
+    font-size: 20px;
     font-weight: 400;
-    line-height: 16px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
   `,
 
-  //FIXME: 네이밍을 좀 더 제너럴하게 지으면 좋을 것 같아요. 이렇게 지으면 확장할 수 없을 것 같아서..
-  beerNameGrid: css`
-    font-size: 1rem;
+  SubTitle1: css`
+    font-size: 18px;
     font-weight: 600;
-    line-height: 16px;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  SubTitle2: css`
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  SubTitle3: css`
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: 0;
+  `,
+  SubTitle4: css`
+    font-size: 15px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  SubTitle5: css`
+    font-size: 13px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.02em;
   `,
 
-  beerNameList: css`
-    font-size: 1.23rem;
+  Body1: css`
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.01em;
+  `,
+  Body2: css`
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.01em;
+  `,
+  Body3: css`
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+  `,
+  Body4: css`
+    font-size: 13px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  Body5: css`
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: -0.02em;
+  `,
+
+  SmallBold1: css`
+    font-size: 14px;
+    font-weight: 800;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  SmallBold2: css`
+    font-size: 12px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.02em;
+  `,
+  SmallBold3: css`
+    font-size: 10px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.02em;
+  `,
+
+  Abbr1: css`
+    font-size: 36px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  Abbr2: css`
+    font-size: 26px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+  Abbr3: css`
+    font-size: 20px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 0;
+  `,
+
+  BarlowBig: css`
+    font-size: 32px;
     font-weight: 600;
-    line-height: 19px;
+    line-height: normal;
+    letter-spacing: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+  `,
+  BarlowSmall: css`
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.02em;
+    font-family: 'Barlow Condensed', sans-serif;
   `,
 } as const;
