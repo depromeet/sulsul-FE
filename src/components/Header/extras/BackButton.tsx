@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import BaseHeaderIconButton from './BaseIconButton';
 
-import { BackIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 interface BackButtonProps {
   onClick?: (e?: MouseEvent) => void;
@@ -20,7 +20,7 @@ const BackButton = ({ className, onClick }: BackButtonProps) => {
       iconColor="whiteOpacity50"
       onClick={onClick ?? router.back}
     >
-      <BackIcon />
+      <Icon name="Back" />
     </BaseHeaderIconButton>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
-import { BookmarkIcon } from '@/assets/icon';
 import Emoji from '@/components/Emoji';
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
+import Icon from '@/components/commons/Icon';
 
 type BeerListItemProps = Pick<
   Beer,
@@ -28,7 +28,11 @@ const BeerListItem = (props: Props) => {
         <Emoji feel={feel} />
       </StyledEmoji>
       <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-        <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
+        {isLiked || isBookMarked ? (
+          <Icon name="Bookmark" size={30} />
+        ) : (
+          <Icon name="BookmarkActive" size={30} />
+        )}
       </BookmarkButton>
       <StyledBeerImageMasking width="9%">
         <BeerImage src={imageUrl} />
@@ -112,11 +116,4 @@ const BeerName = styled.div`
 const BeerInfo = styled.div`
   font-size: 1rem;
   color: ${({ theme }) => theme.color.whiteOpacity80};
-`;
-
-const StyledBookMarkIcon = styled(BookmarkIcon)<{ isLiked: boolean; isBookMarked: boolean }>`
-  path {
-    fill: ${({ theme, isLiked, isBookMarked }) =>
-      isLiked || isBookMarked ? theme.color.white : 'none'};
-  }
 `;

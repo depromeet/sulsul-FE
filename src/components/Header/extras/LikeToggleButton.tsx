@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 
 import BaseHeaderIconButton from './BaseIconButton';
 
-import { HeartOutlinedIcon, HeartIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 interface LikeToggleButtonProps {
   defaultIsLiking: boolean;
@@ -29,7 +29,7 @@ const LikeToggleButton = ({ defaultIsLiking, onLike, onUnLike }: LikeToggleButto
       iconColor="white"
       onClick={isLiking ? handleUnLike : handleLike}
     >
-      {isLiking ? <HeartIcon /> : <HeartOutlinedIcon />}
+      {isLiking ? <Icon name="Heart" /> : <Icon name="HeartOutlined" />}
     </BaseHeaderIconButton>
   );
 };

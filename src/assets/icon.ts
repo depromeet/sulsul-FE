@@ -3,6 +3,7 @@ export { ReactComponent as BackIcon } from './back.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
 export { ReactComponent as FlightTakeOffIcon } from './flight_takeoff.svg';
 export { ReactComponent as BookmarkIcon } from './bookmark.svg';
+export { ReactComponent as BookmarkActiveIcon } from './bookmark_active.svg';
 export { ReactComponent as GoodIcon } from './emoji_good.svg';
 export { ReactComponent as SosoIcon } from './emoji_soso.svg';
 export { ReactComponent as BestIcon } from './emoji_best.svg';

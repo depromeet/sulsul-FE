@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import clipboard from 'clipboard-polyfill';
 
-import { ShareIcon, BookmarkIcon } from '@/assets/icon';
 import { Beer } from '@/types/Beer';
+import Icon from '@/components/commons/Icon';
 
 type BeerDetailProp = {
   url: string;
@@ -50,10 +50,14 @@ const BeerDetail = (props: BeerDetailProps) => {
                 alert(url);
               }}
             >
-              <ShareIcon />
+              <Icon name="Share" size={30} />
             </IconButton>
             <IconButton onClick={() => setIsBookmarked((prev) => !prev)}>
-              <StyledBookMarkIcon isLiked={isLiked} isBookMarked={isBookMarked} />
+              {isLiked || isBookMarked ? (
+                <Icon name="Bookmark" size={30} />
+              ) : (
+                <Icon name="BookmarkActive" size={30} />
+              )}
             </IconButton>
           </IconWrapper>
         </TitleAndIconContainer>
@@ -134,13 +138,6 @@ const IconButton = styled.button`
   > svg {
     width: 30px;
     height: 30px;
-  }
-`;
-
-const StyledBookMarkIcon = styled(BookmarkIcon)<{ isLiked: boolean; isBookMarked: boolean }>`
-  path {
-    fill: ${({ theme, isLiked, isBookMarked }) =>
-      isLiked || isBookMarked ? theme.color.white : 'none'};
   }
 `;
 

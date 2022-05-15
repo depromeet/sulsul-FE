@@ -2,8 +2,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import IconButton from './IconButton';
 
-import { LikeIcon } from '@/assets/icon';
-
 export default {
   title: 'Commons/IconButton',
   argTypes: {
