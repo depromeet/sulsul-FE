@@ -22,6 +22,7 @@ const customReset = css`
     background-color: transparent;
     border: 0;
     border: none;
+    padding: 0;
     cursor: pointer;
   }
 
@@ -84,7 +85,7 @@ const global = css`
     // https://github.com/orioncactus/pretendard
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue',
       'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Barlow Condensed', sans-serif;
   }
 `;
 

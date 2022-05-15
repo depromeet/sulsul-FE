@@ -110,7 +110,7 @@ const BeerNameEng = styled.div`
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 17px;
-  color: ${({ theme }) => theme.color.grey};
+  color: ${({ theme }) => theme.color.grey4};
 `;
 
 const IconWrapper = styled.div`

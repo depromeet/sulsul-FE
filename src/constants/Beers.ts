@@ -6,13 +6,14 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
       },
     },
     type: '위트 에일',
-    name: '제주 위트 에일',
+    name: '제주 위트 에일제주 위트 에일제주 위트 에일',
     nameEng: 'Jeju Wit Ale',
     imageUrl: 'https://ifh.cc/g/X6B8Ra.png',
     content:
@@ -28,6 +29,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -50,6 +52,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -72,6 +75,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -94,6 +98,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -116,6 +121,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -138,6 +144,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -160,6 +167,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -182,6 +190,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -204,6 +213,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -226,6 +236,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -248,6 +259,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -270,6 +282,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -292,6 +305,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -314,6 +328,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -336,6 +351,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',
@@ -358,6 +374,7 @@ export const Beers: Beer[] = [
     country: {
       id: 1,
       name: '한국',
+      nameEng: 'korea',
       continent: {
         id: 1,
         name: '아시아',

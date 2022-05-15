@@ -2,6 +2,7 @@ import { Global, css } from '@emotion/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from 'emotion-theming';
 import { RecoilRoot } from 'recoil';
+import { RouterContext } from "next/dist/shared/lib/router-context";
 
 import { theme, GlobalStyle } from '../src/themes';
 
@@ -23,6 +24,9 @@ export const parameters = {
       order: ['Design System', 'Commons', 'Components', 'Pages'],
     },
   },
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
 };
 
 export const decorators = [
@@ -32,7 +36,13 @@ export const decorators = [
         <GlobalStyle />
         <Global
           styles={css`
+            html,
+            #root {
+              height: 100%;
+            }
+
             body {
+              height: 100%;
               padding: 0 !important;
               background-color: ${({ theme }) => theme.semanticColor.background};
             }

@@ -1,6 +1,13 @@
 import { SerializedStyles } from '@emotion/react';
 
-const globalColorGroupNames = ['white', 'black', 'whiteOpacity'] as const;
+const globalColorGroupNames = [
+  'white',
+  'black',
+  'whiteOpacity',
+  'grey',
+  'blueOpacity',
+  'yellowOpacity',
+] as const;
 export type GlobalColorGroup = typeof globalColorGroupNames[number];
 export function isGlobalColorGroup(str: string): str is GlobalColorGroup {
   return globalColorGroupNames.includes(str as GlobalColorGroup);
@@ -13,8 +20,10 @@ type MakeTokenSet<
 export type ColorToken =
   | 'white'
   | 'blue'
+  | MakeTokenSet<'blueOpacity', [25]>
+  | MakeTokenSet<'yellowOpacity', [20]>
   | 'yellow'
-  | 'grey'
+  | MakeTokenSet<'grey', [0, 1, 2, 3, 4, 5]>
   | 'red'
   | MakeTokenSet<'black', [100, 80]>
   | MakeTokenSet<'whiteOpacity', [80, 65, 50, 35, 20, 0]>;
@@ -38,13 +47,30 @@ export type ColorTheme = {
 };
 
 export type FontToken =
-  | 'mainTitle'
-  | 'subTitle'
-  | 'subTitleEng'
-  | 'contentTitle'
-  | 'content'
-  | 'beerNameGrid'
-  | 'beerNameList';
+  | 'H1'
+  | 'H2'
+  | 'H3'
+  | 'H4'
+  | 'H5'
+  | 'H6'
+  | 'SubTitle1'
+  | 'SubTitle2'
+  | 'SubTitle3'
+  | 'SubTitle4'
+  | 'SubTitle5'
+  | 'Body1'
+  | 'Body2'
+  | 'Body3'
+  | 'Body4'
+  | 'Body5'
+  | 'SmallBold1'
+  | 'SmallBold2'
+  | 'SmallBold3'
+  | 'Abbr1'
+  | 'Abbr2'
+  | 'Abbr3'
+  | 'BarlowBig'
+  | 'BarlowSmall';
 
 export type FontScheme = Record<FontToken, SerializedStyles>;
 

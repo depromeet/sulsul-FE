@@ -2,6 +2,7 @@ import { useState, useEffect, ReactChild, useRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 
 import { ColorTheme } from '@/themes/types';
+import { hideScrollbar } from '@/styles/common';
 
 type TabType = 'primary' | 'secondary';
 type TabSize = 'small' | 'large';
@@ -21,17 +22,14 @@ interface TabProps {
   onChange?: (activatedIndex: number) => void;
 }
 
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const StyledTabList = styled.ul<Pick<TabProps, 'size'>>`
   display: flex;
   flex-shrink: 0;
   width: 100%;
   padding: ${(p) => (p.size ? '12px 20px;' : '8px 20px;')};
   overflow-x: scroll;
+
+  ${hideScrollbar};
 `;
 
 const getTabItemBackgroundColor = ({
@@ -168,7 +166,7 @@ const Tab = ({
   }, [activatedIndex, onChange, scrollToActivatedTabItem]);
 
   return (
-    <StyledWrapper className={className}>
+    <>
       <StyledTabList ref={tabListRef} size={size}>
         {tabItems.map((tabItem, index) => {
           const isSelected = activatedIndex === index;
@@ -192,7 +190,7 @@ const Tab = ({
        * 배열인 경우 activatedIndex번째의 children을 렌더링하고,
        * 배열이 아닌 경우 children을 그대로 랜더링한다. */}
       {Array.isArray(children) ? children[activatedIndex] : children}
-    </StyledWrapper>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 export interface CountryType {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
+  nameEng?: string;
   continent?: {
     id: number;
     name: string;
