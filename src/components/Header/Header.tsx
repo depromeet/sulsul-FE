@@ -25,6 +25,7 @@ const StyledHeader = styled.header<Pick<HeaderProps, 'isTransparent'>>`
   width: 100%;
   height: ${HEADER_HEIGHT}px;
   padding: 0 20px;
+  z-index: 100;
 
   background-color: ${(p) => (p.isTransparent ? 'transparent' : p.theme.color.black100)};
 

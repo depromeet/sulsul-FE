@@ -66,7 +66,7 @@ const AirPort = (props: AirPortProps) => {
   return (
     <StyledAirPort {...rest} className={className}>
       <AirPortItem title="출발지" kor={departureKor} eng={departureEng} />
-      <Icon name="FlyingAirplaine" className="flying-airplane-icon" />
+      <Icon name="FlyingAirplane" className="flying-airplane-icon" />
       <AirPortItem title="도착지" kor={destinationKor} eng={destinationEng} />
     </StyledAirPort>
   );

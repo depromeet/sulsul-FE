@@ -45,7 +45,7 @@ const StyledReview = styled.div<{ border?: boolean }>`
   display: flex;
   width: 100%;
   padding: 15px 0;
-  border-bottom: ${({ border }) => border && '0.25px solid #cccccc'};
+  border-bottom: ${({ border }) => border && '1px solid rgba(255, 255, 255, 0.2)'};
 `;
 
 const StyledEmoji = styled(Emoji)`
@@ -69,23 +69,17 @@ const UserAndDate = styled.div`
 const User = styled.p`
   display: flex;
   gap: 8px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 17px;
+  ${({ theme }) => theme.fonts.Body2}
   color: ${({ theme }) => theme.color.white};
 `;
 
 const Date = styled.p`
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 155.02%;
-  color: ${({ theme }) => theme.color.whiteOpacity80};
+  ${({ theme }) => theme.fonts.SubTitle5}
+  color: ${({ theme }) => theme.color.whiteOpacity65};
 `;
 
 const Content = styled.p`
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 160%;
+  ${({ theme }) => theme.fonts.Body5}
   color: ${({ theme }) => theme.color.white};
   margin-bottom: 19px;
   word-break: break-word;

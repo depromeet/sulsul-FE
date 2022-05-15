@@ -22,11 +22,13 @@ export const theme: Readonly<ColorTheme & FontTheme> = {
       grey4: '#989898',
       grey5: '#222222',
 
+      whiteOpacity90: 'rgba(255, 255, 255, 0.9)',
       whiteOpacity80: 'rgba(255, 255, 255, 0.8)',
       whiteOpacity65: 'rgba(255, 255, 255, 0.65)',
       whiteOpacity50: 'rgba(255, 255, 255, 0.5)',
       whiteOpacity35: 'rgba(255, 255, 255, 0.35)',
       whiteOpacity20: 'rgba(255, 255, 255, 0.2)',
+      whiteOpacity10: 'rgba(255, 255, 255, 0.1)',
       whiteOpacity0: 'rgba(255, 255, 255, 0)',
     },
     semanticColor: {

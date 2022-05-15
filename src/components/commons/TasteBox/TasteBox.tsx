@@ -81,7 +81,7 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
     color: ${({ theme }) => theme.color.white};
   }
   &.tasteBox--size-long {
-    width: calc(100% - 20px); //FixMe: 디자인 보고 조정 필요
+    width: 100%;
   }
   &.tasteBox--size-short {
     text-align: center;

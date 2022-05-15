@@ -8,7 +8,6 @@ import BeerDetailPage from './BeerDetailPage';
 export default {
   title: 'Pages/BeerDetailPage',
   component: BeerDetailPage,
-  args: {},
 } as ComponentMeta<typeof BeerDetailPage>;
 
 const Template: ComponentStory<typeof BeerDetailPage> = (args) => <BeerDetailPage {...args} />;
@@ -30,4 +29,16 @@ Default.args = {
   입문자들도 편하게 즐길 수 있다.`,
   tasteBoxAndBadge: [...TasteBoxAndBadges],
   review: [...Reviews],
+};
+
+Default.story = {
+  parameters: {
+    nextRouter: {
+      path: '/beer/[id]',
+      asPath: '/beer/1',
+      query: {
+        id: '1',
+      },
+    },
+  },
 };

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
 import BeerDetail, { BeerDetailProps } from '@/components/BeerDetail';
 import AirPort, { AirPortProps } from '@/components/AirPort';
@@ -6,9 +7,10 @@ import TasteBoxAndBadge, { TasteBoxAndBadgeProps } from '@/components/TasteBoxAn
 import Button from '@/components/commons/Button';
 import Icon from '@/components/commons/Icon';
 import Review, { ReviewProps } from '@/components/Review';
+import Header from '@/components/Header';
+import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
-import { useEffect, useState } from 'react';
 
 interface Props {
   beerDetail: BeerDetailProps;
@@ -43,9 +45,26 @@ const BeerDetailPage = (props: Props) => {
     backgroundImageUrl,
     airPort: { departureKor, departureEng, destinationKor, destinationEng },
     beerContent,
+    ...rests
   } = props;
   return (
-    <StyledBeerDetailPage>
+    <StyledBeerDetailPage {...rests}>
+      <Header
+        leftExtras={<StyledBackButton isScrolled={isScrolled} />}
+        rightExtras={
+          <>
+            <ShareButton />
+            <LikeToggleButton
+              defaultIsLiking={true}
+              onLike={async () => alert('좋아요')}
+              onUnLike={async () => alert('좋아요 해제')}
+            />
+          </>
+        }
+        isTransparent={true}
+      >
+        {beer.name}
+      </Header>
       <BackgroundImage isScrolled={isScrolled}>
         <div className="image-container">
           <img src={backgroundImageUrl} alt="" />
@@ -68,8 +87,8 @@ const BeerDetailPage = (props: Props) => {
         </TasteBoxAndBadgeContainer>
       </div>
       <HorizontalDivider />
-      <div className="container">
-        <ThisBeer>이 맥주는 말이지,</ThisBeer>
+      <div className="container" style={{ backgroundColor: 'black' }}>
+        <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
         {Reviews.map((review, index) => (
           <Review
             key={index}
@@ -83,9 +102,10 @@ const BeerDetailPage = (props: Props) => {
             border={review.border}
           />
         ))}
+        <div style={{ height: '90px' }} />
       </div>
       <BottomGradientContainer>
-        <Button type="primary" width="244px" leftAddon={<Icon name="FlightTakeOff" size={20} />}>
+        <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
           기록하기
         </Button>
       </BottomGradientContainer>
@@ -102,10 +122,10 @@ const StyledBeerDetailPage = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.semanticColor.background}; // 제거 예정
+  z-index: 0;
 
   & > .container {
     padding: 0 20px;
-    z-index: 2;
   }
 `;
 
@@ -113,13 +133,14 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
   width: 100%;
   background-color: ${({ theme }) => theme.semanticColor.background};
+  z-index: -1;
 
   & > .image-container {
     position: relative;
-    display: ${({ isScrolled }) => (isScrolled ? 'none' : 'block')};
+    display: ${({ isScrolled }) =>
+      isScrolled ? 'none' : 'block'}; // TODO: scroll 인터랙션 추가하며 수정 필요
 
     & > img {
       width: 100%;
@@ -134,25 +155,20 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
       width: 100%;
       height: 79px;
       background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 76.88%);
-      z-index: 1;
     }
   }
 `;
 
 const StyledBeerDetail = styled(BeerDetail)`
   width: 100%;
-  z-index: 2;
   margin-top: 134px;
 `;
 
 const StyledAirPort = styled(AirPort)``;
 
 const BeerContent = styled.p`
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-  color: #dddddd;
-  padding: 0 10px;
+  ${({ theme }) => theme.fonts.Body5};
+  color: ${({ theme }) => theme.color.grey1};
 `;
 
 const TasteBoxAndBadgeContainer = styled.div`
@@ -171,23 +187,25 @@ const BottomGradientContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 118px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 48.75%);
-  z-index: 3;
+  height: 90px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 40.1%);
 `;
 
 const HorizontalDivider = styled.div`
   width: 100%;
   height: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: ${({ theme }) => theme.color.whiteOpacity10};
 `;
 
 const ThisBeer = styled.p`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.03em;
-  color: #ffffff;
+  ${({ theme }) => theme.fonts.SubTitle2};
+  color: ${({ theme }) => theme.color.white};
   margin-right: auto;
   margin: 26px 0;
+`;
+
+const StyledBackButton = styled(BackButton)<{ isScrolled: boolean }>`
+  svg {
+    fill: ${(p) => (p.isScrolled ? p.theme.color.white : p.theme.color.whiteOpacity50)};
+  }
 `;
