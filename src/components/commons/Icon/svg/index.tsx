@@ -23,6 +23,7 @@ import {
   NavTravelActive,
   Plus,
   AirplaneIcon as Airplane,
+  RandomIcon as Random,
 } from '@/assets/icon';
 
 export const svg = {
@@ -50,4 +51,5 @@ export const svg = {
   NavTravelActive,
   Plus,
   Airplane,
+  Random,
 };

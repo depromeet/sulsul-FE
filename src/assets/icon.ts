@@ -31,3 +31,4 @@ export { ReactComponent as SaveIcon } from './save.svg';
 export { ReactComponent as WriteIcon } from './write.svg';
 export { ReactComponent as XIcon } from './x.svg';
 export { ReactComponent as AirplaneIcon } from './airplane.svg';
+export { ReactComponent as RandomIcon } from './random.svg';
