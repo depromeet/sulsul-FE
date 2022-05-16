@@ -2,7 +2,7 @@ import { MouseEvent } from 'react';
 
 import BaseHeaderIconButton from './BaseIconButton';
 
-import { XIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 interface CloseButtonProps {
   onClick?: (e?: MouseEvent) => void;
@@ -11,7 +11,7 @@ interface CloseButtonProps {
 const CloseButton = ({ onClick }: CloseButtonProps) => {
   return (
     <BaseHeaderIconButton aria-label="닫기" iconColor="white" iconSize={24} onClick={onClick}>
-      <XIcon />
+      <Icon name="X" />
     </BaseHeaderIconButton>
   );
 };

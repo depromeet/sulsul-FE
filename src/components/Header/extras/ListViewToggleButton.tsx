@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import BaseHeaderIconButton from './BaseIconButton';
 
-import { GridViewIcon, ListViewIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 export type ListType = 'grid' | 'list';
 
@@ -42,7 +42,7 @@ const ListViewToggleButton = ({ onChange = () => null }: ListViewToggleButtonPro
         iconColor={getIconColor(type === 'grid')}
         onClick={handleTypeChange('grid')}
       >
-        <GridViewIcon />
+        <Icon name="GridView" />
       </BaseHeaderIconButton>
       <BaseHeaderIconButton
         aria-label="리스트 뷰로 보기"
@@ -50,7 +50,7 @@ const ListViewToggleButton = ({ onChange = () => null }: ListViewToggleButtonPro
         iconColor={getIconColor(type === 'list')}
         onClick={handleTypeChange('list')}
       >
-        <ListViewIcon />
+        <Icon name="ListView" />
       </BaseHeaderIconButton>
     </StyledWrapper>
   );
