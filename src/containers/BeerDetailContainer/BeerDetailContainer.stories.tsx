@@ -3,7 +3,7 @@ import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import BeerDetailPage from './BeerDetailPage';
+import BeerDetailPage from './BeerDetailContainer';
 
 export default {
   title: 'Pages/BeerDetailPage',
