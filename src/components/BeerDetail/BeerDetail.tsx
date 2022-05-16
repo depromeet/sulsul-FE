@@ -36,23 +36,6 @@ const BeerDetail = (props: BeerDetailProps) => {
             <BeerName>{name}</BeerName>
             <BeerNameEng>{nameEng}</BeerNameEng>
           </BeerNameWrapper>
-          <IconWrapper>
-            <Icon
-              name="Share"
-              size={40}
-              onClick={() => {
-                clipboard.writeText(window.location.href);
-                alert(`주소가 복사되었습니다. ${window.location.href}`);
-              }}
-            />
-
-            <Icon
-              name="Bookmark"
-              size={40}
-              color={isLiked || isBookMarked ? 'white' : 'none'}
-              onClick={() => setIsBookmarked((prev) => !prev)}
-            />
-          </IconWrapper>
         </TitleAndIconContainer>
       ) : undefined}
       <InfoAndBeerImage>
