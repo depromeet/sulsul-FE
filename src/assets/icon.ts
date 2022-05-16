@@ -1,4 +1,5 @@
 export { ReactComponent as CheckIcon } from './check.svg';
+export { ReactComponent as Cloud } from './cloud.svg';
 export { ReactComponent as HistoryIcon } from './history.svg';
 export { ReactComponent as BackIcon } from './back.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
@@ -17,6 +18,7 @@ export { ReactComponent as HeartIcon } from './heart.svg';
 export { ReactComponent as LikeIcon } from './like.svg';
 export { ReactComponent as HomeIcon } from './home.svg';
 export { ReactComponent as ListViewIcon } from './list-view.svg';
+export { ReactComponent as Logo } from './logo.svg';
 export { ReactComponent as PhotoIcon } from './photo.svg';
 export { ReactComponent as NavHome } from './nav_home.svg';
 export { ReactComponent as NavBeer } from './nav_beer.svg';
