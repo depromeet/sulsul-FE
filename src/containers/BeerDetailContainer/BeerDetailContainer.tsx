@@ -23,15 +23,19 @@ interface Props {
 
 const BeerDetailPage = (props: Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isTransparent, setIsTransparent] = useState(true);
 
   useEffect(() => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
 
-      if (scrollY > 128) {
+      // TODO: scrollY 값 수정 필요
+      if (scrollY > 158) {
         setIsScrolled(true);
-      } else if (scrollY < 20) {
+        setIsTransparent(false);
+      } else if (scrollY < 158) {
         setIsScrolled(false);
+        setIsTransparent(true);
       }
     };
     window.addEventListener('scroll', scrollEventListener, { passive: true });
@@ -61,7 +65,7 @@ const BeerDetailPage = (props: Props) => {
             />
           </>
         }
-        isTransparent={true}
+        isTransparent={isTransparent}
       >
         {beer.name}
       </Header>

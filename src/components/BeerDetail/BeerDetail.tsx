@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import * as clipboard from 'clipboard-polyfill/text';
 
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import { LikeToggleButton, ShareButton } from '@/components/Header/extras';
 
 export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
 
@@ -16,7 +14,6 @@ export type BeerDetailProps = {
 const BeerDetail = (props: BeerDetailProps) => {
   const {
     beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume },
-    isCompact = false,
     ...rest
   } = props;
 
@@ -29,15 +26,14 @@ const BeerDetail = (props: BeerDetailProps) => {
   ];
 
   return (
-    <StyledBeerDetail isCompact={isCompact} {...rest}>
-      {!isCompact ? (
-        <TitleAndIconContainer>
-          <BeerNameWrapper>
-            <BeerName>{name}</BeerName>
-            <BeerNameEng>{nameEng}</BeerNameEng>
-          </BeerNameWrapper>
-        </TitleAndIconContainer>
-      ) : undefined}
+    <StyledBeerDetail {...rest}>
+      <TitleAndIconContainer>
+        <BeerNameWrapper>
+          <BeerName>{name}</BeerName>
+          <BeerNameEng>{nameEng}</BeerNameEng>
+        </BeerNameWrapper>
+      </TitleAndIconContainer>
+
       <InfoAndBeerImage>
         <InfoTableWrapper>
           {beerInfo.map(({ title, content }) => (
@@ -57,12 +53,12 @@ const BeerDetail = (props: BeerDetailProps) => {
 
 export default BeerDetail;
 
-const StyledBeerDetail = styled.div<{ isCompact: boolean }>`
+const StyledBeerDetail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: auto;
-  min-height: ${(p) => (p.isCompact ? '11.87rem' : '17.48rem')};
+  min-height: 17.48rem;
   padding: 1.7rem;
   background-color: ${({ theme }) => theme.color.black80};
   border-radius: 0.9rem;
@@ -81,7 +77,7 @@ const BeerNameWrapper = styled.div`
   flex-direction: column;
 `;
 
-const BeerName = styled.div`
+const BeerName = styled.h1`
   font-size: 1.7rem;
   font-weight: 700;
   line-height: 26px;
@@ -89,17 +85,11 @@ const BeerName = styled.div`
   margin-bottom: 0.6rem;
 `;
 
-const BeerNameEng = styled.div`
+const BeerNameEng = styled.h1`
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 17px;
   color: ${({ theme }) => theme.color.grey4};
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  height: fit-content;
-  gap: 10px;
 `;
 
 const InfoAndBeerImage = styled.div`
