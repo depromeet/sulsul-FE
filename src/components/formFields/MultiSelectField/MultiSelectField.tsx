@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled from '@emotion/styled';
+import { isNil } from 'lodash';
 
 import MultiSelect from './MultiSelect';
 
@@ -22,44 +23,30 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = <T extends any>({
   height,
   maxLength,
 }: MultiSelectFieldProps<T>) => {
-  const {
-    control,
-    setError,
-    formState: { errors },
-    clearErrors,
-  } = useFormContext();
+  const { control } = useFormContext();
 
-  const error = errors?.[name];
-
-  const handleSetError = useCallback(
-    (errorMessage: string) => {
-      setError(name, { message: errorMessage });
-    },
-    [name, setError],
+  const rules = useMemo(
+    () => (!isNil(maxLength) ? { validate: (value: T[]) => value.length <= maxLength } : undefined),
+    [maxLength],
   );
-
-  const handleClearError = useCallback(() => {
-    clearErrors(name);
-  }, [name, clearErrors]);
 
   return (
     <StyledMultiSelectField>
       <Controller
         control={control}
         name={name}
-        render={({ field: { value, onChange } }) => (
+        rules={rules}
+        render={({ field: { value, onChange, onBlur } }) => (
           <MultiSelect
             options={options}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
             height={height}
             maxLength={maxLength}
-            setError={handleSetError}
-            clearError={handleClearError}
           />
         )}
       />
-      {error && <ErrorMessage message={error?.message} />}
     </StyledMultiSelectField>
   );
 };

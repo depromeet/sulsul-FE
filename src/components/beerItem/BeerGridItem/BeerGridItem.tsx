@@ -46,7 +46,7 @@ const StyledBeerGridItem = styled.div`
 `;
 
 const BeerName = styled.div`
-  ${({ theme }) => theme.fonts.beerNameGrid}
+  ${({ theme }) => theme.fonts.SubTitle5}
   color: ${({ theme }) => theme.color.white};
   text-align: center;
   max-width: 7.5rem;

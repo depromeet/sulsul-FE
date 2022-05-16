@@ -37,7 +37,13 @@ export const decorators = [
         <GlobalStyle />
         <Global
           styles={css`
+            html,
+            #root {
+              height: 100%;
+            }
+
             body {
+              height: 100%;
               padding: 0 !important;
               background-color: ${({ theme }) => theme.semanticColor.background};
             }

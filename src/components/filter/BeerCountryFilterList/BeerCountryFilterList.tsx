@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import BeerCountryFilterItem, { SelectAllButton } from '../BeerCountryFilterItem';
 
 interface BeerCountryFilterListProps {
-  continent: { id: number; name: string };
+  continent?: { id: number; name: string };
   selectedCountryIds: number[];
   setSelectedCountryIds: (selectedCountryIds: number[]) => void;
   /** 전체보기 버튼 여부 (default:false) */
@@ -59,7 +59,9 @@ const BeerCountryFilterList = ({
 
   return (
     <StyledWrapper>
-      {hasSelectAllButton && <SelectAllButton onClick={selectAll} continentName={continent.name} />}
+      {hasSelectAllButton && continent && (
+        <SelectAllButton onClick={selectAll} continentName={continent.name} />
+      )}
       {MOCK_COUNTRIES.map((country) => (
         <BeerCountryFilterItem
           key={country.id}
