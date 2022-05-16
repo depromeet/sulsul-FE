@@ -87,6 +87,7 @@ const global = css`
       'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
       'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     background-color: #000000;
+    color: #ffffff;
   }
 `;
 
