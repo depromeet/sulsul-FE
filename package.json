@@ -25,8 +25,8 @@
     "lint": "next lint",
     "prettier": "prettier --write **/*.{ts,tsx}",
     "tsc": "tsc",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006 -s ./public",
+    "build-storybook": "build-storybook -s ./public"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
