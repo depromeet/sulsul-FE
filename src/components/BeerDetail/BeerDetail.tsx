@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import * as clipboard from 'clipboard-polyfill/text';
 
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import Icon from '@/components/commons/Icon';
+import { LikeToggleButton, ShareButton } from '@/components/Header/extras';
 
 export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
 
@@ -15,11 +15,11 @@ export type BeerDetailProps = {
 
 const BeerDetail = (props: BeerDetailProps) => {
   const {
-    beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume, isLiked },
+    beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume },
     isCompact = false,
     ...rest
   } = props;
-  const [isBookMarked, setIsBookmarked] = useState(false);
+
   const beerInfo = [
     { title: '종류', content: type },
     { title: '원산지', content: country?.name },
@@ -98,17 +98,8 @@ const BeerNameEng = styled.div`
 
 const IconWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
-`;
-
-const IconButton = styled.button`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
+  height: fit-content;
+  gap: 10px;
 `;
 
 const InfoAndBeerImage = styled.div`

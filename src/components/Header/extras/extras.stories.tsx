@@ -9,6 +9,7 @@ import {
   OKTextButton,
   SaveButton,
   WriteButton,
+  ShareButton,
 } from '.';
 
 export default {
@@ -60,6 +61,7 @@ export const extras = () => {
       <h1>Header extras</h1>
       {renderExtra('BackButton', <BackButton />)}
       {renderExtra('CloseButton', <CloseButton />)}
+      {renderExtra('ShareButton', <ShareButton />)}
       {renderExtra(
         'LikeToggleButton',
         <LikeToggleButton

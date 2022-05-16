@@ -1,7 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { LikeIcon } from '@/assets/icon';
-
+import Icon from '@/components/commons/Icon';
 import Badge from './Badge';
 
 export default {
@@ -20,8 +19,8 @@ export default {
 const Template: ComponentStory<typeof Badge> = ({ leftAddon, rightAddon, ...args }) => (
   <Badge
     {...args}
-    leftAddon={leftAddon ? <LikeIcon /> : undefined}
-    rightAddon={rightAddon ? <LikeIcon /> : undefined}
+    leftAddon={leftAddon ? <Icon name="Like" /> : undefined}
+    rightAddon={rightAddon ? <Icon name="Like" /> : undefined}
   />
 );
 
