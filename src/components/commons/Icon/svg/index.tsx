@@ -10,7 +10,8 @@ import {
   FlyingAirplaneIcon as FlyingAirplane,
   ShareIcon as Share,
   LikeIcon as Like,
-  BookmarkIcon as Bookmark,
+  HeartIcon as Heart,
+  HeartOutlinedIcon as HeartOutlined,
   HomeIcon as Home,
   PhotoIcon as Photo,
   NavHome,
@@ -24,6 +25,12 @@ import {
   Plus,
   AirplaneIcon as Airplane,
   RandomIcon as Random,
+  BackIcon as Back,
+  XIcon as X,
+  GridViewIcon as GridView,
+  ListViewIcon as ListView,
+  WriteIcon as Write,
+  SaveIcon as Save,
 } from '@/assets/icon';
 
 export const svg = {
@@ -38,7 +45,8 @@ export const svg = {
   FlyingAirplane,
   Share,
   Like,
-  Bookmark,
+  Heart,
+  HeartOutlined,
   Home,
   Photo,
   NavHome,
@@ -52,4 +60,10 @@ export const svg = {
   Plus,
   Airplane,
   Random,
+  Back,
+  X,
+  GridView,
+  ListView,
+  Write,
+  Save,
 };

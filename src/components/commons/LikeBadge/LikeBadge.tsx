@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import type { HTMLAttributes } from 'react';
 
-import { LikeIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -14,7 +14,7 @@ const LikeBadge = (props: Props) => {
   return (
     <StyledLikeBadge className={className} {...rest}>
       <span className="common-badge-icon-wrapper">
-        <LikeIcon />
+        <Icon name="Like" />
       </span>
       <span className="common-badge-text">{likeCount}</span>
     </StyledLikeBadge>

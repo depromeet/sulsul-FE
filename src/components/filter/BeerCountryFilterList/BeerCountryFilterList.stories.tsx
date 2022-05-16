@@ -19,6 +19,7 @@ const Template: ComponentStory<typeof BeerCountryFilterList> = (args) => {
       {...args}
       selectedCountryIds={selectedCountryIds}
       setSelectedCountryIds={setSelectedCountryIds}
+      continent={{ id: 1, name: '아시아' }}
     />
   );
 };

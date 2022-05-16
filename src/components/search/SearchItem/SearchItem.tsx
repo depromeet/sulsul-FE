@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 
 import useSearchHistory from '@/hooks/useSearchHistory';
-import { HistoryIcon, SearchIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 export type SearchIconType = 'search' | 'history';
 
@@ -53,7 +53,7 @@ const SearchItem: React.FC<SearchItemProps> = ({
     <StyledSearchItem onClick={onClick} className={className}>
       <div className="search-item-side">
         <span className="search-item-icon-wrapper">
-          {type === DEFAULT_ICON_TYPE ? <SearchIcon /> : <HistoryIcon />}
+          {type === DEFAULT_ICON_TYPE ? <Icon name="Search" /> : <Icon name="History" />}
         </span>
         <span className="search-item-content">{renderedText}</span>
       </div>
