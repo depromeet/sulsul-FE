@@ -16,9 +16,7 @@ export default {
 
 const StyledH1 = styled.h1`
   padding: 12px 0 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: ${(p) => p.theme.color.white};
+  ${(p) => p.theme.fonts.SubTitle3}
 `;
 
 const StyledTabPage = styled.div`
