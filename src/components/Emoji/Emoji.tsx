@@ -19,12 +19,22 @@ const getEmoji = (feel?: number) => {
 
 interface EmojiProps {
   feel?: number | null;
+  className?: string;
+  size?: number;
 }
 
 const Emoji = (props: EmojiProps) => {
-  const { feel } = props;
+  const { feel, className, size = 36 } = props;
 
-  return <>{feel !== null ? <Icon name={getEmoji(feel)} size={36} /> : <EmptyEmoji />}</>;
+  return (
+    <>
+      {feel !== null ? (
+        <Icon name={getEmoji(feel)} size={size} className={className} />
+      ) : (
+        <EmptyEmoji />
+      )}
+    </>
+  );
 };
 
 export default Emoji;
