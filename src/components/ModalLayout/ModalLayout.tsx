@@ -12,6 +12,7 @@ const StyledContainer = styled.div<{ open: boolean }>`
   right: 0;
   width: 100vw;
   max-width: 768px;
+  margin: 0 auto;
   height: 100vh;
 
   overflow: hidden;

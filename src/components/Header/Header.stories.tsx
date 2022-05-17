@@ -26,7 +26,9 @@ export default {
         {Array(100)
           .fill(0)
           .map((_, index) => (
-            <p key={index}>스크롤</p>
+            <p key={index} style={{ color: 'white' }}>
+              스크롤
+            </p>
           ))}
       </main>
     ),
@@ -94,7 +96,7 @@ export const 맥주_상세_페이지: ComponentStoryObj<typeof Header> = {
     (Story) => (
       <>
         <Story />
-        <p>
+        <p style={{ color: 'white' }}>
           맥주 상세 페이지 스토리만 아래처럼 동작하도록 설정했습니다.
           <br />
           isTransparent == true: 스크롤이 상단에 있을 때

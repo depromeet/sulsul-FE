@@ -59,6 +59,8 @@ const StyledBottomNavigation = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
   height: 64px;
   display: flex;
   justify-content: space-around;

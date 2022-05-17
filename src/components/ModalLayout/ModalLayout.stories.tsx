@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
 
+import Button from '../commons/Button';
 import ModalLayout from './ModalLayout';
 
 export default {
   title: 'Components/ModalLayout',
   component: ModalLayout,
 } as ComponentMeta<typeof ModalLayout>;
-
-const white = '#fff';
 
 const StyledWrapper = styled.div<{ open: boolean }>`
   position: absolute;
@@ -24,7 +23,7 @@ const StyledWrapper = styled.div<{ open: boolean }>`
   padding: 1.6rem;
   border-radius: 1.6rem;
 
-  background-color: ${white};
+  background-color: ${(p) => p.theme.color.white};
 
   ${(p) => !p.open && `display:none;`}
 
@@ -41,7 +40,7 @@ const Template: ComponentStory<typeof ModalLayout> = (args) => {
 
   return (
     <>
-      <button onClick={openModal}>Open Modal</button>
+      <Button onClick={openModal}>Open Modal</Button>
       <ModalLayout open={open} onClose={closeModal}>
         <StyledWrapper open={open}>
           <p>모달</p>

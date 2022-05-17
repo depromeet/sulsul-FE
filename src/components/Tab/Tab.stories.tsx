@@ -15,9 +15,10 @@ export default {
 } as ComponentMeta<typeof Tab>;
 
 const StyledH1 = styled.h1`
-  margin: 12px 0 8px;
+  padding: 12px 0 8px;
   font-size: 16px;
   font-weight: 600;
+  color: ${(p) => p.theme.color.white};
 `;
 
 const StyledTabPage = styled.div`
