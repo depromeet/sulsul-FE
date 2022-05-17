@@ -30,10 +30,10 @@ const BeerDetailPage = (props: Props) => {
       const scrollY = window.scrollY ?? window.pageYOffset;
 
       // TODO: scrollY 값 수정 필요
-      if (scrollY > 158) {
+      if (scrollY > 198) {
         setIsScrolled(true);
         setIsTransparent(false);
-      } else if (scrollY < 158) {
+      } else if (scrollY < 198) {
         setIsScrolled(false);
         setIsTransparent(true);
       }
@@ -125,7 +125,6 @@ const StyledBeerDetailPage = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.semanticColor.background}; // 제거 예정
   z-index: 0;
 
   & > .container {
@@ -136,9 +135,11 @@ const StyledBeerDetailPage = styled.div`
 const BackgroundImage = styled.div<{ isScrolled: boolean }>`
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 768px;
+  margin: 0 auto;
   width: 100%;
-  background-color: ${({ theme }) => theme.semanticColor.background};
   z-index: -1;
 
   & > .image-container {
@@ -187,6 +188,10 @@ const TasteBoxAndBadgeContainer = styled.div`
 const BottomGradientContainer = styled.div`
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 768px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
