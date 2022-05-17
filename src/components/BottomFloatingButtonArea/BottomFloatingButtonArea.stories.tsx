@@ -33,7 +33,7 @@ const Template: ComponentStory<typeof BottomFloatingButtonArea> = ({ ...args }) 
 export const 기록하기 = Template.bind({});
 기록하기.args = {
   button: (
-    <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
+    <Button type="primary" width="large" rightAddon={<Icon name="FlightTakeOff" />}>
       기록하기
     </Button>
   ),
@@ -41,7 +41,7 @@ export const 기록하기 = Template.bind({});
 export const 다른_맥주_추천_받기 = Template.bind({});
 다른_맥주_추천_받기.args = {
   button: (
-    <Button type="primary" width="244px" leftAddon={<Icon name="Random" />}>
+    <Button type="primary" width="large" leftAddon={<Icon name="Random" />}>
       다른 맥주 추천 받기
     </Button>
   ),
@@ -49,7 +49,7 @@ export const 다른_맥주_추천_받기 = Template.bind({});
 export const withHomeButton = Template.bind({});
 withHomeButton.args = {
   button: (
-    <Button type="primary" width="244px">
+    <Button type="primary" width="large">
       맥주 정보 보기
     </Button>
   ),
