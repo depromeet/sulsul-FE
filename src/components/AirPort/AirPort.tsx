@@ -27,22 +27,16 @@ const StyledAirPortItem = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 400;
-  font-size: 1.1rem;
-  line-height: 160%;
-  color: #dddddd;
+  ${({ theme }) => theme.fonts.Body2};
+  color: ${({ theme }) => theme.color.whiteOpacity65};
 `;
 const Eng = styled.div`
-  font-weight: 700;
-  font-size: 1.85rem;
-  line-height: 29px;
+  ${({ theme }) => theme.fonts.BarlowBig};
   color: ${({ theme }) => theme.color.white};
 `;
 const Kor = styled.div`
-  font-weight: 400;
-  font-size: 0.77rem;
-  line-height: 155.02%;
-  color: #dddddd;
+  ${({ theme }) => theme.fonts.Body4};
+  color: ${({ theme }) => theme.color.grey1};
 `;
 
 export interface AirPortProps {

@@ -24,9 +24,7 @@ const LikeBadge = (props: Props) => {
 export default LikeBadge;
 
 const StyledLikeBadge = styled.div`
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
+  ${({ theme }) => theme.fonts.SmallBold2}
   color: ${({ theme }) => theme.color.white};
   background-color: ${({ theme }) => theme.semanticColor.primary};
   border-radius: 38px;

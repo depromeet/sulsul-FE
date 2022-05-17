@@ -33,8 +33,12 @@ const BeerDetail = (props: BeerDetailProps) => {
           <BeerNameEng>{nameEng}</BeerNameEng>
         </BeerNameWrapper>
       </TitleAndIconContainer>
-
       <InfoAndBeerImage>
+        <BeerImageMaskingWrapper>
+          <BeerImageMasking width="24%">
+            <BeerImage src={imageUrl} />
+          </BeerImageMasking>
+        </BeerImageMaskingWrapper>
         <InfoTableWrapper>
           {beerInfo.map(({ title, content }) => (
             <InfoTable key={title}>
@@ -43,9 +47,6 @@ const BeerDetail = (props: BeerDetailProps) => {
             </InfoTable>
           ))}
         </InfoTableWrapper>
-        <StyledBeerImageMasking width="24%">
-          <BeerImage src={imageUrl} />
-        </StyledBeerImageMasking>
       </InfoAndBeerImage>
     </StyledBeerDetail>
   );
@@ -89,7 +90,8 @@ const BeerNameEng = styled.h1`
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 17px;
-  color: ${({ theme }) => theme.color.grey4};
+  color: ${({ theme }) => theme.color.whiteOpacity65};
+  margin-bottom: 30px;
 `;
 
 const InfoAndBeerImage = styled.div`
@@ -112,8 +114,9 @@ const Title = styled.p`
   font-size: 1.1rem;
   line-height: 160%;
   font-weight: 400;
-  color: ${({ theme }) => theme.color.white};
-  width: 5rem;
+  color: ${({ theme }) => theme.color.whiteOpacity80};
+  width: 40px;
+  margin-right: 16px;
 `;
 
 const Content = styled.p`
@@ -128,6 +131,15 @@ const BeerImage = styled.img`
   height: 100%;
 `;
 
+const BeerImageMaskingWrapper = styled.div`
+  width: 90px;
+  aspect-ratio: 1 / 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.color.whiteOpacity20};
+  margin-right: 30px;
+`;
 const StyledBeerImageMasking = styled(BeerImageMasking)`
   margin-left: auto;
   margin-right: 17px;
