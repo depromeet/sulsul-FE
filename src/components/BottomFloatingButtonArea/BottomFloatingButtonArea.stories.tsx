@@ -1,15 +1,17 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
+import Button from '@/components/commons/Button';
+import Icon from '@/components/commons/Icon';
 import BottomFloatingButtonArea from './BottomFloatingButtonArea';
 
 export default {
   title: 'Components/BottomFloatingButtonArea',
   component: BottomFloatingButtonArea,
   argTypes: {
-    type: { control: 'select', options: ['record', 'recommand', 'withHomeButton'] },
+    withHomeButton: { control: 'boolean' },
     isOnlyHomeButton: { control: 'boolean' },
   },
-  args: { isOnlyHomeButton: false },
+  args: { withHomeButton: false, isOnlyHomeButton: false },
   decorators: [
     (Story) => (
       <main>
@@ -30,13 +32,26 @@ const Template: ComponentStory<typeof BottomFloatingButtonArea> = ({ ...args }) 
 
 export const 기록하기 = Template.bind({});
 기록하기.args = {
-  type: 'record',
+  button: (
+    <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
+      기록하기
+    </Button>
+  ),
 };
 export const 다른_맥주_추천_받기 = Template.bind({});
 다른_맥주_추천_받기.args = {
-  type: 'recommand',
+  button: (
+    <Button type="primary" width="244px" leftAddon={<Icon name="Random" />}>
+      다른 맥주 추천 받기
+    </Button>
+  ),
 };
 export const withHomeButton = Template.bind({});
 withHomeButton.args = {
-  type: 'withHomeButton',
+  button: (
+    <Button type="primary" width="244px">
+      맥주 정보 보기
+    </Button>
+  ),
+  withHomeButton: true,
 };
