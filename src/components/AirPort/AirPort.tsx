@@ -85,7 +85,6 @@ const StyledAirPort = styled.div`
 
   & > .flying-airplane-icon {
     width: 33%;
-    aspect-ratio: 109 / 46;
-    padding-bottom: 10px;
+    height: auto;
   }
 `;
