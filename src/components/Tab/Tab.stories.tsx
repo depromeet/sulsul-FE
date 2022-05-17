@@ -15,9 +15,8 @@ export default {
 } as ComponentMeta<typeof Tab>;
 
 const StyledH1 = styled.h1`
-  margin: 12px 0 8px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 12px 0 8px;
+  ${(p) => p.theme.fonts.SubTitle3}
 `;
 
 const StyledTabPage = styled.div`

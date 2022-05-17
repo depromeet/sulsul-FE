@@ -1,6 +1,8 @@
 import { Global, css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 
+import { ColorTheme, FontTheme } from './types';
+
 const customReset = css`
   *,
   *::before,
@@ -73,7 +75,7 @@ const customReset = css`
   }
 `;
 
-const global = css`
+const global = (theme: Readonly<ColorTheme & FontTheme>) => css`
   ${emotionReset}
   ${customReset}
 
@@ -85,10 +87,14 @@ const global = css`
     // https://github.com/orioncactus/pretendard
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue',
       'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', 'Barlow Condensed', sans-serif;
+      'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    background-color: ${theme.semanticColor.background};
+    color: ${theme.color.white};
   }
 `;
 
-const GlobalStyle = () => <Global styles={global} />;
+const GlobalStyle = ({ theme }: { theme: Readonly<ColorTheme & FontTheme> }) => (
+  <Global styles={global(theme)} />
+);
 
 export default GlobalStyle;
