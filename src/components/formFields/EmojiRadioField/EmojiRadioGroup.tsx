@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import cx from 'classnames';
 
-import RadioEmoji from './RadioEmoji';
+import EmojiTransitionViewer from './EmojiTransitionViewer';
 
 import Emoji from '@/components/Emoji';
 
@@ -118,7 +118,7 @@ const EmojiRadioGroup: React.FC<EmojiRadioGroupProps> = ({
 
   return (
     <StyledEmojiRadioGroup className={className}>
-      <RadioEmoji value={value} />
+      <EmojiTransitionViewer value={value} />
       <h1>{MESSAGES[value]}</h1>
       <div className="emoji-radio-group-wrapper">
         {emojiValues.map((emojiValue) => (
