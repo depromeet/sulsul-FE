@@ -5,7 +5,14 @@ import { isNil } from 'lodash';
 
 import { ColorTheme } from '@/themes/types';
 
-type ButtonType = 'primary' | 'secondary' | 'primary-line' | 'secondary-line' | 'ghost' | 'default';
+type ButtonType =
+  | 'primary'
+  | 'secondary'
+  | 'primary-line'
+  | 'secondary-line'
+  | 'ghost'
+  | 'default'
+  | 'grey';
 
 interface ButtonProps {
   type?: ButtonType;
@@ -77,6 +84,8 @@ const getColorByType = (type: ButtonType, theme: ColorTheme) => {
       return theme.semanticColor.secondary;
     case 'ghost':
       return theme.color.whiteOpacity0;
+    case 'grey':
+      return theme.color.grey4;
     default:
       return theme.color.white;
   }
