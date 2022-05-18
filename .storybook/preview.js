@@ -34,7 +34,7 @@ export const decorators = [
   (Story) => (
     <RecoilRoot>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
+        <GlobalStyle theme={theme} />
         <Global
           styles={css`
             html,
