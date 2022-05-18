@@ -4,14 +4,11 @@ import { css } from '@emotion/react';
 export const ellipsis = (lineCount: number = 1) => css`
   text-overflow: ellipsis;
   overflow: hidden;
-  ${lineCount === 1
-    ? 'white-space: nowrap;'
-    : `
-      word-break: break-word;
-      display: -webkit-box;
-      -webkit-line-clamp: ${lineCount}; 
-      -webkit-box-orient: vertical;
-      `};
+
+  word-break: ${lineCount === 1 ? 'break-all' : 'break-word'};
+  display: -webkit-box;
+  -webkit-line-clamp: ${lineCount};
+  -webkit-box-orient: vertical;
 `;
 
 /** @note 스크롤은 동작하나 스크롤 바는 보이지 않습니다.  */
