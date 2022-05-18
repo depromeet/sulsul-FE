@@ -1,33 +1,21 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
-import clipboard from 'clipboard-polyfill';
+import React from 'react';
 
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import { LikeToggleButton, ShareButton } from '@/components/Header/extras';
 
-type BeerDetailProp = {
-  url: string;
-  isCompact: boolean;
+export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
+
+export type BeerDetailProps = {
+  beer: BeerDetailType;
 };
-type BeerDetailProps = Omit<Beer, 'id' | 'content' | 'feel'> & BeerDetailProp;
 
 const BeerDetail = (props: BeerDetailProps) => {
   const {
-    country,
-    type,
-    name,
-    nameEng,
-    imageUrl,
-    alcohol,
-    price,
-    volume,
-    isLiked,
-    url,
-    isCompact,
+    beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume },
     ...rest
   } = props;
-  const [isBookMarked, setIsBookmarked] = useState(false);
+
   const beerInfo = [
     { title: '종류', content: type },
     { title: '원산지', content: country?.name },
@@ -37,29 +25,19 @@ const BeerDetail = (props: BeerDetailProps) => {
   ];
 
   return (
-    <StyledBeerDetail isCompact={isCompact} {...rest}>
-      {!isCompact ? (
-        <TitleAndIconContainer>
-          <BeerNameWrapper>
-            <BeerName>{name}</BeerName>
-            <BeerNameEng>{nameEng}</BeerNameEng>
-          </BeerNameWrapper>
-          <IconWrapper>
-            <ShareButton
-              onClick={async () => {
-                await clipboard.writeText(url);
-                alert(url);
-              }}
-            />
-            <LikeToggleButton
-              defaultIsLiking={true}
-              onLike={async () => alert('좋아요')}
-              onUnLike={async () => alert('좋아요 해제')}
-            />
-          </IconWrapper>
-        </TitleAndIconContainer>
-      ) : undefined}
+    <StyledBeerDetail {...rest}>
+      <TitleAndIconContainer>
+        <BeerNameWrapper>
+          <BeerName>{name}</BeerName>
+          <BeerNameEng>{nameEng}</BeerNameEng>
+        </BeerNameWrapper>
+      </TitleAndIconContainer>
       <InfoAndBeerImage>
+        <BeerImageMaskingWrapper>
+          <BeerImageMasking width="24%">
+            <BeerImage src={imageUrl} />
+          </BeerImageMasking>
+        </BeerImageMaskingWrapper>
         <InfoTableWrapper>
           {beerInfo.map(({ title, content }) => (
             <InfoTable key={title}>
@@ -68,9 +46,6 @@ const BeerDetail = (props: BeerDetailProps) => {
             </InfoTable>
           ))}
         </InfoTableWrapper>
-        <StyledBeerImageMasking width="70px">
-          <BeerImage src={imageUrl} />
-        </StyledBeerImageMasking>
       </InfoAndBeerImage>
     </StyledBeerDetail>
   );
@@ -78,12 +53,12 @@ const BeerDetail = (props: BeerDetailProps) => {
 
 export default BeerDetail;
 
-const StyledBeerDetail = styled.div<{ isCompact: boolean }>`
+const StyledBeerDetail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: auto;
-  min-height: ${(p) => (p.isCompact ? '11.87rem' : '17.48rem')};
+  min-height: 17.48rem;
   padding: 1.7rem;
   background-color: ${({ theme }) => theme.color.black80};
   border-radius: 0.9rem;
@@ -100,10 +75,9 @@ const TitleAndIconContainer = styled.div`
 const BeerNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
 `;
 
-const BeerName = styled.div`
+const BeerName = styled.h1`
   font-size: 1.7rem;
   font-weight: 700;
   line-height: 26px;
@@ -111,17 +85,12 @@ const BeerName = styled.div`
   margin-bottom: 0.6rem;
 `;
 
-const BeerNameEng = styled.div`
+const BeerNameEng = styled.h1`
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 17px;
-  color: ${({ theme }) => theme.color.grey4};
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  height: fit-content;
-  gap: 10px;
+  color: ${({ theme }) => theme.color.whiteOpacity65};
+  margin-bottom: 30px;
 `;
 
 const InfoAndBeerImage = styled.div`
@@ -144,8 +113,9 @@ const Title = styled.p`
   font-size: 1.1rem;
   line-height: 160%;
   font-weight: 400;
-  color: ${({ theme }) => theme.color.white};
-  width: 5rem;
+  color: ${({ theme }) => theme.color.whiteOpacity80};
+  width: 40px;
+  margin-right: 16px;
 `;
 
 const Content = styled.p`
@@ -160,8 +130,16 @@ const BeerImage = styled.img`
   height: 100%;
 `;
 
-// NOTE: 마스킹 참고 : https://www.w3schools.com/css/css3_masking.asp
+const BeerImageMaskingWrapper = styled.div`
+  width: 90px;
+  aspect-ratio: 1 / 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.color.whiteOpacity20};
+  margin-right: 30px;
+`;
 const StyledBeerImageMasking = styled(BeerImageMasking)`
   margin-left: auto;
-  margin-right: 1rem;
+  margin-right: 17px;
 `;

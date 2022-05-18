@@ -3,8 +3,8 @@ export interface CountryType {
   name?: string;
   nameEng?: string;
   continent?: {
-    id?: number;
-    name?: string;
+    id: number;
+    name: string;
   };
 }
 

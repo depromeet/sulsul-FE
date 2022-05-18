@@ -5,13 +5,13 @@ import type { HTMLAttributes } from 'react';
 import LikeBadge from '@/components/commons/LikeBadge';
 import TasteBox from '@/components/commons/TasteBox';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface TasteBoxAndBadgeProps extends HTMLAttributes<HTMLDivElement> {
   text?: string;
   likeCount?: number;
   className?: string;
 }
 
-const TasteBoxAndBadge = (props: Props) => {
+const TasteBoxAndBadge = (props: TasteBoxAndBadgeProps) => {
   const { text, likeCount, className, ...rest } = props;
   return (
     <StyledTasteBoxAndBadge type="default" className={className} {...rest}>

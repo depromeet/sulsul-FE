@@ -19,7 +19,7 @@ interface StyledIconProps {
   color?: string;
 }
 
-export default function Icon(props: IconProps) {
+const Icon = (props: IconProps) => {
   const { name, size = 30, width, height, color, className, ...rest } = props;
   const CurrentIcon = svg[name];
 
@@ -34,8 +34,9 @@ export default function Icon(props: IconProps) {
       <CurrentIcon name={name} />
     </StyledIcon>
   );
-}
+};
 
+export default Icon;
 
 const StyledIcon = styled.svg<StyledIconProps>`
   display: flex;

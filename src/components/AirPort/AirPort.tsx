@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { FlyingAirplaneIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 
 interface AirPortItemProps {
   title: string;
@@ -13,8 +13,8 @@ const AirPortItem = (props: AirPortItemProps) => {
   return (
     <StyledAirPortItem>
       <Title>{title}</Title>
-      <Kor>{kor}</Kor>
       <Eng>{eng}</Eng>
+      <Kor>{kor}</Kor>
     </StyledAirPortItem>
   );
 };
@@ -27,38 +27,40 @@ const StyledAirPortItem = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 400;
-  font-size: 1.1rem;
-  line-height: 160%;
-  color: #dddddd;
-`;
-const Kor = styled.div`
-  font-weight: 700;
-  font-size: 1.85rem;
-  line-height: 29px;
-  color: ${({ theme }) => theme.color.white};
+  ${({ theme }) => theme.fonts.Body2};
+  color: ${({ theme }) => theme.color.whiteOpacity65};
 `;
 const Eng = styled.div`
-  font-weight: 400;
-  font-size: 0.77rem;
-  line-height: 155.02%;
-  color: #dddddd;
+  ${({ theme }) => theme.fonts.BarlowBig};
+  color: ${({ theme }) => theme.color.white};
+`;
+const Kor = styled.div`
+  ${({ theme }) => theme.fonts.Body4};
+  color: ${({ theme }) => theme.color.grey1};
 `;
 
-interface AirPortProps {
+export interface AirPortProps {
   departureKor: string;
   departureEng: string;
   destinationKor: string;
   destinationEng: string;
+  className?: string;
 }
 
 const AirPort = (props: AirPortProps) => {
-  const { departureKor, departureEng, destinationKor, destinationEng, ...rest } = props;
+  const {
+    departureKor = '한국',
+    departureEng = 'KOR',
+    destinationKor,
+    destinationEng,
+    className,
+    ...rest
+  } = props;
 
   return (
-    <StyledAirPort {...rest}>
+    <StyledAirPort {...rest} className={className}>
       <AirPortItem title="출발지" kor={departureKor} eng={departureEng} />
-      <StyledFlyingAirplaneIcon />
+      <Icon name="FlyingAirplane" className="flying-airplane-icon" />
       <AirPortItem title="도착지" kor={destinationKor} eng={destinationEng} />
     </StyledAirPort>
   );
@@ -69,10 +71,14 @@ export default AirPort;
 const StyledAirPort = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 20px;
   width: 100%;
-`;
-const StyledFlyingAirplaneIcon = styled(FlyingAirplaneIcon)`
-  width: 8.38rem;
-  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+
+  & > .flying-airplane-icon {
+    width: 33%;
+    height: auto;
+  }
 `;

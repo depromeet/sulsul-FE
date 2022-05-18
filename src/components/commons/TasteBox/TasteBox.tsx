@@ -47,6 +47,7 @@ const TasteBox = (props: BadgeProps) => {
 export default TasteBox;
 
 const StyledTasteBox = styled.div<StyledBadgeProps>`
+  ${({ theme }) => theme.fonts.SubTitle5}
   display: flex;
   align-items: center;
   justify-content: ${({ boxSize }) => (boxSize === 'long' ? 'flex-start' : 'center')};
@@ -54,9 +55,6 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   height: 49px;
   border-radius: 8px;
   padding: 16px 20px;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 155.02%;
   transition: background 0.3s;
 
   &.tasteBox--cursor {
@@ -81,7 +79,7 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
     color: ${({ theme }) => theme.color.white};
   }
   &.tasteBox--size-long {
-    width: calc(100% - 20px); //FixMe: 디자인 보고 조정 필요
+    width: 100%;
   }
   &.tasteBox--size-short {
     text-align: center;

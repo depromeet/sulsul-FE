@@ -26,9 +26,8 @@ const StyledBeerImageMasking = styled.div<Pick<BeerImageMaskingProps, 'width'>>`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
-  -webkit-mask-box-image: url('https://ifh.cc/g/x9h1z3.png'); 
-  mask-image: url('https://ifh.cc/g/x9h1z3.png');
+  -webkit-mask-box-image: url('https://ifh.cc/g/lCaosK.png');
+  mask-image: url('https://ifh.cc/g/lCaosK.png');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   background-color: tomato; // NOTE: 영역 확인을 위해 임시로 추가
