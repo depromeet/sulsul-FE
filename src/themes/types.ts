@@ -20,6 +20,7 @@ type MakeTokenSet<
 export type ColorToken =
   | 'white'
   | 'blue'
+  | 'darkblue'
   | MakeTokenSet<'blueOpacity', [25]>
   | MakeTokenSet<'yellowOpacity', [20]>
   | 'yellow'
