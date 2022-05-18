@@ -8,6 +8,7 @@ import Button from '@/components/commons/Button';
 import Icon from '@/components/commons/Icon';
 import Review, { ReviewProps } from '@/components/Review';
 import Header from '@/components/Header';
+import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
@@ -21,7 +22,7 @@ interface Props {
   review: ReviewProps[];
 }
 
-const BeerDetailPage = (props: Props) => {
+const BeerDetailContainer = (props: Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTransparent, setIsTransparent] = useState(true);
 
@@ -76,7 +77,7 @@ const BeerDetailPage = (props: Props) => {
         </div>
       </BackgroundImage>
       <div className="container">
-        <StyledBeerDetail beer={beer} isCompact={isScrolled ? true : false} />
+        <StyledBeerDetail beer={beer} />
         <StyledAirPort
           departureKor={departureKor}
           departureEng={departureEng}
@@ -108,16 +109,18 @@ const BeerDetailPage = (props: Props) => {
         ))}
         <div style={{ height: '90px' }} />
       </div>
-      <BottomGradientContainer>
-        <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
-          기록하기
-        </Button>
-      </BottomGradientContainer>
+      <BottomFloatingButtonArea
+        button={
+          <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
+            기록하기
+          </Button>
+        }
+      />
     </StyledBeerDetailPage>
   );
 };
 
-export default BeerDetailPage;
+export default BeerDetailContainer;
 
 const StyledBeerDetailPage = styled.div`
   position: relative;
@@ -183,21 +186,6 @@ const TasteBoxAndBadgeContainer = styled.div`
   gap: 6px;
   width: 100%;
   margin: 26px 0;
-`;
-
-const BottomGradientContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 768px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 90px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 40.1%);
 `;
 
 const HorizontalDivider = styled.div`

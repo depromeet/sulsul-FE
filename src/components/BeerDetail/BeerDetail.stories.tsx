@@ -39,5 +39,4 @@ DefaultBeerDetail.args = {
     volume: 50,
     isLiked: false,
   },
-  isCompact: false,
 };

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
@@ -7,7 +7,6 @@ import BeerImageMasking from '@/components/commons/BeerImageMasking';
 export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
 
 export type BeerDetailProps = {
-  isCompact?: boolean;
   beer: BeerDetailType;
 };
 
