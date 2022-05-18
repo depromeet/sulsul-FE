@@ -3,12 +3,12 @@ import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 import EmojiRadioGroup from './EmojiRadioGroup';
 
-interface EmogiRadioFieldProps {
+interface EmojiRadioFieldProps {
   name: string;
   className?: string;
 }
 
-const EmogiRadioField: React.FC<EmogiRadioFieldProps> = ({ name, className }) => {
+const EmojiRadioField: React.FC<EmojiRadioFieldProps> = ({ name, className }) => {
   const { control } = useFormContext();
 
   return (
@@ -20,4 +20,4 @@ const EmogiRadioField: React.FC<EmogiRadioFieldProps> = ({ name, className }) =>
   );
 };
 
-export default EmogiRadioField;
+export default EmojiRadioField;

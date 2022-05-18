@@ -4,13 +4,13 @@ import styled from '@emotion/styled';
 
 import Emoji from '@/components/Emoji';
 
-interface RadioEmogiProps {
+interface RadioEmojiProps {
   value: 1 | 2 | 3 | 4 | 5;
 }
 
 const EMOJI_DISPLAY_SIZE = 140;
 
-const StyledRadioEmogi = styled(TransitionGroup)`
+const StyledRadioEmoji = styled(TransitionGroup)`
   position: relative;
   width: ${EMOJI_DISPLAY_SIZE}px;
   height: ${EMOJI_DISPLAY_SIZE}px;
@@ -35,14 +35,14 @@ const StyledRadioEmogi = styled(TransitionGroup)`
   }
 `;
 
-const RadioEmogi: React.FC<RadioEmogiProps> = ({ value }) => {
+const RadioEmoji: React.FC<RadioEmojiProps> = ({ value }) => {
   return (
-    <StyledRadioEmogi>
+    <StyledRadioEmoji>
       <CSSTransition key={value} timeout={800} classNames={`displayed-emoji`}>
         <Emoji feel={value} size={EMOJI_DISPLAY_SIZE} className="displayed-emoji" />
       </CSSTransition>
-    </StyledRadioEmogi>
+    </StyledRadioEmoji>
   );
 };
 
-export default RadioEmogi;
+export default RadioEmoji;

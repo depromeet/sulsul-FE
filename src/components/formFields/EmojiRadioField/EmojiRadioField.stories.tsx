@@ -4,11 +4,11 @@ import { action } from '@storybook/addon-actions';
 import EntityForm from '@/components/EntityForm';
 import { Beers } from '@/constants/Beers';
 
-import EmogiRadioField from './EmogiRadioField';
+import EmojiRadioField from './EmojiRadioField';
 
 export default {
-  title: 'FormFields/EmogiRadioField',
-  component: EmogiRadioField,
+  title: 'FormFields/EmojiRadioField',
+  component: EmojiRadioField,
   decorators: [
     (Story) => (
       <EntityForm onSubmit={action('onSubmit')}>
@@ -19,11 +19,11 @@ export default {
   argTypes: {
     className: { control: 'text' },
   },
-} as ComponentMeta<typeof EmogiRadioField>;
+} as ComponentMeta<typeof EmojiRadioField>;
 
-const Template: ComponentStory<typeof EmogiRadioField> = (args) => <EmogiRadioField {...args} />;
+const Template: ComponentStory<typeof EmojiRadioField> = (args) => <EmojiRadioField {...args} />;
 
 export const 이모지_라디오_필드 = Template.bind({});
 이모지_라디오_필드.args = {
-  name: 'emogiRadioField',
+  name: 'emojiRadioField',
 };
