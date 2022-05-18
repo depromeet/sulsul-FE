@@ -32,6 +32,9 @@ import {
   ListViewIcon as ListView,
   WriteIcon as Write,
   SaveIcon as Save,
+  NextIcon as Next,
+  PlusCircleIcon as PlusCircle,
+  ThreeDotIcon as ThreeDot,
 } from '@/assets/icon';
 
 export const svg = {
@@ -68,4 +71,7 @@ export const svg = {
   ListView,
   Write,
   Save,
+  Next,
+  PlusCircle,
+  ThreeDot,
 };
