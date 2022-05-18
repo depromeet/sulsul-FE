@@ -41,7 +41,7 @@ export const 기록하기 = Template.bind({});
 export const 다른_맥주_추천_받기 = Template.bind({});
 다른_맥주_추천_받기.args = {
   button: (
-    <Button type="primary" width="large" leftAddon={<Icon name="Random" />}>
+    <Button type="primary" width="large" leftAddon={<Icon name="Random" size={30} />}>
       다른 맥주 추천 받기
     </Button>
   ),
