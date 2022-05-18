@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <GlobalStyle theme={theme} />
         <MainLayout>
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </MainLayout>
       </ThemeProvider>
     </RecoilRoot>
