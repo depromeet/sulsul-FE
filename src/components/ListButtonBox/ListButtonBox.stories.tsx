@@ -6,7 +6,8 @@ import ListButtonBox from './ListButtonBox';
 export default {
   title: 'Components/ListButtonBox',
   component: ListButtonBox,
-  args: {},
+  argTypes: { text: { control: 'text', name: 'text' } },
+  args: { text: '텍스트' },
 } as ComponentMeta<typeof ListButtonBox>;
 
 const Template: ComponentStory<typeof ListButtonBox> = ({ ...args }) => <ListButtonBox {...args} />;
