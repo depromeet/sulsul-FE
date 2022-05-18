@@ -50,7 +50,7 @@ const StyledEmojiRadioGroup = styled.div`
           height: 2px;
           transform: translateY(-50%);
           content: ' ';
-          background: ${({ theme }) => theme.color.blue1};
+          background: ${({ theme }) => theme.color.darkblue};
         }
       }
 
@@ -85,7 +85,7 @@ const StyledEmojiRadioGroup = styled.div`
       appearance: none;
       cursor: pointer;
       position: relative;
-      background: ${({ theme }) => theme.color.blue1};
+      background: ${({ theme }) => theme.color.darkblue};
       border: 2px solid ${({ theme }) => theme.semanticColor.primary};
       border-radius: 16px;
       margin: 0 35px 0 0;
