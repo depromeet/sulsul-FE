@@ -26,21 +26,21 @@ const StyledEmojiTransitionViewer = styled(TransitionGroup)`
   }
   & .displayed-emoji-enter-active {
     opacity: 1;
-    transition: transform 0.8s, opacity 0.8s;
+    transition: opacity 1.2s;
   }
   & .displayed-emoji-exit {
     opacity: 1;
   }
   & .displayed-emoji-exit-active {
     opacity: 0;
-    transition: transform 0.8s, opacity 0.8s;
+    transition: opacity 1.2s;
   }
 `;
 
 const EmojiTransitionViewer: React.FC<EmojiTransitionViewerProps> = ({ value }) => {
   return (
     <StyledEmojiTransitionViewer>
-      <CSSTransition key={value} timeout={800} classNames={`displayed-emoji`}>
+      <CSSTransition key={value} timeout={1200} classNames={`displayed-emoji`}>
         <Emoji feel={value} size={EMOJI_DISPLAY_SIZE} className="displayed-emoji" />
       </CSSTransition>
     </StyledEmojiTransitionViewer>
