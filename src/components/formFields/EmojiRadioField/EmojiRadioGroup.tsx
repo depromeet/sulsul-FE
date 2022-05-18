@@ -8,7 +8,7 @@ import Emoji from '@/components/Emoji';
 
 interface EmojiRadioGroupProps {
   name: string;
-  value: 1 | 2 | 3 | 4 | 5;
+  value: EmojiValue;
   className?: string;
   onChange?: (v: number) => void;
   onBlur?: () => void;
@@ -16,6 +16,8 @@ interface EmojiRadioGroupProps {
 
 const emojiValues = [1, 2, 3, 4, 5] as const;
 const EMOJI_INPUT_SIZE = 18;
+
+export type EmojiValue = typeof emojiValues[number];
 
 const MESSAGES = {
   1: '별로에요!',

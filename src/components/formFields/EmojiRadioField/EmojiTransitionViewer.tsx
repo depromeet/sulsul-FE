@@ -2,10 +2,12 @@ import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from '@emotion/styled';
 
+import { EmojiValue } from './EmojiRadioGroup';
+
 import Emoji from '@/components/Emoji';
 
 interface EmojiTransitionViewerProps {
-  value: 1 | 2 | 3 | 4 | 5;
+  value: EmojiValue;
 }
 
 const EMOJI_DISPLAY_SIZE = 140;
