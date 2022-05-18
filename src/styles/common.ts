@@ -5,7 +5,7 @@ export const ellipsis = (lineCount: number = 1) => css`
   text-overflow: ellipsis;
   overflow: hidden;
 
-  word-break: break-word;
+  word-break: ${lineCount === 1 ? 'break-all' : 'break-word'};
   display: -webkit-box;
   -webkit-line-clamp: ${lineCount};
   -webkit-box-orient: vertical;
