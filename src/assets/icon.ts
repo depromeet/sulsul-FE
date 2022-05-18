@@ -30,5 +30,6 @@ export { ReactComponent as NavTravelActive } from './nav_travel_active.svg';
 export { ReactComponent as Plus } from './plus.svg';
 export { ReactComponent as SaveIcon } from './save.svg';
 export { ReactComponent as WriteIcon } from './write.svg';
+export { ReactComponent as XCircleIcon } from './x_circle.svg';
 export { ReactComponent as XIcon } from './x.svg';
 export { ReactComponent as AirplaneIcon } from './airplane.svg';
