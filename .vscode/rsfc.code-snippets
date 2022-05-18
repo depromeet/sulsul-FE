@@ -1,0 +1,43 @@
+// rsfe.code-snippets
+{
+  "CustomizedRfce": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "rfce",
+    "body": [
+      "import styled from '@emotion/styled';",
+      "\n",
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "  return(<Styled${1:${TM_FILENAME_BASE}}></Styled${1:${TM_FILENAME_BASE}}>);",
+      "};",
+      "\n",
+      "export default ${1:${TM_FILENAME_BASE}};",
+      "\n",
+      "const Styled${1:${TM_FILENAME_BASE}} = styled.div`",
+      "\n",
+      "`"
+    ],
+    "description": "FunctionalComponentWithEmotion"
+  },
+  "CustomizedStory": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "str",
+    "body": [
+      "import { ComponentStory, ComponentMeta } from '@storybook/react'",
+      "\n",
+      "import ${1:${TM_FILENAME_BASE}} from './${1:${TM_FILENAME_BASE}}';",
+      "\n",
+      "export default {",
+      "title: 'Components/${1:${TM_FILENAME_BASE}}',",
+      "component: ${1:${TM_FILENAME}},",
+      "args:{},",
+      "} as ComponentMeta<typeof ${1:${TM_FILENAME_BASE}}>;",
+      "\n",
+      "const Template: ComponentStory<typeof ${1:${TM_FILENAME_BASE}}> = ({...args}) => (<${1:${TM_FILENAME_BASE}} {...args} />);",
+      "\n",
+      "export const Default = Template.bind({});",
+      "Default.args = {}",
+      "\n"
+    ],
+    "description": "Storybook"
+  }
+}
