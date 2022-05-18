@@ -124,10 +124,6 @@ const StyledButton = styled.button<StyledButtonProps>`
     & svg {
       width: 20px;
       height: 20px;
-
-      & path {
-        fill: currentColor;
-      }
     }
   }
 
