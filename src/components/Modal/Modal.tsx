@@ -35,16 +35,16 @@ const Modal = (props: ModalProps) => {
     <ModalLayout open={open} onClose={closeModal}>
       <StyledModal open={open}>
         <Header>
-          <Icon name="Close" size={24} color={'white'} />
-          {header}
           {withCloseButton ? (
-            <Icon name="Close" size={24} onClick={closeModal} />
+            <Icon name="Close" size={24} onClick={closeModal} style={{ cursor: 'pointer' }} />
           ) : (
             <Icon name="Close" size={24} color={'white'} />
           )}
+          {header}
+          <Icon name="Close" size={24} color={'white'} />
         </Header>
-        <Title>{title}</Title>
-        <Description>{decription}</Description>
+        {title && <Title>{title}</Title>}
+        {decription && <Description>{decription}</Description>}
         {buttons && <ButtonContainer>{buttons}</ButtonContainer>}
         {noMoreSee && <NoMoreSee onClick={closeModal}>다시 보지 않기</NoMoreSee>}
       </StyledModal>
@@ -59,16 +59,13 @@ const StyledModal = styled.div<{ open: boolean }>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   width: calc(100% - 76px);
-
   padding: 16px 16px 20px 16px;
   border-radius: 12px;
-
   background-color: ${(p) => p.theme.color.white};
 
   ${(p) => !p.open && `display:none;`}
@@ -122,4 +119,5 @@ const NoMoreSee = styled.div`
   color: ${({ theme }) => theme.color.grey3};
   height: fit-content;
   margin-top: 10px;
+  cursor: pointer;
 `;
