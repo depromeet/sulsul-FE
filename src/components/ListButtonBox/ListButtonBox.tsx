@@ -5,18 +5,22 @@ import Icon, { IconNameType } from '@/components/commons/Icon';
 interface ListButtonBoxProps {
   iconName: IconNameType;
   text: string;
+  count?: number;
   onClick?: () => void;
 }
 const ListButtonBox = (props: ListButtonBoxProps) => {
-  const { iconName, text, onClick } = props;
+  const { iconName, text, count, onClick } = props;
 
   return (
     <StyledListButtonBox onClick={onClick}>
       <SmallBox>
-        <Icon name={iconName} size={20} color={'white'} />
+        <Icon name={iconName} size={iconName === 'Heart' ? 30 : 20} color={'white'} />
       </SmallBox>
-      <Text>{text}</Text>
-      <Icon name="Next" size={18} className="icon" />
+      <Text>
+        <p>{text}</p>
+        {count && <p>{count}개</p>}
+      </Text>
+      <Icon name="Next" size={20} className="arrow-icon" />
     </StyledListButtonBox>
   );
 };
@@ -33,8 +37,8 @@ const StyledListButtonBox = styled.div`
   border-radius: 8px;
   cursor: pointer;
 
-  & > .icon {
-    margin-left: auto;
+  & > .arrow-icon {
+    margin-left: 12px;
     margin-right: 4px;
     cursor: pointer;
 
@@ -48,6 +52,7 @@ const StyledListButtonBox = styled.div`
 const SmallBox = styled.div`
   width: 42px;
   height: 42px;
+  aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,7 +61,10 @@ const SmallBox = styled.div`
   border-radius: 4px;
 `;
 
-const Text = styled.p`
+const Text = styled.div`
   ${({ theme }) => theme.fonts.SubTitle2}
   color: ${({ theme }) => theme.color.white};
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
