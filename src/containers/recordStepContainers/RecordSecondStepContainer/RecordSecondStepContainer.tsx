@@ -45,7 +45,7 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
   return (
     <StyledRecordSecondStepContainer className={className}>
       <EntityForm onSubmit={onSubmit}>
-        <h2>{'이번 맥주는 어땠나요?'}</h2>
+        <h2>{'맥주 맛은 어땠나요?'}</h2>
         <p className="body-1">{beerName}</p>
         <p className="body-5">{'최대 3개까지 선택이 가능해요!'}</p>
         <MultiSelectField
