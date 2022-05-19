@@ -11,7 +11,7 @@ export default {
     children: { control: 'text', name: 'text' },
     width: { control: 'text' },
     disabled: { control: 'boolean' },
-    type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default'] },
+    type: { control: 'select', options: ['primary', 'secondary', 'ghost', 'default', 'grey'] },
     line: { control: 'boolean' },
     count: { control: 'number' },
     leftAddon: { control: 'boolean' },
@@ -52,4 +52,9 @@ Ghost.args = {
 export const Default = Template.bind({});
 Default.args = {
   type: 'default',
+};
+
+export const Grey = Template.bind({});
+Grey.args = {
+  type: 'grey',
 };
