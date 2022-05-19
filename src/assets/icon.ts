@@ -35,3 +35,6 @@ export { ReactComponent as XIcon } from './x.svg';
 export { ReactComponent as AirplaneIcon } from './airplane.svg';
 export { ReactComponent as RandomIcon } from './random.svg';
 export { ReactComponent as CloseIcon } from './close.svg';
+export { ReactComponent as NextIcon } from './next.svg';
+export { ReactComponent as PlusCircleIcon } from './plus_circle.svg';
+export { ReactComponent as ThreeDotIcon } from './three_dot.svg';

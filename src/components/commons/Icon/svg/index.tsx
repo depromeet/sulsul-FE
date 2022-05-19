@@ -33,6 +33,9 @@ import {
   WriteIcon as Write,
   SaveIcon as Save,
   CloseIcon as Close,
+  NextIcon as Next,
+  PlusCircleIcon as PlusCircle,
+  ThreeDotIcon as ThreeDot,
 } from '@/assets/icon';
 
 export const svg = {
@@ -70,4 +73,7 @@ export const svg = {
   Write,
   Save,
   Close,
+  Next,
+  PlusCircle,
+  ThreeDot,
 };

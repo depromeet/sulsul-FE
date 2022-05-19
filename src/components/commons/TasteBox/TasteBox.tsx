@@ -56,6 +56,7 @@ const StyledTasteBox = styled.div<StyledBadgeProps>`
   border-radius: 8px;
   padding: 16px 20px;
   transition: background 0.3s;
+  word-break: keep-all;
 
   &.tasteBox--cursor {
     cursor: pointer;
