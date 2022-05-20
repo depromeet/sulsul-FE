@@ -16,7 +16,7 @@ const StyledRecordSecondStepContainer = styled.div`
     margin-bottom: 10px;
   }
 
-  p.body-1 {
+  p.body-2 {
     ${({ theme }) => theme.fonts.Body2}
     color: ${({ theme }) => theme.semanticColor.secondary};
     text-align: center;
@@ -45,8 +45,8 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
   return (
     <StyledRecordSecondStepContainer className={className}>
       <EntityForm onSubmit={onSubmit}>
-        <h2>{'이번 맥주는 어땠나요?'}</h2>
-        <p className="body-1">{beerName}</p>
+        <h2>{'맥주 맛은 어땠나요?'}</h2>
+        <p className="body-2">{beerName}</p>
         <p className="body-5">{'최대 3개까지 선택이 가능해요!'}</p>
         <MultiSelectField
           name="flavor"
