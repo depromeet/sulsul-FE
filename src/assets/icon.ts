@@ -38,3 +38,5 @@ export { ReactComponent as CloseIcon } from './close.svg';
 export { ReactComponent as NextIcon } from './next.svg';
 export { ReactComponent as PlusCircleIcon } from './plus_circle.svg';
 export { ReactComponent as ThreeDotIcon } from './three_dot.svg';
+export { ReactComponent as ArrowLeftIcon } from './arrow_left.svg';
+export { ReactComponent as ArrowRightIcon } from './arrow_right.svg';
