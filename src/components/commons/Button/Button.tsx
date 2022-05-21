@@ -25,12 +25,14 @@ interface ButtonProps {
   disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
+  iconMargin?: number;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 interface StyledButtonProps {
   buttonType: ButtonType;
   buttonWidth?: string;
+  iconMargin: number;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -43,6 +45,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
   leftAddon,
   rightAddon,
+  iconMargin = 6,
   children,
   onClick,
 }) => {
@@ -55,6 +58,7 @@ const Button: React.FC<ButtonProps> = ({
       buttonWidth={width}
       disabled={disabled}
       className={cx([className, line && 'common-button-line'])}
+      iconMargin={iconMargin}
       onClick={onClick}
     >
       {leftAddon && <span className="common-button-icon-wrapper margin-right">{leftAddon}</span>}
@@ -124,10 +128,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     height: 20px;
 
     &.margin-right {
-      margin-right: 0.75rem;
+      margin-right: ${({ iconMargin }) => iconMargin}px;
     }
     &.margin-left {
-      margin-left: 0.75rem;
+      margin-left: ${({ iconMargin }) => iconMargin}px;
     }
 
     & svg {
