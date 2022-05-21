@@ -1,3 +1,4 @@
+export { ReactComponent as ArrowDownIcon } from './arrow_down.svg';
 export { ReactComponent as CheckIcon } from './check.svg';
 export { ReactComponent as Cloud } from './cloud.svg';
 export { ReactComponent as HistoryIcon } from './history.svg';
@@ -9,6 +10,8 @@ export { ReactComponent as SosoIcon } from './emoji_soso.svg';
 export { ReactComponent as BestIcon } from './emoji_best.svg';
 export { ReactComponent as BadIcon } from './emoji_bad.svg';
 export { ReactComponent as ChaosIcon } from './emoji_chaos.svg';
+export { ReactComponent as FilterAppliedIcon } from './filter_applied.svg';
+export { ReactComponent as FilterIcon } from './filter.svg';
 export { ReactComponent as FlyingAirplaneIcon } from './flying_airplane.svg';
 export { ReactComponent as ShareIcon } from './share.svg';
 export { ReactComponent as GridViewIcon } from './grid-view.svg';
