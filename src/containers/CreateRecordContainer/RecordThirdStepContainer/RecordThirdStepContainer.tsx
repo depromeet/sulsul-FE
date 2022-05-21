@@ -6,8 +6,12 @@ import EntityForm from '@/components/EntityForm';
 import ImageUploadField from '@/components/formFields/ImageUploadField';
 import SelectField from '@/components/formFields/SelectField';
 import TextAreaField from '@/components/formFields/TextAreaField';
+import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
+import Button from '@/components/commons/Button';
+import { SwiperLayoutChildProps } from '@/components/SwiperLayout';
+import Icon from '@/components/commons/Icon';
 
-interface RecordThirdStepContainerProps {
+interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {
   beer: Beer;
   className?: string;
   onSubmit: () => void;
@@ -50,9 +54,20 @@ const StyledRecordThirdStepContainer = styled.div`
   & .default-padding {
     padding: 0 20px;
   }
+
+  & .record-floating-area {
+    left: 200vw;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
 `;
 
-const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({ beer, onSubmit }) => {
+const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
+  beer,
+  onMovePrev,
+  onMoveNext,
+  onSubmit,
+}) => {
   return (
     <StyledRecordThirdStepContainer>
       <EntityForm onSubmit={onSubmit}>
@@ -71,6 +86,27 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({ bee
             placeholder={`이번 맥주 여행은 어떠셨나요?\n맥주를 마실 때 맛이나 후기를 적어도 좋아요.\n혹은 분위기, 상황은 어땠는지 추억을 남겨보세요!`}
           />
         </div>
+        <BottomFloatingButtonArea className="record-floating-area">
+          <Button
+            type="primary"
+            line
+            htmlType="submit"
+            onClick={onMovePrev}
+            leftAddon={<Icon name="ArrowLeft" />}
+            iconMargin={4}
+          >
+            이전
+          </Button>
+          <Button
+            type="primary"
+            htmlType="submit"
+            onClick={onMoveNext}
+            rightAddon={<Icon name="ArrowRight" />}
+            iconMargin={4}
+          >
+            다음
+          </Button>
+        </BottomFloatingButtonArea>
       </EntityForm>
     </StyledRecordThirdStepContainer>
   );
