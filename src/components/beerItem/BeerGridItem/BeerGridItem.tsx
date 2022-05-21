@@ -6,6 +6,7 @@ import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { theme } from '@/themes';
+import { ellipsis } from '@/styles/common';
 
 type BeerGridItemProps = Pick<Beer, 'name' | 'imageUrl' | 'feel' | 'isLiked'>;
 
@@ -47,17 +48,15 @@ const StyledBeerGridItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 10px;
 `;
 
 const BeerName = styled.div`
   ${({ theme }) => theme.fonts.SubTitle5}
   color: ${({ theme }) => theme.color.white};
   text-align: center;
-  max-width: 7.5rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 95%;
+  ${ellipsis()};
 `;
 
 const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
@@ -66,7 +65,7 @@ const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
   width: 100%;
   background: ${({ feel, theme }) =>
     feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
-  border-radius: 0.77rem;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,6 +92,7 @@ const BeerImage = styled.img`
 
 const StyledEmoji = styled.div`
   position: absolute;
-  bottom: -3px;
-  right: -3px;
+  bottom: -4px;
+  right: -4px;
+  z-index: 1;
 `;

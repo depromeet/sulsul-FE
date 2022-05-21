@@ -6,6 +6,7 @@ import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { theme } from '@/themes';
+import { ellipsis } from '@/styles/common';
 
 type BeerListItemProps = Pick<
   Beer,
@@ -54,7 +55,7 @@ const StyledBeerListItem = styled.div`
   width: calc(100% - 26px);
   aspect-ratio: 315 / 80;
   background-color: ${({ theme }) => theme.color.whiteOpacity20};
-  border-radius: 0.46rem;
+  border-radius: 6px;
   position: relative;
   display: flex;
   align-items: center;
@@ -75,22 +76,22 @@ const BookmarkButton = styled.button`
 `;
 
 const ColorBar = styled.div<{ feel?: number | null }>`
-  width: 4%;
+  width: 16px;
   height: 100%;
   background: ${({ feel, theme }) =>
     feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
-  border-radius: 0.46rem 0rem 0rem 0.46rem;
+  border-radius: 6px 0 0 6px;
 `;
 
 const StyledEmoji = styled.div`
   position: absolute;
-  left: -2rem;
+  left: -26px;
   top: 50%;
   transform: translateY(-50%);
 `;
 
 const StyledBeerImageMasking = styled(BeerImageMasking)`
-  margin: 0 3%;
+  margin: 0 14px;
 `;
 
 const BeerImage = styled.img`
@@ -102,19 +103,18 @@ const BeerImage = styled.img`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 6px;
+  width: 100%;
 `;
 
 const BeerName = styled.div`
-  ${({ theme }) => theme.fonts.SubTitle5}
-  color:  ${({ theme }) => theme.color.white};
-  max-width: 14rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: calc(100% - 60px);
+  color: ${({ theme }) => theme.color.white};
+  ${({ theme }) => theme.fonts.SubTitle4};
+  ${ellipsis()};
 `;
 
 const BeerInfo = styled.div`
-  font-size: 1rem;
   color: ${({ theme }) => theme.color.whiteOpacity80};
+  ${({ theme }) => theme.fonts.SubTitle5};
 `;
