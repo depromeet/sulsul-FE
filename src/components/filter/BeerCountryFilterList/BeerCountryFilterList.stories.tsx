@@ -6,9 +6,6 @@ import BeerCountryFilterList from './BeerCountryFilterList';
 export default {
   title: 'Components/BeerCountryFilterList',
   component: BeerCountryFilterList,
-  argTypes: {
-    hasSelectAllButton: { control: 'boolean', defaultValue: true },
-  },
 } as ComponentMeta<typeof BeerCountryFilterList>;
 
 const Template: ComponentStory<typeof BeerCountryFilterList> = (args) => {

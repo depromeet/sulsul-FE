@@ -91,17 +91,3 @@ const BeerCountryFilterItem: React.FC<BeerCountryFilterItemProps> = ({
 };
 
 export default BeerCountryFilterItem;
-
-interface SelectAllButtonPros {
-  onClick: MouseEventHandler;
-  continentName: string;
-}
-
-export const SelectAllButton = ({ onClick, continentName }: SelectAllButtonPros) => {
-  return (
-    <StyledWrapper onClick={onClick}>
-      <ImageWrapper></ImageWrapper>
-      <Name>{continentName} 전체</Name>
-    </StyledWrapper>
-  );
-};
