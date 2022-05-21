@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import { Beer } from '@/types/Beer';
 import BeerGridItem from '@/components/beerItem/BeerGridItem';
 import BeerListItem from '@/components/beerItem/BeerListItem';
+import { ListViewType } from '@/components/Header/extras/ListViewToggleButton';
 
 interface Props {
-  type: string;
+  type: ListViewType;
   beers: Beer[];
 }
 
@@ -36,11 +37,13 @@ export default BeerList;
 const StyledBeerList = styled.div<{ type?: string }>`
   width: 100%;
   box-sizing: border-box;
+  padding: ${(p) => (p.type === 'grid' ? '20px' : '20px 20px 20px 14px')};
+
   &.grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
-    gap: 26px 9px;
+    gap: 26px 15px;
   }
   &.list {
     display: grid;
