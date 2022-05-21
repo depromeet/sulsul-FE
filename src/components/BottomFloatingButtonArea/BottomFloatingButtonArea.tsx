@@ -7,13 +7,14 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   button?: React.ReactNode;
   withHomeButton?: boolean;
   isOnlyHomeButton?: boolean;
+  className?: string;
 }
 
 const BottomFloatingButtonArea = (props: Props) => {
-  const { button, withHomeButton = false, isOnlyHomeButton = false } = props;
+  const { button, withHomeButton = false, isOnlyHomeButton = false, className } = props;
 
   return (
-    <StyledBottomFloatingButton>
+    <StyledBottomFloatingButton className={className}>
       {!isOnlyHomeButton && button}
       {withHomeButton && <HomeIconButton />}
     </StyledBottomFloatingButton>
