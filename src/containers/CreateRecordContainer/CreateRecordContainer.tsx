@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import styled from '@emotion/styled';
+import { RecoilRoot } from 'recoil';
 
 import RecordFirstStepContainer from './RecordFirstStepContainer';
 import RecordSecondStepContainer from './RecordSecondStepContainer';
@@ -28,12 +29,20 @@ const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer }) =
     <StyledCreateRecordContainer>
       <Header leftExtras={<BackButton />} />
       <SwiperLayout className="record-layout">
-        <RecordFirstStepContainer beerName={beer.name!} onSubmit={() => null} />
-        <RecordSecondStepContainer beerName={beer.name!} onSubmit={() => null} />
-        <RecordThirdStepContainer beer={beer} onSubmit={() => null} />
+        <RecordFirstStepContainer beerName={beer.name!} />
+        <RecordSecondStepContainer beerName={beer.name!} />
+        <RecordThirdStepContainer beer={beer} />
       </SwiperLayout>
     </StyledCreateRecordContainer>
   );
 };
 
-export default CreateRecordContainer;
+const CreateRecordRecoilWrapper: NextPage<CreateRecordContainerProps> = (props) => {
+  return (
+    <RecoilRoot>
+      <CreateRecordContainer {...props} />
+    </RecoilRoot>
+  );
+};
+
+export default CreateRecordRecoilWrapper;
