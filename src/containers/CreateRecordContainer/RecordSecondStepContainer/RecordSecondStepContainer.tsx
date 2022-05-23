@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 
 import EntityForm from '@/components/EntityForm';
 import MultiSelectField from '@/components/formFields/MultiSelectField';
+import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
+import Button from '@/components/commons/Button';
+import Icon from '@/components/commons/Icon';
+import { SwiperLayoutChildProps } from '@/components/SwiperLayout';
 
 const StyledRecordSecondStepContainer = styled.div`
   display: flex;
@@ -29,9 +33,20 @@ const StyledRecordSecondStepContainer = styled.div`
     text-align: center;
     margin-bottom: 16px;
   }
+
+  & .record-floating-area {
+    left: 100vw;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  & .button-inner {
+    display: flex;
+    align-items: center;
+  }
 `;
 
-interface RecordSecondStepContainerProps {
+interface RecordSecondStepContainerProps extends SwiperLayoutChildProps {
   beerName: string;
   className?: string;
   onSubmit: () => void;
@@ -40,6 +55,8 @@ interface RecordSecondStepContainerProps {
 const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
   beerName,
   className,
+  onMovePrev,
+  onMoveNext,
   onSubmit,
 }) => {
   return (
@@ -50,10 +67,31 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
         <p className="body-5">{'최대 3개까지 선택이 가능해요!'}</p>
         <MultiSelectField
           name="flavor"
-          height="calc(100vh - 265px)"
+          height="calc(100vh - 295px)"
           maxLength={3}
           options={dummyOptions}
         />
+        <BottomFloatingButtonArea className="record-floating-area">
+          <Button
+            type="primary"
+            line
+            htmlType="submit"
+            onClick={onMovePrev}
+            leftAddon={<Icon name="ArrowLeft" />}
+            iconMargin={4}
+          >
+            이전
+          </Button>
+          <Button
+            type="primary"
+            htmlType="submit"
+            onClick={onMoveNext}
+            rightAddon={<Icon name="ArrowRight" />}
+            iconMargin={4}
+          >
+            다음
+          </Button>
+        </BottomFloatingButtonArea>
       </EntityForm>
     </StyledRecordSecondStepContainer>
   );

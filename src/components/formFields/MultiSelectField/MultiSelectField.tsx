@@ -26,7 +26,10 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = <T extends any>({
   const { control } = useFormContext();
 
   const rules = useMemo(
-    () => (!isNil(maxLength) ? { validate: (value: T[]) => value.length <= maxLength } : undefined),
+    () =>
+      !isNil(maxLength)
+        ? { validate: (value: T[]) => (value?.length || 0) <= maxLength }
+        : undefined,
     [maxLength],
   );
 

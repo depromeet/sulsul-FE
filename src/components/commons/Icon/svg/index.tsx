@@ -36,6 +36,8 @@ import {
   NextIcon as Next,
   PlusCircleIcon as PlusCircle,
   ThreeDotIcon as ThreeDot,
+  ArrowLeftIcon as ArrowLeft,
+  ArrowRightIcon as ArrowRight,
 } from '@/assets/icon';
 
 export const svg = {
@@ -76,4 +78,6 @@ export const svg = {
   Next,
   PlusCircle,
   ThreeDot,
+  ArrowLeft,
+  ArrowRight,
 };

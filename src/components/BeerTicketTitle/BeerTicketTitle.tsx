@@ -75,6 +75,7 @@ const StyledBeerTicketTitle = styled.div<StyledBeerTicketTitleProps>`
     font-size: ${({ ticketType }) => (ticketType === 'default' ? '16' : '20')}px;
     line-height: 140%;
     word-break: keep-all;
+    text-align: left;
   }
 `;
 
