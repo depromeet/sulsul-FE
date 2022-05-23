@@ -25,7 +25,7 @@ const StyledRecordFirstStepContainer = styled.div`
     margin-bottom: 10px;
   }
 
-  & p.body-1 {
+  & p.body-2 {
     ${({ theme }) => theme.fonts.Body2}
     color: ${({ theme }) => theme.semanticColor.secondary};
     text-align: center;
@@ -43,7 +43,7 @@ const RecordFirstStepContainer: React.FC<RecordFirstStepContainerProps> = ({
     <StyledRecordFirstStepContainer className={className}>
       <EntityForm onSubmit={onSubmit}>
         <h2>{'이번 맥주는 어땠나요?'}</h2>
-        <p className="body-1">{beerName}</p>
+        <p className="body-2">{beerName}</p>
         <EmojiRadioField name="feel" />
         <BottomFloatingButtonArea
           button={
