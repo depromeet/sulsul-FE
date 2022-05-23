@@ -80,11 +80,7 @@ const global = (theme: Readonly<ColorTheme & FontTheme>) => css`
   ${customReset}
 
   html {
-    /** 
-    * 화면 너비에 비례하는 크기에 대응하기 위함
-    * 100vw/375px * 10px = 2.6667px
-    * -> 너비가 375px인 디자인 시안에서 10px을 1rem으로 간주  */
-    font-size: 2.6667px;
+    font-size: 13px;
   }
 
   body {
