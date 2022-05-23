@@ -12,7 +12,9 @@ export default {
   decorators: [
     (Story) => (
       <EntityForm onSubmit={action('onSubmit')}>
-        <Story />
+        <div style={{ marginTop: '30px' }}>
+          <Story />
+        </div>
       </EntityForm>
     ),
   ],

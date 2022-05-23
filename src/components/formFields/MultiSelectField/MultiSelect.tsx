@@ -88,7 +88,7 @@ const MultiSelect: React.FC<MultiSelectProps> = <T extends any>({
       const changedValue = [...(value || [])];
 
       if (hasValue) {
-        const valueIndex = changedValue.findIndex((v) => v === value);
+        const valueIndex = changedValue.findIndex((v) => v === clickedValue);
         changedValue.splice(valueIndex, 1);
       } else {
         if (!isNil(maxLength) && maxLength <= changedValue.length) {
