@@ -13,6 +13,7 @@ export interface EntityFormProps extends UseFormProps {
   onlyModifiedFields?: boolean;
   children?: React.ReactNode;
   footer?: React.ReactNode;
+  showDebug?: boolean;
   onSubmit: SubmitHandler<FieldValues>;
 }
 
@@ -20,6 +21,7 @@ const EntityForm: React.FC<EntityFormProps> = ({
   onlyModifiedFields = false,
   children,
   footer,
+  showDebug = true,
   onSubmit,
   ...useFormProps
 }: EntityFormProps) => {
@@ -48,7 +50,7 @@ const EntityForm: React.FC<EntityFormProps> = ({
         {children}
         {footer}
       </form>
-      <DevTool control={control} />
+      {showDebug && <DevTool control={control} />}
     </FormProvider>
   );
 };

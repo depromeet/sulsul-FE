@@ -91,7 +91,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
 
   return (
     <StyledRecordThirdStepContainer>
-      <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues}>
+      <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
         <p className="body-1">{beer.name}</p>
         <ImageUploadField name="imageUrl" beer={beer} required />

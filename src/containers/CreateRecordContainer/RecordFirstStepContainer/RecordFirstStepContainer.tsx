@@ -57,7 +57,7 @@ const RecordFirstStepContainer: React.FC<RecordFirstStepContainerProps> = ({
 
   return (
     <StyledRecordFirstStepContainer className={className}>
-      <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues}>
+      <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
         <h2>{'이번 맥주는 어땠나요?'}</h2>
         <p className="body-2">{beerName}</p>
         <EmojiRadioField name="feel" />
