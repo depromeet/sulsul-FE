@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   FormProvider,
   useForm,
@@ -23,11 +23,12 @@ const EntityForm: React.FC<EntityFormProps> = ({
   onSubmit,
   ...useFormProps
 }: EntityFormProps) => {
-  const methods = useForm({ mode: 'onBlur', ...useFormProps });
+  const methods = useForm({ mode: 'onChange', ...useFormProps });
   const {
     control,
     handleSubmit: hookFormHandleSubmit,
     formState: { dirtyFields },
+    trigger,
   } = methods;
 
   const handleSubmit = useCallback(
@@ -36,6 +37,10 @@ const EntityForm: React.FC<EntityFormProps> = ({
     },
     [onSubmit, onlyModifiedFields, dirtyFields],
   );
+
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
 
   return (
     <FormProvider {...methods}>

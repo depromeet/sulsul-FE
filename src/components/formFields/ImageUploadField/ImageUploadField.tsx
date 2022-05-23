@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled from '@emotion/styled';
 
@@ -11,6 +11,7 @@ interface ImageUploadFieldProps {
   name: string;
   title?: string;
   className?: string;
+  required?: boolean;
   uploadCallback?: (data: FormData) => Promise<any>;
 }
 
@@ -43,10 +44,13 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
   name,
   title,
   className,
+  required,
   uploadCallback,
 }) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const { control } = useFormContext();
+
+  const rules = useMemo(() => ({ required }), [required]);
 
   const handleClick = useCallback(() => {
     imageInputRef.current?.click();
@@ -73,6 +77,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
     <Controller
       control={control}
       name={name}
+      rules={rules}
       render={({ field }) => (
         <StyledImageUploadField>
           <input
