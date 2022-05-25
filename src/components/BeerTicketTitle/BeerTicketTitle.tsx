@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { IBeer } from '@/apis';
 import Icon from '@/components/commons/Icon';
 import { theme } from '@/themes';
-import { Beer } from '@/types/Beer';
 import { sliceAndUpperCase } from '@/utils/string';
 
 type TicketType = 'default' | 'form';
 
 interface BeerTicketTitleProps {
-  beer: Beer;
+  beer: IBeer;
   type?: TicketType;
   background?: string;
 }
@@ -98,10 +98,10 @@ const BeerTicketTitle: React.FC<BeerTicketTitleProps> = ({
         <div className="ticket-detail">
           {`${beer?.alcohol?.toFixed(1)}%`}
           <span className="ticket-detail-split-dot">{'•'}</span>
-          {beer?.type}
+          {beer?.type?.nameKor}
         </div>
       </div>
-      <span className="ticket-beer-name">{beer?.name}</span>
+      <span className="ticket-beer-name">{beer?.nameKor}</span>
     </StyledBeerTicketTitle>
   );
 };

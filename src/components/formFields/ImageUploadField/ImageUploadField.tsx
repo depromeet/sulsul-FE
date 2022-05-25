@@ -2,12 +2,12 @@ import React, { useCallback, useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled from '@emotion/styled';
 
-import { Beer } from '@/types/Beer';
+import { IBeer } from '@/apis';
 import PhotoIconButton from '@/components/commons/PhotoIconButton';
 import BeerTicketTitle from '@/components/BeerTicketTitle';
 
 interface ImageUploadFieldProps {
-  beer: Beer;
+  beer: IBeer;
   name: string;
   title?: string;
   className?: string;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
+import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
-import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { theme } from '@/themes';
 import { ellipsis } from '@/styles/common';
 
-type BeerGridItemProps = Pick<Beer, 'name' | 'imageUrl' | 'feel' | 'isLiked'>;
+type BeerGridItemProps = Pick<IBeer, 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
 interface Props {
   beer: BeerGridItemProps;
@@ -16,7 +16,7 @@ interface Props {
 
 const BeerGridItem = (props: Props) => {
   const {
-    beer: { name, imageUrl, feel, isLiked },
+    beer: { nameKor, imageUrl, feel, isLiked },
   } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
@@ -37,7 +37,7 @@ const BeerGridItem = (props: Props) => {
           <BeerImage src={imageUrl} />
         </BeerImageMasking>
       </BeerGridItemContainer>
-      <BeerName>{name}</BeerName>
+      <BeerName>{nameKor}</BeerName>
     </StyledBeerGridItem>
   );
 };
@@ -82,6 +82,7 @@ const BookmarkButton = styled.button`
   align-items: center;
   padding: 0;
   margin: 0;
+  z-index: 1;
 `;
 
 const BeerImage = styled.img`

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
+import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
-import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { theme } from '@/themes';
 import { ellipsis } from '@/styles/common';
 
 type BeerListItemProps = Pick<
-  Beer,
-  'country' | 'type' | 'name' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
+  IBeer,
+  'country' | 'type' | 'nameKor' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
 >;
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 
 const BeerListItem = (props: Props) => {
   const {
-    beer: { name, type, alcohol, country, imageUrl, feel, isLiked },
+    beer: { nameKor, type, alcohol, country, imageUrl, feel, isLiked },
   } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
@@ -40,9 +40,9 @@ const BeerListItem = (props: Props) => {
         <BeerImage src={imageUrl} />
       </StyledBeerImageMasking>
       <TextContainer>
-        <BeerName>{name}</BeerName>
+        <BeerName>{nameKor}</BeerName>
         <BeerInfo>
-          {country?.name} · {type} · {alcohol?.toFixed(1)}%
+          {country?.nameKor} · {type?.nameKor} · {alcohol?.toFixed(1)}%
         </BeerInfo>
       </TextContainer>
     </StyledBeerListItem>

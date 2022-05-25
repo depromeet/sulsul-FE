@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { Beer } from '@/types/Beer';
+import { IBeer } from '@/apis';
 import EntityForm from '@/components/EntityForm';
 import ImageUploadField from '@/components/formFields/ImageUploadField';
 import SelectField from '@/components/formFields/SelectField';
 import TextAreaField from '@/components/formFields/TextAreaField';
 
 interface RecordThirdStepContainerProps {
-  beer: Beer;
+  beer: IBeer;
   className?: string;
   onSubmit: () => void;
 }
@@ -57,7 +57,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({ bee
     <StyledRecordThirdStepContainer>
       <EntityForm onSubmit={onSubmit}>
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
-        <p className="body-1">{beer.name}</p>
+        <p className="body-1">{beer.nameKor}</p>
         <ImageUploadField name="imageUrl" beer={beer} />
         <div className="switch-wrapper">
           <span>{'맥주 여행 소감 공개 여부'}</span>

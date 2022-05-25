@@ -2,8 +2,11 @@ import styled from '@emotion/styled';
 
 import BottomSheet from '../BottomSheet';
 import Icon from '../commons/Icon';
+import {
+  BeerListSortType,
+  beerListSortTypeTextAlias,
+} from '../BeerListFilterAndSorter/BeerListFilterAndSorter';
 
-import { BeerListSortType, beerListSortTextAlias } from '@/types/Beer';
 import { theme } from '@/themes';
 
 interface BeerListSortBottomSheetProps {
@@ -46,7 +49,7 @@ const BeerListSortBottomSheet = ({
   return (
     <BottomSheet open={open} onClose={onClose}>
       <StyledWrapper>
-        {Object.entries(beerListSortTextAlias).map(([sortType, sortText]) => {
+        {Object.entries(beerListSortTypeTextAlias).map(([sortType, sortText]) => {
           const isSelected = sortType === currentSortType;
           return (
             <SortTypeItem

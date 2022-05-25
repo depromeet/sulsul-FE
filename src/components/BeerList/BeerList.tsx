@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-import { Beer } from '@/types/Beer';
+import { IBeer } from '@/apis';
 import BeerGridItem from '@/components/beerItem/BeerGridItem';
 import BeerListItem from '@/components/beerItem/BeerListItem';
 import { ListViewType } from '@/components/Header/extras/ListViewToggleButton';
 
 interface Props {
   type: ListViewType;
-  beers: Beer[];
+  beers: IBeer[];
 }
 
 const BeerList = (props: Props) => {
