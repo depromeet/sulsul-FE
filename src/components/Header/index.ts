@@ -1,1 +1,1 @@
-export { default } from './Header';
+export { default, HEADER_HEIGHT } from './Header';
