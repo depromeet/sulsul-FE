@@ -10,12 +10,11 @@ const StyledContainer = styled.div<{ open: boolean }>`
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100vw;
   max-width: 768px;
   margin: 0 auto;
-  height: 100vh;
 
   overflow: hidden;
+  z-index: 100;
 
   ${(p) => !p.open && 'pointer-events: none;'}
 `;

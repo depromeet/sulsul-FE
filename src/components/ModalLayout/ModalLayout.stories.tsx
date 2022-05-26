@@ -20,15 +20,15 @@ const StyledWrapper = styled.div<{ open: boolean }>`
   flex-direction: column;
   width: 60%;
 
-  padding: 1.6rem;
-  border-radius: 1.6rem;
+  padding: 16px;
+  border-radius: 16px;
 
   background-color: ${(p) => p.theme.color.white};
 
   ${(p) => !p.open && `display:none;`}
 
   > p {
-    height: 3rem;
+    height: 30px;
   }
 `;
 

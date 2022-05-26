@@ -111,7 +111,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   min-width: 125px;
   height: 48px;
   border-radius: 200px;
-  padding: 1.12rem 2.5rem;
+  padding: 11.2px 25px;
   font-size: 16px;
   font-weight: 700;
   display: flex;
@@ -124,10 +124,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     height: 20px;
 
     &.margin-right {
-      margin-right: 0.75rem;
+      margin-right: 7.5px;
     }
     &.margin-left {
-      margin-left: 0.75rem;
+      margin-left: 7.5px;
     }
 
     & svg {
