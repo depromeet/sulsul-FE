@@ -66,9 +66,11 @@ export interface IGetBeersPayload {
 }
 
 export interface IGetBeersResponseData {
-  contents: IBeer[];
-  hasNext: boolean;
-  nextCursor: number;
+  data: {
+    contents: IBeer[];
+    hasNext: boolean;
+    nextCursor: number;
+  };
 }
 
 /**
@@ -77,12 +79,21 @@ export interface IGetBeersResponseData {
 export const getBeers = async (payload: IGetBeersPayload) =>
   await axios.post<IGetBeersResponseData>('/api/v2/beers', payload);
 
+export interface IGetBeer {
+  data: IBeer;
+}
+
 /**
  * 맥주 상세정보 조회
  */
-export const getBeer = async (beerId: number) => await axios.get<IBeer>(`/api/v2/beers/${beerId}`);
+export const getBeer = async (beerId: number) =>
+  await axios.get<IGetBeer>(`/api/v2/beers/${beerId}`);
+
+export interface IGetBeerTypes {
+  data: IBeerType[];
+}
 
 /**
  * 맥주 종류 목록 조회
  */
-export const getBeerTypes = async () => await axios.get<IBeerType[]>('/api/v2/beers/types');
+export const getBeerTypes = async () => await axios.get<IGetBeerTypes>('/api/v2/beers/types');
