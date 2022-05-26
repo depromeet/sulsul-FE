@@ -28,22 +28,28 @@ const ProfileContainer = (props: Props) => {
     requestBeerCount,
   } = props;
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
+  const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModifyModal = () => setIsModifyModalOpen(true);
+  const closeModifyModal = () => setIsModifyModalOpen(false);
+  const openLevelModal = () => setIsLevelModalOpen(true);
+  const closeLevelModal = () => setIsLevelModalOpen(false);
 
   return (
     <>
       <StyledProfileContainer>
-        <ToolTip>여행 1번만 더 하면 Level UP!</ToolTip>
+        <ToolTip>
+          여행 1번만 더 하면 Level UP!
+          <Icon name="Info" size={20} onClick={openLevelModal} />
+        </ToolTip>
         <Icon name="Level1" size={160} />
         <NickName>
           {nickname}
           <Icon
             name="Modify"
             size={24}
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsModifyModalOpen(true)}
             style={{ cursor: 'pointer' }}
           />
         </NickName>
@@ -79,17 +85,50 @@ const ProfileContainer = (props: Props) => {
           </Link>
         </ListButtonBoxContainer>
       </StyledProfileContainer>
-      {isModalOpen && (
+      {isModifyModalOpen && (
         <Modal
-          open={isModalOpen}
-          openModal={openModal}
-          closeModal={closeModal}
+          open={isModifyModalOpen}
+          openModal={openModifyModal}
+          closeModal={closeModifyModal}
           withCloseButton
           header="프로필 수정하기"
           buttons={
-            <Button type="primary" width="large" onClick={closeModal}>
+            <Button type="primary" width="large" onClick={closeModifyModal}>
               완료
             </Button>
+          }
+        />
+      )}
+      {isLevelModalOpen && (
+        <Modal
+          open={isLevelModalOpen}
+          openModal={openLevelModal}
+          closeModal={closeLevelModal}
+          withCloseButton
+          header="Level 안내"
+          description={
+            <LevelContainer>
+              <Level>
+                <Icon name="Level1" size={64} />
+                <p>기록한 티켓 0개 이상 Level</p>
+              </Level>
+              <Level>
+                <Icon name="Level2" size={64} />
+                <p>기록한 티켓 1개 이상 Level</p>
+              </Level>
+              <Level>
+                <Icon name="Level3" size={64} />
+                <p>기록한 티켓 5개 이상 Level</p>
+              </Level>
+              <Level>
+                <Icon name="Level4" size={64} />
+                <p>기록한 티켓 12개 이상 Level</p>
+              </Level>
+              <Level>
+                <Icon name="Level5" size={64} />
+                <p>기록한 티켓 20개 이상 Level</p>
+              </Level>
+            </LevelContainer>
           }
         />
       )}
@@ -180,8 +219,9 @@ const ToolTip = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 184px;
-  height: 40px;
+  gap: 10px;
+  width: 214px;
+  height: 44px;
   margin-top: 60px;
   background: ${({ theme }) => theme.semanticColor.primary};
   border-radius: 8px;
@@ -200,4 +240,21 @@ const ToolTip = styled.div`
     bottom: -15px;
     left: 62px;
   }
+`;
+
+const LevelContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 0 30px;
+`;
+
+const Level = styled.div`
+  display: flex;
+  align-items: center;
 `;

@@ -87,7 +87,7 @@ const EtcContainer = () => {
             </>
           }
           title="정말 회원 탈퇴 하시겠어요?"
-          decription="회원 탈퇴 시 저장된 모든 정보가 삭제됩니다."
+          description="회원 탈퇴 시 저장된 모든 정보가 삭제됩니다."
         />
       )}
     </StyledEtcContainer>
