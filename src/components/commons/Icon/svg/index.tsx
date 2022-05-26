@@ -40,6 +40,7 @@ import {
   NextIcon as Next,
   PlusCircleIcon as PlusCircle,
   ThreeDotIcon as ThreeDot,
+  ConveyorBelt,
 } from '@/assets/icon';
 
 export const svg = {
@@ -84,4 +85,5 @@ export const svg = {
   Next,
   PlusCircle,
   ThreeDot,
+  ConveyorBelt,
 };

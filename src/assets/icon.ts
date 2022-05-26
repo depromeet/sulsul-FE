@@ -1,6 +1,7 @@
 export { ReactComponent as ArrowDownIcon } from './arrow_down.svg';
 export { ReactComponent as CheckIcon } from './check.svg';
 export { ReactComponent as Cloud } from './cloud.svg';
+export { ReactComponent as ConveyorBelt } from './conveyor_belt.svg';
 export { ReactComponent as HistoryIcon } from './history.svg';
 export { ReactComponent as BackIcon } from './back.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
