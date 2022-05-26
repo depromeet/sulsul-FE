@@ -18,7 +18,7 @@ const ListButtonBox = (props: ListButtonBoxProps) => {
       </SmallBox>
       <Text>
         <p>{text}</p>
-        {count && <p>{count}개</p>}
+        {count !== undefined && <p>{count}개</p>}
       </Text>
       <Icon name="Next" size={20} className="arrow-icon" />
     </StyledListButtonBox>
