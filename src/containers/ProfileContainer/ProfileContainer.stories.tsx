@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import ProfileContainer from './ProfileContainer';
 
 export default {
-  title: 'Pages/ProfileContainer',
+  title: 'Pages/프로필',
   component: ProfileContainer,
   argTypes: {
     nickname: { control: 'text', name: 'nickname' },
