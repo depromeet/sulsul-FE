@@ -110,12 +110,12 @@ const NickName = styled.div`
   display: flex;
   gap: 12px;
   ${({ theme }) => theme.fonts.H2}
-  margin-bottom:6px;
+  margin-bottom: 6px;
 `;
 
 const Email = styled.p`
   ${({ theme }) => theme.fonts.Body4}
-  color:${({ theme }) => theme.color.whiteOpacity80};
+  color: ${({ theme }) => theme.color.whiteOpacity80};
   margin-bottom: 36px;
 `;
 
