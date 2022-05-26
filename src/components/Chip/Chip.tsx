@@ -22,6 +22,7 @@ const StyledWrapper = styled.span`
   p {
     white-space: nowrap;
     color: ${(p) => p.theme.color.grey5};
+    ${(p) => p.theme.fonts.SubTitle5};
   }
 
   button {
