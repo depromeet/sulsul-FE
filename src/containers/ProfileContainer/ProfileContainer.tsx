@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import Link from 'next/link';
 
 import BottomNavigation from '@/components/BottomNavigation';
 import ListButtonBox from '@/components/ListButtonBox';
@@ -11,8 +12,8 @@ interface Props {
   nickname: string;
   email: string;
   drinkedBeerCount: number;
-  TicketCount: number;
-  TravelCount: number;
+  ticketCount: number;
+  travelCount: number;
   likedBeerCount: number;
   requestBeerCount: number;
 }
@@ -21,8 +22,8 @@ const ProfileContainer = (props: Props) => {
     nickname,
     email,
     drinkedBeerCount,
-    TicketCount,
-    TravelCount,
+    ticketCount,
+    travelCount,
     likedBeerCount,
     requestBeerCount,
   } = props;
@@ -57,14 +58,14 @@ const ProfileContainer = (props: Props) => {
           </TextItem>
           <TextItem>
             <NumberAndUnit>
-              <Number>{TicketCount}</Number>
+              <Number>{ticketCount}</Number>
               <Unit>개</Unit>
             </NumberAndUnit>
             <Title>기록한 티켓</Title>
           </TextItem>
           <TextItem>
             <NumberAndUnit>
-              <Number>{TravelCount}</Number>
+              <Number>{travelCount}</Number>
               <Unit>개국</Unit>
             </NumberAndUnit>
             <Title>여행한 나라</Title>
@@ -73,7 +74,10 @@ const ProfileContainer = (props: Props) => {
         <ListButtonBoxContainer>
           <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={likedBeerCount} />
           <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestBeerCount} />
-          <ListButtonBox iconName="ThreeDot" text="기타" />
+
+          <Link href="./etc">
+            <ListButtonBox iconName="ThreeDot" text="기타" />
+          </Link>
         </ListButtonBoxContainer>
       </StyledProfileContainer>
       {isModalOpen && (
