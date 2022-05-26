@@ -4,7 +4,7 @@ import { css, keyframes } from '@emotion/react';
 
 import ModalLayout from '../ModalLayout';
 
-import { useElementSize } from '@/hooks/useElementSize';
+import { useElementSize } from '@/hooks';
 
 const showUp = keyframes`
   from {
@@ -36,7 +36,7 @@ const StyledWrapper = styled.div<StyledWrapperProps>`
   width: 100%;
   ${(p) => (p.isFull ? 'height: 90vh;' : '')};
   max-height: 90vh;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 20px 20px 0 0;
 
   background-color: ${(p) => p.backgroundColor};
 
