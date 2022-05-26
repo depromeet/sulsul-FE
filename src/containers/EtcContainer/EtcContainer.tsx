@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
 import Header, { HEADER_HEIGHT } from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
@@ -14,13 +15,19 @@ const EtcContainer = () => {
           </a>
         </ListRow>
         <ListRow>
-          <a>이용약관</a>
+          <Link href="/terms" passHref>
+            <a>이용약관</a>
+          </Link>
         </ListRow>
         <ListRow>
-          <a>개인정보 처리방침</a>
+          <Link href="/privacy-policy" passHref>
+            <a>개인정보 처리방침</a>
+          </Link>
         </ListRow>
         <ListRow>
-          <a>팀원 소개</a>
+          <Link href="/team" passHref>
+            <a>팀원 소개</a>
+          </Link>
         </ListRow>
         <ListRow>
           <a onClick={() => alert('로그아웃')}>로그아웃</a>
