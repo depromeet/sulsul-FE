@@ -1,10 +1,27 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { useState } from 'react';
 
 import Header, { HEADER_HEIGHT } from '@/components/Header';
+import Modal from '@/components/Modal';
+import Button from '@/components/commons/Button';
 import { BackButton } from '@/components/Header/extras';
 
 const EtcContainer = () => {
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
+
+  const openLogoutModal = () => setIsLogoutModalOpen(true);
+  const closeLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+    alert('로그아웃 되었습니다');
+  };
+  const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
+  const closeWithdrawalModal = () => {
+    setIsWithdrawalModalOpen(false);
+    alert('회원탈퇴 되었습니다');
+  };
+
   return (
     <StyledEtcContainer>
       <Header leftExtras={<BackButton />}>기타</Header>
@@ -30,12 +47,49 @@ const EtcContainer = () => {
           </Link>
         </ListRow>
         <ListRow>
-          <a onClick={() => alert('로그아웃')}>로그아웃</a>
+          <a onClick={openLogoutModal}>로그아웃</a>
         </ListRow>
         <Withdrawal>
-          <a>회원탈퇴</a>
+          <a onClick={openWithdrawalModal}>회원탈퇴</a>
         </Withdrawal>
       </ListRowContainer>
+      {isLogoutModalOpen && (
+        <Modal
+          open={isLogoutModalOpen}
+          openModal={openLogoutModal}
+          closeModal={closeLogoutModal}
+          buttons={
+            <>
+              <Button type="grey" onClick={closeLogoutModal}>
+                취소
+              </Button>
+              <Button type="primary" onClick={closeLogoutModal}>
+                확인
+              </Button>
+            </>
+          }
+          title="로그아웃 하시겠어요?"
+        />
+      )}
+      {isWithdrawalModalOpen && (
+        <Modal
+          open={isWithdrawalModalOpen}
+          openModal={openWithdrawalModal}
+          closeModal={closeWithdrawalModal}
+          buttons={
+            <>
+              <Button type="grey" onClick={closeWithdrawalModal}>
+                취소
+              </Button>
+              <Button type="primary" onClick={closeWithdrawalModal}>
+                확인
+              </Button>
+            </>
+          }
+          title="정말 회원 탈퇴 하시겠어요?"
+          decription="회원 탈퇴 시 저장된 모든 정보가 삭제됩니다."
+        />
+      )}
     </StyledEtcContainer>
   );
 };
