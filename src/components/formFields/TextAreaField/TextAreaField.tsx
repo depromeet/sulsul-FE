@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled from '@emotion/styled';
 
@@ -8,6 +8,7 @@ interface TextAreaFieldProps {
   height?: string;
   maxHeight?: string;
   placeholder?: string;
+  required?: boolean;
   className?: string;
 }
 
@@ -40,14 +41,18 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({
   height,
   maxHeight,
   placeholder,
+  required,
   className,
 }) => {
   const { control } = useFormContext();
+
+  const rules = useMemo(() => ({ required }), [required]);
 
   return (
     <Controller
       control={control}
       name={name}
+      rules={rules}
       render={({ field }) => (
         <StyledTextArea
           {...field}

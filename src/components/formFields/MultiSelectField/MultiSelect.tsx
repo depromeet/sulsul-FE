@@ -72,12 +72,14 @@ const MultiSelect: React.FC<MultiSelectProps> = <T extends any>({
 }: MultiSelectProps<T>) => {
   const triggerChange = useCallback(
     (value: T[] | undefined, e: ClickEvent) => {
+      const _value = value?.length !== 0 ? value : undefined;
+
       if (!disabled) {
-        onChange?.(value, e);
+        onChange?.(_value, e);
         onBlur?.();
       }
 
-      return value;
+      return _value;
     },
     [disabled, onChange, onBlur],
   );
