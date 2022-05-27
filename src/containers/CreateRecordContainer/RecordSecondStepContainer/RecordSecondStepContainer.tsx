@@ -94,7 +94,7 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
             leftAddon={<Icon name="ArrowLeft" />}
             iconMargin={4}
           >
-            {(feel && <Emoji feel={feel} size={20} />) || '이전'}
+            {feel ? <Emoji feel={feel} size={20} /> : '이전'}
           </Button>
           <FormSubmitButton
             type="primary"
