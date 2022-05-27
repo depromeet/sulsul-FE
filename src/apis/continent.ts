@@ -5,7 +5,14 @@ export interface IContinent {
   name: string;
 }
 
+interface IGetContinentsResponseData {
+  data: IContinent[];
+}
+
 /**
  * 대륙 목록 조회
  */
-export const getContinents = async () => await axios.get<IContinent[]>('/api/v1/continents');
+export const getContinents = async () => {
+  const res = await axios.get<IGetContinentsResponseData>('/api/v1/continents');
+  return res.data;
+};

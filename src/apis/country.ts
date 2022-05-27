@@ -10,8 +10,16 @@ export interface ICountry {
   continent?: IContinent;
 }
 
+interface IGetContinentResponseData {
+  data: ICountry[];
+}
+
 /**
  * 국가 목록 조회
  */
-export const getCountries = async (continentId?: IContinent['id']) =>
-  await axios.get<ICountry[]>('/api/v1/countries', { params: { continentId } });
+export const getCountries = async (continentId?: IContinent['id']) => {
+  const res = await axios.get<IGetContinentResponseData>('/api/v1/countries', {
+    params: { continentId },
+  });
+  return res.data;
+};

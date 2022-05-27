@@ -76,24 +76,31 @@ export interface IGetBeersResponseData {
 /**
  * 맥주 목록 조회
  */
-export const getBeers = async (payload: IGetBeersPayload) =>
-  await axios.post<IGetBeersResponseData>('/api/v2/beers', payload);
+export const getBeers = async (payload: IGetBeersPayload) => {
+  const res = await axios.post<IGetBeersResponseData>('/api/v2/beers', payload);
+  return res.data;
+};
 
-export interface IGetBeer {
+export interface IGetBeerResponseData {
   data: IBeer;
 }
 
 /**
  * 맥주 상세정보 조회
  */
-export const getBeer = async (beerId: number) =>
-  await axios.get<IGetBeer>(`/api/v2/beers/${beerId}`);
+export const getBeer = async (beerId: number) => {
+  const res = await axios.get<IGetBeerResponseData>(`/api/v2/beers/${beerId}`);
+  return res.data;
+};
 
-export interface IGetBeerTypes {
+export interface IGetBeerTypesResponseData {
   data: IBeerType[];
 }
 
 /**
  * 맥주 종류 목록 조회
  */
-export const getBeerTypes = async () => await axios.get<IGetBeerTypes>('/api/v2/beers/types');
+export const getBeerTypes = async () => {
+  const res = await axios.get<IGetBeerTypesResponseData>('/api/v2/beers/types');
+  return res.data;
+};
