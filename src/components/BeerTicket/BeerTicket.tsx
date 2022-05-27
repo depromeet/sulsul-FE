@@ -12,9 +12,21 @@ import BeerTicketTitle from '@/components/BeerTicketTitle';
 import { Beer } from '@/types/Beer';
 import Emoji from '@/components/Emoji';
 
+// TODO: 나중에 지울꺼^^
+interface TempRecord {
+  prevCountryNameEng: string;
+  nextCountryNameEng: string;
+  prevCountryNameKor: string;
+  nextCountryNameKor: string;
+  feel: 1 | 2 | 3 | 4 | 5;
+  flavors: { id: number; content: string }[];
+  content: string;
+  recodedAt: Date;
+}
+
 interface BeerTicketProps {
   beer: Beer;
-  record: any;
+  record: TempRecord;
 }
 
 const StyledBeerTicket = styled.div`
