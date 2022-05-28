@@ -29,7 +29,7 @@ interface BeerTicketProps {
   record: TempRecord;
 }
 
-const StyledBeerTicket = styled.div`
+const StyledBeerTicket = styled.article`
   width: 300px;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 16px;
