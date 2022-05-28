@@ -46,6 +46,12 @@ import {
   ModifyIcon as Modify,
   InfoIcon as Info,
   Logo,
+  WorldIcon as World,
+  Stamp1Icon as Stamp1,
+  Stamp2Icon as Stamp2,
+  Stamp3Icon as Stamp3,
+  Stamp4Icon as Stamp4,
+  Stamp5Icon as Stamp5,
 } from '@/assets/icon';
 
 export const svg = {
@@ -96,4 +102,10 @@ export const svg = {
   Modify,
   Info,
   Logo,
+  World,
+  Stamp1,
+  Stamp2,
+  Stamp3,
+  Stamp4,
+  Stamp5,
 };
