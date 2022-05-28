@@ -6,6 +6,7 @@ import ListButtonBox from '@/components/ListButtonBox';
 import BottomNavigation from '@/components/BottomNavigation';
 import Modal from '@/components/Modal';
 import LevelModal from '@/components/LevelModal';
+import ProfileModifyModal from '@/components/ProfileModifyModal';
 import Icon from '@/components/commons/Icon';
 import Button from '@/components/commons/Button';
 
@@ -47,7 +48,7 @@ const ProfileContainer = (props: Props) => {
         <Icon name="Level1" size={160} />
         <NickName>
           {nickname}
-          <Icon name="Modify" size={24} onClick={openModifyModal} style={{ cursor: 'pointer' }} />
+          <ModifyIcon name="Modify" size={24} onClick={openModifyModal} />
         </NickName>
         <Email>{email}</Email>
         <TextItemContainer>
@@ -82,17 +83,11 @@ const ProfileContainer = (props: Props) => {
         </ListButtonBoxContainer>
       </StyledProfileContainer>
       {isModifyModalOpen && (
-        <Modal
-          open={isModifyModalOpen}
-          openModal={openModifyModal}
-          closeModal={closeModifyModal}
-          withCloseButton
-          header="프로필 수정하기"
-          buttons={
-            <Button type="primary" width="large" onClick={closeModifyModal}>
-              완료
-            </Button>
-          }
+        <ProfileModifyModal
+          isModifyModalOpen={isModifyModalOpen}
+          openModifyModal={openModifyModal}
+          closeModifyModal={closeModifyModal}
+          onSubmit={()=> alert("닉네임 수정 완료")}
         />
       )}
       {isLevelModalOpen && (
@@ -116,10 +111,17 @@ const StyledProfileContainer = styled.div`
 `;
 
 const NickName = styled.div`
+  position: relative;
   display: flex;
-  gap: 12px;
+
   ${({ theme }) => theme.fonts.H2}
   margin-bottom: 6px;
+`;
+
+const ModifyIcon = styled(Icon)`
+  cursor: pointer;
+  position: absolute;
+  left: calc(100% + 12px);
 `;
 
 const Email = styled.p`
