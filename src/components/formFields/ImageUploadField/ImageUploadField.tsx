@@ -11,6 +11,7 @@ interface ImageUploadFieldProps {
   name: string;
   title?: string;
   className?: string;
+  required?: boolean;
   uploadCallback?: (data: FormData) => Promise<any>;
 }
 
@@ -43,6 +44,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
   name,
   title,
   className,
+  required,
   uploadCallback,
 }) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +75,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
     <Controller
       control={control}
       name={name}
+      rules={{ required }}
       render={({ field }) => (
         <StyledImageUploadField>
           <input

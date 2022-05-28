@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   FormProvider,
   useForm,
@@ -13,6 +13,7 @@ export interface EntityFormProps extends UseFormProps {
   onlyModifiedFields?: boolean;
   children?: React.ReactNode;
   footer?: React.ReactNode;
+  showDebug?: boolean;
   onSubmit: SubmitHandler<FieldValues>;
 }
 
@@ -20,14 +21,16 @@ const EntityForm: React.FC<EntityFormProps> = ({
   onlyModifiedFields = false,
   children,
   footer,
+  showDebug = true,
   onSubmit,
   ...useFormProps
 }: EntityFormProps) => {
-  const methods = useForm({ mode: 'onBlur', ...useFormProps });
+  const methods = useForm({ mode: 'onChange', ...useFormProps });
   const {
     control,
     handleSubmit: hookFormHandleSubmit,
     formState: { dirtyFields },
+    trigger,
   } = methods;
 
   const handleSubmit = useCallback(
@@ -37,13 +40,17 @@ const EntityForm: React.FC<EntityFormProps> = ({
     [onSubmit, onlyModifiedFields, dirtyFields],
   );
 
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={hookFormHandleSubmit(handleSubmit)}>
         {children}
         {footer}
       </form>
-      <DevTool control={control} />
+      {showDebug && <DevTool control={control} />}
     </FormProvider>
   );
 };

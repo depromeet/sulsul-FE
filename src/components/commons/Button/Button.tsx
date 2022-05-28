@@ -14,23 +14,29 @@ type ButtonType =
   | 'default'
   | 'grey';
 
-interface ButtonProps {
+export type ButtonCount = 1 | 2 | 3 | 4 | 5 | 7 | 8 | 9;
+
+export interface ButtonProps {
   type?: ButtonType;
   htmlType?: 'button' | 'submit';
   line?: boolean;
   width?: 'small' | 'large' | string;
-  count?: 1 | 2 | 3 | 4 | 5 | 7 | 8 | 9;
+  maxWidth?: string;
+  count?: ButtonCount;
   leftAddon?: React.ReactNode;
   rightAddon?: React.ReactNode;
   disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
+  iconMargin?: number;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 interface StyledButtonProps {
   buttonType: ButtonType;
   buttonWidth?: string;
+  buttonMaxWidth?: string;
+  iconMargin: number;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -39,10 +45,12 @@ const Button: React.FC<ButtonProps> = ({
   line = false,
   disabled = false,
   width: _width,
+  maxWidth,
   count,
   className,
   leftAddon,
   rightAddon,
+  iconMargin = 6,
   children,
   onClick,
 }) => {
@@ -53,8 +61,10 @@ const Button: React.FC<ButtonProps> = ({
       buttonType={type}
       type={htmlType}
       buttonWidth={width}
+      buttonMaxWidth={maxWidth}
       disabled={disabled}
       className={cx([className, line && 'common-button-line'])}
+      iconMargin={iconMargin}
       onClick={onClick}
     >
       {leftAddon && <span className="common-button-icon-wrapper margin-right">{leftAddon}</span>}
@@ -119,15 +129,16 @@ const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   transition: filter 0.2s;
   ${({ buttonWidth }) => (buttonWidth ? ` width: ${buttonWidth};` : '')}
+  ${({ buttonMaxWidth }) => (buttonMaxWidth ? ` max-width: ${buttonMaxWidth};` : '')}
 
   & > .common-button-icon-wrapper {
     height: 20px;
 
     &.margin-right {
-      margin-right: 7.5px;
+      margin-right: ${({ iconMargin }) => iconMargin}px;
     }
     &.margin-left {
-      margin-left: 7.5px;
+      margin-left: ${({ iconMargin }) => iconMargin}px;
     }
 
     & svg {

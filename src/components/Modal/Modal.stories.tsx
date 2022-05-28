@@ -9,7 +9,7 @@ export default {
   component: Modal,
   argTypes: {
     title: { control: 'text', name: 'title' },
-    decription: { control: 'text', name: 'decription' },
+    description: { control: 'text', name: 'description' },
     withCloseButton: { control: 'boolean' },
     noMoreSee: { control: 'boolean' },
   },
@@ -32,7 +32,7 @@ Default.args = {
   title: '타이틀입니다',
   withCloseButton: true,
   noMoreSee: true,
-  decription: '설명설명설명설명설명설명설명설명',
+  description: '설명설명설명설명설명설명설명설명',
   buttons: (
     <Button type="primary" width="large">
       기록할 맥주 검색하러 가기
@@ -88,7 +88,7 @@ export const 회원탈퇴: ComponentStory<typeof Modal> = () => {
         </>
       }
       title="정말 회원 탈퇴 하시겠어요?"
-      decription="회원 탈퇴 시 저장된 모든 정보가 삭제됩니다."
+      description="회원 탈퇴 시 저장된 모든 정보가 삭제됩니다."
     />
   );
 };
@@ -127,7 +127,7 @@ export const 기록할_맥주_검색_하러가기: ComponentStory<typeof Modal> 
       openModal={openModal}
       closeModal={closeModal}
       title="어떤 맥주를 기록하시겠어요?"
-      decription="맥주를 선택하면 기록을 시작할 수 있어요."
+      description="맥주를 선택하면 기록을 시작할 수 있어요."
       withCloseButton
       buttons={
         <Button type="primary" width="large" onClick={closeModal}>

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 /** @note 요소의 width가 존재해야 올바르게 동작합니다. */
-export const ellipsis = (lineCount: number = 1) => css`
+export const ellipsis = (lineCount = 1) => css`
   text-overflow: ellipsis;
   overflow: hidden;
 

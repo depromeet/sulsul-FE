@@ -6,13 +6,13 @@ import { isNil } from 'lodash';
 import MultiSelect from './MultiSelect';
 
 import { SelectOption } from '@/types/select';
-import ErrorMessage from '@/components/ErrorMessage';
 
 interface MultiSelectFieldProps<T = any> {
   name: string;
   options: SelectOption<T>[];
   height?: string;
   maxLength?: number;
+  required?: boolean;
 }
 
 const StyledMultiSelectField = styled.div``;
@@ -22,12 +22,16 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = <T extends any>({
   options,
   height,
   maxLength,
+  required = false,
 }: MultiSelectFieldProps<T>) => {
   const { control } = useFormContext();
 
   const rules = useMemo(
-    () => (!isNil(maxLength) ? { validate: (value: T[]) => value.length <= maxLength } : undefined),
-    [maxLength],
+    () =>
+      !isNil(maxLength)
+        ? { validate: (value: T[]) => (value?.length || 0) <= maxLength, required }
+        : { required },
+    [maxLength, required],
   );
 
   return (
