@@ -1,12 +1,20 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useModal = (defaultOpen = false) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
+  const open = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return {
     isOpen,
-    open: () => setIsOpen(true),
-    close: () => setIsOpen(false),
+    open,
+    close,
   };
 };
 
