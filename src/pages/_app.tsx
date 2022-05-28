@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { RecoilRoot } from 'recoil';
 import type { AppProps } from 'next/app';

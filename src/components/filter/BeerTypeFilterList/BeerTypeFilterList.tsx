@@ -9,6 +9,7 @@ import { $selectedBeerTypeIds } from '../BeerListFilterBottomSheet/recoil/select
 import { getBeerTypes, IBeerType } from '@/apis';
 
 const StyledWrapper = styled.div`
+  flex: 1;
   overflow-y: auto;
 `;
 
