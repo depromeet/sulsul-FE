@@ -1,20 +1,16 @@
 import styled from '@emotion/styled';
+import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 
 import BeerCountryFilterItem from '../BeerCountryFilterItem';
+import { $nextBeerListFilterChips } from '../BeerListFilterBottomSheet/recoil/atoms';
+import { $selectedBeerCountryIds } from '../BeerListFilterBottomSheet/recoil/selectors';
+
+import { getCountries, IContinent, ICountry } from '@/apis';
 
 interface BeerCountryFilterListProps {
-  continent?: { id: number; name: string };
-  selectedCountryIds: number[];
-  setSelectedCountryIds: (selectedCountryIds: number[]) => void;
+  continentId?: IContinent['id'];
 }
-
-const MOCK_COUNTRIES = Array(29)
-  .fill(0)
-  .map((_, index) => ({
-    id: index,
-    name: '대한민국' + index,
-    flagImageUrl: 'https://cdn.pixabay.com/photo/2016/05/30/15/33/julia-roberts-1424985_1280.png',
-  }));
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -22,40 +18,50 @@ const StyledWrapper = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(90px, auto));
   justify-items: center;
   padding: 16px 20px;
-  height: 100%;
 
   overflow-y: auto;
 `;
 
-const BeerCountryFilterList = ({
-  continent,
-  selectedCountryIds,
-  setSelectedCountryIds,
-}: BeerCountryFilterListProps) => {
-  /** @todo 대륙 id 넘겨받아서 나라 리스트 가져오기, 상태관리 로직 추가 */
+const BeerCountryFilterList = ({ continentId }: BeerCountryFilterListProps) => {
+  const [selectedCountryIds, setSelectedCountryIds] = useRecoilState($selectedBeerCountryIds);
+  const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);
 
-  const selectItem = (id: number) => {
-    setSelectedCountryIds([...selectedCountryIds, id]);
+  const { data } = useQuery(
+    ['countries', continentId],
+    async () => await getCountries(continentId),
+    { cacheTime: Infinity },
+  );
+
+  const countries = data?.data || [];
+
+  const selectItem = (country: ICountry) => {
+    setSelectedCountryIds([...selectedCountryIds, country.id]);
+    setNextFilterChips([
+      ...nextFilterChips,
+      { id: country.id, text: country.nameKor, type: 'country' },
+    ]);
   };
 
-  const unselectItem = (id: number) => {
-    const newSelectedCountryIds = selectedCountryIds.filter((countryId) => id !== countryId);
-    setSelectedCountryIds(newSelectedCountryIds);
+  const unselectItem = (country: ICountry) => {
+    setSelectedCountryIds(selectedCountryIds.filter((countryId) => country.id !== countryId));
+    setNextFilterChips(
+      nextFilterChips.filter((v) => !(v.id === country.id && v.type === 'country')),
+    );
   };
 
-  const handleItemClick = (id: number) => () => {
-    const isSelected = selectedCountryIds.includes(id);
-    isSelected ? unselectItem(id) : selectItem(id);
+  const handleItemClick = (country: ICountry) => () => {
+    const isSelected = selectedCountryIds.includes(country.id);
+    isSelected ? unselectItem(country) : selectItem(country);
   };
 
   return (
     <StyledWrapper>
-      {MOCK_COUNTRIES.map((country) => (
+      {countries.map((country) => (
         <BeerCountryFilterItem
           key={country.id}
           {...country}
           isSelected={selectedCountryIds.includes(country.id)}
-          onClick={handleItemClick(country.id)}
+          onClick={handleItemClick(country)}
         />
       ))}
     </StyledWrapper>

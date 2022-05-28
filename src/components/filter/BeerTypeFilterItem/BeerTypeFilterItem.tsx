@@ -3,14 +3,12 @@ import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
 import { ellipsis } from '@/styles/common';
+import { IBeerType } from '@/apis';
 
 const IMAGE_WIDTH = '70px';
 const CHECK_ICON_WIDTH = '30px';
 
-interface BeerStyleFilterItemProps {
-  title: string;
-  description: string;
-  imageUrl: string;
+interface BeerTypeFilterItemProps extends Pick<IBeerType, 'nameKor' | 'description' | 'imageUrl'> {
   /** 선택 여부 (default:false) */
   isSelected?: boolean;
   onClick?: (e?: MouseEvent) => void;
@@ -73,18 +71,18 @@ const StyledInfo = styled.div`
   }
 `;
 
-const BeerStyleFilterItem = ({
-  title,
+const BeerTypeFilterItem = ({
+  nameKor,
   description,
   imageUrl,
   isSelected,
   onClick = () => null,
-}: BeerStyleFilterItemProps) => {
+}: BeerTypeFilterItemProps) => {
   return (
     <StyledWrapper aria-checked={isSelected} onClick={onClick}>
       <img src={imageUrl} alt="" />
       <StyledInfo>
-        <b>{title}</b>
+        <b>{nameKor}</b>
         <p className="description">{description} </p>
       </StyledInfo>
       {isSelected && <CheckIcon className="check-icon" />}
@@ -92,4 +90,4 @@ const BeerStyleFilterItem = ({
   );
 };
 
-export default BeerStyleFilterItem;
+export default BeerTypeFilterItem;

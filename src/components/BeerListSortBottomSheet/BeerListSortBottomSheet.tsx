@@ -1,19 +1,19 @@
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 
 import BottomSheet from '../BottomSheet';
 import Icon from '../commons/Icon';
-import {
-  BeerListSortType,
-  beerListSortTypeTextAlias,
-} from '../BeerListFilterAndSorter/BeerListFilterAndSorter';
 
 import { theme } from '@/themes';
+import {
+  $beerListSortBy,
+  BeerListSortType,
+  beerListSortTypeTextAlias,
+} from '@/containers/BeerListContainer/recoil/atoms';
 
 interface BeerListSortBottomSheetProps {
-  sortType: BeerListSortType;
   open: boolean;
   onClose: VoidFunction;
-  onItemClick: (sortType: BeerListSortType) => void;
 }
 
 const StyledWrapper = styled.ul`
@@ -40,23 +40,25 @@ const SortTypeItem = styled.li<{ isSelected: boolean }>`
   }
 `;
 
-const BeerListSortBottomSheet = ({
-  sortType: currentSortType,
-  open,
-  onClose,
-  onItemClick,
-}: BeerListSortBottomSheetProps) => {
+const BeerListSortBottomSheet = ({ open, onClose }: BeerListSortBottomSheetProps) => {
+  const [beerListSortBy, setBeerListSortBy] = useRecoilState($beerListSortBy);
+
+  const handleSortTypeItemClick = (sortBy: BeerListSortType) => {
+    setBeerListSortBy(sortBy);
+    onClose();
+  };
+
   return (
     <BottomSheet open={open} onClose={onClose}>
       <StyledWrapper>
-        {Object.entries(beerListSortTypeTextAlias).map(([sortType, sortText]) => {
-          const isSelected = sortType === currentSortType;
+        {Object.entries(beerListSortTypeTextAlias).map(([sortBy, sortText]) => {
+          const isSelected = sortBy === beerListSortBy;
           return (
             <SortTypeItem
-              key={sortType}
+              key={sortBy}
               aria-checked={isSelected}
               isSelected={isSelected}
-              onClick={() => onItemClick(sortType as BeerListSortType)}
+              onClick={() => handleSortTypeItemClick(sortBy as BeerListSortType)}
             >
               <p>{sortText}</p>
               <Icon

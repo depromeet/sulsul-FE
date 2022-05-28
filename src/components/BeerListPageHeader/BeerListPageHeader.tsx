@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
+import { isNil } from 'lodash';
+import { MouseEvent } from 'react';
 
 import Icon from '../commons/Icon';
 import Header from '../Header';
 import { BackButton, ListViewToggleButton } from '../Header/extras';
 
 import { ellipsis } from '@/styles/common';
+import { $beerListViewType } from '@/containers/BeerListContainer/recoil/atoms';
 
 const PLACEHOLDER_TEXT = '맥주 이름, 특징 검색';
-
-interface BeerListPageHeaderProps {
-  keyword?: string;
-  onKeywordClear?: () => void;
-}
 
 const SearchBoxButton = styled.button<{ isPlaceHolder: boolean }>`
   display: flex;
@@ -19,12 +19,13 @@ const SearchBoxButton = styled.button<{ isPlaceHolder: boolean }>`
   width: 100%;
   height: 40px;
   border-radius: 8px;
-  padding: 10px 16px;
 
   background-color: ${(p) => p.theme.color.whiteOpacity20};
 
   > p {
     flex: 1;
+    height: 100%;
+    padding: 10px 16px;
     text-align: left;
     ${(p) => p.theme.fonts.SubTitle2};
     color: ${(p) => (p.isPlaceHolder ? p.theme.color.whiteOpacity35 : p.theme.color.white)};
@@ -33,25 +34,48 @@ const SearchBoxButton = styled.button<{ isPlaceHolder: boolean }>`
   }
 
   > .clear {
-    width: 20px;
-    height: 20px;
-    margin-left: 16px;
+    padding: 10px 16px 10px 0;
+
+    > svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 
-const BeerListPageHeader = ({ keyword, onKeywordClear }: BeerListPageHeaderProps) => {
-  const handleSearchBoxButtonClick = () => null;
+const BeerListViewToggleButton = () => {
+  const [beerListViewType, setBeerListViewType] = useRecoilState($beerListViewType);
+
+  return <ListViewToggleButton defaultType={beerListViewType} onChange={setBeerListViewType} />;
+};
+
+const SearchBox = () => {
+  const router = useRouter();
+  const query = isNil(router.query.query) ? undefined : String(router.query.query);
+
+  const handleSearchBoxClick = () => router.push('/beer-search');
+
+  const handleClearButtonClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    router.replace('/beers');
+  };
 
   return (
-    <Header leftExtras={<BackButton />} rightExtras={<ListViewToggleButton />}>
-      <SearchBoxButton isPlaceHolder={!keyword} onClick={handleSearchBoxButtonClick}>
-        <p>{keyword || PLACEHOLDER_TEXT}</p>
-        {keyword && (
-          <button className="clear" aria-label="검색어 초기화" onClick={onKeywordClear}>
-            <Icon name="XCircle" size={20} />
-          </button>
-        )}
-      </SearchBoxButton>
+    <SearchBoxButton isPlaceHolder={!query} onClick={handleSearchBoxClick}>
+      <p>{query || PLACEHOLDER_TEXT}</p>
+      {!!query && (
+        <button className="clear" aria-label="검색어 초기화" onClick={handleClearButtonClick}>
+          <Icon name="XCircle" size={20} />
+        </button>
+      )}
+    </SearchBoxButton>
+  );
+};
+
+const BeerListPageHeader = () => {
+  return (
+    <Header leftExtras={<BackButton />} rightExtras={<BeerListViewToggleButton />}>
+      <SearchBox />
     </Header>
   );
 };

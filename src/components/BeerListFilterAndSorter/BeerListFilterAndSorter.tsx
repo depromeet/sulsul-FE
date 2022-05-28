@@ -1,43 +1,19 @@
 import styled from '@emotion/styled';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Icon from '../commons/Icon';
 import { HEADER_HEIGHT } from '../Header/Header';
-import FilterChipList from '../filter/FilterChipList';
+import BeerListFilterChipList, { BeerListFilterChipType } from '../filter/BeerListFilterChipList';
+import BeerListFilterBottomSheet from '../filter/BeerListFilterBottomSheet';
+import BeerListSortBottomSheet from '../BeerListSortBottomSheet';
 
-import { EBeerSortBy } from '@/apis';
-
-const MOCK_FILTER_VALUES = [
-  '아시아',
-  '필스너',
-  'IPA',
-  '페일에일',
-  '아시아',
-  '필스너',
-  'IPA',
-  '페일에일',
-];
-
-export type BeerListSortType =
-  | EBeerSortBy.NAME_KOR_ASC
-  | EBeerSortBy.RECORD_DESC
-  | EBeerSortBy.ALCOHOL_ASC
-  | EBeerSortBy.ALCOHOL_DESC;
-
-export const beerListSortTypeTextAlias: Record<BeerListSortType, string> = {
-  [EBeerSortBy.NAME_KOR_ASC]: '맥주 이름 순',
-  [EBeerSortBy.RECORD_DESC]: '리뷰 많은 순',
-  [EBeerSortBy.ALCOHOL_DESC]: '높은 도수 순',
-  [EBeerSortBy.ALCOHOL_ASC]: '낮은 도수 순',
-};
-
-interface FilterAndSorterProps {
-  hasAppliedFilter: boolean /** @todo 대신 적용된 필터 리스트를 받던가 스토어로 관리 */;
-  resultCount: number;
-  totalCount: number;
-  sortType: BeerListSortType;
-  openFilterBottomSheet: () => void;
-  openSortBottomSheet: () => void;
-}
+import {
+  $beerListFilter,
+  $beerListFilterChips,
+  $beerListSortBy,
+  beerListSortTypeTextAlias,
+} from '@/containers/BeerListContainer/recoil/atoms';
+import { useModal } from '@/hooks';
 
 const StyledWrapper = styled.div`
   position: sticky;
@@ -70,30 +46,70 @@ const StyledSortButton = styled.button`
   }
 `;
 
-const BeerListFilterAndSorter = ({
-  hasAppliedFilter,
-  resultCount,
-  totalCount,
-  sortType,
-  openFilterBottomSheet,
-  openSortBottomSheet,
-}: FilterAndSorterProps) => {
+interface FilterButtonProps {
+  hasAppliedFilter: boolean;
+  onClick: () => void;
+}
+
+const FilterButton = ({ hasAppliedFilter, onClick }: FilterButtonProps) => {
   return (
-    <StyledWrapper>
-      <div className="filter-and-sorter">
-        <button type="button" onClick={openFilterBottomSheet}>
-          <Icon name={hasAppliedFilter ? 'FilterApplied' : 'Filter'} size={30} />
-        </button>
-        <p className="result">
-          검색 결과 {resultCount}/{totalCount}
-        </p>
-        <StyledSortButton type="button" onClick={openSortBottomSheet}>
-          <p className="sort-text">{beerListSortTypeTextAlias[sortType]}</p>
-          <Icon name="ArrowDown" />
-        </StyledSortButton>
-      </div>
-      <FilterChipList currentFilterValues={MOCK_FILTER_VALUES} />
-    </StyledWrapper>
+    <button type="button" onClick={onClick}>
+      <Icon name={hasAppliedFilter ? 'FilterApplied' : 'Filter'} size={30} />
+    </button>
+  );
+};
+
+interface SortByButtonProps {
+  onClick: () => void;
+}
+
+const SortButton = ({ onClick }: SortByButtonProps) => {
+  const sortBy = useRecoilValue($beerListSortBy);
+
+  return (
+    <StyledSortButton type="button" onClick={onClick}>
+      <p className="sort-text">{beerListSortTypeTextAlias[sortBy]}</p>
+      <Icon name="ArrowDown" />
+    </StyledSortButton>
+  );
+};
+
+const BeerListFilterAndSorter = () => {
+  const [filter, setFilter] = useRecoilState($beerListFilter);
+  const [filterChips, setFilterChips] = useRecoilState($beerListFilterChips);
+
+  const filterBottomSheet = useModal(false);
+  const sortBottomSheet = useModal(false);
+
+  const handleFilterChipRemove = (chip: BeerListFilterChipType) => {
+    setFilter({
+      ...filter,
+      ...(chip.type === 'country'
+        ? { countryIds: filter.countryIds?.filter((id) => id !== chip.id) }
+        : { beerTypes: filter.beerTypes?.filter((id) => id !== chip.id) }),
+    });
+    setFilterChips(filterChips.filter((v) => !(v.id === chip.id && v.type === chip.type)));
+  };
+
+  return (
+    <>
+      <StyledWrapper>
+        <div className="filter-and-sorter">
+          <FilterButton hasAppliedFilter={!!filterChips.length} onClick={filterBottomSheet.open} />
+          {/** @todo 맥주 개수 api 연동 (resultCount, totalCount) */}
+          <p className="result">검색 결과 12/394</p>
+          <SortButton onClick={sortBottomSheet.open} />
+        </div>
+        {!!filterChips.length && (
+          <BeerListFilterChipList filterChips={filterChips} onRemove={handleFilterChipRemove} />
+        )}
+      </StyledWrapper>
+      <BeerListFilterBottomSheet
+        open={filterBottomSheet.isOpen}
+        onClose={filterBottomSheet.close}
+      />
+      <BeerListSortBottomSheet open={sortBottomSheet.isOpen} onClose={sortBottomSheet.close} />
+    </>
   );
 };
 

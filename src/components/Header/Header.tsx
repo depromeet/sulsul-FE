@@ -50,7 +50,7 @@ const StyledRightExtras = styled.div`
     margin-right: 8px;
   }
 
-  > *:first-child {
+  > *:first-of-type {
     margin-left: 12px;
   }
 `;

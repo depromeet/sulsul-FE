@@ -1,10 +1,10 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import BeerStyleFilterItem from './BeerStyleFilterItem';
+import BeerTypeFilterItem from './BeerTypeFilterItem';
 
 export default {
-  title: 'Components/BeerStyleFilterItem',
-  component: BeerStyleFilterItem,
+  title: 'Components/BeerTypeFilterItem',
+  component: BeerTypeFilterItem,
   argTypes: {
     title: { control: 'text' },
     description: { control: 'text' },
@@ -12,10 +12,10 @@ export default {
     isSelected: { control: 'boolean' },
     hasDivider: { control: 'boolean' },
   },
-} as ComponentMeta<typeof BeerStyleFilterItem>;
+} as ComponentMeta<typeof BeerTypeFilterItem>;
 
-const Template: ComponentStory<typeof BeerStyleFilterItem> = (args) => (
-  <BeerStyleFilterItem {...args} />
+const Template: ComponentStory<typeof BeerTypeFilterItem> = (args) => (
+  <BeerTypeFilterItem {...args} />
 );
 
 export const Default = Template.bind({});

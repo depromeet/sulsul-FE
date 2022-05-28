@@ -10,7 +10,7 @@ import {
   $beerListFilter,
   $beerListSortBy,
   $beerListViewType,
-} from '@/containers/BeerListContainer/atoms';
+} from '@/containers/BeerListContainer/recoil/atoms';
 import { getBeers } from '@/apis';
 
 const BeerSearchResultList = () => {
@@ -46,7 +46,7 @@ const BeerSearchResultList = () => {
   if (!beers.length) {
     return (
       <BeerSearchResultEmpty
-        title={query ? `“${query}”\n맥주를 찾을 수 없어요.` : `해당 맥주가 없어요.`}
+        title={query ? `“${query}”\n맥주를 찾을 수 없어요.` : `조건에 맞는\n맥주를 찾을 수 없어요.`}
         subtitle={
           query
             ? `잘못된 검색어를 입력하였거나,\n등록되지 않은 맥주예요.`

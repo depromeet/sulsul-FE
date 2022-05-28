@@ -81,6 +81,7 @@ export const getBeers = async (payload: IGetBeersPayload) => {
   return res.data;
 };
 
+/** @TODO response 타입 변경될 예정 (추후 재검토 필요) */
 export interface IGetBeerResponseData {
   data: IBeer;
 }
