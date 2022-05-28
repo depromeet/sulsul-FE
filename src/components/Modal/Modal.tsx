@@ -12,7 +12,7 @@ interface ModalProps {
   buttons?: ReactNode;
   header?: string;
   title?: string;
-  decription?: string;
+  description?: string | ReactNode;
   withCloseButton?: boolean;
   noMoreSee?: boolean;
 }
@@ -26,7 +26,7 @@ const Modal = (props: ModalProps) => {
     buttons,
     header,
     title,
-    decription,
+    description,
     withCloseButton,
     noMoreSee,
   } = props;
@@ -44,7 +44,7 @@ const Modal = (props: ModalProps) => {
           <Icon name="Close" size={24} color={'white'} />
         </Header>
         {title && <Title>{title}</Title>}
-        {decription && <Description>{decription}</Description>}
+        {description && <Description>{description}</Description>}
         {buttons && <ButtonContainer>{buttons}</ButtonContainer>}
         {noMoreSee && <NoMoreSee onClick={closeModal}>다시 보지 않기</NoMoreSee>}
       </StyledModal>

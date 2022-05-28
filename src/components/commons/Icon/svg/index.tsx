@@ -38,6 +38,13 @@ import {
   ThreeDotIcon as ThreeDot,
   ArrowLeftIcon as ArrowLeft,
   ArrowRightIcon as ArrowRight,
+  Level1Icon as Level1,
+  Level2Icon as Level2,
+  Level3Icon as Level3,
+  Level4Icon as Level4,
+  Level5Icon as Level5,
+  ModifyIcon as Modify,
+  InfoIcon as Info,
   Logo,
 } from '@/assets/icon';
 
@@ -81,5 +88,12 @@ export const svg = {
   ThreeDot,
   ArrowLeft,
   ArrowRight,
+  Level1,
+  Level2,
+  Level3,
+  Level4,
+  Level5,
+  Modify,
+  Info,
   Logo,
 };

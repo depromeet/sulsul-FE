@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { isNil } from 'lodash';
 
 import Icon, { IconNameType } from '@/components/commons/Icon';
 
@@ -18,7 +19,7 @@ const ListButtonBox = (props: ListButtonBoxProps) => {
       </SmallBox>
       <Text>
         <p>{text}</p>
-        {count && <p>{count}개</p>}
+        {!isNil(count) && <p>{count}개</p>}
       </Text>
       <Icon name="Next" size={20} className="arrow-icon" />
     </StyledListButtonBox>
@@ -27,7 +28,7 @@ const ListButtonBox = (props: ListButtonBoxProps) => {
 
 export default ListButtonBox;
 
-const StyledListButtonBox = styled.div`
+const StyledListButtonBox = styled.a`
   display: flex;
   align-items: center;
   width: 100%;
