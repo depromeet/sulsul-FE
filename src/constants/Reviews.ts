@@ -1,11 +1,11 @@
 import { ReviewProps } from '@/components/Review';
 
 export const FEEL_MESSAGES = {
-  1: '별로에요!',
+  1: '별로예요!',
   2: '애매해요!',
   3: '보통이에요!',
   4: '좋았어요!',
-  5: '최고에요!',
+  5: '최고예요!',
 };
 
 export const Reviews: ReviewProps[] = [
