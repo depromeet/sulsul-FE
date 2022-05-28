@@ -45,6 +45,7 @@ import {
   Level5Icon as Level5,
   ModifyIcon as Modify,
   InfoIcon as Info,
+  Logo,
 } from '@/assets/icon';
 
 export const svg = {
@@ -94,4 +95,5 @@ export const svg = {
   Level5,
   Modify,
   Info,
+  Logo,
 };

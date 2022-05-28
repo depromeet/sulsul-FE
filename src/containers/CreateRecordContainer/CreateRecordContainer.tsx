@@ -1,11 +1,13 @@
 import React from 'react';
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
+import { RecoilRoot } from 'recoil';
 
 import RecordFirstStepContainer from './RecordFirstStepContainer';
 import RecordSecondStepContainer from './RecordSecondStepContainer';
 import RecordThirdStepContainer from './RecordThirdStepContainer';
 
+import { Beers } from '@/constants/Beers';
 import { Beer } from '@/types/Beer';
 import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
@@ -28,12 +30,29 @@ const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer }) =
     <StyledCreateRecordContainer>
       <Header leftExtras={<BackButton />} />
       <SwiperLayout className="record-layout">
-        <RecordFirstStepContainer beerName={beer.name!} onSubmit={() => null} />
-        <RecordSecondStepContainer beerName={beer.name!} onSubmit={() => null} />
-        <RecordThirdStepContainer beer={beer} onSubmit={() => null} />
+        <RecordFirstStepContainer beerName={beer.name!} />
+        <RecordSecondStepContainer beerName={beer.name!} />
+        <RecordThirdStepContainer beer={beer} />
       </SwiperLayout>
     </StyledCreateRecordContainer>
   );
 };
 
-export default CreateRecordContainer;
+const CreateRecordRecoilWrapper: NextPage<CreateRecordContainerProps> = (props) => {
+  return (
+    <RecoilRoot>
+      <CreateRecordContainer {...props} />
+    </RecoilRoot>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      // TODO: 추후 api 연결
+      beer: Beers[1],
+    },
+  };
+};
+
+export default CreateRecordRecoilWrapper;

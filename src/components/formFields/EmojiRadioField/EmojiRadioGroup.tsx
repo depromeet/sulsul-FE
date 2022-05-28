@@ -5,6 +5,7 @@ import cx from 'classnames';
 import EmojiTransitionViewer from './EmojiTransitionViewer';
 
 import Emoji from '@/components/Emoji';
+import { FEEL_MESSAGES } from '@/constants/Reviews';
 
 interface EmojiRadioGroupProps {
   name: string;
@@ -18,14 +19,6 @@ const emojiValues = [1, 2, 3, 4, 5] as const;
 const EMOJI_INPUT_SIZE = 18;
 
 export type EmojiValue = typeof emojiValues[number];
-
-const MESSAGES = {
-  1: '별로에요!',
-  2: '애매해요!',
-  3: '보통이에요!',
-  4: '좋았어요!',
-  5: '최고에요!',
-};
 
 const StyledEmojiRadioGroup = styled.div`
   display: flex;
@@ -121,7 +114,7 @@ const EmojiRadioGroup: React.FC<EmojiRadioGroupProps> = ({
   return (
     <StyledEmojiRadioGroup className={className}>
       <EmojiTransitionViewer value={value} />
-      <h1>{MESSAGES[value]}</h1>
+      <h1>{FEEL_MESSAGES[value]}</h1>
       <div className="emoji-radio-group-wrapper">
         {emojiValues.map((emojiValue) => (
           <span
