@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import SwiperLayout, { SwiperLayoutChildProps } from './SwiperLayout';
 
 export default {
-  title: 'Components/SwiperLayout',
+  title: 'Components/layouts/SwiperLayout',
   component: SwiperLayout,
   argTypes: {
     className: {

@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app';
 
 import awesome from '@/utils/awesome';
 import { theme, GlobalStyle } from '@/themes';
-import MainLayout from '@/components/MainLayout';
+import MainLayout from '@/components/layouts/MainLayout';
 
 awesome();
 

@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
 
-import Button from '../commons/Button';
+import Button from '../../commons/Button';
 import ModalLayout from './ModalLayout';
 
 export default {
-  title: 'Components/ModalLayout',
+  title: 'Components/layouts/ModalLayout',
   component: ModalLayout,
 } as ComponentMeta<typeof ModalLayout>;
 
