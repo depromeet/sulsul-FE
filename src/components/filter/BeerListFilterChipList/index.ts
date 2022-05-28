@@ -1,2 +1,2 @@
-export * from './BeerListFilterChipList';
+export type { BeerListFilterChipType } from './BeerListFilterChipList';
 export { default } from './BeerListFilterChipList';

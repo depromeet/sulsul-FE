@@ -9,8 +9,8 @@ import { theme } from '@/themes';
 import Icon from '@/components/commons/Icon';
 import { FEEL_MESSAGES } from '@/constants/Reviews';
 import BeerTicketTitle from '@/components/BeerTicketTitle';
-import { Beer } from '@/types/Beer';
 import Emoji from '@/components/Emoji';
+import { IBeer } from '@/apis';
 
 // TODO: 나중에 지울꺼^^
 interface TempRecord {
@@ -25,7 +25,7 @@ interface TempRecord {
 }
 
 interface BeerTicketProps {
-  beer: Beer;
+  beer: IBeer;
   record: TempRecord;
 }
 
