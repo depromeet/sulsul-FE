@@ -8,7 +8,7 @@ import Icon from '@/components/commons/Icon';
 export type ListViewType = 'grid' | 'list';
 
 interface ListViewToggleButtonProps {
-  defaultType: ListViewType;
+  defaultType?: ListViewType;
   onChange?: (type: ListViewType) => void;
 }
 

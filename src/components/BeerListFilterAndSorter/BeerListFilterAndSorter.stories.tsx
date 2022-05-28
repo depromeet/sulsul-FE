@@ -11,8 +11,6 @@ export default {
   },
 } as ComponentMeta<typeof BeerListFilterAndSorter>;
 
-const Template: ComponentStory<typeof BeerListFilterAndSorter> = (args) => (
-  <BeerListFilterAndSorter {...args} />
-);
+const Template: ComponentStory<typeof BeerListFilterAndSorter> = () => <BeerListFilterAndSorter />;
 
 export const Default = Template.bind({});

@@ -68,7 +68,7 @@ const BeerDetailContainer = (props: Props) => {
         }
         isTransparent={isTransparent}
       >
-        {beer.name}
+        {beer.nameKor}
       </Header>
       <BackgroundImage isScrolled={isScrolled}>
         <div className="image-container">
