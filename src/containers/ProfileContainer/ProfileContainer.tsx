@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import Link from 'next/link';
 
-import BottomNavigation from '@/components/BottomNavigation';
 import ListButtonBox from '@/components/ListButtonBox';
+import BottomNavigation from '@/components/BottomNavigation';
 import Modal from '@/components/Modal';
+import LevelModal from '@/components/LevelModal';
 import Icon from '@/components/commons/Icon';
 import Button from '@/components/commons/Button';
 
@@ -46,12 +47,7 @@ const ProfileContainer = (props: Props) => {
         <Icon name="Level1" size={160} />
         <NickName>
           {nickname}
-          <Icon
-            name="Modify"
-            size={24}
-            onClick={() => setIsModifyModalOpen(true)}
-            style={{ cursor: 'pointer' }}
-          />
+          <Icon name="Modify" size={24} onClick={openModifyModal} style={{ cursor: 'pointer' }} />
         </NickName>
         <Email>{email}</Email>
         <TextItemContainer>
@@ -100,36 +96,10 @@ const ProfileContainer = (props: Props) => {
         />
       )}
       {isLevelModalOpen && (
-        <Modal
-          open={isLevelModalOpen}
-          openModal={openLevelModal}
-          closeModal={closeLevelModal}
-          withCloseButton
-          header="Level 안내"
-          description={
-            <LevelContainer>
-              <Level>
-                <Icon name="Level1" size={64} />
-                <p>기록한 티켓 0개 이상 Level</p>
-              </Level>
-              <Level>
-                <Icon name="Level2" size={64} />
-                <p>기록한 티켓 1개 이상 Level</p>
-              </Level>
-              <Level>
-                <Icon name="Level3" size={64} />
-                <p>기록한 티켓 5개 이상 Level</p>
-              </Level>
-              <Level>
-                <Icon name="Level4" size={64} />
-                <p>기록한 티켓 12개 이상 Level</p>
-              </Level>
-              <Level>
-                <Icon name="Level5" size={64} />
-                <p>기록한 티켓 20개 이상 Level</p>
-              </Level>
-            </LevelContainer>
-          }
+        <LevelModal
+          isLevelModalOpen={isLevelModalOpen}
+          openLevelModal={openLevelModal}
+          closeLevelModal={closeLevelModal}
         />
       )}
       <BottomNavigation />
@@ -240,21 +210,4 @@ const ToolTip = styled.div`
     bottom: -15px;
     left: 62px;
   }
-`;
-
-const LevelContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  padding: 0 30px;
-`;
-
-const Level = styled.div`
-  display: flex;
-  align-items: center;
 `;

@@ -23,7 +23,7 @@ const EtcContainer = () => {
   };
 
   return (
-    <StyledEtcContainer>
+    <>
       <Header leftExtras={<BackButton />}>기타</Header>
       <ListRowContainer>
         <ListRow>
@@ -90,13 +90,11 @@ const EtcContainer = () => {
           description="회원 탈퇴 시 저장된 모든 정보가 삭제됩니다."
         />
       )}
-    </StyledEtcContainer>
+    </>
   );
 };
 
 export default EtcContainer;
-
-const StyledEtcContainer = styled.div``;
 
 const ListRowContainer = styled.div`
   display: flex;
