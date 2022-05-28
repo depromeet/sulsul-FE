@@ -15,7 +15,7 @@ import { getBeers } from '@/apis';
 
 const BeerSearchResultList = () => {
   const router = useRouter();
-  const query = isNil(router.query.query) ? undefined : String(router.query.query);
+  const query = isNil(router.query.query) ? undefined : decodeURI(String(router.query.query));
 
   const listViewType = useRecoilValue($beerListViewType);
   const filter = useRecoilValue($beerListFilter);
