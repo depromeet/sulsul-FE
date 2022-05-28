@@ -38,6 +38,7 @@ import {
   ThreeDotIcon as ThreeDot,
   ArrowLeftIcon as ArrowLeft,
   ArrowRightIcon as ArrowRight,
+  Logo,
 } from '@/assets/icon';
 
 export const svg = {
@@ -80,4 +81,5 @@ export const svg = {
   ThreeDot,
   ArrowLeft,
   ArrowRight,
+  Logo,
 };
