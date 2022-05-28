@@ -20,9 +20,9 @@ export default function BottomNavigation() {
           <span>홈</span>
         </a>
       </Link>
-      <Link href="/beer-list" passHref>
-        <a className={`nav-link ${router.pathname === '/beer-list' ? 'active' : ''}`}>
-          {router.pathname === '/beer-list' ? (
+      <Link href="/beers" passHref>
+        <a className={`nav-link ${router.pathname === '/beers' ? 'active' : ''}`}>
+          {router.pathname === '/beers' ? (
             <Icon name="NavBeerActive" size={36} />
           ) : (
             <Icon name="NavBeer" size={36} />
