@@ -15,6 +15,8 @@ import Swiper from '@/components/Swiper';
 import { getContinents } from '@/apis';
 import { $beerListFilter, $beerListFilterChips } from '@/containers/BeerListContainer/recoil/atoms';
 
+const TAB_ITEMS = ['종류', '나라'];
+
 interface BeerListFilterBottomSheetProps {
   open: boolean;
   onClose: () => void;
@@ -133,7 +135,7 @@ const BeerListFilterBottomSheet = ({ open, onClose }: BeerListFilterBottomSheetP
           초기화
         </button>
       </StyledHeader>
-      <StyledTab tabItems={['종류', '나라']} type="primary" size="large">
+      <StyledTab tabItems={TAB_ITEMS} type="primary" size="large">
         <BeerTypeFilterList />
         <BeerCountryFilterTab />
       </StyledTab>
