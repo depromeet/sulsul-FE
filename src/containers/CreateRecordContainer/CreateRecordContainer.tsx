@@ -10,8 +10,8 @@ import RecordThirdStepContainer from './RecordThirdStepContainer';
 import { Beers } from '@/constants/Beers';
 import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
-import SwiperLayout from '@/components/SwiperLayout';
 import { IBeer } from '@/apis';
+import SwiperLayout from '@/components/layouts/SwiperLayout';
 
 interface CreateRecordContainerProps {
   beer: IBeer;

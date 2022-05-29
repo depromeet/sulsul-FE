@@ -5,8 +5,8 @@ import { QueryClientProvider } from 'react-query';
 
 import awesome from '@/utils/awesome';
 import { theme, GlobalStyle } from '@/themes';
-import MainLayout from '@/components/MainLayout';
 import queryClient from '@/configs/queryClient';
+import MainLayout from '@/components/layouts/MainLayout';
 
 awesome();
 
