@@ -27,14 +27,12 @@ const BeerSearchResultList = () => {
     sortBy: [sortBy],
   };
 
-  const { data } = useQuery(
-    ['beers', payload],
-    async () =>
-      await getBeers({
-        ...payload,
-        cursor: 0,
-        limit: 20,
-      }),
+  const { data } = useQuery(['beers', payload], () =>
+    getBeers({
+      ...payload,
+      cursor: 0,
+      limit: 20,
+    }),
   );
 
   const beers = data?.data.contents;
