@@ -16,11 +16,6 @@ const StyledButton = styled.button`
   background-color: ${BACKGROUND_COLOR};
   color: ${TEXT_COLOR};
 
-  > img {
-    width: 18px;
-    height: 18px;
-  }
-
   > p {
     flex: 1;
     font-size: 15px;
@@ -30,7 +25,7 @@ const StyledButton = styled.button`
 const NaverLoginButton = () => {
   return (
     <StyledButton onClick={() => null}>
-      <Icon name="Naver" color={TEXT_COLOR} />
+      <Icon name="Naver" color={TEXT_COLOR} size={18} />
       <p>네이버로 시작하기</p>
     </StyledButton>
   );
