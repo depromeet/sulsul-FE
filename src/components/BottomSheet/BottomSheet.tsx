@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
 
-import ModalLayout from '../ModalLayout';
+import ModalLayout from '../layouts/ModalLayout';
 
 import { useElementSize } from '@/hooks/useElementSize';
 

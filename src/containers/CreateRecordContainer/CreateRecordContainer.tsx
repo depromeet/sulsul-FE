@@ -11,7 +11,7 @@ import { Beers } from '@/constants/Beers';
 import { Beer } from '@/types/Beer';
 import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
-import SwiperLayout from '@/components/SwiperLayout';
+import SwiperLayout from '@/components/layouts/SwiperLayout';
 
 interface CreateRecordContainerProps {
   beer: Beer;
