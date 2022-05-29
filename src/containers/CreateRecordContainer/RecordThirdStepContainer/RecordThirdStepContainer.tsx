@@ -13,7 +13,7 @@ import SelectField from '@/components/formFields/SelectField';
 import TextAreaField from '@/components/formFields/TextAreaField';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button, { ButtonCount } from '@/components/commons/Button';
-import FormSubmitButton from '@/components/layouts/SwiperLayout';
+import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 import Icon from '@/components/commons/Icon';
 
