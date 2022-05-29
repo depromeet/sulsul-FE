@@ -1,5 +1,6 @@
 import { ReactChild } from 'react';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 
 import { Cloud } from '@/assets/icon';
 import Icon from '@/components/commons/Icon';
@@ -34,10 +35,23 @@ const StyledContainer = styled.div`
   }
 `;
 
+const SlideUp = keyframes`
+from {
+  transform: translateY(20%);
+  opacity: 0;
+}
+to{
+  transform: translateY(0);
+  opacity:1;
+}
+`;
+
 const StyledTitle = styled.h1`
   margin: 7.4rem 3.4rem 0;
   ${(p) => p.theme.fonts.H5};
   white-space: pre-line;
+
+  animation: ${SlideUp} 0.5s forwards;
 `;
 
 const StyledWrapper = styled.div`
