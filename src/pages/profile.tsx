@@ -6,7 +6,7 @@ const dummy = [
   {
     nickname: '호딩',
     email: 'gywls00100@gmail.com',
-    drinkedBeerCount: 0,
+    drankBeerCount: 0,
     ticketCount: 0,
     travelCount: 0,
     likedBeerCount: 0,
@@ -17,17 +17,18 @@ const ProfilePage: NextPage = () => {
   const {
     nickname,
     email,
-    drinkedBeerCount,
+    drankBeerCount,
     ticketCount,
     travelCount,
     likedBeerCount,
     requestBeerCount,
   } = dummy[0];
+  
   return (
     <ProfileContainer
       nickname={nickname}
       email={email}
-      drinkedBeerCount={drinkedBeerCount}
+      drankBeerCount={drankBeerCount}
       ticketCount={ticketCount}
       travelCount={travelCount}
       likedBeerCount={likedBeerCount}

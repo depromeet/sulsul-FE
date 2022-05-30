@@ -12,6 +12,8 @@ const StyledContainer = styled.div<{ open: boolean }>`
   right: 0;
   max-width: 768px;
   margin: 0 auto;
+  height: 100vh;
+  z-index: 101;
 
   overflow: hidden;
   z-index: 100;
@@ -44,11 +46,11 @@ const StyledDim = styled.div<{ open: boolean }>`
   height: 100%;
 
   background-color: rgba(51, 51, 51, 0.8);
-
+  z-index: 100;
   ${(p) =>
     css`
       animation: ${p.open ? fadeIn : fadeOut} 0.3s forwards;
-    `}
+    `};
 `;
 
 interface ModalLayoutProps {

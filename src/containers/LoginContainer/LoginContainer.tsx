@@ -60,6 +60,10 @@ const StyledInput = styled.input`
   color: ${(p) => p.theme.color.white};
   ${(p) => p.theme.fonts.SubTitle2};
   text-align: center;
+
+  &::placeholder {
+    color: ${(p) => p.theme.color.whiteOpacity50};
+  }
 `;
 
 /** 닉네임 입력 */

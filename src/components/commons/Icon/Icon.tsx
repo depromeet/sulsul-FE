@@ -13,12 +13,6 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-interface StyledIconProps {
-  width?: number;
-  height?: number;
-  color?: string;
-}
-
 const Icon = (props: IconProps) => {
   const { name, size = 30, width, height, color, className, ...rest } = props;
   const CurrentIcon = svg[name];
@@ -38,7 +32,7 @@ const Icon = (props: IconProps) => {
 
 export default Icon;
 
-const StyledIcon = styled.svg<StyledIconProps>`
+const StyledIcon = styled.svg<Pick<IconProps, 'width' | 'height' | 'color'>>`
   display: flex;
   justify-content: center;
   align-items: center;
