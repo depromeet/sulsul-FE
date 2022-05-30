@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 
 import StyledBeerTicketField from './BeerTicketField';
 import BeerTicketFlight from './BeerTicketFlight';
+import BeerTicketStamp from './BeerTicketStamp';
 
 import { theme } from '@/themes';
 import Icon from '@/components/commons/Icon';
@@ -27,6 +28,7 @@ interface TempRecord {
 interface BeerTicketProps {
   beer: IBeer;
   record: TempRecord;
+  type: 'default' | 'stamp';
 }
 
 const StyledBeerTicket = styled.article`
@@ -109,7 +111,7 @@ const StyledBeerTicket = styled.article`
   }
 `;
 
-const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record }) => {
+const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record, type = 'default' }) => {
   return (
     <StyledBeerTicket>
       <header className="beer-ticket-header">
@@ -132,27 +134,41 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record }) => {
         <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
           {format(record.recodedAt, 'p')}
         </StyledBeerTicketField>
+        {type === 'stamp' && (
+          <>
+            <div className="beer-ticket-dot left" />
+            <div className="beer-ticket-dot right" />
+          </>
+        )}
       </section>
-      <section className="beer-ticket-middle ticket-has-dashed-border">
-        <StyledBeerTicketField title="feel" className="beer-ticket-feel">
-          <Emoji feel={record.feel} size={24} className="ticket-feel-emoji" />
-          <p>{FEEL_MESSAGES[record.feel]}</p>
-        </StyledBeerTicketField>
-        <StyledBeerTicketField title="feel">
-          {record.flavors.map((flavor) => (
-            <span key={flavor.id} className="beer-ticket-flavor">
-              {flavor.content}
-            </span>
-          ))}
-        </StyledBeerTicketField>
-        <div className="beer-ticket-dot left" />
-        <div className="beer-ticket-dot right" />
-      </section>
-      <section className="beer-ticket-middle">
-        <StyledBeerTicketField title="impression" className="beer-ticket-content">
-          {record.content}
-        </StyledBeerTicketField>
-      </section>
+      {type === 'default' ? (
+        <>
+          <section className="beer-ticket-middle ticket-has-dashed-border">
+            <StyledBeerTicketField title="feel" className="beer-ticket-feel">
+              <Emoji feel={record.feel} size={24} className="ticket-feel-emoji" />
+              <p>{FEEL_MESSAGES[record.feel]}</p>
+            </StyledBeerTicketField>
+            <StyledBeerTicketField title="feel">
+              {record.flavors.map((flavor) => (
+                <span key={flavor.id} className="beer-ticket-flavor">
+                  {flavor.content}
+                </span>
+              ))}
+            </StyledBeerTicketField>
+            <div className="beer-ticket-dot left" />
+            <div className="beer-ticket-dot right" />
+          </section>
+          <section className="beer-ticket-middle">
+            <StyledBeerTicketField title="impression" className="beer-ticket-content">
+              {record.content}
+            </StyledBeerTicketField>
+          </section>
+        </>
+      ) : (
+        <section className="beer-ticket-middle">
+          <BeerTicketStamp feel={record.feel} recordedAt={record.recodedAt} />
+        </section>
+      )}
       <footer className="beer-ticket-footer">
         <Icon name="Logo" color={theme.semanticColor.primary} width={60} height={19} />
       </footer>
