@@ -6,7 +6,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import BeerDetailPage from './BeerDetailContainer';
 
 export default {
-  title: 'Pages/맥주_상세정보',
+  title: 'Pages/맥주 상세정보',
   component: BeerDetailPage,
 } as ComponentMeta<typeof BeerDetailPage>;
 

@@ -14,7 +14,6 @@ export async function share({ title, text, url = '' }: Params) {
   const messageToCopy = `[${title}]\n${text}\n${url}`.trim();
 
   try {
-    console.log(messageToCopy);
     if (navigator.share) {
       navigator
         .share({ title, text, url })
