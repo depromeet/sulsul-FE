@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { Beer } from '@/types/Beer';
+import { IBeer } from '@/apis';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 
-export type BeerDetailType = Omit<Beer, 'id' | 'content' | 'feel'>;
+export type BeerDetailType = Omit<IBeer, 'id' | 'content' | 'feel'>;
 
 export type BeerDetailProps = {
   beer: BeerDetailType;
@@ -12,13 +12,13 @@ export type BeerDetailProps = {
 
 const BeerDetail = (props: BeerDetailProps) => {
   const {
-    beer: { country, type, name, nameEng, imageUrl, alcohol, price, volume },
+    beer: { country, type, nameKor, nameEng, imageUrl, alcohol, price, volume },
     ...rest
   } = props;
 
   const beerInfo = [
-    { title: '종류', content: type },
-    { title: '원산지', content: country?.name },
+    { title: '종류', content: type?.nameKor },
+    { title: '원산지', content: country?.nameKor },
     { title: '도수', content: `${alcohol}%` },
     { title: '용량', content: `${volume}ml` },
     { title: '가격', content: `${price}원` },
@@ -28,7 +28,7 @@ const BeerDetail = (props: BeerDetailProps) => {
     <StyledBeerDetail {...rest}>
       <TitleAndIconContainer>
         <BeerNameWrapper>
-          <BeerName>{name}</BeerName>
+          <BeerName>{nameKor}</BeerName>
           <BeerNameEng>{nameEng}</BeerNameEng>
         </BeerNameWrapper>
       </TitleAndIconContainer>

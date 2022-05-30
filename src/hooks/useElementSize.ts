@@ -7,7 +7,7 @@ interface useElementSizeOptions {
   debounce?: boolean;
 }
 
-export const useElementSize = <T extends HTMLElement>({ debounce }: useElementSizeOptions = {}): {
+const useElementSize = <T extends HTMLElement>({ debounce }: useElementSizeOptions = {}): {
   ref: RefObject<T>;
   size: { width: number; height: number } | null;
 } => {
@@ -37,3 +37,5 @@ export const useElementSize = <T extends HTMLElement>({ debounce }: useElementSi
 
   return { ref, size };
 };
+
+export default useElementSize;

@@ -16,14 +16,13 @@ export default {
 } as ComponentMeta<typeof BottomSheet>;
 
 const StyledWrapper = styled.div`
-  height: 6rem;
-  padding: 1.6rem;
+  height: 60px;
+  padding: 16px;
   color: ${(p) => p.theme.color.white};
 
   h1 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 0.8rem;
+    ${(p) => p.theme.fonts.SubTitle5};
+    margin-bottom: 8px;
   }
 `;
 

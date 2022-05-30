@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 
 import { Level as LevelList } from '@/constants/Level';
-import ModalLayout from '@/components/ModalLayout';
+import ModalLayout from '@/components/layouts/ModalLayout';
 import Icon from '@/components/commons/Icon';
-import { theme } from '@/themes';
 
 interface Props {
   isLevelModalOpen: boolean;
@@ -45,7 +43,7 @@ const StyledModal = styled.div<{ open: boolean }>`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: calc(100% - 76px);
+  width: 300px;
   height: 400px;
   padding: 16px 16px 20px 16px;
   border-radius: 12px;
@@ -65,15 +63,12 @@ const Header = styled.div`
 `;
 
 const LevelContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  padding: 0 30px;
+  height: 100%;
+  padding: 0 20px;
   color: ${({ theme }) => theme.color.grey4};
 `;
 

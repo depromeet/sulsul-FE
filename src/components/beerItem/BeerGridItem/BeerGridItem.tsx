@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
+import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
-import { Beer } from '@/types/Beer';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { theme } from '@/themes';
+import { ellipsis } from '@/styles/common';
 
-type BeerGridItemProps = Pick<Beer, 'name' | 'imageUrl' | 'feel' | 'isLiked'>;
+type BeerGridItemProps = Pick<IBeer, 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
 interface Props {
   beer: BeerGridItemProps;
@@ -15,7 +16,7 @@ interface Props {
 
 const BeerGridItem = (props: Props) => {
   const {
-    beer: { name, imageUrl, feel, isLiked },
+    beer: { nameKor, imageUrl, feel, isLiked },
   } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
@@ -36,7 +37,7 @@ const BeerGridItem = (props: Props) => {
           <BeerImage src={imageUrl} />
         </BeerImageMasking>
       </BeerGridItemContainer>
-      <BeerName>{name}</BeerName>
+      <BeerName>{nameKor}</BeerName>
     </StyledBeerGridItem>
   );
 };
@@ -47,17 +48,15 @@ const StyledBeerGridItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 10px;
 `;
 
 const BeerName = styled.div`
   ${({ theme }) => theme.fonts.SubTitle5}
   color: ${({ theme }) => theme.color.white};
   text-align: center;
-  max-width: 7.5rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 95%;
+  ${ellipsis()};
 `;
 
 const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
@@ -66,7 +65,7 @@ const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
   width: 100%;
   background: ${({ feel, theme }) =>
     feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
-  border-radius: 0.77rem;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,6 +82,7 @@ const BookmarkButton = styled.button`
   align-items: center;
   padding: 0;
   margin: 0;
+  z-index: 1;
 `;
 
 const BeerImage = styled.img`
@@ -93,6 +93,7 @@ const BeerImage = styled.img`
 
 const StyledEmoji = styled.div`
   position: absolute;
-  bottom: -3px;
-  right: -3px;
+  bottom: -4px;
+  right: -4px;
+  z-index: 1;
 `;

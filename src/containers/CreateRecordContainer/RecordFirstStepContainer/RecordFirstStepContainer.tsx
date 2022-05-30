@@ -9,7 +9,7 @@ import EntityForm from '@/components/EntityForm';
 import EmojiRadioField from '@/components/formFields/EmojiRadioField';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
-import { SwiperLayoutChildProps } from '@/components/SwiperLayout';
+import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 
 interface RecordFirstStepContainerProps extends SwiperLayoutChildProps {
   beerName: string;

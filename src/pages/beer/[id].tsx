@@ -5,7 +5,7 @@ import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
 import BeerDetailContainer from '@/containers/BeerDetailContainer';
 
-const OnBoardingPage: NextPage = () => {
+const BeerDetailPage: NextPage = () => {
   return (
     <BeerDetailContainer
       beerDetail={{ beer: { ...Beers[0] } }}
@@ -25,4 +25,4 @@ const OnBoardingPage: NextPage = () => {
   );
 };
 
-export default OnBoardingPage;
+export default BeerDetailPage;

@@ -1,4 +1,6 @@
 import {
+  ArrowDownIcon as ArrowDown,
+  CheckIcon as Check,
   HistoryIcon as History,
   SearchIcon as Search,
   FlightTakeOffIcon as FlightTakeOff,
@@ -7,6 +9,8 @@ import {
   BestIcon as Best,
   BadIcon as Bad,
   ChaosIcon as Chaos,
+  FilterIcon as Filter,
+  FilterAppliedIcon as FilterApplied,
   FlyingAirplaneIcon as FlyingAirplane,
   ShareIcon as Share,
   LikeIcon as Like,
@@ -36,6 +40,7 @@ import {
   NextIcon as Next,
   PlusCircleIcon as PlusCircle,
   ThreeDotIcon as ThreeDot,
+  ConveyorBelt,
   ArrowLeftIcon as ArrowLeft,
   ArrowRightIcon as ArrowRight,
   Level1Icon as Level1,
@@ -52,9 +57,13 @@ import {
   Stamp3Icon as Stamp3,
   Stamp4Icon as Stamp4,
   Stamp5Icon as Stamp5,
+  Cloud,
+  Naver,
 } from '@/assets/icon';
 
 export const svg = {
+  ArrowDown,
+  Check,
   History,
   Search,
   FlightTakeOff,
@@ -63,6 +72,8 @@ export const svg = {
   Best,
   Bad,
   Chaos,
+  Filter,
+  FilterApplied,
   FlyingAirplane,
   Share,
   Like,
@@ -92,6 +103,7 @@ export const svg = {
   Next,
   PlusCircle,
   ThreeDot,
+  ConveyorBelt,
   ArrowLeft,
   ArrowRight,
   Level1,
@@ -108,4 +120,6 @@ export const svg = {
   Stamp3,
   Stamp4,
   Stamp5,
+  Cloud,
+  Naver,
 };

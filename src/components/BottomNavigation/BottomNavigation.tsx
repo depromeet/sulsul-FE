@@ -5,53 +5,58 @@ import styled from '@emotion/styled';
 import PlusIconButton from '@/components/commons/PlusIconButton';
 import Icon from '@/components/commons/Icon';
 
+const BOTTOM_NAVIGATION_HEIGHT = 64;
+
 export default function BottomNavigation() {
   const router = useRouter();
 
   return (
-    <StyledBottomNavigation>
-      <Link href="/" passHref>
-        <a className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}>
-          {router.pathname === '/' ? (
-            <Icon name="NavHomeActive" size={36} />
-          ) : (
-            <Icon name="NavHome" size={36} />
-          )}
-          <span>홈</span>
-        </a>
-      </Link>
-      <Link href="/beer-list" passHref>
-        <a className={`nav-link ${router.pathname === '/beer-list' ? 'active' : ''}`}>
-          {router.pathname === '/beer-list' ? (
-            <Icon name="NavBeerActive" size={36} />
-          ) : (
-            <Icon name="NavBeer" size={36} />
-          )}
-          <span>맥주목록</span>
-        </a>
-      </Link>
-      <PlusIconButton />
-      <Link href="/travel-list" passHref>
-        <a className={`nav-link ${router.pathname === '/travel-list' ? 'active' : ''}`}>
-          {router.pathname === '/travel-list' ? (
-            <Icon name="NavTravelActive" size={36} />
-          ) : (
-            <Icon name="NavTravel" size={36} />
-          )}
-          <span>여행목록</span>
-        </a>
-      </Link>
-      <Link href="/profile" passHref>
-        <a className={`nav-link ${router.pathname === '/profile' ? 'active' : ''}`}>
-          {router.pathname === '/profile' ? (
-            <Icon name="NavProfileActive" size={36} />
-          ) : (
-            <Icon name="NavProfile" size={36} />
-          )}
-          <span>프로필</span>
-        </a>
-      </Link>
-    </StyledBottomNavigation>
+    <>
+      <div style={{ height: `${BOTTOM_NAVIGATION_HEIGHT}px` }} />
+      <StyledBottomNavigation>
+        <Link href="/" passHref>
+          <a className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}>
+            {router.pathname === '/' ? (
+              <Icon name="NavHomeActive" size={36} />
+            ) : (
+              <Icon name="NavHome" size={36} />
+            )}
+            <span>홈</span>
+          </a>
+        </Link>
+        <Link href="/beers" passHref>
+          <a className={`nav-link ${router.pathname === '/beers' ? 'active' : ''}`}>
+            {router.pathname === '/beers' ? (
+              <Icon name="NavBeerActive" size={36} />
+            ) : (
+              <Icon name="NavBeer" size={36} />
+            )}
+            <span>맥주목록</span>
+          </a>
+        </Link>
+        <PlusIconButton />
+        <Link href="/travel-list" passHref>
+          <a className={`nav-link ${router.pathname === '/travel-list' ? 'active' : ''}`}>
+            {router.pathname === '/travel-list' ? (
+              <Icon name="NavTravelActive" size={36} />
+            ) : (
+              <Icon name="NavTravel" size={36} />
+            )}
+            <span>여행목록</span>
+          </a>
+        </Link>
+        <Link href="/profile" passHref>
+          <a className={`nav-link ${router.pathname === '/profile' ? 'active' : ''}`}>
+            {router.pathname === '/profile' ? (
+              <Icon name="NavProfileActive" size={36} />
+            ) : (
+              <Icon name="NavProfile" size={36} />
+            )}
+            <span>프로필</span>
+          </a>
+        </Link>
+      </StyledBottomNavigation>
+    </>
   );
 }
 
@@ -61,7 +66,7 @@ const StyledBottomNavigation = styled.div`
   width: 100%;
   max-width: 768px;
   margin: 0 auto;
-  height: 64px;
+  height: ${BOTTOM_NAVIGATION_HEIGHT}px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -71,6 +76,8 @@ const StyledBottomNavigation = styled.div`
   line-height: 12px;
   background-color: ${({ theme }) => theme.semanticColor.background};
   padding: 0 15px;
+
+  z-index: 10;
 
   /** 아이폰 하단 인디케이터 영역 대응 */
   @supports (padding-bottom: env(safe-area-inset-bottom)) {

@@ -8,13 +8,13 @@ import RecordSecondStepContainer from './RecordSecondStepContainer';
 import RecordThirdStepContainer from './RecordThirdStepContainer';
 
 import { Beers } from '@/constants/Beers';
-import { Beer } from '@/types/Beer';
 import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
-import SwiperLayout from '@/components/SwiperLayout';
+import { IBeer } from '@/apis';
+import SwiperLayout from '@/components/layouts/SwiperLayout';
 
 interface CreateRecordContainerProps {
-  beer: Beer;
+  beer: IBeer;
 }
 
 const StyledCreateRecordContainer = styled.div`
@@ -30,8 +30,8 @@ const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer }) =
     <StyledCreateRecordContainer>
       <Header leftExtras={<BackButton />} />
       <SwiperLayout className="record-layout">
-        <RecordFirstStepContainer beerName={beer.name!} />
-        <RecordSecondStepContainer beerName={beer.name!} />
+        <RecordFirstStepContainer beerName={beer.nameKor} />
+        <RecordSecondStepContainer beerName={beer.nameKor} />
         <RecordThirdStepContainer beer={beer} />
       </SwiperLayout>
     </StyledCreateRecordContainer>

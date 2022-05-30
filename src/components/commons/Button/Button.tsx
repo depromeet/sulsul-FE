@@ -121,7 +121,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   min-width: 125px;
   height: 48px;
   border-radius: 200px;
-  padding: 1.12rem 2.5rem;
+  padding: 11.2px 25px;
   font-size: 16px;
   font-weight: 700;
   display: flex;
