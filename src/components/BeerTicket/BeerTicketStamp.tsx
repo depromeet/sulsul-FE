@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface BeerTicketStampProps {
   feel: 1 | 2 | 3 | 4 | 5;
@@ -40,7 +40,7 @@ const BeerTicketStamp: React.FC<BeerTicketStampProps> = ({ feel, recordedAt }) =
 
   return (
     <StyledBeerTicketStamp iconTop={top} iconLeft={left}>
-      <Icon name="World" width={160} height={80} />
+      <Icon name="World" width="160px" height="80px" />
       <Icon name={`Stamp${feel}`} size={124} className="ticket-stamp" />
     </StyledBeerTicketStamp>
   );

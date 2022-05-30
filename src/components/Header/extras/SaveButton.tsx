@@ -1,8 +1,6 @@
 import { MouseEvent } from 'react';
 
-import BaseHeaderIconButton from './BaseIconButton';
-
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface SaveButtonProps {
   onClick?: (e?: MouseEvent) => void;
@@ -10,9 +8,9 @@ interface SaveButtonProps {
 
 const SaveButton = ({ onClick }: SaveButtonProps) => {
   return (
-    <BaseHeaderIconButton aria-label="저장하기" iconColor="white" onClick={onClick}>
-      <Icon name="Save" />
-    </BaseHeaderIconButton>
+    <button type="button" aria-label="저장하기" onClick={onClick}>
+      <Icon name="Save" color="white" />
+    </button>
   );
 };
 

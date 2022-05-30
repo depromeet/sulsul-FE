@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
 
 import ModalLayout from '@/components/layouts/ModalLayout';
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface ModalProps {
   openModal?: () => void;
@@ -38,10 +38,10 @@ const Modal = (props: ModalProps) => {
           {withCloseButton ? (
             <Icon name="Close" size={24} onClick={closeModal} style={{ cursor: 'pointer' }} />
           ) : (
-            <Icon name="Close" size={24} color={'white'} />
+            <Icon name="Close" size={24} color="white" />
           )}
           {header}
-          <Icon name="Close" size={24} color={'white'} />
+          <Icon name="Close" size={24} color="white" />
         </Header>
         {title && <Title>{title}</Title>}
         {description && <Description>{description}</Description>}

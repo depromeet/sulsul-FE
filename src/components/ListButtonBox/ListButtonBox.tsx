@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { isNil } from 'lodash';
 
-import Icon, { IconNameType } from '@/components/commons/Icon';
+import Icon, { IconNameType } from '@/components/commons/Icon-new';
 
 interface ListButtonBoxProps {
   iconName: IconNameType;
@@ -15,7 +15,7 @@ const ListButtonBox = (props: ListButtonBoxProps) => {
   return (
     <StyledListButtonBox onClick={onClick}>
       <SmallBox>
-        <Icon name={iconName} size={iconName === 'Heart' ? 30 : 20} color={'white'} />
+        <Icon name={iconName} size={iconName === 'Heart' ? 30 : 20} color="white" />
       </SmallBox>
       <Text>
         <p>{text}</p>

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 import Button from './Button';
 

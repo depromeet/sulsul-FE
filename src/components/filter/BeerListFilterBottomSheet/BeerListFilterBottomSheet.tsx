@@ -8,12 +8,12 @@ import BeerTypeFilterList from '../BeerTypeFilterList';
 import BeerCountryFilterList from '../BeerCountryFilterList';
 import { $nextBeerListFilter, $nextBeerListFilterChips } from './recoil/atoms';
 
-import { XIcon } from '@/assets/icon';
 import Tab from '@/components/Tab';
 import BottomSheet from '@/components/BottomSheet';
 import Swiper from '@/components/Swiper';
 import { getContinents } from '@/apis';
 import { $beerListFilter, $beerListFilterChips } from '@/containers/BeerListContainer/recoil/atoms';
+import Icon from '@/components/commons/Icon-new';
 
 const TAB_ITEMS = ['종류', '나라'];
 
@@ -33,14 +33,6 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   height: 46px;
   padding: 8px 20px;
-
-  .close-button {
-    svg {
-      width: 30px;
-      height: 30px;
-      fill: ${(p) => p.theme.color.white};
-    }
-  }
 
   .clear-button {
     font-weight: 500;
@@ -129,7 +121,7 @@ const BeerListFilterBottomSheet = ({ open, onClose }: BeerListFilterBottomSheetP
     <StyledBottomSheet open={open} onClose={onClose} isFull>
       <StyledHeader>
         <button className="close-button" type="button" aria-label="닫기" onClick={onClose}>
-          <XIcon />
+          <Icon name="X" color="white" />
         </button>
         <button className="clear-button" type="button" onClick={clearNextFilter}>
           초기화

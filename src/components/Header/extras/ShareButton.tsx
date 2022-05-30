@@ -1,8 +1,6 @@
 import { MouseEvent } from 'react';
 
-import BaseHeaderIconButton from './BaseIconButton';
-
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface ShareButtonProps {
   onClick?: (e?: MouseEvent) => void;
@@ -10,9 +8,9 @@ interface ShareButtonProps {
 
 const ShareButton = ({ onClick }: ShareButtonProps) => {
   return (
-    <BaseHeaderIconButton aria-label="공유하기" iconColor="white" onClick={onClick}>
-      <Icon name="Share" />
-    </BaseHeaderIconButton>
+    <button type="button" aria-label="공유하기" onClick={onClick}>
+      <Icon name="Share" color="white" />
+    </button>
   );
 };
 

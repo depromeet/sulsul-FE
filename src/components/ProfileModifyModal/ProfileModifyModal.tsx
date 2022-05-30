@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
 
 import ModalLayout from '@/components/layouts/ModalLayout';
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 import Button from '@/components/commons/Button';
 
 interface Props {

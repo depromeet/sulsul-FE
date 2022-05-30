@@ -1,8 +1,6 @@
 import { MouseEvent } from 'react';
 
-import BaseHeaderIconButton from './BaseIconButton';
-
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface WriteButtonProps {
   onClick?: (e?: MouseEvent) => void;
@@ -10,9 +8,9 @@ interface WriteButtonProps {
 
 const WriteButton = ({ onClick }: WriteButtonProps) => {
   return (
-    <BaseHeaderIconButton aria-label="작성하기" iconColor="white" onClick={onClick}>
-      <Icon name="Write" />
-    </BaseHeaderIconButton>
+    <button type="button" aria-label="작성하기" onClick={onClick}>
+      <Icon name="Write" color="white" />
+    </button>
   );
 };
 

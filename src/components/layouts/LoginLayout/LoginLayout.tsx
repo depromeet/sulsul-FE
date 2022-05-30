@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 import { Cloud } from '@/assets/icon';
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface LoginLayoutProps {
   children: ReactChild;
@@ -67,7 +67,7 @@ const StyledWrapper = styled.div`
 const LoginLayout = ({ title, children }: LoginLayoutProps) => {
   return (
     <StyledContainer>
-      <Icon name="Logo" className="logo" width={80} height={18} />
+      <Icon name="Logo" className="logo" size={80} />
       {Boolean(title) && <StyledTitle>{title}</StyledTitle>}
       <StyledWrapper>{children}</StyledWrapper>
       <Cloud className="cloud" aria-hidden={true} />

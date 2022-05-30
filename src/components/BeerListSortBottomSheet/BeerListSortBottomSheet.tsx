@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
 import BottomSheet from '../BottomSheet';
-import Icon from '../commons/Icon';
+import Icon from '../commons/Icon-new';
 
 import { theme } from '@/themes';
 import {
@@ -64,7 +64,7 @@ const BeerListSortBottomSheet = ({ open, onClose }: BeerListSortBottomSheetProps
               <Icon
                 name="Check"
                 size={30}
-                color={isSelected ? theme.color.yellow : 'transparent'}
+                style={{ fill: isSelected ? theme.color.yellow : 'transparent' }}
                 aria-hidden={true}
               />
             </SortTypeItem>

@@ -14,7 +14,7 @@ import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button, { ButtonCount } from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 import { IBeer } from '@/apis';
 
 interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {

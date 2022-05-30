@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
-import BaseHeaderIconButton from './BaseIconButton';
-
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 export type ListViewType = 'grid' | 'list';
 
@@ -40,22 +38,12 @@ const ListViewToggleButton = ({
 
   return (
     <StyledWrapper>
-      <BaseHeaderIconButton
-        aria-label="그리드 뷰로 보기"
-        aria-checked={type === 'grid'}
-        iconColor={getIconColor(type === 'grid')}
-        onClick={handleTypeChange('grid')}
-      >
-        <Icon name="GridView" />
-      </BaseHeaderIconButton>
-      <BaseHeaderIconButton
-        aria-label="리스트 뷰로 보기"
-        aria-checked={type === 'list'}
-        iconColor={getIconColor(type === 'list')}
-        onClick={handleTypeChange('list')}
-      >
-        <Icon name="ListView" />
-      </BaseHeaderIconButton>
+      <button type="button" aria-label="그리드 뷰로 보기" onClick={handleTypeChange('grid')}>
+        <Icon name="GridView" color={getIconColor(type === 'grid')} />
+      </button>
+      <button type="button" aria-label="리스트 뷰로 보기" onClick={handleTypeChange('list')}>
+        <Icon name="ListView" color={getIconColor(type === 'list')} />
+      </button>
     </StyledWrapper>
   );
 };

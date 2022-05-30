@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 import { sliceAndUpperCase } from '@/utils/string';
 
 interface BeerTicketFlightProps {

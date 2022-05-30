@@ -1,4 +1,4 @@
-import { IconNameType } from '@/components/commons/Icon';
+import { IconNameType } from '@/components/commons/Icon-new';
 
 type Level = {
   level: IconNameType;

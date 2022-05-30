@@ -4,12 +4,9 @@ import Link from 'next/link';
 
 import ListButtonBox from '@/components/ListButtonBox';
 import BottomNavigation from '@/components/BottomNavigation';
-import Modal from '@/components/Modal';
 import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
-import Icon from '@/components/commons/Icon';
-import Button from '@/components/commons/Button';
-import { theme } from '@/themes';
+import Icon from '@/components/commons/Icon-new';
 
 interface Props {
   nickname: string;

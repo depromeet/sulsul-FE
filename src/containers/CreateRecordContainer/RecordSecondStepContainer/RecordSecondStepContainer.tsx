@@ -11,7 +11,7 @@ import MultiSelectField from '@/components/formFields/MultiSelectField';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 
 const StyledRecordSecondStepContainer = styled.div`

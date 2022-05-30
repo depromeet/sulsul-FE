@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { XIcon } from '@/assets/icon';
+import Icon from '../commons/Icon-new';
 
 interface ChipProps {
   text: string;
@@ -35,12 +35,6 @@ const StyledWrapper = styled.span`
     flex-shrink: 0;
     border-radius: 50%;
     background-color: ${(p) => p.theme.color.grey5};
-
-    svg {
-      width: 12px;
-      height: 12px;
-      fill: ${(p) => p.theme.color.grey4};
-    }
   }
 
   & + span {
@@ -53,7 +47,7 @@ const Chip = ({ text, onClose }: ChipProps) => {
     <StyledWrapper>
       <p>{text}</p>
       <button type="button" onClick={onClose}>
-        <XIcon />
+        <Icon name="X" size={12} color="grey4" />
       </button>
     </StyledWrapper>
   );

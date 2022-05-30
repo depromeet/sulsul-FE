@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 const HomeIconButton = () => {
   return (
     <StyledHomeIconButton>
-      <Icon name="Home" size={30} color="#3E3BE6" />
+      <Icon name="Home" size={30} color="blue" />
     </StyledHomeIconButton>
   );
 };

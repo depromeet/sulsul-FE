@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { CheckIcon } from '@/assets/icon';
 import { ellipsis } from '@/styles/common';
 import { ICountry } from '@/apis';
+import Icon from '@/components/commons/Icon-new';
 
 const StyledWrapper = styled.li`
   display: flex;
@@ -43,9 +43,6 @@ const Overlay = styled.div`
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
-    width: 30px;
-    height: 30px;
-    fill: ${(p) => p.theme.color.white};
   }
 `;
 
@@ -80,7 +77,7 @@ const BeerCountryFilterItem: React.FC<BeerCountryFilterItemProps> = ({
         <img src={imageUrl} alt="" />
         {isSelected && (
           <Overlay>
-            <CheckIcon />
+            <Icon name="Check" size={30} color="white" />
           </Overlay>
         )}
       </ImageWrapper>

@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 
 import useSearchHistory from '@/hooks/useSearchHistory';
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 export type SearchIconType = 'search' | 'history';
 

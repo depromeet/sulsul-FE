@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import Icon from '@/components/commons/Icon';
-import { theme } from '@/themes';
+import Icon from '@/components/commons/Icon-new';
 import { ellipsis } from '@/styles/common';
 
 type BeerGridItemProps = Pick<IBeer, 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
@@ -25,9 +24,9 @@ const BeerGridItem = (props: Props) => {
       <BeerGridItemContainer feel={feel}>
         <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
           {isLiked || isBookMarked ? (
-            <Icon name="Heart" size={30} color={theme.color.white} />
+            <Icon name="Heart" size={30} color="white" />
           ) : (
-            <Icon name="HeartOutlined" size={30} color={theme.color.white} />
+            <Icon name="HeartOutlined" size={30} color="white" />
           )}
         </BookmarkButton>
         <StyledEmoji>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import type { HTMLAttributes } from 'react';
 
-import Icon from '@/components/commons/Icon';
+import Icon from '@/components/commons/Icon-new';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;

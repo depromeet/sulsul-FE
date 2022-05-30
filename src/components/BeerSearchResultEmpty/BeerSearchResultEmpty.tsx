@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import Button from '../commons/Button';
-import Icon from '../commons/Icon';
+import Icon from '../commons/Icon-new';
 
 interface BeerSearchResultEmptyProp {
   title: string;

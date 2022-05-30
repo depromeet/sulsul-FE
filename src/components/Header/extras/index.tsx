@@ -1,5 +1,4 @@
 export { default as BackButton } from './BackButton';
-export { default as BaseIconButton } from './BaseIconButton';
 export { default as CloseButton } from './CloseButton';
 export { default as LikeToggleButton } from './LikeToggleButton';
 export { default as ListViewToggleButton } from './ListViewToggleButton';
