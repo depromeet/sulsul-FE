@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const BACKGROUND_COLOR = '#FEE500';
-const TEXT_COLOR = 'rgba(0,0,0,.85)';
+const TEXT_COLOR = '#191919';
 
 const StyledButton = styled.button`
   display: flex;
