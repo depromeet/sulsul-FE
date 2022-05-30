@@ -53,6 +53,7 @@ import {
   Logo,
   Cloud,
   Naver,
+  Camera,
 } from '@/assets/icon';
 
 export const svg = {
@@ -110,4 +111,5 @@ export const svg = {
   Logo,
   Cloud,
   Naver,
+  Camera,
 };
