@@ -13,11 +13,11 @@ export default {
 } as ComponentMeta<any>;
 
 const StyledColorWrapper = styled.div`
-  margin: 0.8rem 0.8rem 0.8rem 0;
+  margin: 8px 8px 8px 0;
   color: ${(p) => p.theme.color.whiteOpacity35};
 
   > *:not(:last-child) {
-    margin-bottom: 0.4rem;
+    margin-bottom: 4px;
   }
 
   > b {
@@ -28,9 +28,9 @@ const StyledColorWrapper = styled.div`
 `;
 
 const StyledColorBlock = styled.div`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 0.4rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
 
   background-color: ${(props) => props.color};
 `;
@@ -48,28 +48,28 @@ const Color = ({ name, color }: { name: string; color: string }) => {
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1.6rem;
+  padding: 16px;
 
   background-color: #262626;
 
   h1 {
-    margin: 0 0 0.8rem;
-    font-size: 2rem;
+    margin: 0 0 8px;
+    font-size: 20px;
     font-weight: 700;
     color: ${(p) => p.theme.color.white};
   }
 
   h2 {
-    margin: 1.4em 0 1.2rem;
-    font-size: 1.6rem;
+    margin: 1.4em 0 12px;
+    font-size: 16px;
     font-weight: 700;
     color: ${(p) => p.theme.color.white};
   }
 
   h3 {
-    margin: 1em 0 0.4rem;
-    border-bottom: 0.1rem solid ${(p) => p.theme.color.whiteOpacity80};
-    padding-bottom: 0.4rem;
+    margin: 1em 0 4px;
+    border-bottom: 1px solid ${(p) => p.theme.color.whiteOpacity80};
+    padding-bottom: 4px;
 
     font-weight: bold;
     color: ${(p) => p.theme.color.white};

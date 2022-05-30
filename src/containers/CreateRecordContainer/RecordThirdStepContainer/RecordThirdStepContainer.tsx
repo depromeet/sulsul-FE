@@ -6,7 +6,6 @@ import { FieldValues } from 'react-hook-form';
 import { $recordForm } from '../atoms';
 import { dummyOptions } from '../RecordSecondStepContainer/RecordSecondStepContainer';
 
-import { Beer } from '@/types/Beer';
 import EntityForm from '@/components/EntityForm';
 import ImageUploadField from '@/components/formFields/ImageUploadField';
 import SelectField from '@/components/formFields/SelectField';
@@ -16,9 +15,10 @@ import Button, { ButtonCount } from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 import Icon from '@/components/commons/Icon';
+import { IBeer } from '@/apis';
 
 interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {
-  beer: Beer;
+  beer: IBeer;
   className?: string;
 }
 
@@ -93,7 +93,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
     <StyledRecordThirdStepContainer>
       <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
-        <p className="body-1">{beer.name}</p>
+        <p className="body-1">{beer.nameKor}</p>
         <ImageUploadField name="imageUrl" beer={beer} required />
         <div className="switch-wrapper">
           <span>{'맥주 여행 소감 공개 여부'}</span>

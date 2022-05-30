@@ -5,10 +5,11 @@ import BaseHeaderIconButton from './BaseIconButton';
 
 import Icon from '@/components/commons/Icon';
 
-export type ListType = 'grid' | 'list';
+export type ListViewType = 'grid' | 'list';
 
 interface ListViewToggleButtonProps {
-  onChange?: (type: ListType) => void;
+  defaultType?: ListViewType;
+  onChange?: (type: ListViewType) => void;
 }
 
 const StyledWrapper = styled.div`
@@ -19,14 +20,17 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const ListViewToggleButton = ({ onChange = () => null }: ListViewToggleButtonProps) => {
-  const [type, setType] = useState<ListType>('grid');
+const ListViewToggleButton = ({
+  defaultType = 'grid',
+  onChange = () => null,
+}: ListViewToggleButtonProps) => {
+  const [type, setType] = useState<ListViewType>(defaultType);
 
   useEffect(() => {
     onChange(type);
   }, [type]);
 
-  const handleTypeChange = (value: ListType) => () => {
+  const handleTypeChange = (value: ListViewType) => () => {
     setType(value);
   };
 

@@ -21,14 +21,25 @@ const StyledWrapper = styled.span`
 
   p {
     white-space: nowrap;
+    color: ${(p) => p.theme.color.grey5};
+    ${(p) => p.theme.fonts.SubTitle5};
   }
 
   button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-left: 8px;
     flex-shrink: 0;
+    border-radius: 50%;
+    background-color: ${(p) => p.theme.color.grey5};
+
     svg {
-      width: 8px;
-      height: 8px;
-      margin-left: 4px;
+      width: 12px;
+      height: 12px;
+      fill: ${(p) => p.theme.color.grey4};
     }
   }
 

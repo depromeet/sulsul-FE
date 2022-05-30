@@ -1,8 +1,9 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
 import { CheckIcon } from '@/assets/icon';
 import { ellipsis } from '@/styles/common';
+import { ICountry } from '@/apis';
 
 const StyledWrapper = styled.li`
   display: flex;
@@ -23,6 +24,7 @@ const ImageWrapper = styled.div`
 
   > img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 `;
@@ -60,48 +62,31 @@ const Name = styled.p<Pick<BeerCountryFilterItemProps, 'isSelected'>>`
   ${ellipsis()};
 `;
 
-interface BeerCountryFilterItemProps {
-  id: number;
-  name: string;
-  flagImageUrl: string;
+interface BeerCountryFilterItemProps extends ICountry {
   /** 선택 여부 (default:false) */
   isSelected?: boolean;
   onClick: () => void;
 }
 
 const BeerCountryFilterItem: React.FC<BeerCountryFilterItemProps> = ({
-  name,
-  flagImageUrl,
+  nameKor,
+  imageUrl,
   isSelected = false,
   onClick = () => null,
 }) => {
   return (
     <StyledWrapper aria-checked={isSelected} onClick={onClick}>
       <ImageWrapper>
-        <img src={flagImageUrl} alt="" />
+        <img src={imageUrl} alt="" />
         {isSelected && (
           <Overlay>
             <CheckIcon />
           </Overlay>
         )}
       </ImageWrapper>
-      <Name isSelected={isSelected}>{name}</Name>
+      <Name isSelected={isSelected}>{nameKor}</Name>
     </StyledWrapper>
   );
 };
 
 export default BeerCountryFilterItem;
-
-interface SelectAllButtonPros {
-  onClick: MouseEventHandler;
-  continentName: string;
-}
-
-export const SelectAllButton = ({ onClick, continentName }: SelectAllButtonPros) => {
-  return (
-    <StyledWrapper onClick={onClick}>
-      <ImageWrapper></ImageWrapper>
-      <Name>{continentName} 전체</Name>
-    </StyledWrapper>
-  );
-};

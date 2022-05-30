@@ -1,6 +1,7 @@
 import { ReactNode, ReactChild } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+
+import { ellipsis } from '@/styles/common';
 
 export const HEADER_HEIGHT = 60;
 
@@ -50,7 +51,7 @@ const StyledRightExtras = styled.div`
     margin-right: 8px;
   }
 
-  > *:first-child {
+  > *:first-of-type {
     margin-left: 12px;
   }
 `;
@@ -60,23 +61,13 @@ const StyledTitle = styled.div`
   height: 100%;
 `;
 
-const ellipsisStyles = css`
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: break-word;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-`;
-
 const StyledH1 = styled.h1`
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
   color: ${(p) => p.theme.color.white};
 
-  ${ellipsisStyles};
+  ${ellipsis()};
 `;
 
 const Header = ({
