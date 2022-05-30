@@ -46,6 +46,8 @@ import {
   ModifyIcon as Modify,
   InfoIcon as Info,
   Logo,
+  Cloud,
+  Naver,
 } from '@/assets/icon';
 
 export const svg = {
@@ -96,4 +98,6 @@ export const svg = {
   Modify,
   Info,
   Logo,
+  Cloud,
+  Naver,
 };

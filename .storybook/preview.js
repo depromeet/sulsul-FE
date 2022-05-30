@@ -4,7 +4,7 @@ import { ThemeProvider } from 'emotion-theming';
 import { RecoilRoot } from 'recoil';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 
-import MainLayout from '../src/components/MainLayout';
+import MainLayout from '../src/components/layouts/MainLayout';
 import { theme, GlobalStyle } from '../src/themes';
 
 export const parameters = {
