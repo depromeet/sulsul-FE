@@ -9,11 +9,12 @@ import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
 import Icon from '@/components/commons/Icon';
 import Button from '@/components/commons/Button';
+import { theme } from '@/themes';
 
 interface Props {
   nickname: string;
   email: string;
-  drinkedBeerCount: number;
+  drankBeerCount: number;
   ticketCount: number;
   travelCount: number;
   likedBeerCount: number;
@@ -23,7 +24,7 @@ const ProfileContainer = (props: Props) => {
   const {
     nickname,
     email,
-    drinkedBeerCount,
+    drankBeerCount,
     ticketCount,
     travelCount,
     likedBeerCount,
@@ -43,7 +44,7 @@ const ProfileContainer = (props: Props) => {
       <StyledProfileContainer>
         <ToolTip>
           여행 1번만 더 하면 Level UP!
-          <Icon name="Info" size={20} onClick={openLevelModal} />
+          <InfoIcon name="Info" size={20} onClick={openLevelModal} />
         </ToolTip>
         <Icon name="Level1" size={160} />
         <NickName>
@@ -54,7 +55,7 @@ const ProfileContainer = (props: Props) => {
         <TextItemContainer>
           <TextItem>
             <NumberAndUnit>
-              <Number>{drinkedBeerCount}</Number>
+              <Number>{drankBeerCount}</Number>
               <Unit>캔</Unit>
             </NumberAndUnit>
             <Title>마신 맥주</Title>
@@ -87,7 +88,7 @@ const ProfileContainer = (props: Props) => {
           isModifyModalOpen={isModifyModalOpen}
           openModifyModal={openModifyModal}
           closeModifyModal={closeModifyModal}
-          onSubmit={()=> alert("닉네임 수정 완료")}
+          onSubmit={() => alert('닉네임 수정 완료')}
         />
       )}
       {isLevelModalOpen && (
@@ -108,6 +109,10 @@ const StyledProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const InfoIcon = styled(Icon)`
+  cursor: pointer;
 `;
 
 const NickName = styled.div`
@@ -138,37 +143,25 @@ const TextItem = styled.div`
 
 const NumberAndUnit = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 2px;
   color: ${({ theme }) => theme.color.white};
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
   margin-bottom: 10px;
 `;
 
-const Number = styled.span`
-  display: inline-block;
+const Number = styled.p`
+  ${({ theme }) => theme.fonts.H1};
   color: ${({ theme }) => theme.color.white};
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 29px;
 `;
 
-const Unit = styled.span`
-  display: inline-block;
+const Unit = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle4};
   color: ${({ theme }) => theme.color.white};
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
 `;
 
-const Title = styled.span`
-  display: inline-block;
+const Title = styled.p`
+  ${({ theme }) => theme.fonts.SubTitle5};
   color: ${({ theme }) => theme.color.whiteOpacity90};
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 16px;
 `;
 
 const TextItemContainer = styled.div`
@@ -197,9 +190,7 @@ const ToolTip = styled.div`
   margin-top: 60px;
   background: ${({ theme }) => theme.semanticColor.primary};
   border-radius: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 16px;
+  ${({ theme }) => theme.fonts.SubTitle5};
   color: ${({ theme }) => theme.color.white};
 
   ::after {
