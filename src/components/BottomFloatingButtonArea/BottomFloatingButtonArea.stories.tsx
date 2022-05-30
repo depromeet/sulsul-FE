@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Button from '@/components/commons/Button';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 import BottomFloatingButtonArea from './BottomFloatingButtonArea';
 
 export default {

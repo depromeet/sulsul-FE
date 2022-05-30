@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
 import { IBeerType } from '@/apis';
 

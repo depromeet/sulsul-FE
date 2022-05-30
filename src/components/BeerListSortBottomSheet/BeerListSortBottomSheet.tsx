@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
 import BottomSheet from '../BottomSheet';
-import Icon from '../commons/Icon-new';
+import Icon from '../commons/Icon';
 
 import { theme } from '@/themes';
 import {

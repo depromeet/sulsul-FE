@@ -6,7 +6,7 @@ import ListButtonBox from '@/components/ListButtonBox';
 import BottomNavigation from '@/components/BottomNavigation';
 import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface Props {
   nickname: string;

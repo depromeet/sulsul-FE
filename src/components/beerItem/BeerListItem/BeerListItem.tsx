@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
 
 type BeerListItemProps = Pick<

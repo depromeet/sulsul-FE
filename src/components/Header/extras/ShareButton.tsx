@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface ShareButtonProps {
   onClick?: (e?: MouseEvent) => void;

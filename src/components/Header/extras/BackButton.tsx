@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface BackButtonProps {
   onClick?: (e?: MouseEvent) => void;

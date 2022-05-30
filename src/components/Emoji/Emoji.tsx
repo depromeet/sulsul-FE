@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 const getEmoji = (feel?: number) => {
   switch (feel) {

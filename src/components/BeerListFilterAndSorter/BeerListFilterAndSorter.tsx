@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import Icon from '../commons/Icon-new';
+import Icon from '../commons/Icon';
 import { HEADER_HEIGHT } from '../Header/Header';
 import BeerListFilterChipList, { BeerListFilterChipType } from '../filter/BeerListFilterChipList';
 import BeerListFilterBottomSheet from '../filter/BeerListFilterBottomSheet';

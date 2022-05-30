@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 import { Cloud } from '@/assets/icon';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface LoginLayoutProps {
   children: ReactChild;

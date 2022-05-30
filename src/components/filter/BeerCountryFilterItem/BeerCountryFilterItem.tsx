@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { ellipsis } from '@/styles/common';
 import { ICountry } from '@/apis';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 const StyledWrapper = styled.li`
   display: flex;

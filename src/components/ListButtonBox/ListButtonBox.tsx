@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { isNil } from 'lodash';
 
-import Icon, { IconNameType } from '@/components/commons/Icon-new';
+import Icon, { IconNameType } from '@/components/commons/Icon';
 
 interface ListButtonBoxProps {
   iconName: IconNameType;

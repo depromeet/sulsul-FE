@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
 import PlusIconButton from '@/components/commons/PlusIconButton';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 const BOTTOM_NAVIGATION_HEIGHT = 64;
 

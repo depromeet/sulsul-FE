@@ -1,6 +1,6 @@
 import { MouseEvent, useState } from 'react';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface LikeToggleButtonProps {
   defaultIsLiking: boolean;

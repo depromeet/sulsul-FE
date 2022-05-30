@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 const BACKGROUND_COLOR = '#03C75A';
 const TEXT_COLOR = '#FFFFFF';

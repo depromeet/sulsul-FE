@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { isNil } from 'lodash';
 import { MouseEvent } from 'react';
 
-import Icon from '../commons/Icon-new';
+import Icon from '../commons/Icon';
 import Header from '../Header';
 import { BackButton, ListViewToggleButton } from '../Header/extras';
 

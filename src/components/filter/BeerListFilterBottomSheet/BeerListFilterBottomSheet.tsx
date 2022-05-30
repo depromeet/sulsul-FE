@@ -13,7 +13,7 @@ import BottomSheet from '@/components/BottomSheet';
 import Swiper from '@/components/Swiper';
 import { getContinents } from '@/apis';
 import { $beerListFilter, $beerListFilterChips } from '@/containers/BeerListContainer/recoil/atoms';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 const TAB_ITEMS = ['종류', '나라'];
 

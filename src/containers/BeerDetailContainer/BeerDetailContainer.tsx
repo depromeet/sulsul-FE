@@ -5,7 +5,7 @@ import BeerDetail, { BeerDetailProps } from '@/components/BeerDetail';
 import AirPort, { AirPortProps } from '@/components/AirPort';
 import TasteBoxAndBadge, { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
 import Button from '@/components/commons/Button';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 import Review, { ReviewProps } from '@/components/Review';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';

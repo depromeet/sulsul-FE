@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Icon from '../commons/Icon-new';
+import Icon from '../commons/Icon';
 
 interface ChipProps {
   text: string;

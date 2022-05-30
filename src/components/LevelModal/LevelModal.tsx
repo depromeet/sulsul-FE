@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { Level as LevelList } from '@/constants/Level';
 import ModalLayout from '@/components/layouts/ModalLayout';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface Props {
   isLevelModalOpen: boolean;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { IBeer } from '@/apis';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 import { sliceAndUpperCase } from '@/utils/string';
 
 type TicketType = 'default' | 'form';

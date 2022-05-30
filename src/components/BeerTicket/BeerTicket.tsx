@@ -7,7 +7,7 @@ import BeerTicketFlight from './BeerTicketFlight';
 import BeerTicketStamp from './BeerTicketStamp';
 
 import { theme } from '@/themes';
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 import { FEEL_MESSAGES } from '@/constants/Reviews';
 import BeerTicketTitle from '@/components/BeerTicketTitle';
 import Emoji from '@/components/Emoji';

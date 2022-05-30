@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 
-import Icon from '@/components/commons/Icon-new';
+import Icon from '@/components/commons/Icon';
 
 interface BeerTicketStampProps {
   feel: 1 | 2 | 3 | 4 | 5;
