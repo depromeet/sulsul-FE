@@ -7,6 +7,7 @@ import { theme } from '@/themes';
 
 export type IconNameType = keyof typeof icon;
 export type ColorThemeNameType = keyof ColorTheme['color'];
+export type SemanticColorThemeNameType = keyof ColorTheme['semanticColor'];
 
 const DEFAULT_SIZE = 30;
 
@@ -15,25 +16,43 @@ interface SvgIconProps extends SVGProps<SVGSVGElement> {
   size?: number;
   width?: string;
   height?: string;
-  colorTheme?: ColorThemeNameType;
+  color?: ColorThemeNameType;
+  /** semanticColor가 color보다 적용 우선순위가 높습니다. */
+  semanticColor?: SemanticColorThemeNameType;
 }
 
-const Icon = ({ name, size = DEFAULT_SIZE, width, height, colorTheme, ...props }: SvgIconProps) => {
+const Icon = ({
+  name,
+  size = DEFAULT_SIZE,
+  width,
+  height,
+  color,
+  semanticColor,
+  style,
+  ...props
+}: SvgIconProps) => {
   const SvgIcon = icon[name];
 
-  const StyledSvgIcon = styled(SvgIcon)<Pick<SvgIconProps, 'colorTheme'>>`
+  const StyledSvgIcon = styled(SvgIcon)<Pick<SvgIconProps, 'color' | 'semanticColor'>>`
+    &,
     path {
-      ${(p) => (p.colorTheme ? `fill: ${theme.color[p.colorTheme as ColorThemeNameType]}` : '')};
+      ${(p) => (p.color ? `fill: ${theme.color[color as ColorThemeNameType]} !important` : '')};
+      ${(p) =>
+        p.semanticColor
+          ? `fill: ${theme.semanticColor[semanticColor as SemanticColorThemeNameType]} !important`
+          : ''};
     }
   `;
 
   return (
     <StyledSvgIcon
       {...props}
-      colorTheme={colorTheme}
+      color={color}
+      semanticColor={semanticColor}
       style={{
         width: width ?? `${size}px`,
         height: height ?? 'auto',
+        ...style,
       }}
     />
   );
