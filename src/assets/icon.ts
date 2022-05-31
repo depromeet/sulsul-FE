@@ -12,6 +12,7 @@ export { ReactComponent as Soso } from './emoji_soso.svg';
 export { ReactComponent as Best } from './emoji_best.svg';
 export { ReactComponent as Bad } from './emoji_bad.svg';
 export { ReactComponent as Chaos } from './emoji_chaos.svg';
+export { ReactComponent as Film } from './film.svg';
 export { ReactComponent as FilterApplied } from './filter_applied.svg';
 export { ReactComponent as Filter } from './filter.svg';
 export { ReactComponent as FlyingAirplane } from './flying_airplane.svg';
