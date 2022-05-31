@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
-import { CheckIcon } from '@/assets/icon';
+import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
 import { IBeerType } from '@/apis';
 
@@ -36,10 +36,7 @@ const StyledWrapper = styled.li`
 
   .check-icon {
     flex-shrink: 0;
-    width: ${CHECK_ICON_WIDTH};
-    height: ${CHECK_ICON_WIDTH};
     margin-left: auto;
-    fill: ${(p) => p.theme.semanticColor.secondary};
   }
 `;
 
@@ -85,7 +82,14 @@ const BeerTypeFilterItem = ({
         <b>{nameKor}</b>
         <p className="description">{description} </p>
       </StyledInfo>
-      {isSelected && <CheckIcon className="check-icon" />}
+      {isSelected && (
+        <Icon
+          className="check-icon"
+          name="Check"
+          width={CHECK_ICON_WIDTH}
+          semanticColor="secondary"
+        />
+      )}
     </StyledWrapper>
   );
 };

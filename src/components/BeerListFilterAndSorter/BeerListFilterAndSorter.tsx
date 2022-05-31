@@ -54,7 +54,7 @@ interface FilterButtonProps {
 const FilterButton = ({ hasAppliedFilter, onClick }: FilterButtonProps) => {
   return (
     <button type="button" onClick={onClick}>
-      <Icon name={hasAppliedFilter ? 'FilterApplied' : 'Filter'} size={30} />
+      <Icon name={hasAppliedFilter ? 'FilterApplied' : 'Filter'} />
     </button>
   );
 };

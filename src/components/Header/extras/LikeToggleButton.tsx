@@ -1,7 +1,5 @@
 import { MouseEvent, useState } from 'react';
 
-import BaseHeaderIconButton from './BaseIconButton';
-
 import Icon from '@/components/commons/Icon';
 
 interface LikeToggleButtonProps {
@@ -24,13 +22,13 @@ const LikeToggleButton = ({ defaultIsLiking, onLike, onUnLike }: LikeToggleButto
   };
 
   return (
-    <BaseHeaderIconButton
+    <button
+      type="button"
       aria-label={isLiking ? '좋아요 해제' : '좋아요'}
-      iconColor="white"
       onClick={isLiking ? handleUnLike : handleLike}
     >
-      {isLiking ? <Icon name="Heart" /> : <Icon name="HeartOutlined" />}
-    </BaseHeaderIconButton>
+      {isLiking ? <Icon name="Heart" color="white" /> : <Icon name="HeartOutlined" color="white" />}
+    </button>
   );
 };
 

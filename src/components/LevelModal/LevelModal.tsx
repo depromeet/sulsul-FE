@@ -17,7 +17,7 @@ const LevelModal = ({ isLevelModalOpen, openLevelModal, closeLevelModal }: Props
         <Header>
           <Icon name="Close" size={24} onClick={closeLevelModal} style={{ cursor: 'pointer' }} />
           Level 안내
-          <Icon name="Close" size={24} color={'white'} />
+          <Icon name="Close" size={24} color="white" />
         </Header>
         <LevelContainer>
           {LevelList.map(({ level, count }) => (

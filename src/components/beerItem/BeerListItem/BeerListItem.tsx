@@ -5,7 +5,6 @@ import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
-import { theme } from '@/themes';
 import { ellipsis } from '@/styles/common';
 
 type BeerListItemProps = Pick<
@@ -31,9 +30,9 @@ const BeerListItem = (props: Props) => {
       </StyledEmoji>
       <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
         {isLiked || isBookMarked ? (
-          <Icon name="Heart" size={30} color={theme.color.white} />
+          <Icon name="Heart" size={30} color="white" />
         ) : (
-          <Icon name="HeartOutlined" size={30} color={theme.color.white} />
+          <Icon name="HeartOutlined" size={30} color="white" />
         )}
       </BookmarkButton>
       <StyledBeerImageMasking width="9%">

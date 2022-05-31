@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 import { IBeer } from '@/apis';
 import Icon from '@/components/commons/Icon';
-import { theme } from '@/themes';
 import { sliceAndUpperCase } from '@/utils/string';
 
 type TicketType = 'default' | 'form';
@@ -88,11 +87,7 @@ const BeerTicketTitle: React.FC<BeerTicketTitleProps> = ({
     <StyledBeerTicketTitle ticketType={type} ticketBackground={background}>
       {background && <div className="ticket-background-img" />}
       <div>
-        <Icon
-          name="Airplane"
-          size={type === 'default' ? 18 : 20}
-          color={theme.color.whiteOpacity35}
-        />
+        <Icon name="Airplane" size={type === 'default' ? 18 : 20} color="whiteOpacity35" />
       </div>
       <div className="ticket-main-title">
         <span className="ticket-country">{sliceAndUpperCase(beer?.country?.nameEng || '', 3)}</span>
