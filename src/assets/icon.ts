@@ -4,6 +4,7 @@ export { ReactComponent as Cloud } from './cloud.svg';
 export { ReactComponent as ConveyorBelt } from './conveyor_belt.svg';
 export { ReactComponent as History } from './history.svg';
 export { ReactComponent as Back } from './back.svg';
+export { ReactComponent as Barcode } from './barcode.svg';
 export { ReactComponent as Search } from './search.svg';
 export { ReactComponent as FlightTakeOff } from './flight_takeoff.svg';
 export { ReactComponent as Good } from './emoji_good.svg';
