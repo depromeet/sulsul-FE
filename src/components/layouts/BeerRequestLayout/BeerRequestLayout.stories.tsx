@@ -23,4 +23,4 @@ const Template: ComponentStory<typeof BeerRequestLayout> = (args) => (
   </BeerRequestLayout>
 );
 
-export const 로그인_레이아웃 = Template.bind({});
+export const 맥주요청_레이아웃 = Template.bind({});
