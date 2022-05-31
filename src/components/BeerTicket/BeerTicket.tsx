@@ -115,7 +115,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record, type = 'default' 
   return (
     <StyledBeerTicket>
       <header className="beer-ticket-header">
-        <Icon name="Logo" color={theme.semanticColor.primary} width={60} height={19} />
+        <Icon name="Logo" semanticColor="primary" size={60} />
         <span className="barlow-small">{`BR118001`}</span>
       </header>
       <BeerTicketTitle beer={beer} />
@@ -170,7 +170,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record, type = 'default' 
         </section>
       )}
       <footer className="beer-ticket-footer">
-        <Icon name="Logo" color={theme.semanticColor.primary} width={60} height={19} />
+        <Icon name="Logo" semanticColor="primary" size={60} />
       </footer>
     </StyledBeerTicket>
   );

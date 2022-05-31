@@ -40,7 +40,7 @@ const BeerTicketStamp: React.FC<BeerTicketStampProps> = ({ feel, recordedAt }) =
 
   return (
     <StyledBeerTicketStamp iconTop={top} iconLeft={left}>
-      <Icon name="World" width={160} height={80} />
+      <Icon name="World" width="160px" height="80px" />
       <Icon name={`Stamp${feel}`} size={124} className="ticket-stamp" />
     </StyledBeerTicketStamp>
   );

@@ -64,7 +64,7 @@ const BeerListSortBottomSheet = ({ open, onClose }: BeerListSortBottomSheetProps
               <Icon
                 name="Check"
                 size={30}
-                color={isSelected ? theme.color.yellow : 'transparent'}
+                style={{ fill: isSelected ? theme.color.yellow : 'transparent' }}
                 aria-hidden={true}
               />
             </SortTypeItem>

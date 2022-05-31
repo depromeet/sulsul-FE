@@ -1,8 +1,6 @@
 import { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
 
-import BaseHeaderIconButton from './BaseIconButton';
-
 import Icon from '@/components/commons/Icon';
 
 interface BackButtonProps {
@@ -14,14 +12,14 @@ const BackButton = ({ className, onClick }: BackButtonProps) => {
   const router = useRouter();
 
   return (
-    <BaseHeaderIconButton
+    <button
       className={className}
+      type="button"
       aria-label="뒤로가기"
-      iconColor="whiteOpacity50"
       onClick={onClick ?? router.back}
     >
-      <Icon name="Back" />
-    </BaseHeaderIconButton>
+      <Icon name="Back" color="whiteOpacity50" />
+    </button>
   );
 };
 

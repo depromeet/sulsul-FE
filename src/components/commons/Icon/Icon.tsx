@@ -1,48 +1,61 @@
-import styled from '@emotion/styled';
 import { SVGProps } from 'react';
+import styled from '@emotion/styled';
 
-import { svg } from './svg';
+import * as icon from '@/assets/icon';
+import { ColorTheme } from '@/themes/types';
+import { theme } from '@/themes';
 
-export type IconNameType = keyof typeof svg;
-export interface IconProps extends SVGProps<SVGSVGElement> {
+export type IconNameType = keyof typeof icon;
+export type ColorThemeNameType = keyof ColorTheme['color'];
+export type SemanticColorThemeNameType = keyof ColorTheme['semanticColor'];
+
+const DEFAULT_SIZE = 30;
+
+interface SvgIconProps extends SVGProps<SVGSVGElement> {
   name: IconNameType;
   size?: number;
-  width?: number;
-  height?: number;
-  color?: string;
-  className?: string;
+  width?: string;
+  height?: string;
+  color?: ColorThemeNameType;
+  /** semanticColor가 color보다 적용 우선순위가 높습니다. */
+  semanticColor?: SemanticColorThemeNameType;
 }
 
-const Icon = (props: IconProps) => {
-  const { name, size = 30, width, height, color, className, ...rest } = props;
-  const CurrentIcon = svg[name];
+const Icon = ({
+  name,
+  size = DEFAULT_SIZE,
+  width,
+  height,
+  color,
+  semanticColor,
+  style,
+  ...props
+}: SvgIconProps) => {
+  const SvgIcon = icon[name];
+
+  const StyledSvgIcon = styled(SvgIcon)<Pick<SvgIconProps, 'color' | 'semanticColor'>>`
+    &,
+    path {
+      ${(p) => (p.color ? `fill: ${theme.color[color as ColorThemeNameType]} !important` : '')};
+      ${(p) =>
+        p.semanticColor
+          ? `fill: ${theme.semanticColor[semanticColor as SemanticColorThemeNameType]} !important`
+          : ''};
+    }
+  `;
 
   return (
-    <StyledIcon
-      width={width ?? size}
-      height={height ?? size}
+    <StyledSvgIcon
+      {...props}
       color={color}
-      className={className}
-      {...rest}
-    >
-      <CurrentIcon name={name} />
-    </StyledIcon>
+      semanticColor={semanticColor}
+      style={{
+        width: width ?? `${size}px`,
+        height: height ?? 'auto',
+        ...style,
+      }}
+    />
   );
 };
 
 export default Icon;
-
-const StyledIcon = styled.svg<Pick<IconProps, 'width' | 'height' | 'color'>>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  > svg {
-    width: ${({ width }) => width}px;
-    height: ${({ height }) => height}px;
-
-    path {
-      fill: ${({ color }) => (color ? color : undefined)};
-    }
-  }
-`;

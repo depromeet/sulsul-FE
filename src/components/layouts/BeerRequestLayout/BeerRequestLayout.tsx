@@ -57,12 +57,12 @@ const StyledWrapper = styled.div`
 const BeerRequestLayout: React.FC<BeerRequestLayoutProps> = ({ title, children }) => {
   return (
     <StyledBeerRequestLayout>
-      <Icon className="barcode-top" name="Barcode" width={240} height={24} />
+      <Icon className="barcode-top" name="Barcode" width="240px" height="24px" />
       <StyledWrapper>
         <h1>{title}</h1>
         {children}
       </StyledWrapper>
-      <Icon className="barcode-bottom" name="Barcode" width={240} height={60} />
+      <Icon className="barcode-bottom" name="Barcode" width="240px" height="60px" />
     </StyledBeerRequestLayout>
   );
 };
