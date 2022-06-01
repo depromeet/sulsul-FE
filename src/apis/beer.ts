@@ -1,6 +1,6 @@
 import { ICountry } from './country';
 
-import { IBaseResponseData } from '.';
+import { IBaseResponse } from '.';
 
 import axios from '@/configs/axios';
 
@@ -67,7 +67,7 @@ export interface IGetBeersPayload {
   sortBy?: EBeerSortBy[];
 }
 
-export interface IGetBeersResponseData extends IBaseResponseData<IBeer[]> {
+export interface IGetBeersResponseData extends IBaseResponse<IBeer[]> {
   hasNext: boolean;
   nextCursor: number;
 }
@@ -80,7 +80,7 @@ export const getBeers = async (payload: IGetBeersPayload) => {
   return res.data;
 };
 
-export interface IGetBeerResponseData extends IBaseResponseData<IBeer> {}
+export interface IGetBeerResponseData extends IBaseResponse<IBeer> {}
 
 /**
  * 맥주 상세정보 조회
@@ -90,7 +90,7 @@ export const getBeer = async (beerId: number) => {
   return res.data;
 };
 
-export interface IGetBeerTypesResponseData extends IBaseResponseData<IBeerType[]> {}
+export interface IGetBeerTypesResponseData extends IBaseResponse<IBeerType[]> {}
 
 /**
  * 맥주 종류 목록 조회

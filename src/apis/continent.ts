@@ -1,4 +1,4 @@
-import { IBaseResponseData } from '.';
+import { IBaseResponse } from '.';
 
 import axios from '@/configs/axios';
 
@@ -7,7 +7,7 @@ export interface IContinent {
   name: string;
 }
 
-interface IGetContinentsResponseData extends IBaseResponseData<IContinent[]> {}
+interface IGetContinentsResponseData extends IBaseResponse<IContinent[]> {}
 
 /**
  * 대륙 목록 조회
