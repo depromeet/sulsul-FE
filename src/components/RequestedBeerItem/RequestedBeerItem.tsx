@@ -39,7 +39,7 @@ const getCreatedAtColor = (status: BeerRequestStatus, theme: ColorTheme) =>
     rejected: theme.color.grey3,
   }[status]);
 
-const getForegroundColor = (status: BeerRequestStatus, theme: ColorTheme) =>
+const getStatusColor = (status: BeerRequestStatus, theme: ColorTheme) =>
   ({
     pending: theme.color.grey5,
     approved: theme.color.white,
@@ -86,7 +86,8 @@ const StyledRequestedBeerItem = styled.li<{ status: BeerRequestStatus }>`
 
     .status {
       ${(p) => p.theme.fonts.Body2};
-      color: ${(p) => getForegroundColor(p.status, p.theme)};
+      color: ${(p) => getStatusColor(p.status, p.theme)};
+      ${(p) => (p.status !== 'rejected' ? 'margin: 0 25px 0 0;' : '')}
     }
 
     .toggle-open-button {
@@ -96,7 +97,7 @@ const StyledRequestedBeerItem = styled.li<{ status: BeerRequestStatus }>`
   }
 `;
 
-const StyledDetailInfo = styled.div<{ isOpen: boolean } & Pick<RequestedBeerItemProps, 'status'>>`
+const StyledDetailInfo = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +111,7 @@ const StyledDetailInfo = styled.div<{ isOpen: boolean } & Pick<RequestedBeerItem
     margin: 0 0 0 15px;
     white-space: pre-line;
     ${(p) => p.theme.fonts.Body5};
-    color: ${(p) => getForegroundColor(p.status, p.theme)};
+    color: ${(p) => p.theme.color.grey5};
   }
 `;
 
@@ -136,28 +137,27 @@ const RequestedBeerItem: React.FC<RequestedBeerItemProps> = ({
           <p className="created-at">요청일자 | {format(createdAt, 'yyyy-MM-dd')}</p>
         </div>
         <p className="status">{getStatusText(status)}</p>
-        <button type="button" className="toggle-open-button" onClick={toggleOpen}>
-          <Icon
-            name={isOpen ? 'ChevronUp' : 'ChevronDown'}
-            color={status === 'approved' ? 'white' : 'black100'}
-            size={20}
-          />
-        </button>
-      </div>
-      <StyledDetailInfo ref={ref} isOpen={isOpen} status={status}>
-        {/** @todo 심사중, 등록 완료인 경우 디자인 생기면 반영하기 */}
-        {isOpen && (
-          <>
-            <Icon name="CheckCircleOutline" color="black100" size={24} />
-            {!!completedAt && (
-              <p>
-                {format(completedAt, 'yyyy-MM-dd')} 기준 등록 반려되었습니다.{'\n'}요청하신 맥주가
-                존재하지 않습니다.
-              </p>
-            )}
-          </>
+        {status === 'rejected' && (
+          <button type="button" className="toggle-open-button" onClick={toggleOpen}>
+            <Icon name={isOpen ? 'ChevronUp' : 'ChevronDown'} color="black100" size={20} />
+          </button>
         )}
-      </StyledDetailInfo>
+      </div>
+      {status === 'rejected' && (
+        <StyledDetailInfo ref={ref} isOpen={isOpen}>
+          {isOpen && (
+            <>
+              <Icon name="CheckCircleOutline" color="black100" size={24} />
+              {!!completedAt && (
+                <p>
+                  {format(completedAt, 'yyyy-MM-dd')} 기준 등록 반려되었습니다.{'\n'}요청하신 맥주가
+                  존재하지 않습니다.
+                </p>
+              )}
+            </>
+          )}
+        </StyledDetailInfo>
+      )}
     </StyledRequestedBeerItem>
   );
 };
