@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRouter } from 'next/router';
 
 import Icon from '../commons/Icon';
 import { HEADER_HEIGHT } from '../Header/Header';
@@ -17,6 +18,7 @@ import {
 } from '@/containers/BeerListContainer/recoil/atoms';
 import { useModal } from '@/hooks';
 import { IBeerListFilter } from '@/apis';
+import QueryParams from '@/utils/query-params';
 
 const StyledWrapper = styled.div`
   position: sticky;
@@ -78,28 +80,39 @@ const SortButton = ({ onClick }: SortByButtonProps) => {
 };
 
 const BeerListFilterAndSorter = () => {
+  const router = useRouter();
+
   const [filter, setFilter] = useRecoilState($beerListFilter);
   const [filterChips, setFilterChips] = useRecoilState($beerListFilterChips);
 
   const filterBottomSheet = useModal(false);
   const sortBottomSheet = useModal(false);
 
+  const replaceUrl = (nextFiler: IBeerListFilter) => {
+    QueryParams.set('filter', JSON.stringify(nextFiler), router.replace);
+  };
+
   const handleFilterChipRemove = (chip: BeerListFilterChipType) => {
-    setFilter({
+    const nextFilter = {
       ...filter,
       ...(chip.type === 'country'
         ? { countryIds: filter.countryIds?.filter((id) => id !== chip.id) }
         : { beerTypes: filter.beerTypes?.filter((id) => id !== chip.id) }),
-    });
-    setFilterChips(filterChips.filter((v) => !(v.id === chip.id && v.type === chip.type)));
+    };
+    const nextFilterChips = filterChips.filter((v) => !(v.id === chip.id && v.type === chip.type));
+
+    setFilter(nextFilter);
+    setFilterChips(nextFilterChips);
+    replaceUrl(nextFilter);
   };
 
   const handleApplyFilter = (
-    nextFiler: IBeerListFilter,
+    nextFilter: IBeerListFilter,
     nextFilterChips: BeerListFilterChipType[],
   ) => {
-    setFilter(nextFiler);
+    setFilter(nextFilter);
     setFilterChips(nextFilterChips);
+    replaceUrl(nextFilter);
   };
 
   return (
