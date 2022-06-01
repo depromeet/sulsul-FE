@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import Button from '../commons/Button';
 import Icon from '../commons/Icon';
@@ -32,22 +33,19 @@ const StyledRequestButton = styled(Button)`
   margin: 56px 0 0;
 `;
 
-const StyledRecordButton = styled(Button)`
-  margin: 10px 0 0;
-`;
-
 const BeerSearchResultEmpty = ({ title, subtitle }: BeerSearchResultEmptyProp) => {
+  const router = useRouter();
+
+  const goToBeerRequestPage = () => router.push('/beer/request');
+
   return (
     <StyledWrapper>
       <Icon name="ConveyorBelt" size={224} />
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
-      <StyledRequestButton type="primary" width="244px">
+      <StyledRequestButton type="primary" width="large" onClick={goToBeerRequestPage}>
         맥주 등록 요청하기
       </StyledRequestButton>
-      <StyledRecordButton type="primary" line width="244px">
-        미등록 맥주 기록하기
-      </StyledRecordButton>
     </StyledWrapper>
   );
 };
