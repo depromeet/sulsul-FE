@@ -32,7 +32,7 @@ const BeerCountryFilterList = ({ continentId }: BeerCountryFilterListProps) => {
     { cacheTime: Infinity },
   );
 
-  const countries = data?.data || [];
+  const countries = data?.contents || [];
 
   const selectItem = (country: ICountry) => {
     setSelectedCountryIds([...selectedCountryIds, country.id]);

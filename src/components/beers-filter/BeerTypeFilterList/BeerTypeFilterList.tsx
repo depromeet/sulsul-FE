@@ -16,7 +16,7 @@ const StyledWrapper = styled.div`
 /** @note beerType.nameEng이 id의 역할로 사용됨 */
 const BeerTypeFilterList = () => {
   const { data } = useQuery('beerTypes', getBeerTypes, { cacheTime: Infinity });
-  const beerTypes = data?.data;
+  const beerTypes = data?.contents;
 
   const [selectedBeerTypeIds, setSelectedBeerTypeIds] = useRecoilState($selectedBeerTypeIds);
   const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);

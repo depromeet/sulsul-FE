@@ -35,7 +35,7 @@ const BeerSearchResultList = () => {
     }),
   );
 
-  const beers = data?.data.contents;
+  const beers = data?.contents;
 
   if (!beers) {
     return null;

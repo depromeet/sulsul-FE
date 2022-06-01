@@ -70,8 +70,8 @@ const BeerCountryFilterTab = () => {
   const { data } = useQuery('continents', getContinents, { cacheTime: Infinity });
 
   const continents = useMemo(
-    () => [{ id: undefined, name: '전체' }, ...(data?.data || [])],
-    [data?.data],
+    () => [{ id: undefined, name: '전체' }, ...(data?.contents || [])],
+    [data?.contents],
   );
   const continentTabItems = useMemo(() => continents.map(({ name }) => name), [continents]);
 

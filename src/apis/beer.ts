@@ -1,5 +1,7 @@
 import { ICountry } from './country';
 
+import { IBaseResponseData } from '.';
+
 import axios from '@/configs/axios';
 
 export enum EBeerType {
@@ -65,12 +67,9 @@ export interface IGetBeersPayload {
   sortBy?: EBeerSortBy[];
 }
 
-export interface IGetBeersResponseData {
-  data: {
-    contents: IBeer[];
-    hasNext: boolean;
-    nextCursor: number;
-  };
+export interface IGetBeersResponseData extends IBaseResponseData<IBeer[]> {
+  hasNext: boolean;
+  nextCursor: number;
 }
 
 /**
@@ -81,27 +80,22 @@ export const getBeers = async (payload: IGetBeersPayload) => {
   return res.data;
 };
 
-/** @TODO response 타입 변경될 예정 (추후 재검토 필요) */
-export interface IGetBeerResponseData {
-  data: IBeer;
-}
+export interface IGetBeerResponseData extends IBaseResponseData<IBeer> {}
 
 /**
  * 맥주 상세정보 조회
  */
 export const getBeer = async (beerId: number) => {
-  const res = await axios.get<IGetBeerResponseData>(`/api/v2/beers/${beerId}`);
+  const res = await axios.get<IGetBeerResponseData>(`/api/v1/beers/${beerId}`);
   return res.data;
 };
 
-export interface IGetBeerTypesResponseData {
-  data: IBeerType[];
-}
+export interface IGetBeerTypesResponseData extends IBaseResponseData<IBeerType[]> {}
 
 /**
  * 맥주 종류 목록 조회
  */
 export const getBeerTypes = async () => {
-  const res = await axios.get<IGetBeerTypesResponseData>('/api/v2/beers/types');
+  const res = await axios.get<IGetBeerTypesResponseData>('/api/v1/beers/types');
   return res.data;
 };
