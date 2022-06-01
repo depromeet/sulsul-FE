@@ -9,7 +9,7 @@ const BeerDetailPage: NextPage = () => {
   return (
     <BeerDetailContainer
       beerDetail={{ beer: { ...Beers[0] } }}
-      backgroundImageUrl="https://ifh.cc/g/PsFadM.jpg"
+      backgroundImageUrl="https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8amVqdXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
       airPort={{
         departureKor: '한국',
         departureEng: 'KOR',
