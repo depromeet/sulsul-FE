@@ -16,6 +16,7 @@ import {
   beerListSortTypeTextAlias,
 } from '@/containers/BeerListContainer/recoil/atoms';
 import { useModal } from '@/hooks';
+import { IBeerListFilter } from '@/apis';
 
 const StyledWrapper = styled.div`
   position: sticky;
@@ -93,6 +94,14 @@ const BeerListFilterAndSorter = () => {
     setFilterChips(filterChips.filter((v) => !(v.id === chip.id && v.type === chip.type)));
   };
 
+  const handleApplyFilter = (
+    nextFiler: IBeerListFilter,
+    nextFilterChips: BeerListFilterChipType[],
+  ) => {
+    setFilter(nextFiler);
+    setFilterChips(nextFilterChips);
+  };
+
   return (
     <>
       <StyledWrapper>
@@ -108,7 +117,10 @@ const BeerListFilterAndSorter = () => {
       </StyledWrapper>
       <BeerListFilterBottomSheet
         open={filterBottomSheet.isOpen}
+        defaultFilter={filter}
+        defaultFilerChips={filterChips}
         onClose={filterBottomSheet.close}
+        onApply={handleApplyFilter}
       />
       <BeerListSortBottomSheet open={sortBottomSheet.isOpen} onClose={sortBottomSheet.close} />
     </>

@@ -1,22 +1,26 @@
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
+import { RecoilRoot, useRecoilState } from 'recoil';
 
 import BeerListFilterFooter from '../BeerListFilterFooter';
 import BeerTypeFilterList from '../BeerTypeFilterList';
 import BeerCountryFilterTab from './BeerCountryFilterTab';
 import { $nextBeerListFilter, $nextBeerListFilterChips } from './recoil/atoms';
+import { BeerListFilterChipType } from '../BeerListFilterChipList';
 
 import Tab from '@/components/Tab';
 import BottomSheet from '@/components/BottomSheet';
-import { $beerListFilter, $beerListFilterChips } from '@/containers/BeerListContainer/recoil/atoms';
 import Icon from '@/components/commons/Icon';
+import { IBeerListFilter } from '@/apis';
 
 const TAB_ITEMS = ['종류', '나라'];
 
 interface BeerListFilterBottomSheetProps {
   open: boolean;
+  defaultFilter?: IBeerListFilter;
+  defaultFilerChips?: BeerListFilterChipType[];
   onClose: () => void;
+  onApply: (nextFiler: IBeerListFilter, nextFilerChips: BeerListFilterChipType[]) => void;
 }
 
 const StyledBottomSheet = styled(BottomSheet)`
@@ -45,16 +49,22 @@ const StyledTab = styled(Tab)`
   overflow: hidden;
 `;
 
-const BeerListFilterBottomSheet = ({ open, onClose }: BeerListFilterBottomSheetProps) => {
-  const [filter, setFilter] = useRecoilState($beerListFilter);
-  const [filterChips, setFilterChips] = useRecoilState($beerListFilterChips);
+const BeerListFilterBottomSheet: React.FC<BeerListFilterBottomSheetProps> = ({
+  open,
+  defaultFilter,
+  defaultFilerChips,
+  onClose,
+  onApply,
+}) => {
   const [nextFiler, setNextFilter] = useRecoilState($nextBeerListFilter);
   const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);
 
   useEffect(() => {
-    setNextFilter(filter);
-    setNextFilterChips(filterChips);
-  }, [open, filter, setNextFilter, filterChips, setNextFilterChips]);
+    if (!defaultFilter || !defaultFilerChips) return;
+
+    setNextFilter(defaultFilter);
+    setNextFilterChips(defaultFilerChips);
+  }, [open, defaultFilter, defaultFilerChips, setNextFilter, setNextFilterChips]);
 
   const clearNextFilter = () => {
     setNextFilter({});
@@ -62,8 +72,7 @@ const BeerListFilterBottomSheet = ({ open, onClose }: BeerListFilterBottomSheetP
   };
 
   const apply = () => {
-    setFilter(nextFiler);
-    setFilterChips(nextFilterChips);
+    onApply(nextFiler, nextFilterChips);
     onClose();
   };
 
@@ -86,4 +95,14 @@ const BeerListFilterBottomSheet = ({ open, onClose }: BeerListFilterBottomSheetP
   );
 };
 
-export default BeerListFilterBottomSheet;
+const BeerListFilterBottomSheetRecoilWrapper: React.FC<BeerListFilterBottomSheetProps> = (
+  props,
+) => {
+  return (
+    <RecoilRoot>
+      <BeerListFilterBottomSheet {...props} />
+    </RecoilRoot>
+  );
+};
+
+export default BeerListFilterBottomSheetRecoilWrapper;
