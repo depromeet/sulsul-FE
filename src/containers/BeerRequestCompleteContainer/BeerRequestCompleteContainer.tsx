@@ -31,20 +31,16 @@ const StyledWrapper = styled.div`
 
 const BeerRequestCompleteContainer = () => {
   const router = useRouter();
+
   const goToHome = () => router.push('/');
-  /** @todo */
-  const goToRecordCreatePage = () => null;
 
   return (
     <StyledWrapper>
       <Icon name="Film" size={244} />
       <b>요청 완료되었습니다</b>
       <p>조금만 기다려주세요!{'\n'}관리자 승인 후 14일 이내 등록됩니다.</p>
-      <Button width="244px" type="primary" onClick={goToHome}>
+      <Button type="primary" width="large" onClick={goToHome}>
         홈으로 돌아가기
-      </Button>
-      <Button width="244px" type="primary" line onClick={goToRecordCreatePage}>
-        방금 등록한 맥주 기록하기
       </Button>
     </StyledWrapper>
   );
