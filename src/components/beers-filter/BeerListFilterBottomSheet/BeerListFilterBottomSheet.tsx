@@ -63,10 +63,10 @@ const BeerListFilterBottomSheet: React.FC<BeerListFilterBottomSheetProps> = ({
   const resetNextFilterChips = useResetRecoilState($nextBeerListFilterChips);
 
   useEffect(() => {
-    if (!defaultFilter || !defaultFilerChips) return;
-
-    setNextFilter(defaultFilter);
-    setNextFilterChips(defaultFilerChips);
+    if (open && defaultFilter && defaultFilerChips) {
+      setNextFilter(defaultFilter);
+      setNextFilterChips(defaultFilerChips);
+    }
   }, [open, defaultFilter, defaultFilerChips, setNextFilter, setNextFilterChips]);
 
   const clearNextFilter = () => {
