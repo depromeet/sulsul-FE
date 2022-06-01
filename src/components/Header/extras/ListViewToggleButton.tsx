@@ -13,7 +13,7 @@ interface ListViewToggleButtonProps {
 const StyledWrapper = styled.div`
   display: flex;
 
-  > button:first-child {
+  > butto:first-of-type {
     margin-right: 8px;
   }
 `;

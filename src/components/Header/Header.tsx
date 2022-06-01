@@ -37,7 +37,7 @@ const StyledHeader = styled.header<Pick<HeaderProps, 'isTransparent'>>`
 `;
 
 const StyledLeftExtras = styled.div`
-  > *:not(:first-child) {
+  > *:not(:first-of-type) {
     margin-left: 8px;
   }
 
