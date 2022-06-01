@@ -1,17 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 
 import BeerListFilterFooter from '../BeerListFilterFooter';
 import BeerTypeFilterList from '../BeerTypeFilterList';
-import BeerCountryFilterList from '../BeerCountryFilterList';
+import BeerCountryFilterTab from './BeerCountryFilterTab';
 import { $nextBeerListFilter, $nextBeerListFilterChips } from './recoil/atoms';
 
 import Tab from '@/components/Tab';
 import BottomSheet from '@/components/BottomSheet';
-import Swiper from '@/components/Swiper';
-import { getContinents } from '@/apis';
 import { $beerListFilter, $beerListFilterChips } from '@/containers/BeerListContainer/recoil/atoms';
 import Icon from '@/components/commons/Icon';
 
@@ -47,53 +44,6 @@ const StyledTab = styled(Tab)`
   flex: 1;
   overflow: hidden;
 `;
-
-const StyledSwiper = styled(Swiper)`
-  flex: 1;
-  overflow-y: auto;
-
-  .carousel-slider,
-  .slider-wrapper,
-  .slider,
-  .slide {
-    height: 100%;
-  }
-
-  .slide {
-    overflow-y: auto;
-  }
-`;
-
-const BeerCountryFilterTab = () => {
-  const [activatedIndex, setActivatedIndex] = useState(0);
-
-  const { data } = useQuery('continents', getContinents, { cacheTime: Infinity });
-
-  const continents = useMemo(
-    () => [{ id: undefined, name: '전체' }, ...(data?.contents || [])],
-    [data?.contents],
-  );
-  const continentTabItems = useMemo(() => continents.map(({ name }) => name), [continents]);
-
-  return (
-    <Tab
-      tabItems={continentTabItems}
-      size="small"
-      type="primary"
-      isGhost
-      outerActivatedIndex={activatedIndex}
-      onChange={setActivatedIndex}
-    >
-      <StyledSwiper selectedItem={activatedIndex} onChange={setActivatedIndex}>
-        {Array(continents.length)
-          .fill(0)
-          .map((_, index) => (
-            <BeerCountryFilterList key={index} continentId={continents[index].id} />
-          ))}
-      </StyledSwiper>
-    </Tab>
-  );
-};
 
 const BeerListFilterBottomSheet = ({ open, onClose }: BeerListFilterBottomSheetProps) => {
   const [filter, setFilter] = useRecoilState($beerListFilter);
