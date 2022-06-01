@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { RecoilRoot, useRecoilState } from 'recoil';
+import { RecoilRoot, useRecoilState, useResetRecoilState } from 'recoil';
 
 import BeerListFilterFooter from '../BeerListFilterFooter';
 import BeerTypeFilterList from '../BeerTypeFilterList';
@@ -59,6 +59,9 @@ const BeerListFilterBottomSheet: React.FC<BeerListFilterBottomSheetProps> = ({
   const [nextFiler, setNextFilter] = useRecoilState($nextBeerListFilter);
   const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);
 
+  const resetNextFilter = useResetRecoilState($nextBeerListFilter);
+  const resetNextFilterChips = useResetRecoilState($nextBeerListFilterChips);
+
   useEffect(() => {
     if (!defaultFilter || !defaultFilerChips) return;
 
@@ -67,8 +70,8 @@ const BeerListFilterBottomSheet: React.FC<BeerListFilterBottomSheetProps> = ({
   }, [open, defaultFilter, defaultFilerChips, setNextFilter, setNextFilterChips]);
 
   const clearNextFilter = () => {
-    setNextFilter({});
-    setNextFilterChips([]);
+    resetNextFilter();
+    resetNextFilterChips();
   };
 
   const apply = () => {
