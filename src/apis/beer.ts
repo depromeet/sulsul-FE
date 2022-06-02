@@ -4,6 +4,7 @@ import axios from '@/configs/axios';
 
 export enum EBeerType {
   LIGHT_ALE = 'LIGHT_ALE',
+  WIT_ALE = 'WIT_ALE',
   IPA = 'IPA',
   PALE_ALE = 'PALE_ALE',
   BROWN_ALE = 'BROWN_ALE',
@@ -25,6 +26,8 @@ export interface IBeer {
   type?: IBeerType;
   nameKor: string;
   nameEng: string;
+  startCountry: ICountry;
+  endCountry: ICountry;
   imageUrl: string;
   content: string;
   alcohol: number;
@@ -90,10 +93,10 @@ export interface IGetBeerResponseData {
  * 맥주 상세정보 조회
  */
 export const getBeer = async (beerId: number) => {
-  const res = await axios.get<IGetBeerResponseData>(`/api/v2/beers/${beerId}`);
+  const res = await axios.get<IGetBeerResponseData>(`/api/v1/beers/${beerId}`);
   return res.data;
 };
-
+ 
 export interface IGetBeerTypesResponseData {
   data: IBeerType[];
 }
@@ -103,5 +106,18 @@ export interface IGetBeerTypesResponseData {
  */
 export const getBeerTypes = async () => {
   const res = await axios.get<IGetBeerTypesResponseData>('/api/v2/beers/types');
+  return res.data;
+};
+
+export interface IGetTop3BeerFlavor {
+  content: string;
+  count: number;
+}
+
+/**
+ * 맥주 맛 TOP3 조회
+ */
+export const getTop3BeerFlavor = async (beerId: number) => {
+  const res = await axios.get<IGetTop3BeerFlavor[]>(`/api/v1/flavors/${beerId}`);
   return res.data;
 };

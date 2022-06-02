@@ -40,28 +40,28 @@ const Kor = styled.div`
 `;
 
 export interface AirPortProps {
-  departureKor: string;
-  departureEng: string;
-  destinationKor: string;
-  destinationEng: string;
+  startKor: string;
+  startEng: string;
+  endKor: string;
+  endEng: string;
   className?: string;
 }
 
 const AirPort = (props: AirPortProps) => {
   const {
-    departureKor = '한국',
-    departureEng = 'KOR',
-    destinationKor,
-    destinationEng,
+    startKor = '한국',
+    startEng = 'KOR',
+    endKor = ' ',
+    endEng = 'NON',
     className,
     ...rest
   } = props;
 
   return (
     <StyledAirPort {...rest} className={className}>
-      <AirPortItem title="출발지" kor={departureKor} eng={departureEng} />
+      <AirPortItem title="출발지" kor={startKor} eng={startEng} />
       <Icon name="FlyingAirplane" width="33%" />
-      <AirPortItem title="도착지" kor={destinationKor} eng={destinationEng} />
+      <AirPortItem title="도착지" kor={endKor} eng={endEng} />
     </StyledAirPort>
   );
 };

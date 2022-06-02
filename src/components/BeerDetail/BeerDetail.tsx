@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 
-import { IBeer } from '@/apis';
-import BeerImageMasking from '@/components/commons/BeerImageMasking';
+import { getBeer } from '@/apis';
 
-export type BeerDetailType = Omit<IBeer, 'id' | 'content' | 'feel'>;
+const BeerDetail = () => {
+  const router = useRouter();
 
-export type BeerDetailProps = {
-  beer: BeerDetailType;
-};
+  const beerId = Number(router.query.id);
+  const { data } = useQuery(['beer', beerId], () => getBeer(beerId));
 
-const BeerDetail = (props: BeerDetailProps) => {
-  const {
-    beer: { country, type, nameKor, nameEng, imageUrl, alcohol, price, volume },
-    ...rest
-  } = props;
+  const beer = data?.data;
+
+  if (!beer) {
+    return null;
+  }
+
+  const { country, type, nameKor, nameEng, imageUrl, alcohol, price, volume } = beer;
 
   const beerInfo = [
     { title: '종류', content: type?.nameKor },
@@ -25,7 +28,7 @@ const BeerDetail = (props: BeerDetailProps) => {
   ];
 
   return (
-    <StyledBeerDetail {...rest}>
+    <StyledBeerDetail>
       <TitleAndIconContainer>
         <BeerNameWrapper>
           <BeerName>{nameKor}</BeerName>
@@ -34,9 +37,7 @@ const BeerDetail = (props: BeerDetailProps) => {
       </TitleAndIconContainer>
       <InfoAndBeerImage>
         <BeerImageMaskingWrapper>
-          <BeerImageMasking width="24%">
-            <BeerImage src={imageUrl} />
-          </BeerImageMasking>
+          <BeerImage src={imageUrl} />
         </BeerImageMaskingWrapper>
         <InfoTableWrapper>
           {beerInfo.map(({ title, content }) => (
@@ -57,11 +58,12 @@ const StyledBeerDetail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: auto;
+  width: 100%;
   min-height: 17.48rem;
   padding: 1.7rem;
   background-color: ${({ theme }) => theme.color.black80};
-  border-radius: 0.9rem;
+  border-radius: 12px;
+  margin-top: 134px;
 `;
 
 const TitleAndIconContainer = styled.div`
@@ -78,17 +80,13 @@ const BeerNameWrapper = styled.div`
 `;
 
 const BeerName = styled.h1`
-  font-size: 1.7rem;
-  font-weight: 700;
-  line-height: 26px;
+  ${({ theme }) => theme.fonts.H5};
   color: ${({ theme }) => theme.color.white};
-  margin-bottom: 0.6rem;
+  margin-bottom: 8px;
 `;
 
 const BeerNameEng = styled.h1`
-  font-size: 1.1rem;
-  font-weight: 400;
-  line-height: 17px;
+  ${({ theme }) => theme.fonts.Body1};
   color: ${({ theme }) => theme.color.whiteOpacity65};
   margin-bottom: 30px;
 `;
@@ -101,7 +99,7 @@ const InfoAndBeerImage = styled.div`
 const InfoTableWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 14px;
 `;
 
 const InfoTable = styled.div`
@@ -110,18 +108,14 @@ const InfoTable = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 1.1rem;
-  line-height: 160%;
-  font-weight: 400;
+  ${({ theme }) => theme.fonts.Body1};
   color: ${({ theme }) => theme.color.whiteOpacity80};
   width: 40px;
   margin-right: 16px;
 `;
 
 const Content = styled.p`
-  font-size: 1.2rem;
-  line-height: 160%;
-  font-weight: 700;
+  ${({ theme }) => theme.fonts.Body1};
   color: ${({ theme }) => theme.color.white};
 `;
 
@@ -138,8 +132,4 @@ const BeerImageMaskingWrapper = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.color.whiteOpacity20};
   margin-right: 30px;
-`;
-const StyledBeerImageMasking = styled(BeerImageMasking)`
-  margin-left: auto;
-  margin-right: 17px;
 `;
