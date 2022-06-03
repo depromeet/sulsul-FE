@@ -6,29 +6,16 @@ import StyledBeerTicketField from './BeerTicketField';
 import BeerTicketFlight from './BeerTicketFlight';
 import BeerTicketStamp from './BeerTicketStamp';
 
-import { theme } from '@/themes';
 import Icon from '@/components/commons/Icon';
 import { FEEL_MESSAGES } from '@/constants/Reviews';
 import BeerTicketTitle from '@/components/BeerTicketTitle';
 import Emoji from '@/components/Emoji';
-import { IBeer } from '@/apis';
-
-// TODO: 나중에 지울꺼^^
-interface TempRecord {
-  prevCountryNameEng: string;
-  nextCountryNameEng: string;
-  prevCountryNameKor: string;
-  nextCountryNameKor: string;
-  feel: 1 | 2 | 3 | 4 | 5;
-  flavors: { id: number; content: string }[];
-  content: string;
-  recodedAt: Date;
-}
+import { IRecord } from '@/apis/record';
 
 interface BeerTicketProps {
-  beer: IBeer;
-  record: TempRecord;
-  type: 'default' | 'stamp';
+  record: IRecord;
+  type?: 'default' | 'stamp';
+  className?: string;
 }
 
 const StyledBeerTicket = styled.article`
@@ -111,28 +98,28 @@ const StyledBeerTicket = styled.article`
   }
 `;
 
-const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record, type = 'default' }) => {
+const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', className }) => {
   return (
-    <StyledBeerTicket>
+    <StyledBeerTicket className={className}>
       <header className="beer-ticket-header">
         <Icon name="Logo" semanticColor="primary" size={60} />
         <span className="barlow-small">{`BR118001`}</span>
       </header>
-      <BeerTicketTitle beer={beer} />
+      <BeerTicketTitle beer={record.beerResponseDto} />
       <section className="beer-ticket-middle">
         <BeerTicketFlight
-          prevCountryNameEng={record.prevCountryNameEng}
-          prevCountryNameKor={record.prevCountryNameKor}
-          nextCountryNameEng={record.nextCountryNameEng}
-          nextCountryNameKor={record.nextCountryNameKor}
+          prevCountryNameEng={record.startCountryEng}
+          prevCountryNameKor={record.startCountryKor}
+          nextCountryNameEng={record.endCountryEng}
+          nextCountryNameKor={record.endCountryKor}
         />
       </section>
       <section className="beer-ticket-middle ticket-has-dashed-border">
         <StyledBeerTicketField title="date" className="beer-ticket-date">
-          {format(record.recodedAt, 'dd/LLL/yyyy')}
+          {format(record.createdAt, 'dd/LLL/yyyy')}
         </StyledBeerTicketField>
         <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
-          {format(record.recodedAt, 'p')}
+          {format(record.createdAt, 'p')}
         </StyledBeerTicketField>
         {type === 'stamp' && (
           <>
@@ -149,7 +136,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record, type = 'default' 
               <p>{FEEL_MESSAGES[record.feel]}</p>
             </StyledBeerTicketField>
             <StyledBeerTicketField title="feel">
-              {record.flavors.map((flavor) => (
+              {record.flavorDtos.map((flavor) => (
                 <span key={flavor.id} className="beer-ticket-flavor">
                   {flavor.content}
                 </span>
@@ -166,7 +153,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ beer, record, type = 'default' 
         </>
       ) : (
         <section className="beer-ticket-middle">
-          <BeerTicketStamp feel={record.feel} recordedAt={record.recodedAt} />
+          <BeerTicketStamp feel={record.feel} recordedAt={record.createdAt} />
         </section>
       )}
       <footer className="beer-ticket-footer">
