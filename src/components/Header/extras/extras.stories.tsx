@@ -70,7 +70,7 @@ export const extras = () => {
           onUnLike={async () => alert('좋아요 해제')}
         />,
       )}
-      {renderExtra('ListViewToggleButton', <ListViewToggleButton />)}
+      {renderExtra('ListViewToggleButton', <ListViewToggleButton type="grid" />)}
       {renderExtra('OKTextButton', <OKTextButton />)}
       {renderExtra('SaveButton', <SaveButton />)}
       {renderExtra('WriteButton', <WriteButton />)}

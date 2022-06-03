@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 
 import BeerCountryFilterItem from '../BeerCountryFilterItem';
 import { $nextBeerListFilterChips } from '../BeerListFilterBottomSheet/recoil/atoms';
 import { $selectedBeerCountryIds } from '../BeerListFilterBottomSheet/recoil/selectors';
 
-import { getCountries, IContinent, ICountry } from '@/apis';
+import { IContinent, ICountry } from '@/apis';
+import { useGetCountries } from '@/queries';
 
 interface BeerCountryFilterListProps {
   continentId?: IContinent['id'];
@@ -26,13 +26,7 @@ const BeerCountryFilterList = ({ continentId }: BeerCountryFilterListProps) => {
   const [selectedCountryIds, setSelectedCountryIds] = useRecoilState($selectedBeerCountryIds);
   const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);
 
-  const { data } = useQuery(
-    ['countries', continentId],
-    async () => await getCountries(continentId),
-    { cacheTime: Infinity },
-  );
-
-  const countries = data?.data || [];
+  const { countries = [] } = useGetCountries(continentId);
 
   const selectItem = (country: ICountry) => {
     setSelectedCountryIds([...selectedCountryIds, country.id]);

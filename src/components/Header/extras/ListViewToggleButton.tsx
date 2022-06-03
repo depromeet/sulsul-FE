@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
@@ -6,30 +5,24 @@ import Icon from '@/components/commons/Icon';
 export type ListViewType = 'grid' | 'list';
 
 interface ListViewToggleButtonProps {
-  defaultType?: ListViewType;
+  type: ListViewType;
   onChange?: (type: ListViewType) => void;
 }
 
 const StyledWrapper = styled.div`
   display: flex;
 
-  > button:first-child {
+  > butto:first-of-type {
     margin-right: 8px;
   }
 `;
 
 const ListViewToggleButton = ({
-  defaultType = 'grid',
+  type = 'grid',
   onChange = () => null,
 }: ListViewToggleButtonProps) => {
-  const [type, setType] = useState<ListViewType>(defaultType);
-
-  useEffect(() => {
-    onChange(type);
-  }, [type]);
-
   const handleTypeChange = (value: ListViewType) => () => {
-    setType(value);
+    onChange(value);
   };
 
   const getIconColor = (isSelected: boolean) => {
