@@ -13,12 +13,12 @@ const Template: ComponentStory<typeof BeerTicket> = (args) => <BeerTicket {...ar
 
 export const 티켓 = Template.bind({});
 티켓.args = {
-  record: Record as any,
+  record: Record,
 };
 
 export const 티켓이랑도장 = Template.bind({});
 티켓이랑도장.args = {
-  record: Record as any,
+  record: Record,
   type: 'stamp',
 };
 
