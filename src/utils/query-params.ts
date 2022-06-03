@@ -1,28 +1,37 @@
-const getQueryParams = (key: string) => {
-  if (typeof window === 'undefined') return;
+import Router from 'next/router';
+import { isNil } from 'lodash';
 
-  const params: Record<string, any> = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams: URLSearchParams, prop: string) => searchParams.get(prop),
-  });
+export default class QueryParams {
+  static get(key: string) {
+    if (typeof window === 'undefined' || isNil(key)) return;
 
-  return params[key];
-};
-
-/** @Note 새로고침을 방지하려면 replace prop으로 router.replace 함수를 넘긴다  */
-const setQueryParams = (key: string, value: any, replace?: (href: URL) => void) => {
-  if (!value) {
-    return;
+    const params: Record<string, any> = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams: URLSearchParams, prop: string) => searchParams.get(prop),
+    });
+    const value = params[key];
+    return value ? JSON.parse(value.toString()) : value;
   }
 
-  const href = new URL(window.location.href);
-  href.searchParams.set(key, value);
+  static set(key: string, value: any) {
+    if (typeof window === 'undefined' || isNil(key)) return;
 
-  replace ? replace(href) : window.location.replace(href.toString());
-};
+    if (key && isNil(value)) {
+      this.delete(key);
+      return;
+    }
 
-const QueryParams = {
-  get: getQueryParams,
-  set: setQueryParams,
-};
+    const url = new URL(window.location.href);
+    url.searchParams.set(key, JSON.stringify(value));
 
-export default QueryParams;
+    Router.replace(url.href);
+  }
+
+  static delete(key: string) {
+    if (typeof window === 'undefined' || isNil(key)) return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete(key);
+
+    Router.replace(url);
+  }
+}
