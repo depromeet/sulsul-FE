@@ -15,7 +15,7 @@ export default class QueryParams {
   static set(key: string, value: any) {
     if (typeof window === 'undefined' || isNil(key)) return;
 
-    if (key && isNil(value)) {
+    if (isNil(value)) {
       this.delete(key);
       return;
     }
