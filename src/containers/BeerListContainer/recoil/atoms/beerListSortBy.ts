@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 import { EBeerSortBy } from '@/apis';
-import { queryParamsRecoilEffect } from '@/recoil/effects';
+import { urlSyncRecoilEffect } from '@/recoil/effects';
 
 export const BEER_LIST_SORT_BY_ATOM_KEY = 'beer-list-sort-by';
 
@@ -21,5 +21,5 @@ export const beerListSortTypeTextAlias: Record<BeerListSortType, string> = {
 export const $beerListSortBy = atom<BeerListSortType>({
   key: BEER_LIST_SORT_BY_ATOM_KEY,
   default: EBeerSortBy.RECORD_DESC,
-  effects: [queryParamsRecoilEffect(BEER_LIST_SORT_BY_ATOM_KEY)],
+  effects: [urlSyncRecoilEffect(BEER_LIST_SORT_BY_ATOM_KEY)],
 });

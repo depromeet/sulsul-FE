@@ -2,7 +2,7 @@ import { AtomEffect } from 'recoil';
 
 import QueryParams from '@/utils/query-params';
 
-const queryParamsRecoilEffect =
+const urlSyncRecoilEffect =
   (queryParamKey: string): AtomEffect<any> =>
   ({ onSet }) => {
     onSet((newValue) => {
@@ -12,4 +12,4 @@ const queryParamsRecoilEffect =
     });
   };
 
-export default queryParamsRecoilEffect;
+export default urlSyncRecoilEffect;
