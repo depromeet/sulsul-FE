@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 
 import Icon from '../commons/Icon';
@@ -13,11 +13,15 @@ import BeerListSortBottomSheet from '../BeerListSortBottomSheet';
 import {
   $beerListFilter,
   $beerListSortBy,
+  BeerListSortType,
   beerListSortTypeTextAlias,
+  BEER_LIST_FILTER_ATOM_KEY,
+  BEER_LIST_SORT_BY_ATOM_KEY,
 } from '@/containers/BeerListContainer/recoil/atoms';
 import { useModal } from '@/hooks';
 import { IBeerListFilter, IBeerType, ICountry } from '@/apis';
 import { useGetBeerTypes, useGetCountries } from '@/queries';
+import QueryParams from '@/utils/query-params';
 
 const StyledWrapper = styled.div`
   position: sticky;
@@ -68,11 +72,16 @@ interface SortByButtonProps {
 }
 
 const SortButton = ({ onClick }: SortByButtonProps) => {
-  const sortBy = useRecoilValue($beerListSortBy);
+  const [sortBy, setSortBy] = useRecoilState($beerListSortBy);
+
+  useEffect(() => {
+    const paramValue = QueryParams.get(BEER_LIST_SORT_BY_ATOM_KEY);
+    paramValue && setSortBy(paramValue);
+  }, [setSortBy]);
 
   return (
     <StyledSortButton type="button" onClick={onClick}>
-      <p className="sort-text">{beerListSortTypeTextAlias[sortBy]}</p>
+      <p className="sort-text">{beerListSortTypeTextAlias[sortBy as BeerListSortType]}</p>
       <Icon name="ArrowDown" />
     </StyledSortButton>
   );
@@ -87,6 +96,11 @@ const BeerListFilterAndSorter = () => {
 
   const filterBottomSheet = useModal(false);
   const sortBottomSheet = useModal(false);
+
+  useEffect(() => {
+    const paramValue = QueryParams.get(BEER_LIST_FILTER_ATOM_KEY);
+    paramValue && setFilter(paramValue);
+  }, [setFilter]);
 
   useEffect(() => {
     setFilterChips(initFilterChips({ filter, beerTypes, countries }));

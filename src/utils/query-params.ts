@@ -3,7 +3,7 @@ import { isNil } from 'lodash';
 
 export default class QueryParams {
   static get(key: string) {
-    if (typeof window === 'undefined' || isNil(key)) return;
+    if (isNil(key)) return;
 
     const params: Record<string, any> = new Proxy(new URLSearchParams(window.location.search), {
       get: (searchParams: URLSearchParams, prop: string) => searchParams.get(prop),
@@ -13,7 +13,7 @@ export default class QueryParams {
   }
 
   static set(key: string, value: any) {
-    if (typeof window === 'undefined' || isNil(key)) return;
+    if (isNil(key)) return;
 
     if (isNil(value)) {
       this.delete(key);
@@ -27,7 +27,7 @@ export default class QueryParams {
   }
 
   static delete(key: string) {
-    if (typeof window === 'undefined' || isNil(key)) return;
+    if (isNil(key)) return;
 
     const url = new URL(window.location.href);
     url.searchParams.delete(key);
