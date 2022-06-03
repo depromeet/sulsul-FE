@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
 import BeerTypeFilterItem from '../BeerTypeFilterItem';
@@ -6,7 +6,7 @@ import { $nextBeerListFilterChips } from '../BeerListFilterBottomSheet/recoil/at
 import { $selectedBeerTypeIds } from '../BeerListFilterBottomSheet/recoil/selectors';
 
 import { IBeerType } from '@/apis';
-import { $beerTypes } from '@/recoil/selector';
+import { useGetBeerTypes } from '@/queries';
 
 const StyledWrapper = styled.div`
   flex: 1;
@@ -15,7 +15,7 @@ const StyledWrapper = styled.div`
 
 /** @note beerType.nameEng이 id의 역할로 사용됨 */
 const BeerTypeFilterList = () => {
-  const beerTypes = useRecoilValue($beerTypes);
+  const { beerTypes } = useGetBeerTypes();
 
   const [selectedBeerTypeIds, setSelectedBeerTypeIds] = useRecoilState($selectedBeerTypeIds);
   const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);

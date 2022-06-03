@@ -17,7 +17,7 @@ import {
 } from '@/containers/BeerListContainer/recoil/atoms';
 import { useModal } from '@/hooks';
 import { IBeerListFilter, IBeerType, ICountry } from '@/apis';
-import { $beerTypes, $countries } from '@/recoil/selector';
+import { useGetBeerTypes, useGetCountries } from '@/queries';
 
 const StyledWrapper = styled.div`
   position: sticky;
@@ -82,16 +82,15 @@ const BeerListFilterAndSorter = () => {
   const [filter, setFilter] = useRecoilState($beerListFilter);
   const [filterChips, setFilterChips] = useState<BeerListFilterChipType[]>([]);
 
-  const beerTypes = useRecoilValue($beerTypes);
-  const countries = useRecoilValue($countries);
+  const { beerTypes = [] } = useGetBeerTypes();
+  const { countries = [] } = useGetCountries();
 
   const filterBottomSheet = useModal(false);
   const sortBottomSheet = useModal(false);
 
   useEffect(() => {
     setFilterChips(initFilterChips({ filter, beerTypes, countries }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [beerTypes, countries, filter]);
 
   const handleFilterChipRemove = (chip: BeerListFilterChipType) => {
     const nextFilter = {
@@ -158,7 +157,7 @@ const initFilterChips = ({
   beerTypes: IBeerType[];
   countries: ICountry[];
 }): BeerListFilterChipType[] => {
-  if (!filter) return [];
+  if (!filter || !beerTypes || !countries) return [];
 
   const beerTypesFilterChips: BeerListFilterChipType[] =
     filter.beerTypes?.map((nameEng) => ({
