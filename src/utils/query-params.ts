@@ -1,37 +1,43 @@
 import Router from 'next/router';
 import { isNil } from 'lodash';
 
-export default class QueryParams {
-  static get(key: string) {
-    if (isNil(key)) return;
+const get = (key: string) => {
+  if (isNil(key)) return;
 
-    const params: Record<string, any> = new Proxy(new URLSearchParams(window.location.search), {
-      get: (searchParams: URLSearchParams, prop: string) => searchParams.get(prop),
-    });
-    const value = params[key];
-    return value ? JSON.parse(value.toString()) : value;
+  const params: Record<string, any> = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams: URLSearchParams, prop: string) => searchParams.get(prop),
+  });
+  const value = params[key];
+  return value ? JSON.parse(value.toString()) : value;
+};
+
+const set = (key: string, value: any) => {
+  if (isNil(key)) return;
+
+  if (isNil(value)) {
+    _delete(key);
+    return;
   }
 
-  static set(key: string, value: any) {
-    if (isNil(key)) return;
+  const url = new URL(window.location.href);
+  url.searchParams.set(key, JSON.stringify(value));
 
-    if (isNil(value)) {
-      this.delete(key);
-      return;
-    }
+  Router.replace(url.href);
+};
 
-    const url = new URL(window.location.href);
-    url.searchParams.set(key, JSON.stringify(value));
+const _delete = (key: string) => {
+  if (isNil(key)) return;
 
-    Router.replace(url.href);
-  }
+  const url = new URL(window.location.href);
+  url.searchParams.delete(key);
 
-  static delete(key: string) {
-    if (isNil(key)) return;
+  Router.replace(url);
+};
 
-    const url = new URL(window.location.href);
-    url.searchParams.delete(key);
+const QueryParams = {
+  get,
+  set,
+  delete: _delete,
+};
 
-    Router.replace(url);
-  }
-}
+export default QueryParams;
