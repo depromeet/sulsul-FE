@@ -4,10 +4,7 @@ import { isNil } from 'lodash';
 const get = (key: string) => {
   if (isNil(key)) return;
 
-  const params: Record<string, any> = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams: URLSearchParams, prop: string) => searchParams.get(prop),
-  });
-  const value = params[key];
+  const value = Router.query[key];
   return value ? JSON.parse(value.toString()) : value;
 };
 
