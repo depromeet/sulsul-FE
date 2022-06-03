@@ -17,13 +17,13 @@ const StyledCompletedRecordContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  & > h2 {
+  & .complete-record-title {
     ${({ theme }) => theme.fonts.H2}
     text-align: center;
     margin-bottom: 10px;
   }
 
-  & p.body-1 {
+  & .complete-record-sub-title {
     ${({ theme }) => theme.fonts.Body2}
     color: ${({ theme }) => theme.semanticColor.secondary};
     text-align: center;
@@ -47,8 +47,8 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
           </>
         }
       />
-      <h2>{'티켓 발행이 완료되었어요!'}</h2>
-      <p className="body-1">{'친구들에게 이미지로 공유해보세요!'}</p>
+      <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
+      <p className="complete-record-sub-title">{'친구들에게 이미지로 공유해보세요!'}</p>
       <BeerTicket record={record} className="completed-record-ticket" />
       <BottomFloatingButtonArea
         withHomeButton
