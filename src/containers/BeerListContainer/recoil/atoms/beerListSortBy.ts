@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 
 import { EBeerSortBy } from '@/apis';
+import { queryParamsRecoilEffect } from '@/recoil/effects';
 
 const ATOM_KEY = 'beer-list-sort-by';
 
@@ -19,6 +20,6 @@ export const beerListSortTypeTextAlias: Record<BeerListSortType, string> = {
 
 export const $beerListSortBy = atom<BeerListSortType>({
   key: ATOM_KEY,
-  /** default: 리뷰많은 순 */
   default: EBeerSortBy.RECORD_DESC,
+  effects: [queryParamsRecoilEffect('sortby')],
 });
