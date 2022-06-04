@@ -11,7 +11,7 @@ export const Record: IRecord = {
   startCountryKor: 'seoul',
   startCountryEng: '서울',
   endCountryKor: '12',
-  endCountryEng: '12',
+  endCountryEng: 'Seoul',
   flavorDtos: [
     {
       id: 1,
