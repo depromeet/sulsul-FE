@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { format } from 'date-fns';
+import { isNil } from 'lodash';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
@@ -24,13 +25,12 @@ const Review = (props: ReviewProps) => {
             <MeBadge />
             {memberRecordDto.name}
           </User>
-          {/* <Date>{format(createdAt, 'yyyy-MM-dd')}</Date> */}
-          <Date>{createdAt}</Date>
+          {!!createdAt && isNil(createdAt) && <Date>{format(createdAt, 'yyyy-MM-dd')}</Date>}
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>
-          {flavorDtos.map((tag, index) => (
-            <Badge type="default" lable={tag.content} key={index} />
+          {flavorDtos.map((tag) => (
+            <Badge type="default" lable={tag.content} key={tag.id} />
           ))}
         </BadgeContainer>
       </ReviewWrapper>
