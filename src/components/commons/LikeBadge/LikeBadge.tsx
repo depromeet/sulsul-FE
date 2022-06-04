@@ -6,17 +6,17 @@ import Icon from '@/components/commons/Icon';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  likeCount?: number;
+  count?: number;
 }
 
 const LikeBadge = (props: Props) => {
-  const { className, likeCount, ...rest } = props;
+  const { className, count, ...rest } = props;
   return (
     <StyledLikeBadge className={className} {...rest}>
       <span className="common-badge-icon-wrapper">
         <Icon name="Like" />
       </span>
-      <span className="common-badge-text">{likeCount}</span>
+      <span className="common-badge-text">{count}</span>
     </StyledLikeBadge>
   );
 };

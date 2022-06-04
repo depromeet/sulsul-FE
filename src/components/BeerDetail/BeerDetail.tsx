@@ -1,23 +1,14 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
 
-import { getBeer } from '@/apis';
+import { IBeer } from '@/apis';
 
-const BeerDetail = () => {
-  const router = useRouter();
+interface Props {
+  beerData: IBeer;
+}
 
-  const beerId = Number(router.query.id);
-  const { data } = useQuery(['beer', beerId], () => getBeer(beerId));
-
-  const beer = data?.data;
-
-  if (!beer) {
-    return null;
-  }
-
-  const { country, type, nameKor, nameEng, imageUrl, alcohol, price, volume } = beer;
+const BeerDetail = ({ beerData }: Props) => {
+  const { country, type, nameKor, nameEng, imageUrl, alcohol, price, volume } = beerData;
 
   const beerInfo = [
     { title: '종류', content: type?.nameKor },

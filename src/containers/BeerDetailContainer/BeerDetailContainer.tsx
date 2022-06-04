@@ -3,38 +3,20 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
-import BeerDetail, { BeerDetailProps } from '@/components/BeerDetail';
-import AirPort, { AirPortProps } from '@/components/AirPort';
-import TasteBoxAndBadge, { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
+import BeerDetail from '@/components/BeerDetail';
+import AirPort from '@/components/AirPort';
+import TasteBoxAndBadge from '@/components/TasteBoxAndBadge';
 import Button from '@/components/commons/Button';
 import Icon from '@/components/commons/Icon';
-import Review, { ReviewProps } from '@/components/Review';
+import Review from '@/components/Review';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { Reviews } from '@/constants/Reviews';
-import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
 import { share } from '@/utils/share';
 import { getBeer, getTop3BeerFlavor } from '@/apis';
 
-interface Props {
-  beerDetail: BeerDetailProps;
-  backgroundImageUrl: string;
-  airPort: AirPortProps;
-  beerContent: string;
-  tasteBoxAndBadge: TasteBoxAndBadgeProps[];
-  review: ReviewProps[];
-}
-
-const BeerDetailContainer = (props: Props) => {
-  // const {
-  //   beerDetail: { beer },
-  //   backgroundImageUrl,
-  //   airPort: { departureKor, departureEng, destinationKor, destinationEng },
-  //   beerContent,
-  //   ...rests
-  // } = props;
-
+const BeerDetailContainer = () => {
   useEffect(() => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
@@ -64,34 +46,11 @@ const BeerDetailContainer = (props: Props) => {
     getTop3BeerFlavor(beerId),
   );
 
-  const beer = beerData?.data;
-  const beerFlavor = beerFlavorData;
-  console.log(beerFlavor);
-  
-  if (!beer) {
+  if (!beerData) {
     return null;
   }
-  //console.log(beer);
 
-  const {
-    id,
-    country,
-    type,
-    nameKor,
-    nameEng,
-    startCountry,
-    endCountry,
-    imageUrl,
-    content,
-    alcohol,
-    price,
-    volume,
-    createdAt,
-    updatedAt,
-    isLiked,
-  } = beer;
-
-  // const { country, type, nameKor, nameEng, imageUrl, alcohol, price, volume } = beer;
+  const { country, nameKor, startCountry, endCountry, content } = beerData;
 
   return (
     <StyledBeerDetailPage>
@@ -126,7 +85,7 @@ const BeerDetailContainer = (props: Props) => {
         </div>
       </BackgroundImage>
       <div className="container">
-        <BeerDetail />
+        <BeerDetail beerData={beerData} />
         <AirPort
           startKor={startCountry?.nameKor}
           startEng={startCountry?.nameEng}
@@ -135,8 +94,8 @@ const BeerDetailContainer = (props: Props) => {
         />
         <BeerContent>{content}</BeerContent>
         <TasteBoxAndBadgeContainer>
-          {TasteBoxAndBadges.map((box, index) => (
-            <TasteBoxAndBadge key={index} text={box.text} likeCount={box.likeCount} />
+          {beerFlavorData?.map(({ content, count }) => (
+            <TasteBoxAndBadge key={content} content={content} count={count} />
           ))}
         </TasteBoxAndBadgeContainer>
       </div>

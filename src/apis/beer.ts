@@ -89,7 +89,7 @@ export interface IGetBeerResponseData extends IBaseResponse<IBeer> {}
  */
 export const getBeer = async (beerId: number) => {
   const res = await axios.get<IGetBeerResponseData>(`/api/v1/beers/${beerId}`);
-  return res.data;
+  return res.data.contents;
 };
 
 export interface IGetBeerTypesResponseData extends IBaseResponse<IBeerType[]> {}
