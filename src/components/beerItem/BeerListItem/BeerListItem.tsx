@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
@@ -9,7 +10,7 @@ import { ellipsis } from '@/styles/common';
 
 type BeerListItemProps = Pick<
   IBeer,
-  'country' | 'type' | 'nameKor' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
+  'id' | 'country' | 'type' | 'nameKor' | 'imageUrl' | 'alcohol' | 'feel' | 'isLiked'
 >;
 
 interface Props {
@@ -18,12 +19,18 @@ interface Props {
 
 const BeerListItem = (props: Props) => {
   const {
-    beer: { nameKor, type, alcohol, country, imageUrl, feel, isLiked },
+    beer: { id, nameKor, type, alcohol, country, imageUrl, feel, isLiked },
   } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
+  const router = useRouter();
+
+  const goToBeerDetail = (beerId: number) => {
+    router.push(`/beers/${beerId}`);
+  };
+
   return (
-    <StyledBeerListItem>
+    <StyledBeerListItem onClick={() => goToBeerDetail(id)}>
       <ColorBar feel={feel} />
       <StyledEmoji>
         <Emoji feel={feel} />
