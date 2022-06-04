@@ -3,6 +3,7 @@ export * from './continent';
 export * from './country';
 export * from './upload';
 export * from './user';
+export * from './record';
 
 export interface IError {
   message: string;

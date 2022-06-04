@@ -24,7 +24,8 @@ const Review = (props: ReviewProps) => {
             <MeBadge />
             {memberRecordDto.name}
           </User>
-          <Date>{format(createdAt, 'dd/LLL/yyyy')}</Date>
+          {/* <Date>{format(createdAt, 'yyyy-MM-dd')}</Date> */}
+          <Date>{createdAt}</Date>
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>
