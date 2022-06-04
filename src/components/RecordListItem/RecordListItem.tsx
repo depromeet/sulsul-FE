@@ -23,7 +23,6 @@ const StyledRecordListItem = styled.div<StyledRecordListItemProps>`
   & .record-item-country {
     ${({ theme }) => theme.fonts.BarlowBig}
     transform: rotate(-90deg) translateY(30%);
-    /* position: absolute; */
   }
 
   & .record-item-wrapper {
