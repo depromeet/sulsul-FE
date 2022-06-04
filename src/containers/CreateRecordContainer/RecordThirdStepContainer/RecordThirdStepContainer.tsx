@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import { FieldValues } from 'react-hook-form';
+import { useMutation } from 'react-query';
 
 import { $recordForm } from '../atoms';
 import { dummyOptions } from '../RecordSecondStepContainer/RecordSecondStepContainer';
@@ -16,6 +17,7 @@ import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 import Icon from '@/components/commons/Icon';
 import { IBeer } from '@/apis';
+import { uploadImage } from '@/apis';
 
 interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {
   beer: IBeer;
@@ -77,6 +79,16 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   onMoveNext,
 }) => {
   const [{ flavor }, setRecordForm] = useRecoilState($recordForm);
+  const { mutateAsync } = useMutation(uploadImage);
+
+  const handleImageUpload = useCallback(
+    async (data: FormData) => {
+      const { contents } = await mutateAsync(data);
+
+      return contents?.imageUrl;
+    },
+    [mutateAsync],
+  );
 
   const handleSubmit = useCallback(
     (data: FieldValues) => {
@@ -94,7 +106,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
       <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
         <p className="body-1">{beer.nameKor}</p>
-        <ImageUploadField name="imageUrl" beer={beer} required />
+        <ImageUploadField name="imageUrl" beer={beer} uploadCallback={handleImageUpload} required />
         <div className="switch-wrapper">
           <span>{'맥주 여행 소감 공개 여부'}</span>
           <SelectField name="isPublic" />
