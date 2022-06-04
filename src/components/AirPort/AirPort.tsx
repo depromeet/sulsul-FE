@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
+import { sliceAndUpperCase } from '@/utils/string';
+import { ICountryName } from '@/apis/country';
 
 interface AirPortItemProps {
   title: string;
@@ -13,8 +15,8 @@ const AirPortItem = (props: AirPortItemProps) => {
   return (
     <StyledAirPortItem>
       <Title>{title}</Title>
-      <Eng>{eng}</Eng>
-      <Kor>{kor}</Kor>
+      <Eng>{sliceAndUpperCase(eng, 3)}</Eng>
+      <Kor>{sliceAndUpperCase(kor, 3)}</Kor>
     </StyledAirPortItem>
   );
 };
@@ -40,28 +42,19 @@ const Kor = styled.div`
 `;
 
 export interface AirPortProps {
-  startKor: string;
-  startEng: string;
-  endKor: string;
-  endEng: string;
+  startCountry: ICountryName;
+  endCountry: ICountryName;
   className?: string;
 }
 
 const AirPort = (props: AirPortProps) => {
-  const {
-    startKor = '한국',
-    startEng = 'KOR',
-    endKor = ' ',
-    endEng = 'NON',
-    className,
-    ...rest
-  } = props;
+  const { startCountry, endCountry, className, ...rest } = props;
 
   return (
     <StyledAirPort {...rest} className={className}>
-      <AirPortItem title="출발지" kor={startKor} eng={startEng} />
+      <AirPortItem title="출발지" kor={startCountry.nameKor} eng={startCountry.nameEng} />
       <Icon name="FlyingAirplane" width="33%" />
-      <AirPortItem title="도착지" kor={endKor} eng={endEng} />
+      <AirPortItem title="도착지" kor={endCountry.nameKor} eng={endCountry.nameEng} />
     </StyledAirPort>
   );
 };

@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import AirPort from './AirPort';
@@ -13,8 +12,12 @@ const Template: ComponentStory<typeof AirPort> = (args) => <AirPort {...args} />
 
 export const DefaultAirPort = Template.bind({});
 DefaultAirPort.args = {
-  startKor: 'FRA',
-  startEng: '독일',
-  endKor: 'KOR',
-  endEng: '대한민국',
+  startCountry: {
+    nameKor: 'FRA',
+    nameEng: '독일',
+  },
+  endCountry: {
+    nameKor: 'KOR',
+    nameEng: '대한민국',
+  },
 };

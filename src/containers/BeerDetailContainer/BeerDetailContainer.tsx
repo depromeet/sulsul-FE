@@ -12,6 +12,7 @@ import Review from '@/components/Review';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
+import { Beers } from '@/constants/Beers';
 import { Reviews } from '@/constants/Reviews';
 import { share } from '@/utils/share';
 import { getBeer, getTop3BeerFlavor } from '@/apis';
@@ -41,7 +42,8 @@ const BeerDetailContainer = () => {
 
   const router = useRouter();
   const beerId = Number(router.query.id);
-  const { data: beerData } = useQuery(['beer', beerId], () => getBeer(beerId));
+  const beerData = Beers[0];
+  //const { data: beerData } = useQuery(['beer', beerId], () => getBeer(beerId));
   const { data: beerFlavorData } = useQuery(['beerFlavor', beerId], () =>
     getTop3BeerFlavor(beerId),
   );
@@ -86,12 +88,7 @@ const BeerDetailContainer = () => {
       </BackgroundImage>
       <div className="container">
         <BeerDetail beerData={beerData} />
-        <AirPort
-          startKor={startCountry?.nameKor}
-          startEng={startCountry?.nameEng}
-          endKor={endCountry?.nameKor}
-          endEng={endCountry?.nameEng}
-        />
+        <AirPort startCountry={startCountry} endCountry={endCountry} />
         <BeerContent>{content}</BeerContent>
         <TasteBoxAndBadgeContainer>
           {beerFlavorData?.map(({ content, count }) => (
@@ -103,17 +100,7 @@ const BeerDetailContainer = () => {
       <div className="container" style={{ backgroundColor: 'black' }}>
         <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
         {Reviews.map((review, index) => (
-          <Review
-            key={index}
-            feel={review.feel}
-            me={review.me}
-            userName={review.userName}
-            reviewCount={2}
-            content={review.content}
-            date={review.date}
-            tags={review.tags}
-            border={review.border}
-          />
+          <Review review={review} key={index} />
         ))}
         <div style={{ height: '90px' }} />
       </div>

@@ -1,38 +1,34 @@
 import styled from '@emotion/styled';
-import type { HTMLAttributes } from 'react';
+import { format } from 'date-fns';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
+import { IRecordByBeer } from '@/apis/record';
 
-export interface ReviewProps extends HTMLAttributes<HTMLDivElement> {
-  feel?: number;
-  me?: boolean;
-  userName?: string;
-  reviewCount?: number;
-  content?: string;
-  date?: string;
-  tags?: string[];
-  border?: boolean;
+export interface ReviewProps {
+  review: IRecordByBeer;
 }
 
-const Review = (props: ReviewProps) => {
-  const { feel, me = false, userName, reviewCount, content, date, tags, border, ...attrs } = props;
+const Review = ({ review }: ReviewProps) => {
+  const { content, feel, memberRecordDto, createdAt, updatedAt, flavorDtos } = review;
 
   return (
-    <StyledReview border={border} {...attrs}>
+    <StyledReview border={true}>
       <StyledEmoji feel={feel} />
       <ReviewWrapper>
         <UserAndDate>
           <User>
-            {me && <MeBadge />}
-            {userName}님의 {reviewCount}번째 후기
+            <MeBadge />
+            {memberRecordDto.name}
           </User>
-          <Date>{date}</Date>
+          <Date>{format(createdAt, 'dd/LLL/yyyy')}</Date>
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>
-          {tags && tags.map((tag, index) => <Badge type="default" lable={tag} key={index} />)}
+          {flavorDtos.map((tag, index) => (
+            <Badge type="default" lable={tag} key={index} />
+          ))}
         </BadgeContainer>
       </ReviewWrapper>
     </StyledReview>

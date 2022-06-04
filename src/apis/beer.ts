@@ -1,4 +1,4 @@
-import { ICountry } from './country';
+import { ICountry, ICountryName } from './country';
 
 import { IBaseResponse } from '.';
 
@@ -27,8 +27,8 @@ export interface IBeer {
   type?: IBeerType;
   nameKor: string;
   nameEng: string;
-  startCountry: ICountry;
-  endCountry: ICountry;
+  startCountry: ICountryName;
+  endCountry: ICountryName;
   imageUrl: string;
   content: string;
   alcohol: number;
