@@ -1,0 +1,4 @@
+apps:
+  - script: yarn
+    name: 'sulsul-fe'
+    args: start
