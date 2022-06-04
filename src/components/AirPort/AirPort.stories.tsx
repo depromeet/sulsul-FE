@@ -13,8 +13,8 @@ const Template: ComponentStory<typeof AirPort> = (args) => <AirPort {...args} />
 
 export const DefaultAirPort = Template.bind({});
 DefaultAirPort.args = {
-  departureKor: 'FRA',
-  departureEng: '독일',
-  destinationKor: 'KOR',
-  destinationEng: '대한민국',
+  startKor: 'FRA',
+  startEng: '독일',
+  endKor: 'KOR',
+  endEng: '대한민국',
 };
