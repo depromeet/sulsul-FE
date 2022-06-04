@@ -10,8 +10,10 @@ export interface ReviewProps {
   review: IRecordByBeer;
 }
 
-const Review = ({ review }: ReviewProps) => {
-  const { content, feel, memberRecordDto, createdAt, updatedAt, flavorDtos } = review;
+const Review = (props: ReviewProps) => {
+  const {
+    review: { content, feel, memberRecordDto, createdAt, updatedAt, flavorDtos },
+  } = props;
 
   return (
     <StyledReview border={true}>
@@ -27,7 +29,7 @@ const Review = ({ review }: ReviewProps) => {
         <Content>{content}</Content>
         <BadgeContainer>
           {flavorDtos.map((tag, index) => (
-            <Badge type="default" lable={tag} key={index} />
+            <Badge type="default" lable={tag.content} key={index} />
           ))}
         </BadgeContainer>
       </ReviewWrapper>
