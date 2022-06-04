@@ -1,12 +1,12 @@
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
 
 import BeerTypeFilterItem from '../BeerTypeFilterItem';
 import { $nextBeerListFilterChips } from '../BeerListFilterBottomSheet/recoil/atoms';
 import { $selectedBeerTypeIds } from '../BeerListFilterBottomSheet/recoil/selectors';
 
-import { getBeerTypes, IBeerType } from '@/apis';
+import { IBeerType } from '@/apis';
+import { useGetBeerTypes } from '@/queries';
 
 const StyledWrapper = styled.div`
   flex: 1;
@@ -15,8 +15,7 @@ const StyledWrapper = styled.div`
 
 /** @note beerType.nameEng이 id의 역할로 사용됨 */
 const BeerTypeFilterList = () => {
-  const { data } = useQuery('beerTypes', getBeerTypes, { cacheTime: Infinity });
-  const beerTypes = data?.data;
+  const { beerTypes } = useGetBeerTypes();
 
   const [selectedBeerTypeIds, setSelectedBeerTypeIds] = useRecoilState($selectedBeerTypeIds);
   const [nextFilterChips, setNextFilterChips] = useRecoilState($nextBeerListFilterChips);

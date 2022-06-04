@@ -1,10 +1,11 @@
 import { ICountry } from './country';
 
+import { IBaseResponse } from '.';
+
 import axios from '@/configs/axios';
 
 export enum EBeerType {
   LIGHT_ALE = 'LIGHT_ALE',
-  WIT_ALE = 'WIT_ALE',
   IPA = 'IPA',
   PALE_ALE = 'PALE_ALE',
   BROWN_ALE = 'BROWN_ALE',
@@ -33,9 +34,9 @@ export interface IBeer {
   alcohol: number;
   price: number;
   volume: number;
-  deletedAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  deletedAt?: Date | number;
+  createdAt: Date | number;
+  updatedAt: Date | number;
   feel?: number | null;
   isLiked?: boolean;
 }
@@ -68,12 +69,9 @@ export interface IGetBeersPayload {
   sortBy?: EBeerSortBy[];
 }
 
-export interface IGetBeersResponseData {
-  data: {
-    contents: IBeer[];
-    hasNext: boolean;
-    nextCursor: number;
-  };
+export interface IGetBeersResponseData extends IBaseResponse<IBeer[]> {
+  hasNext: boolean;
+  nextCursor: number;
 }
 
 /**
@@ -84,10 +82,7 @@ export const getBeers = async (payload: IGetBeersPayload) => {
   return res.data;
 };
 
-/** @TODO response 타입 변경될 예정 (추후 재검토 필요) */
-export interface IGetBeerResponseData {
-  data: IBeer;
-}
+export interface IGetBeerResponseData extends IBaseResponse<IBeer> {}
 
 /**
  * 맥주 상세정보 조회
@@ -96,16 +91,14 @@ export const getBeer = async (beerId: number) => {
   const res = await axios.get<IGetBeerResponseData>(`/api/v1/beers/${beerId}`);
   return res.data;
 };
- 
-export interface IGetBeerTypesResponseData {
-  data: IBeerType[];
-}
+
+export interface IGetBeerTypesResponseData extends IBaseResponse<IBeerType[]> {}
 
 /**
  * 맥주 종류 목록 조회
  */
 export const getBeerTypes = async () => {
-  const res = await axios.get<IGetBeerTypesResponseData>('/api/v2/beers/types');
+  const res = await axios.get<IGetBeerTypesResponseData>('/api/v1/beers/types');
   return res.data;
 };
 
@@ -114,10 +107,12 @@ export interface IGetTop3BeerFlavor {
   count: number;
 }
 
+export interface IGetTop3BeerFlavorResponseData extends IBaseResponse<IGetTop3BeerFlavor[]> {}
+
 /**
  * 맥주 맛 TOP3 조회
  */
 export const getTop3BeerFlavor = async (beerId: number) => {
-  const res = await axios.get<IGetTop3BeerFlavor[]>(`/api/v1/flavors/${beerId}`);
-  return res.data;
+  const res = await axios.get<IGetTop3BeerFlavorResponseData>(`/api/v1/flavors/${beerId}`);
+  return res.data.contents;
 };

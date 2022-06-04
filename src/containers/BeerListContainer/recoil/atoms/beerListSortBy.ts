@@ -1,8 +1,9 @@
 import { atom } from 'recoil';
 
 import { EBeerSortBy } from '@/apis';
+import { urlSyncRecoilEffect } from '@/recoil/effects';
 
-const ATOM_KEY = 'beer-list-sort-by';
+export const BEER_LIST_SORT_BY_ATOM_KEY = 'beer-list-sort-by';
 
 export type BeerListSortType =
   | EBeerSortBy.NAME_KOR_ASC
@@ -18,7 +19,7 @@ export const beerListSortTypeTextAlias: Record<BeerListSortType, string> = {
 };
 
 export const $beerListSortBy = atom<BeerListSortType>({
-  key: ATOM_KEY,
-  /** default: 리뷰많은 순 */
+  key: BEER_LIST_SORT_BY_ATOM_KEY,
   default: EBeerSortBy.RECORD_DESC,
+  effects: [urlSyncRecoilEffect(BEER_LIST_SORT_BY_ATOM_KEY)],
 });

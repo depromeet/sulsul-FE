@@ -35,8 +35,8 @@ Default.args = {
 Default.story = {
   parameters: {
     nextRouter: {
-      path: '/beer/[id]',
-      asPath: '/beer/1',
+      path: '/beers/[id]',
+      asPath: '/beers/1',
       query: {
         id: '1',
       },

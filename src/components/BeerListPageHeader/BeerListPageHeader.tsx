@@ -2,14 +2,18 @@ import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import { isNil } from 'lodash';
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect } from 'react';
 
 import Icon from '../commons/Icon';
 import Header from '../Header';
 import { BackButton, ListViewToggleButton } from '../Header/extras';
 
 import { ellipsis } from '@/styles/common';
-import { $beerListViewType } from '@/containers/BeerListContainer/recoil/atoms';
+import {
+  $beerListViewType,
+  BEER_LIST_VIEW_ATOM_KEY,
+} from '@/containers/BeerListContainer/recoil/atoms';
+import QueryParams from '@/utils/query-params';
 
 const PLACEHOLDER_TEXT = '맥주 이름, 특징 검색';
 
@@ -46,7 +50,12 @@ const SearchBoxButton = styled.button<{ isPlaceHolder: boolean }>`
 const BeerListViewToggleButton = () => {
   const [beerListViewType, setBeerListViewType] = useRecoilState($beerListViewType);
 
-  return <ListViewToggleButton defaultType={beerListViewType} onChange={setBeerListViewType} />;
+  useEffect(() => {
+    const paramValue = QueryParams.get(BEER_LIST_VIEW_ATOM_KEY);
+    paramValue && setBeerListViewType(paramValue);
+  }, [setBeerListViewType]);
+
+  return <ListViewToggleButton type={beerListViewType} onChange={setBeerListViewType} />;
 };
 
 const SearchBox = () => {

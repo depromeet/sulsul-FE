@@ -12,6 +12,7 @@ interface ImageUploadFieldProps {
   title?: string;
   className?: string;
   required?: boolean;
+  uploadFieldName?: string;
   uploadCallback?: (data: FormData) => Promise<any>;
 }
 
@@ -45,6 +46,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
   title,
   className,
   required,
+  uploadFieldName = 'file',
   uploadCallback,
 }) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -66,9 +68,12 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
     }
     const imageFormData = new FormData();
 
-    imageFormData.append('image', imageFile);
+    imageFormData.append(uploadFieldName, imageFile);
     const imageUrl = await uploadCallback(imageFormData);
-    onChange(imageUrl);
+
+    if (imageUrl) {
+      onChange(imageUrl);
+    }
   };
 
   return (
@@ -79,7 +84,6 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
       render={({ field }) => (
         <StyledImageUploadField>
           <input
-            {...field}
             onChange={(e) => triggerChange(e, field.onChange)}
             type="file"
             accept="image/*"

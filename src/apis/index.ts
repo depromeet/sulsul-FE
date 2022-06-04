@@ -1,6 +1,7 @@
 export * from './beer';
 export * from './continent';
 export * from './country';
+export * from './upload';
 
 export interface IError {
   message: string;
