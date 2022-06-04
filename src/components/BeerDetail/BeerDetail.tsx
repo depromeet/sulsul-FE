@@ -121,6 +121,5 @@ const BeerImageMaskingWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.whiteOpacity20};
   margin-right: 30px;
 `;

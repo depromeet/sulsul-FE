@@ -12,7 +12,6 @@ import Review from '@/components/Review';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
-import { Beers } from '@/constants/Beers';
 import { Reviews } from '@/constants/Reviews';
 import { share } from '@/utils/share';
 import { getBeer, getTop3BeerFlavor } from '@/apis';
@@ -42,8 +41,7 @@ const BeerDetailContainer = () => {
 
   const router = useRouter();
   const beerId = Number(router.query.id);
-  const beerData = Beers[0];
-  //const { data: beerData } = useQuery(['beer', beerId], () => getBeer(beerId));
+  const { data: beerData } = useQuery(['beer', beerId], () => getBeer(beerId));
   const { data: beerFlavorData } = useQuery(['beerFlavor', beerId], () =>
     getTop3BeerFlavor(beerId),
   );
