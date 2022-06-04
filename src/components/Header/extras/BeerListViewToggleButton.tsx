@@ -1,13 +1,10 @@
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 
 import Icon from '@/components/commons/Icon';
-
-export type ListViewType = 'grid' | 'list';
-
-interface ListViewToggleButtonProps {
-  type: ListViewType;
-  onChange?: (type: ListViewType) => void;
-}
+import { $beerListViewType, BeerListViewType, BEER_LIST_VIEW_ATOM_KEY } from '@/recoil/atoms';
+import QueryParams from '@/utils/query-params';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -17,12 +14,16 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const ListViewToggleButton = ({
-  type = 'grid',
-  onChange = () => null,
-}: ListViewToggleButtonProps) => {
-  const handleTypeChange = (value: ListViewType) => () => {
-    onChange(value);
+const BeerListViewToggleButton = () => {
+  const [type, setType] = useRecoilState($beerListViewType);
+
+  useEffect(() => {
+    const paramValue = QueryParams.get(BEER_LIST_VIEW_ATOM_KEY);
+    paramValue && setType(paramValue);
+  }, [setType]);
+
+  const handleTypeChange = (value: BeerListViewType) => () => {
+    setType(value);
   };
 
   const getIconColor = (isSelected: boolean) => {
@@ -41,4 +42,4 @@ const ListViewToggleButton = ({
   );
 };
 
-export default ListViewToggleButton;
+export default BeerListViewToggleButton;

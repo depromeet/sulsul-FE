@@ -6,11 +6,8 @@ import { isNil } from 'lodash';
 import BeerList from '../BeerList';
 import BeerSearchResultEmpty from '../BeerSearchResultEmpty';
 
-import {
-  $beerListFilter,
-  $beerListSortBy,
-  $beerListViewType,
-} from '@/containers/BeerListContainer/recoil/atoms';
+import { $beerListFilter, $beerListSortBy } from '@/containers/BeerListContainer/recoil/atoms';
+import { $beerListViewType } from '@/recoil/atoms';
 import { getBeers } from '@/apis';
 
 const BeerSearchResultList = () => {
