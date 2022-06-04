@@ -32,9 +32,9 @@ export interface IBeer {
   alcohol: number;
   price: number;
   volume: number;
-  deletedAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  deletedAt?: Date | number;
+  createdAt: Date | number;
+  updatedAt: Date | number;
   feel?: number | null;
   isLiked?: boolean;
 }
