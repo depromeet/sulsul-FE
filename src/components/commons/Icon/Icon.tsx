@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import { SVGProps } from 'react';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 import * as icon from '@/assets/icon';
 import { ColorTheme } from '@/themes/types';
@@ -33,29 +34,17 @@ const Icon = ({
 }: SvgIconProps) => {
   const SvgIcon = icon[name];
 
-  const StyledSvgIcon = styled(SvgIcon)<Pick<SvgIconProps, 'color' | 'semanticColor'>>`
+  const IconStyles = css`
     &,
     path {
-      ${(p) => (p.color ? `fill: ${theme.color[color as ColorThemeNameType]} !important` : '')};
-      ${(p) =>
-        p.semanticColor
-          ? `fill: ${theme.semanticColor[semanticColor as SemanticColorThemeNameType]} !important`
-          : ''};
+      ${color ? `fill: ${theme.color[color]} !important;` : ''}
+      ${semanticColor ? `fill: ${theme.semanticColor[semanticColor]} !important;` : ''}
+      width: ${width ?? `${size}px`};
+      height: ${height ?? 'auto'};
     }
   `;
 
-  return (
-    <StyledSvgIcon
-      {...props}
-      color={color}
-      semanticColor={semanticColor}
-      style={{
-        width: width ?? `${size}px`,
-        height: height ?? 'auto',
-        ...style,
-      }}
-    />
-  );
+  return <SvgIcon {...props} css={IconStyles} style={style} />;
 };
 
 export default Icon;
