@@ -13,7 +13,7 @@ import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { share } from '@/utils/share';
-import { getBeer, getTop3BeerFlavor, getRecordByBeer } from '@/apis';
+import { getBeer, getTop3BeerFlavor, getRecordsByBeer } from '@/apis';
 
 const BeerDetailContainer = () => {
   useEffect(() => {
@@ -50,11 +50,11 @@ const BeerDetailContainer = () => {
     recordId: 0,
   };
 
-  const { data: recordByBeerData } = useQuery(['recordByBeer', beerId], () =>
-    getRecordByBeer(payload),
+  const { data: recordsByBeerData } = useQuery(['recordByBeer', beerId], () =>
+    getRecordsByBeer(payload),
   );
 
-  if (!beerData || !beerFlavorData || !recordByBeerData) {
+  if (!beerData || !beerFlavorData) {
     return null;
   }
 
@@ -105,8 +105,8 @@ const BeerDetailContainer = () => {
       <HorizontalDivider />
       <div className="container" style={{ backgroundColor: 'black' }}>
         <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
-        {recordByBeerData.map((review, index) => (
-          <Review review={review} key={index} />
+        {recordsByBeerData?.map((review) => (
+          <Review review={review} key={review.id} />
         ))}
         <div style={{ height: '90px' }} />
       </div>

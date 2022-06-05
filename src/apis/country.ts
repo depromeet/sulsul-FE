@@ -12,10 +12,7 @@ export interface ICountry {
   continent?: IContinent;
 }
 
-export interface ICountryName {
-  nameKor: string;
-  nameEng: string;
-}
+export type ICountryName = Pick<ICountry, 'nameKor' | 'nameEng'>;
 
 interface IGetContinentResponseData extends IBaseResponse<ICountry[]> {}
 

@@ -1,4 +1,4 @@
-import { IRecordByBeer } from '@/apis/record';
+import { IRecordsByBeer } from '@/apis/record';
 
 export const FEEL_MESSAGES = {
   1: '별로예요!',
@@ -8,8 +8,9 @@ export const FEEL_MESSAGES = {
   5: '최고예요!',
 };
 
-export const Reviews: IRecordByBeer[] = [
+export const Reviews: IRecordsByBeer[] = [
   {
+    id: 1,
     content:
       '날씨도 좋은데 놀러가지도 못하고..! 기분 내려고 한 잔 한다. 이순간 만큼은 제주다 이거야~',
     feel: 5,

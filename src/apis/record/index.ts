@@ -1,9 +1,9 @@
 export type {
   IFlavor,
   IRecord,
-  IRecordByBeer,
-  IGetRecordByBeerPayload,
-  IGetRecordByBeer,
+  IRecordsByBeer,
+  IGetRecordsByBeerPayload,
+  IGetRecordsByBeer,
 } from './record';
-export { getRecordByBeer } from './record';
+export { getRecordsByBeer } from './record';
 export type { ICreateRecordResponseData } from './create-record';

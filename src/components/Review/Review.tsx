@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
 import { format } from 'date-fns';
-import { isNil } from 'lodash';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
-import { IRecordByBeer } from '@/apis/record';
+import { IRecordsByBeer } from '@/apis/record';
 
 export interface ReviewProps {
-  review: IRecordByBeer;
+  review: IRecordsByBeer;
 }
 
 const Review = (props: ReviewProps) => {
@@ -25,7 +24,7 @@ const Review = (props: ReviewProps) => {
             <MeBadge />
             {memberRecordDto.name}
           </User>
-          {!!createdAt && isNil(createdAt) && <Date>{format(createdAt, 'yyyy-MM-dd')}</Date>}
+          {!!createdAt && <Date>{format(createdAt, 'yyyy-MM-dd')}</Date>}
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>

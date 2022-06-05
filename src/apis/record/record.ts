@@ -26,23 +26,23 @@ export interface IRecord {
   recordCount: number;
 }
 
-export interface IRecordByBeer {
-  content: string;
-  feel: 1 | 2 | 3 | 4 | 5;
-  memberRecordDto: IMemberRecord;
-  createdAt: Date;
-  updatedAt: Date;
-  flavorDtos: IFlavor[];
-}
+export type IRecordsByBeer = Pick<
+  IRecord,
+  'id' | 'content' | 'feel' | 'memberRecordDto' | 'createdAt' | 'updatedAt' | 'flavorDtos'
+>;
 
-export interface IGetRecordByBeerPayload {
+export interface IGetRecordsByBeerPayload {
   beerId: number;
   recordId: number;
 }
 
-export interface IGetRecordByBeer extends IBaseResponse<IRecordByBeer[]> {}
+export interface IGetRecordsByBeer extends IBaseResponse<IRecordsByBeer[]> {}
 
-export const getRecordByBeer = async (payload: IGetRecordByBeerPayload) => {
-  const res = await axios.post<IGetRecordByBeer>('/api/v1/records/find', payload);
+/**
+ * 맥주별 record 조회
+ */
+
+export const getRecordsByBeer = async (payload: IGetRecordsByBeerPayload) => {
+  const res = await axios.post<IGetRecordsByBeer>('/api/v1/records/find', payload);
   return res.data.contents;
 };
