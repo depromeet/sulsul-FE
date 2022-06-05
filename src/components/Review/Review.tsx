@@ -29,7 +29,7 @@ const Review = (props: ReviewProps) => {
         <Content>{content}</Content>
         <BadgeContainer>
           {flavorDtos.map((tag) => (
-            <Badge type="default" lable={tag.content} key={tag.id} />
+            <Badge lable={tag.content} key={tag.id} />
           ))}
         </BadgeContainer>
       </ReviewWrapper>

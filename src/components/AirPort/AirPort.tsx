@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 import { sliceAndUpperCase } from '@/utils/string';
-import { ICountryName } from '@/apis/country';
+import { ICountry } from '@/apis/country';
 
 interface AirPortItemProps {
   title: string;
@@ -42,8 +42,8 @@ const Kor = styled.div`
 `;
 
 export interface AirPortProps {
-  startCountry: ICountryName;
-  endCountry: ICountryName;
+  startCountry: Pick<ICountry, 'nameKor' | 'nameEng'>;
+  endCountry: Pick<ICountry, 'nameKor' | 'nameEng'>;
   className?: string;
 }
 
