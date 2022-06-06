@@ -111,9 +111,11 @@ const BeerName = styled.div`
   color: ${({ theme }) => theme.color.white};
   ${({ theme }) => theme.fonts.SubTitle4};
   ${ellipsis()};
+  text-align: left;
 `;
 
 const BeerInfo = styled.div`
   color: ${({ theme }) => theme.color.whiteOpacity80};
   ${({ theme }) => theme.fonts.SubTitle5};
+  text-align: left;
 `;
