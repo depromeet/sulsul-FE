@@ -14,16 +14,14 @@ import Swiper from '@/components/Swiper';
 import { useGetBeersLiked, useGetBeersRecommend } from '@/queries';
 import QueryParams from '@/utils/query-params';
 
-type HiType = 'recommend' | 'liked';
+type TabType = 'recommend' | 'liked';
 
-const hiToIndex = (hi: HiType): number => {
-  if (hi === 'liked') return 1;
-  return 0;
+const tabToIndex = (tab: TabType): number => {
+  return tab === 'liked' ? 1 : 0;
 };
 
-const indexToHi = (index: number): HiType => {
-  if (index === 1) return 'liked';
-  return 'recommend';
+const indexToTab = (index: number): TabType => {
+  return index === 1 ? 'liked' : 'recommend';
 };
 
 const TITLES = ['새로운 맥주를 도전해볼까요?', '예전에 찜해둔 맥주들이에요'];
@@ -80,8 +78,8 @@ const BeerRecommendButton = ({ onClick }: BeerRecommendButtonProps) => {
 };
 
 /**
- * hi="recommend" : 추천 맥주 목록
- * hi="liked" : 반한 맥주 목록
+ * tab="recommend" : 추천 맥주 목록
+ * tab="liked" : 반한 맥주 목록
  */
 const BeerRecommendAndLikedContainer = () => {
   const [activatedIndex, setActivatedIndex] = useActivatedIndex();
@@ -119,14 +117,14 @@ export default BeerRecommendAndLikedContainer;
 
 const useActivatedIndex = (): [number, Dispatch<SetStateAction<number>>] => {
   const {
-    query: { hi },
+    query: { tab },
   } = useRouter();
-  const parsedHi = !isNil(hi) ? JSON.parse(hi.toString()) : undefined;
+  const parsedTab = !isNil(tab) ? JSON.parse(tab.toString()) : undefined;
 
-  const [activatedIndex, setActivatedIndex] = useState(hiToIndex(parsedHi));
+  const [activatedIndex, setActivatedIndex] = useState(tabToIndex(parsedTab));
 
   useEffect(() => {
-    QueryParams.set('hi', indexToHi(activatedIndex));
+    QueryParams.set('tab', indexToTab(activatedIndex));
   }, [activatedIndex]);
 
   return [activatedIndex, setActivatedIndex];
