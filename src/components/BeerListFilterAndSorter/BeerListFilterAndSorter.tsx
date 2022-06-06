@@ -103,6 +103,8 @@ const BeerListFilterAndSorter = () => {
   }, [setFilter]);
 
   useEffect(() => {
+    if (!filter || !beerTypes.length || !countries.length) return;
+
     setFilterChips(initFilterChips({ filter, beerTypes, countries }));
   }, [beerTypes, countries, filter]);
 
@@ -171,8 +173,6 @@ const initFilterChips = ({
   beerTypes: IBeerType[];
   countries: ICountry[];
 }): BeerListFilterChipType[] => {
-  if (!filter || !beerTypes || !countries) return [];
-
   const beerTypesFilterChips: BeerListFilterChipType[] =
     filter.beerTypes?.map((nameEng) => ({
       id: nameEng,
