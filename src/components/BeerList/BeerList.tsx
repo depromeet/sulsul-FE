@@ -1,20 +1,22 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 
 import { IBeer } from '@/apis';
 import BeerGridItem from '@/components/beerItem/BeerGridItem';
 import BeerListItem from '@/components/beerItem/BeerListItem';
-import { BeerListViewType } from '@/recoil/atoms';
+import { $beerListViewType } from '@/recoil/atoms';
 
 interface Props {
-  type: BeerListViewType;
   beers: IBeer[];
 }
 
-const BeerList = ({ type = 'grid', beers, ...rest }: Props) => {
+const BeerList = ({ beers, ...rest }: Props) => {
+  const beerListViewType = useRecoilValue($beerListViewType);
+
   return (
-    <StyledBeerList className={type} {...rest}>
+    <StyledBeerList className={beerListViewType} {...rest}>
       {beers?.map((beer) =>
-        type === 'list' ? (
+        beerListViewType === 'list' ? (
           <BeerListItem key={beer.id} beer={beer} />
         ) : (
           <BeerGridItem key={beer.id} beer={beer} />

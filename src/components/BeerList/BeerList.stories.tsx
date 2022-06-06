@@ -7,10 +7,6 @@ import { Beers } from '@/constants/Beers';
 export default {
   title: 'Components/BeerList',
   component: BeerList,
-  argTypes: {
-    type: { control: 'radio', options: ['grid', 'list'] },
-  },
-  args: {},
 } as ComponentMeta<typeof BeerList>;
 
 const Template: ComponentStory<typeof BeerList> = ({ ...args }) => (
