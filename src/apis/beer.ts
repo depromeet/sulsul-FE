@@ -80,6 +80,26 @@ export const getBeers = async (payload: IGetBeersPayload) => {
   return res.data;
 };
 
+export interface IGetBeersRecommendResponseData extends IBaseResponse<{ beers: IBeer[] }> {}
+
+/**
+ * 추천 맥주 목록 조회
+ */
+export const getBeersRecommend = async () => {
+  const res = await axios.get<IGetBeersRecommendResponseData>('/api/v1/beers/recommend');
+  return res.data;
+};
+
+export interface IGetBeersLikedResponseData extends IBaseResponse<{ beers: IBeer[] }> {}
+
+/**
+ * 찜한 맥주 목록 조회
+ */
+export const getBeersLiked = async () => {
+  const res = await axios.get<IGetBeersLikedResponseData>('/api/v1/beers/liked');
+  return res.data;
+};
+
 export interface IGetBeerResponseData extends IBaseResponse<IBeer> {}
 
 /**
