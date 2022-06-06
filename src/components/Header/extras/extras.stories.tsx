@@ -5,7 +5,7 @@ import {
   BackButton,
   CloseButton,
   LikeToggleButton,
-  ListViewToggleButton,
+  BeerListViewToggleButton,
   OKTextButton,
   SaveButton,
   WriteButton,
@@ -70,7 +70,7 @@ export const extras = () => {
           onUnLike={async () => alert('좋아요 해제')}
         />,
       )}
-      {renderExtra('ListViewToggleButton', <ListViewToggleButton type="grid" />)}
+      {renderExtra('BeerListViewToggleButton', <BeerListViewToggleButton />)}
       {renderExtra('OKTextButton', <OKTextButton />)}
       {renderExtra('SaveButton', <SaveButton />)}
       {renderExtra('WriteButton', <WriteButton />)}

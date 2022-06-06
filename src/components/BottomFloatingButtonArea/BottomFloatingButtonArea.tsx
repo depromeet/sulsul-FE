@@ -37,4 +37,5 @@ const StyledBottomFloatingButton = styled.div`
   width: 100%;
   height: 100px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 40.1%);
+  z-index: 1;
 `;
