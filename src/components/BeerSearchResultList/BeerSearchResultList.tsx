@@ -6,18 +6,13 @@ import { isNil } from 'lodash';
 import BeerList from '../BeerList';
 import BeerSearchResultEmpty from '../BeerSearchResultEmpty';
 
-import {
-  $beerListFilter,
-  $beerListSortBy,
-  $beerListViewType,
-} from '@/containers/BeerListContainer/recoil/atoms';
+import { $beerListFilter, $beerListSortBy } from '@/containers/BeerListContainer/recoil/atoms';
 import { getBeers } from '@/apis';
 
 const BeerSearchResultList = () => {
   const router = useRouter();
   const query = isNil(router.query.query) ? undefined : decodeURI(String(router.query.query));
 
-  const listViewType = useRecoilValue($beerListViewType);
   const filter = useRecoilValue($beerListFilter);
   const sortBy = useRecoilValue($beerListSortBy);
 
@@ -35,7 +30,7 @@ const BeerSearchResultList = () => {
     }),
   );
 
-  const beers = data?.data.contents;
+  const beers = data?.contents;
 
   if (!beers) {
     return null;
@@ -54,7 +49,7 @@ const BeerSearchResultList = () => {
     );
   }
 
-  return <BeerList type={listViewType} beers={beers} />;
+  return <BeerList beers={beers} />;
 };
 
 export default BeerSearchResultList;

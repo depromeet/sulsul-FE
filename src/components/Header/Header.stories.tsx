@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import {
   BackButton,
   CloseButton,
-  ListViewToggleButton,
+  BeerListViewToggleButton,
   OKTextButton,
   WriteButton,
   SaveButton,
@@ -52,7 +52,7 @@ export const 닫기_확인_헤더: ComponentStoryObj<typeof Header> = {
 export const 맥주_리스트_페이지: ComponentStoryObj<typeof Header> = {
   args: {
     leftExtras: <BackButton />,
-    rightExtras: <ListViewToggleButton />,
+    rightExtras: <BeerListViewToggleButton />,
     children: '검색창 컴포넌트',
   },
 };

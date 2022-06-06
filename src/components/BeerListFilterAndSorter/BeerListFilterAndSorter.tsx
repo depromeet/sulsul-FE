@@ -1,19 +1,27 @@
 import styled from '@emotion/styled';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
 
 import Icon from '../commons/Icon';
 import { HEADER_HEIGHT } from '../Header/Header';
-import BeerListFilterChipList, { BeerListFilterChipType } from '../filter/BeerListFilterChipList';
-import BeerListFilterBottomSheet from '../filter/BeerListFilterBottomSheet';
+import BeerListFilterChipList, {
+  BeerListFilterChipType,
+} from '../beers-filter/BeerListFilterChipList';
+import BeerListFilterBottomSheet from '../beers-filter/BeerListFilterBottomSheet';
 import BeerListSortBottomSheet from '../BeerListSortBottomSheet';
 
 import {
   $beerListFilter,
-  $beerListFilterChips,
   $beerListSortBy,
+  BeerListSortType,
   beerListSortTypeTextAlias,
+  BEER_LIST_FILTER_ATOM_KEY,
+  BEER_LIST_SORT_BY_ATOM_KEY,
 } from '@/containers/BeerListContainer/recoil/atoms';
 import { useModal } from '@/hooks';
+import { IBeerListFilter, IBeerType, ICountry } from '@/apis';
+import { useGetBeerTypes, useGetCountries } from '@/queries';
+import QueryParams from '@/utils/query-params';
 
 const StyledWrapper = styled.div`
   position: sticky;
@@ -54,7 +62,7 @@ interface FilterButtonProps {
 const FilterButton = ({ hasAppliedFilter, onClick }: FilterButtonProps) => {
   return (
     <button type="button" onClick={onClick}>
-      <Icon name={hasAppliedFilter ? 'FilterApplied' : 'Filter'} size={30} />
+      <Icon name={hasAppliedFilter ? 'FilterApplied' : 'Filter'} />
     </button>
   );
 };
@@ -64,11 +72,16 @@ interface SortByButtonProps {
 }
 
 const SortButton = ({ onClick }: SortByButtonProps) => {
-  const sortBy = useRecoilValue($beerListSortBy);
+  const [sortBy, setSortBy] = useRecoilState($beerListSortBy);
+
+  useEffect(() => {
+    const paramValue = QueryParams.get(BEER_LIST_SORT_BY_ATOM_KEY);
+    paramValue && setSortBy(paramValue);
+  }, [setSortBy]);
 
   return (
     <StyledSortButton type="button" onClick={onClick}>
-      <p className="sort-text">{beerListSortTypeTextAlias[sortBy]}</p>
+      <p className="sort-text">{beerListSortTypeTextAlias[sortBy as BeerListSortType]}</p>
       <Icon name="ArrowDown" />
     </StyledSortButton>
   );
@@ -76,19 +89,42 @@ const SortButton = ({ onClick }: SortByButtonProps) => {
 
 const BeerListFilterAndSorter = () => {
   const [filter, setFilter] = useRecoilState($beerListFilter);
-  const [filterChips, setFilterChips] = useRecoilState($beerListFilterChips);
+  const [filterChips, setFilterChips] = useState<BeerListFilterChipType[]>([]);
+
+  const { beerTypes = [] } = useGetBeerTypes();
+  const { countries = [] } = useGetCountries();
 
   const filterBottomSheet = useModal(false);
   const sortBottomSheet = useModal(false);
 
+  useEffect(() => {
+    const paramValue = QueryParams.get(BEER_LIST_FILTER_ATOM_KEY);
+    paramValue && setFilter(paramValue);
+  }, [setFilter]);
+
+  useEffect(() => {
+    setFilterChips(initFilterChips({ filter, beerTypes, countries }));
+  }, [beerTypes, countries, filter]);
+
   const handleFilterChipRemove = (chip: BeerListFilterChipType) => {
-    setFilter({
+    const nextFilter = {
       ...filter,
       ...(chip.type === 'country'
         ? { countryIds: filter.countryIds?.filter((id) => id !== chip.id) }
         : { beerTypes: filter.beerTypes?.filter((id) => id !== chip.id) }),
-    });
-    setFilterChips(filterChips.filter((v) => !(v.id === chip.id && v.type === chip.type)));
+    };
+    const nextFilterChips = filterChips.filter((v) => !(v.id === chip.id && v.type === chip.type));
+
+    setFilter(nextFilter);
+    setFilterChips(nextFilterChips);
+  };
+
+  const handleApplyFilter = (
+    nextFilter: IBeerListFilter,
+    nextFilterChips: BeerListFilterChipType[],
+  ) => {
+    setFilter(nextFilter);
+    setFilterChips(nextFilterChips);
   };
 
   return (
@@ -106,7 +142,10 @@ const BeerListFilterAndSorter = () => {
       </StyledWrapper>
       <BeerListFilterBottomSheet
         open={filterBottomSheet.isOpen}
+        defaultFilter={filter}
+        defaultFilerChips={filterChips}
         onClose={filterBottomSheet.close}
+        onApply={handleApplyFilter}
       />
       <BeerListSortBottomSheet open={sortBottomSheet.isOpen} onClose={sortBottomSheet.close} />
     </>
@@ -114,3 +153,39 @@ const BeerListFilterAndSorter = () => {
 };
 
 export default BeerListFilterAndSorter;
+
+const getBeerTypeNameKor = (beerTypes: IBeerType[], nameEng: IBeerType['nameEng']) => {
+  return beerTypes.find((beerType) => beerType.nameEng === nameEng)?.nameKor || '';
+};
+
+const getCountryNameKor = (countries: ICountry[], countryId: ICountry['id']) => {
+  return countries.find((country) => country.id === countryId)?.nameKor || '';
+};
+
+const initFilterChips = ({
+  filter,
+  beerTypes,
+  countries,
+}: {
+  filter: IBeerListFilter;
+  beerTypes: IBeerType[];
+  countries: ICountry[];
+}): BeerListFilterChipType[] => {
+  if (!filter || !beerTypes || !countries) return [];
+
+  const beerTypesFilterChips: BeerListFilterChipType[] =
+    filter.beerTypes?.map((nameEng) => ({
+      id: nameEng,
+      text: getBeerTypeNameKor(beerTypes, nameEng),
+      type: 'beerType',
+    })) || [];
+
+  const beerCountryFilterChips: BeerListFilterChipType[] =
+    filter.countryIds?.map((countryId) => ({
+      id: countryId,
+      text: getCountryNameKor(countries, countryId),
+      type: 'country',
+    })) || [];
+
+  return [...beerTypesFilterChips, ...beerCountryFilterChips];
+};

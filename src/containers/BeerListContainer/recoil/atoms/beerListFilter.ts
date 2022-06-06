@@ -1,15 +1,12 @@
 import { atom } from 'recoil';
 
 import { IBeerListFilter } from '@/apis';
-import { BeerListFilterChipType } from '@/components/filter/BeerListFilterChipList';
+import { urlSyncRecoilEffect } from '@/recoil/effects';
 
-/** @TODO url 파라미터 값으로 필터 초기값 설정 */
+export const BEER_LIST_FILTER_ATOM_KEY = 'beer-list-filter';
+
 export const $beerListFilter = atom<IBeerListFilter>({
-  key: 'beer-list-filter',
+  key: BEER_LIST_FILTER_ATOM_KEY,
   default: {},
-});
-
-export const $beerListFilterChips = atom<BeerListFilterChipType[]>({
-  key: 'beer-list-filter-chips',
-  default: [],
+  effects: [urlSyncRecoilEffect(BEER_LIST_FILTER_ATOM_KEY)],
 });

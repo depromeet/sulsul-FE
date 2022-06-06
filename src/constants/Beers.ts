@@ -60,8 +60,8 @@ export const Beers: IBeer[] = [
     volume: 50,
     feel: null,
     isLiked: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   },
   {
     id: 3,

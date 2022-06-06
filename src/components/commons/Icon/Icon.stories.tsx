@@ -3,10 +3,11 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Icon from './Icon';
 
 export default {
-  title: 'Commons/Icon',
+  title: 'Commons/Icon-new',
   argTypes: {
-    color: { control: 'color', name: 'color' },
-    size: { control: 'text', name: 'size(px)' },
+    name: { control: 'text' },
+    colorTheme: { control: 'text' },
+    size: { control: 'number', name: 'size(px)' },
     width: { control: 'text', name: 'width(px)' },
     height: { control: 'text', name: 'height(px)' },
   },
@@ -17,6 +18,7 @@ const Template: ComponentStory<typeof Icon> = ({ ...args }) => <Icon {...args} /
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'Like',
-  color: 'white',
+  name: 'Plus',
+  color: 'blue',
+  size: 30,
 };

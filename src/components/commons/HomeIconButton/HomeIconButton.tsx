@@ -5,7 +5,7 @@ import Icon from '@/components/commons/Icon';
 const HomeIconButton = () => {
   return (
     <StyledHomeIconButton>
-      <Icon name="Home" size={30} color="#3E3BE6" />
+      <Icon name="Home" size={30} color="blue" />
     </StyledHomeIconButton>
   );
 };

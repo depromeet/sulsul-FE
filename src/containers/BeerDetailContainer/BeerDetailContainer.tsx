@@ -12,6 +12,7 @@ import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { Reviews } from '@/constants/Reviews';
 import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
+import { share } from '@/utils/share';
 
 interface Props {
   beerDetail: BeerDetailProps;
@@ -58,7 +59,15 @@ const BeerDetailContainer = (props: Props) => {
         leftExtras={<StyledBackButton isScrolled={isScrolled} />}
         rightExtras={
           <>
-            <ShareButton />
+            <ShareButton
+              onClick={() =>
+                share({
+                  title: `BEER:AiR`,
+                  text: `맥주 상세정보 페이지입니다.`,
+                  url: window.location.href,
+                })
+              }
+            />
             <LikeToggleButton
               defaultIsLiking={true}
               onLike={async () => alert('좋아요')}

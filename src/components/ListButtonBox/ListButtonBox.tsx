@@ -15,7 +15,7 @@ const ListButtonBox = (props: ListButtonBoxProps) => {
   return (
     <StyledListButtonBox onClick={onClick}>
       <SmallBox>
-        <Icon name={iconName} size={iconName === 'Heart' ? 30 : 20} color={'white'} />
+        <Icon name={iconName} size={iconName === 'Heart' ? 30 : 20} color="white" />
       </SmallBox>
       <Text>
         <p>{text}</p>
