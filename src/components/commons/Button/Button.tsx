@@ -132,8 +132,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   ${({ buttonMaxWidth }) => (buttonMaxWidth ? ` max-width: ${buttonMaxWidth};` : '')}
 
   & > .common-button-icon-wrapper {
-    height: 20px;
-
     &.margin-right {
       margin-right: ${({ iconMargin }) => iconMargin}px;
     }

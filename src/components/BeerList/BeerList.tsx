@@ -1,20 +1,22 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 
 import { IBeer } from '@/apis';
 import BeerGridItem from '@/components/beerItem/BeerGridItem';
 import BeerListItem from '@/components/beerItem/BeerListItem';
-import { ListViewType } from '@/components/Header/extras/ListViewToggleButton';
+import { $beerListViewType } from '@/recoil/atoms';
 
 interface Props {
-  type: ListViewType;
   beers: IBeer[];
 }
 
-const BeerList = ({ type = 'grid', beers, ...rest }: Props) => {
+const BeerList = ({ beers, ...rest }: Props) => {
+  const beerListViewType = useRecoilValue($beerListViewType);
+
   return (
-    <StyledBeerList className={type} {...rest}>
+    <StyledBeerList className={beerListViewType} {...rest}>
       {beers?.map((beer) =>
-        type === 'list' ? (
+        beerListViewType === 'list' ? (
           <BeerListItem key={beer.id} beer={beer} />
         ) : (
           <BeerGridItem key={beer.id} beer={beer} />
@@ -35,7 +37,7 @@ const StyledBeerList = styled.div`
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
     gap: 26px 15px;
-    padding: 20px;
+    padding: 20px 20px 20vh;
   }
 
   &.list {
@@ -43,6 +45,6 @@ const StyledBeerList = styled.div`
     grid-template-columns: 1fr;
     grid-auto-rows: 1fr;
     gap: 16px;
-    padding: 20px 20px 20px 14px;
+    padding: 20px 20px 20vh 14px;
   }
 `;
