@@ -87,7 +87,11 @@ const SortButton = ({ onClick }: SortByButtonProps) => {
   );
 };
 
-const BeerListFilterAndSorter = () => {
+interface BeerListFilterAndSorterProps {
+  resultCount?: number;
+}
+
+const BeerListFilterAndSorter = ({ resultCount }: BeerListFilterAndSorterProps) => {
   const [filter, setFilter] = useRecoilState($beerListFilter);
   const [filterChips, setFilterChips] = useState<BeerListFilterChipType[]>([]);
 
@@ -135,7 +139,7 @@ const BeerListFilterAndSorter = () => {
         <div className="filter-and-sorter">
           <FilterButton hasAppliedFilter={!!filterChips.length} onClick={filterBottomSheet.open} />
           {/** @todo 맥주 개수 api 연동 (resultCount, totalCount) */}
-          <p className="result">검색 결과 12/394</p>
+          <p className="result">검색 결과 {resultCount ?? '-'}/394</p>
           <SortButton onClick={sortBottomSheet.open} />
         </div>
         {!!filterChips.length && (
