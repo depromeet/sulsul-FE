@@ -1,32 +1,20 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
-import BeerDetail, { BeerDetailProps } from '@/components/BeerDetail';
-import AirPort, { AirPortProps } from '@/components/AirPort';
-import TasteBoxAndBadge, { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
+import BeerDetail from '@/components/BeerDetail';
+import AirPort from '@/components/AirPort';
+import TasteBoxAndBadge from '@/components/TasteBoxAndBadge';
 import Button from '@/components/commons/Button';
 import Icon from '@/components/commons/Icon';
-import Review, { ReviewProps } from '@/components/Review';
+import Review from '@/components/Review';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
-import { Reviews } from '@/constants/Reviews';
-import { TasteBoxAndBadges } from '@/constants/TasteBoxAndBadge';
 import { share } from '@/utils/share';
+import { useGetBeer, useGetRecordsByBeer, useGetTop3BeerFlavor } from '@/queries';
 
-interface Props {
-  beerDetail: BeerDetailProps;
-  backgroundImageUrl: string;
-  airPort: AirPortProps;
-  beerContent: string;
-  tasteBoxAndBadge: TasteBoxAndBadgeProps[];
-  review: ReviewProps[];
-}
-
-const BeerDetailContainer = (props: Props) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isTransparent, setIsTransparent] = useState(true);
-
+const BeerDetailContainer = () => {
   useEffect(() => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
@@ -46,15 +34,29 @@ const BeerDetailContainer = (props: Props) => {
     };
   }, []);
 
-  const {
-    beerDetail: { beer },
-    backgroundImageUrl,
-    airPort: { departureKor, departureEng, destinationKor, destinationEng },
-    beerContent,
-    ...rests
-  } = props;
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isTransparent, setIsTransparent] = useState(true);
+
+  const router = useRouter();
+  const beerId = Number(router.query.id);
+  const { beer } = useGetBeer(beerId);
+  const { beerFlavor } = useGetTop3BeerFlavor(beerId);
+
+  const payload = {
+    beerId: beerId,
+    recordId: 0,
+  };
+
+  const { recordsByBeer = [] } = useGetRecordsByBeer(payload);
+
+  if (!beer || !beerFlavor) {
+    return null;
+  }
+
+  const { country, nameKor, startCountry, endCountry, content } = beer;
+
   return (
-    <StyledBeerDetailPage {...rests}>
+    <StyledBeerDetailPage>
       <Header
         leftExtras={<StyledBackButton isScrolled={isScrolled} />}
         rightExtras={
@@ -77,44 +79,29 @@ const BeerDetailContainer = (props: Props) => {
         }
         isTransparent={isTransparent}
       >
-        {beer.nameKor}
+        {nameKor}
       </Header>
       <BackgroundImage isScrolled={isScrolled}>
         <div className="image-container">
-          <img src={backgroundImageUrl} alt="" />
+          <img src={country?.imageUrl} alt="" />
           <div className="gradient" />
         </div>
       </BackgroundImage>
       <div className="container">
-        <StyledBeerDetail beer={beer} />
-        <StyledAirPort
-          departureKor={departureKor}
-          departureEng={departureEng}
-          destinationKor={destinationKor}
-          destinationEng={destinationEng}
-        />
-        <BeerContent>{beerContent}</BeerContent>
+        <BeerDetail beerData={beer} />
+        <AirPort startCountry={startCountry} endCountry={endCountry} />
+        <BeerContent>{content}</BeerContent>
         <TasteBoxAndBadgeContainer>
-          {TasteBoxAndBadges.map((box, index) => (
-            <TasteBoxAndBadge key={index} text={box.text} likeCount={box.likeCount} />
+          {beerFlavor?.map(({ content, count }) => (
+            <TasteBoxAndBadge key={content} content={content} count={count} />
           ))}
         </TasteBoxAndBadgeContainer>
       </div>
       <HorizontalDivider />
       <div className="container" style={{ backgroundColor: 'black' }}>
         <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
-        {Reviews.map((review, index) => (
-          <Review
-            key={index}
-            feel={review.feel}
-            me={review.me}
-            userName={review.userName}
-            reviewCount={2}
-            content={review.content}
-            date={review.date}
-            tags={review.tags}
-            border={review.border}
-          />
+        {recordsByBeer?.map((review) => (
+          <Review review={review} key={review.id} />
         ))}
         <div style={{ height: '90px' }} />
       </div>
@@ -175,13 +162,6 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
     }
   }
 `;
-
-const StyledBeerDetail = styled(BeerDetail)`
-  width: 100%;
-  margin-top: 134px;
-`;
-
-const StyledAirPort = styled(AirPort)``;
 
 const BeerContent = styled.p`
   ${({ theme }) => theme.fonts.Body5};

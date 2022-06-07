@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
@@ -7,7 +8,7 @@ import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
 
-type BeerGridItemProps = Pick<IBeer, 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
+type BeerGridItemProps = Pick<IBeer, 'id' | 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
 interface Props {
   beer: BeerGridItemProps;
@@ -15,12 +16,18 @@ interface Props {
 
 const BeerGridItem = (props: Props) => {
   const {
-    beer: { nameKor, imageUrl, feel, isLiked },
+    beer: { id, nameKor, imageUrl, feel, isLiked },
   } = props;
   const [isBookMarked, setIsBookmarked] = useState(false);
 
+  const router = useRouter();
+
+  const goToBeerDetail = (beerId: number) => {
+    router.push(`/beers/${beerId}`);
+  };
+
   return (
-    <StyledBeerGridItem>
+    <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
       <BeerGridItemContainer feel={feel}>
         <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
           {isLiked || isBookMarked ? (
