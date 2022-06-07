@@ -16,4 +16,4 @@ tsconfig.tsbuildinfo
 
 # env
 .env
-.env*
+.env.*
