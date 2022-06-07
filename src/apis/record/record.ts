@@ -44,5 +44,5 @@ export interface IGetRecordsByBeer extends IBaseResponse<IRecordsByBeer[]> {}
 
 export const getRecordsByBeer = async (payload: IGetRecordsByBeerPayload) => {
   const res = await axios.post<IGetRecordsByBeer>('/api/v1/records/find', payload);
-  return res.data.contents;
+  return res.data;
 };
