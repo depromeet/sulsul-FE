@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof LikeBadge> = ({ ...args }) => <LikeBadge {
 
 export const Default = Template.bind({});
 Default.args = {
-  likeCount: 10,
+  count: 10,
 };

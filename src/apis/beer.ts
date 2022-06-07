@@ -27,6 +27,8 @@ export interface IBeer {
   type?: IBeerType;
   nameKor: string;
   nameEng: string;
+  startCountry: Pick<ICountry, 'nameKor' | 'nameEng'>;
+  endCountry: Pick<ICountry, 'nameKor' | 'nameEng'>;
   imageUrl: string;
   content: string;
   alcohol: number;
@@ -117,5 +119,20 @@ export interface IGetBeerTypesResponseData extends IBaseResponse<IBeerType[]> {}
  */
 export const getBeerTypes = async () => {
   const res = await axios.get<IGetBeerTypesResponseData>('/api/v1/beers/types');
+  return res.data;
+};
+
+export interface IGetTop3BeerFlavor {
+  content: string;
+  count: number;
+}
+
+export interface IGetTop3BeerFlavorResponseData extends IBaseResponse<IGetTop3BeerFlavor[]> {}
+
+/**
+ * 맥주 맛 TOP3 조회
+ */
+export const getTop3BeerFlavor = async (beerId: number) => {
+  const res = await axios.get<IGetTop3BeerFlavorResponseData>(`/api/v1/flavors/${beerId}`);
   return res.data;
 };

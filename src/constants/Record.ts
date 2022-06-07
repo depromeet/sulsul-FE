@@ -34,6 +34,14 @@ export const Record: IRecord = {
       description: 'test',
       imageUrl: 'test',
     },
+    startCountry: {
+      nameKor: '한국',
+      nameEng: 'korea',
+    },
+    endCountry: {
+      nameKor: '미국',
+      nameEng: 'usa',
+    },
     country: { id: 1, nameKor: '테스트', nameEng: 'test', imageUrl: 'test' },
     nameKor: '평양',
     nameEng: 'peng',

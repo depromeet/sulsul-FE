@@ -30,5 +30,4 @@ const StyledBeerImageMasking = styled.div<Pick<BeerImageMaskingProps, 'width'>>`
   mask-image: url('https://ifh.cc/g/lCaosK.png');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  background-color: tomato; // NOTE: 영역 확인을 위해 임시로 추가
 `;
