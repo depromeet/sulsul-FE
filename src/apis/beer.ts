@@ -70,13 +70,17 @@ export interface IGetBeersPayload {
 export interface IGetBeersResponseData extends IBaseResponse<IBeer[]> {
   hasNext: boolean;
   nextCursor: number;
+  resultCount: number;
 }
 
 /**
  * 맥주 목록 조회
  */
-export const getBeers = async (payload: IGetBeersPayload) => {
-  const res = await axios.post<IGetBeersResponseData>('/api/v2/beers', payload);
+export const getBeers = async (payload: IGetBeersPayload, auth: boolean) => {
+  const res = await axios.post<IGetBeersResponseData>(
+    auth ? '/api/v3/beers' : '/guest/api/v1/beers',
+    payload,
+  );
   return res.data;
 };
 
