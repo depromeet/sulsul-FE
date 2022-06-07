@@ -8,7 +8,7 @@ import BeerListPageHeader from '@/components/BeerListPageHeader';
 import BeerListFilterAndSorter from '@/components/BeerListFilterAndSorter';
 import BeerListSearchResult from '@/components/BeerSearchResultList';
 import BottomNavigation from '@/components/BottomNavigation';
-import { useGetBeers } from '@/queries';
+import { useGetBeersCount, useGetBeers } from '@/queries';
 
 const BeerListContainer = () => {
   const router = useRouter();
@@ -17,7 +17,8 @@ const BeerListContainer = () => {
   const filter = useRecoilValue($beerListFilter);
   const sortBy = useRecoilValue($beerListSortBy);
 
-  const { data, isLoading } = useGetBeers({
+  const { data: beersCountData } = useGetBeersCount();
+  const { data: beersData, isLoading } = useGetBeers({
     query,
     filter,
     sortBy: [sortBy],
@@ -26,8 +27,11 @@ const BeerListContainer = () => {
   return (
     <>
       <BeerListPageHeader />
-      <BeerListFilterAndSorter resultCount={data?.resultCount} />
-      <BeerListSearchResult query={query} isLoading={isLoading} beers={data?.contents} />
+      <BeerListFilterAndSorter
+        resultCount={beersData?.resultCount}
+        totalCount={beersCountData?.contents?.totalCount}
+      />
+      <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData?.contents} />
       <BottomNavigation />
     </>
   );

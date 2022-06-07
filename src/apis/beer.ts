@@ -84,6 +84,18 @@ export const getBeers = async (payload: IGetBeersPayload, auth: boolean) => {
   return res.data;
 };
 
+export interface IGetBeersCountResponseData extends IBaseResponse<{ totalCount: number }> {}
+
+/**
+ * 맥주 개수 조회
+ */
+export const getBeersCount = async (auth: boolean) => {
+  const res = await axios.post<IGetBeersCountResponseData>(
+    auth ? '/api/v2/beers/count' : '/guest/api/v1/beers/count',
+  );
+  return res.data;
+};
+
 export interface IGetBeersRecommendResponseData extends IBaseResponse<{ beers: IBeer[] }> {}
 
 /**
