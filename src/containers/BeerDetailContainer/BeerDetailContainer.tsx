@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
 import BeerDetail from '@/components/BeerDetail';
@@ -13,8 +12,7 @@ import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { share } from '@/utils/share';
-import { getBeer, getTop3BeerFlavor } from '@/apis';
-import { useGetRecordsByBeer } from '@/queries';
+import { useGetBeer, useGetRecordsByBeer, useGetTop3BeerFlavor } from '@/queries';
 
 const BeerDetailContainer = () => {
   useEffect(() => {
@@ -41,10 +39,8 @@ const BeerDetailContainer = () => {
 
   const router = useRouter();
   const beerId = Number(router.query.id);
-  const { data: beerData } = useQuery(['beer', beerId], () => getBeer(beerId));
-  const { data: beerFlavorData } = useQuery(['beerFlavor', beerId], () =>
-    getTop3BeerFlavor(beerId),
-  );
+  const { beer } = useGetBeer(beerId);
+  const { beerFlavor } = useGetTop3BeerFlavor(beerId);
 
   const payload = {
     beerId: beerId,
@@ -53,11 +49,11 @@ const BeerDetailContainer = () => {
 
   const { recordsByBeer = [] } = useGetRecordsByBeer(payload);
 
-  if (!beerData || !beerFlavorData) {
+  if (!beer || !beerFlavor) {
     return null;
   }
 
-  const { country, nameKor, startCountry, endCountry, content } = beerData;
+  const { country, nameKor, startCountry, endCountry, content } = beer;
 
   return (
     <StyledBeerDetailPage>
@@ -92,11 +88,11 @@ const BeerDetailContainer = () => {
         </div>
       </BackgroundImage>
       <div className="container">
-        <BeerDetail beerData={beerData} />
+        <BeerDetail beerData={beer} />
         <AirPort startCountry={startCountry} endCountry={endCountry} />
         <BeerContent>{content}</BeerContent>
         <TasteBoxAndBadgeContainer>
-          {beerFlavorData?.map(({ content, count }) => (
+          {beerFlavor?.map(({ content, count }) => (
             <TasteBoxAndBadge key={content} content={content} count={count} />
           ))}
         </TasteBoxAndBadgeContainer>
