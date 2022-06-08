@@ -3,9 +3,16 @@ import { useQuery } from 'react-query';
 import { getCountries, IContinent } from '@/apis';
 
 export const useGetCountries = (continentId?: IContinent['id']) => {
-  const result = useQuery(['countries', continentId], async () => await getCountries(continentId), {
-    cacheTime: Infinity,
-  });
+  /** @todo recoil value 사용 */
+  const user = undefined;
+
+  const result = useQuery(
+    ['countries', continentId],
+    async () => await getCountries(continentId, !!user),
+    {
+      cacheTime: Infinity,
+    },
+  );
 
   return {
     ...result,

@@ -133,8 +133,10 @@ export interface IGetBeerTypesResponseData extends IBaseResponse<IBeerType[]> {}
 /**
  * 맥주 종류 목록 조회
  */
-export const getBeerTypes = async () => {
-  const res = await axios.get<IGetBeerTypesResponseData>('/api/v1/beers/types');
+export const getBeerTypes = async (auth: boolean) => {
+  const res = await axios.get<IGetBeerTypesResponseData>(
+    auth ? '/api/v1/beers/types' : '/guest/api/v1/beers/types',
+  );
   return res.data;
 };
 

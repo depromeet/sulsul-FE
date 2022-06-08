@@ -1,12 +1,11 @@
 import { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
 import styled from '@emotion/styled';
 
 import BeerCountryFilterList from '../../BeerCountryFilterList';
 
 import Tab from '@/components/Tab';
 import Swiper from '@/components/Swiper';
-import { getContinents } from '@/apis';
+import { useGetContinents } from '@/queries';
 
 const StyledSwiper = styled(Swiper)`
   flex: 1;
@@ -27,7 +26,7 @@ const StyledSwiper = styled(Swiper)`
 const BeerCountryFilterTab = () => {
   const [activatedIndex, setActivatedIndex] = useState(0);
 
-  const { data } = useQuery('continents', getContinents, { cacheTime: Infinity });
+  const { data } = useGetContinents();
 
   const continents = useMemo(
     () => [{ id: undefined, name: '전체' }, ...(data?.contents || [])],

@@ -4,6 +4,7 @@ export * from './useGetBeersCount';
 export * from './useGetBeersLiked';
 export * from './useGetBeersRecommend';
 export * from './useGetBeerTypes';
+export * from './useGetContinents';
 export * from './useGetCountries';
 export * from './useGetRecordsByBeer';
 export * from './useGetTop3BeerFlavor';
