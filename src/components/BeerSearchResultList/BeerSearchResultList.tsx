@@ -1,38 +1,16 @@
-import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
-import { useRouter } from 'next/router';
-import { isNil } from 'lodash';
-
 import BeerList from '../BeerList';
 import BeerSearchResultEmpty from '../BeerSearchResultEmpty';
 
-import { $beerListFilter, $beerListSortBy } from '@/containers/BeerListContainer/recoil/atoms';
-import { getBeers } from '@/apis';
+import { IBeer } from '@/apis';
 
-const BeerSearchResultList = () => {
-  const router = useRouter();
-  const query = isNil(router.query.query) ? undefined : decodeURI(String(router.query.query));
+interface BeerSearchResultListProps {
+  query?: string;
+  isLoading: boolean;
+  beers?: IBeer[];
+}
 
-  const filter = useRecoilValue($beerListFilter);
-  const sortBy = useRecoilValue($beerListSortBy);
-
-  const payload = {
-    query,
-    filter,
-    sortBy: [sortBy],
-  };
-
-  const { data } = useQuery(['beers', payload], () =>
-    getBeers({
-      ...payload,
-      cursor: 0,
-      limit: 20,
-    }),
-  );
-
-  const beers = data?.contents;
-
-  if (!beers) {
+const BeerSearchResultList = ({ query, isLoading, beers }: BeerSearchResultListProps) => {
+  if (isLoading || !beers) {
     return null;
   }
 
