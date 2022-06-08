@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+
+import axios from '@/configs/axios';
 
 const BACKGROUND_COLOR = '#FEE500';
 const TEXT_COLOR = '#191919';
@@ -26,8 +29,14 @@ const StyledButton = styled.button`
 `;
 
 const KakaoLoginButton = () => {
+  const router = useRouter();
   return (
-    <StyledButton onClick={() => null}>
+    <StyledButton
+      onClick={async () => {
+        const res = await axios.get('/oauth2/authorization/kakao');
+        console.log(JSON.stringify(res));
+      }}
+    >
       <img src="/images/kakao.png" alt="" />
       <p>카카오로 시작하기</p>
     </StyledButton>
