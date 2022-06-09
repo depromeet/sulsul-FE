@@ -15,6 +15,7 @@ import { IRecord } from '@/apis/record';
 interface BeerTicketProps {
   record: IRecord;
   type?: 'default' | 'stamp';
+  id?: string;
   className?: string;
 }
 
@@ -22,7 +23,7 @@ const StyledBeerTicket = styled.article`
   width: 300px;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 16px;
-  overflow: hidden;
+  overflow: auto;
 
   & .beer-ticket-header {
     display: flex;
@@ -98,9 +99,9 @@ const StyledBeerTicket = styled.article`
   }
 `;
 
-const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', className }) => {
+const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', id, className }) => {
   return (
-    <StyledBeerTicket className={className}>
+    <StyledBeerTicket className={className} id={id}>
       <header className="beer-ticket-header">
         <Icon name="Logo" semanticColor="primary" size={60} />
         <span className="barlow-small">{`BR118001`}</span>

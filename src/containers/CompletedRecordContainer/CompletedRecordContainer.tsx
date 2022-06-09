@@ -1,5 +1,8 @@
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
+import { useRef } from 'react';
+
+import CreateImage, { CreateImageRef } from './CreateImage';
 
 import Header from '@/components/Header';
 import { BackButton, WriteButton, SaveButton } from '@/components/Header/extras';
@@ -36,6 +39,8 @@ const StyledCompletedRecordContainer = styled.div`
 `;
 
 const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ record }) => {
+  const createImageRef = useRef<CreateImageRef>(null);
+
   return (
     <StyledCompletedRecordContainer>
       <Header
@@ -43,13 +48,20 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
         rightExtras={
           <>
             <WriteButton />
-            <SaveButton />
+            <SaveButton
+              onClick={async () => {
+                if (createImageRef.current) {
+                  await createImageRef.current.create();
+                }
+              }}
+            />
           </>
         }
       />
       <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
       <p className="complete-record-sub-title">{'친구들에게 이미지로 공유해보세요!'}</p>
       <BeerTicket record={record} className="completed-record-ticket" />
+      <CreateImage record={record} ref={createImageRef} />
       <BottomFloatingButtonArea
         withHomeButton
         button={
