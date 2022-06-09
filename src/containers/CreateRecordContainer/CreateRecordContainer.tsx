@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
 import { IBeer } from '@/apis';
 import SwiperLayout from '@/components/layouts/SwiperLayout';
+import { useGtagPageView } from '@/hooks';
 
 interface CreateRecordContainerProps {
   beer: IBeer;
@@ -39,6 +40,8 @@ const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer }) =
 };
 
 const CreateRecordRecoilWrapper: NextPage<CreateRecordContainerProps> = (props) => {
+  useGtagPageView('기록하기');
+
   return (
     <RecoilRoot>
       <CreateRecordContainer {...props} />

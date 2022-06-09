@@ -1,15 +1,11 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
+
+import { useGtagPageView } from '@/hooks';
 
 const Home: NextPage = () => {
-  return (
-    <div>
-      <Head>
-        <title>sulsul</title>
-      </Head>
-      sulsul
-    </div>
-  );
+  useGtagPageView('홈');
+
+  return <div>sulsul</div>;
 };
 
 export default Home;

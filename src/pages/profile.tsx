@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 
 import ProfileContainer from '@/containers/ProfileContainer';
+import { useGtagPageView } from '@/hooks';
 
 const dummy = [
   {
@@ -14,6 +15,8 @@ const dummy = [
   },
 ];
 const ProfilePage: NextPage = () => {
+  useGtagPageView('프로필');
+
   const {
     nickname,
     email,
@@ -23,7 +26,7 @@ const ProfilePage: NextPage = () => {
     likedBeerCount,
     requestBeerCount,
   } = dummy[0];
-  
+
   return (
     <ProfileContainer
       nickname={nickname}
