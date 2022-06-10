@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
+import GTagScript from '@/components/GTagScript';
+
 class MyDocument extends Document {
   render() {
     return (
@@ -17,6 +19,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <GTagScript />
         </body>
       </Html>
     );
