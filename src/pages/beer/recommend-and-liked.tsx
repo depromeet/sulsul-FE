@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import BeerRecommendAndLikedContainer from '@/containers/BeerRecommendAndLikedContainer';
 import { useGtagPageView } from '@/hooks';
 import QueryParams from '@/utils/query-params';
+import { PAGE_TITLES } from '@/constants';
 
 /**
  * tab="recommend" : 추천 맥주 목록
@@ -13,7 +14,7 @@ import QueryParams from '@/utils/query-params';
 const BeerRecommendAndLikedPage = () => {
   const [activatedIndex, setActivatedIndex] = useActivatedIndex();
 
-  useGtagPageView(activatedIndex === 1 ? '반한 맥주 목록' : '추천 맥주 목록');
+  useGtagPageView(activatedIndex === 1 ? PAGE_TITLES.LIKED : PAGE_TITLES.BEER_RECOMMEND);
 
   return (
     <BeerRecommendAndLikedContainer

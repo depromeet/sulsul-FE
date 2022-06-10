@@ -1,8 +1,9 @@
+import { PAGE_TITLES } from '@/constants';
 import BeerRequestCompleteContainer from '@/containers/BeerRequestCompleteContainer';
 import { useGtagPageView } from '@/hooks';
 
 const BeerRequestCompletePage = () => {
-  useGtagPageView('맥주요청 완료');
+  useGtagPageView(PAGE_TITLES.BEER_REQUEST_COMPLETE);
 
   return <BeerRequestCompleteContainer />;
 };

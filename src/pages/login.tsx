@@ -2,9 +2,10 @@ import { useRouter } from 'next/router';
 
 import LoginContainer from '@/containers/LoginContainer';
 import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
 const LoginPage = () => {
-  useGtagPageView('로그인');
+  useGtagPageView(PAGE_TITLES.LOGIN);
 
   const router = useRouter();
   const {
