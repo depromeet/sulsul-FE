@@ -108,7 +108,6 @@ const Tab = ({
   type = 'primary',
   isGhost = false,
   size = 'small',
-  className,
   onChange = () => null,
 }: TabProps) => {
   const [activatedIndex, setActivatedIndex] = useState(outerActivatedIndex);
