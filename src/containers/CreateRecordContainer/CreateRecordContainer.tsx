@@ -13,6 +13,8 @@ import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
 import { IBeer, getBeer } from '@/apis';
 import SwiperLayout from '@/components/layouts/SwiperLayout';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
 interface CreateRecordContainerProps {
   beer: IBeer;
@@ -48,6 +50,8 @@ const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer: _be
 };
 
 const CreateRecordRecoilWrapper: NextPage<CreateRecordContainerProps> = (props) => {
+  useGtagPageView(PAGE_TITLES.CREATE_RECORD);
+
   return (
     <RecoilRoot>
       <CreateRecordContainer {...props} />
