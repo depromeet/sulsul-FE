@@ -1,5 +1,4 @@
 import { IBeer } from '../beer';
-import { IMemberRecord } from '../user';
 import { IBaseResponse } from '..';
 
 import axios from '@/configs/axios';
@@ -15,8 +14,8 @@ export interface IRecord {
   feel: 1 | 2 | 3 | 4 | 5;
   imageUrl: string;
   memberRecordDto: any;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   startCountryKor: string;
   startCountryEng: string;
   endCountryKor: string;
