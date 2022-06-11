@@ -104,7 +104,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', class
     <StyledBeerTicket className={className}>
       <header className="beer-ticket-header">
         <Icon name="Logo" semanticColor="primary" size={60} />
-        <span className="barlow-small">{`BR118001`}</span>
+        <span className="barlow-small">{`BR118${record.id.toString().padStart(3, '0')}`}</span>
       </header>
       <BeerTicketTitle beer={record.beerResponseDto} background={record.imageUrl} />
       <section className="beer-ticket-middle">
