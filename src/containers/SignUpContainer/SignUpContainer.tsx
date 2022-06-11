@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 
-import LoginLayout from '@/components/layouts/LoginLayout';
+import OnBoardingLayout from '@/components/layouts/OnBoardingLayout';
 import Button from '@/components/commons/Button';
 
 const StyledWrapper = styled.div`
@@ -50,7 +50,7 @@ const SignUpContainer = () => {
   ];
 
   return (
-    <LoginLayout title={`사용하실 닉네임을\n입력해 주세요.`} cloudColor="whiteOpacity35">
+    <OnBoardingLayout title={`사용하실 닉네임을\n입력해 주세요.`} cloudColor="whiteOpacity35">
       <StyledWrapper>
         <label htmlFor="nickname">닉네임</label>
         <StyledInput
@@ -66,7 +66,7 @@ const SignUpContainer = () => {
           완료
         </Button>
       </StyledWrapper>
-    </LoginLayout>
+    </OnBoardingLayout>
   );
 };
 

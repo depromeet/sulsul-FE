@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
 import Button from '@/components/commons/Button';
-import LoginLayout from '@/components/layouts/LoginLayout';
+import OnBoardingLayout from '@/components/layouts/OnBoardingLayout';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -39,7 +39,7 @@ const OnBoardingContainer = () => {
   };
 
   return (
-    <LoginLayout>
+    <OnBoardingLayout>
       <StyledWrapper>
         <img src="images/onboarding-hero.png" alt="" />
         <p>세계 맥주, 어디까지 마셔봤나요?{'\n'}Beer Air와 함께 세계 맥주를 정복해보세요!</p>
@@ -48,7 +48,7 @@ const OnBoardingContainer = () => {
           시작하기
         </Button>
       </StyledWrapper>
-    </LoginLayout>
+    </OnBoardingLayout>
   );
 };
 

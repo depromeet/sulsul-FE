@@ -6,13 +6,13 @@ import { Cloud } from '@/assets/icon';
 import Icon from '@/components/commons/Icon';
 import { ColorTheme } from '@/themes/types';
 
-interface LoginLayoutProps {
+interface OnBoardingLayoutProps {
   children: ReactNode;
   title?: string;
   cloudColor?: keyof ColorTheme['color'];
 }
 
-const StyledContainer = styled.div<{ cloudColor: LoginLayoutProps['cloudColor'] }>`
+const StyledContainer = styled.div<{ cloudColor: OnBoardingLayoutProps['cloudColor'] }>`
   position: relative;
 
   width: 100%;
@@ -66,7 +66,7 @@ const StyledWrapper = styled.div`
   z-index: 1;
 `;
 
-const LoginLayout = ({ title, children, cloudColor = 'white' }: LoginLayoutProps) => {
+const OnBoardingLayout = ({ title, children, cloudColor = 'white' }: OnBoardingLayoutProps) => {
   return (
     <StyledContainer cloudColor={cloudColor}>
       <Icon name="Logo" className="logo" size={80} />
@@ -77,4 +77,4 @@ const LoginLayout = ({ title, children, cloudColor = 'white' }: LoginLayoutProps
   );
 };
 
-export default LoginLayout;
+export default OnBoardingLayout;

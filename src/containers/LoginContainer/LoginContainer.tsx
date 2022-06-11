@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import LoginLayout from '@/components/layouts/LoginLayout';
+import OnBoardingLayout from '@/components/layouts/OnBoardingLayout';
 import { KakaoLoginButton, NaverLoginButton } from '@/components/socialLoginButtons';
 
 const StyledWrapper = styled.div`
@@ -23,7 +23,7 @@ const StyledWrapper = styled.div`
 
 const LoginContainer: React.FC = () => {
   return (
-    <LoginLayout
+    <OnBoardingLayout
       title={`계정을 등록하면\n맥주에 대한 평가를\n기록하고 공유할 수 있습니다!`}
       cloudColor="whiteOpacity35"
     >
@@ -32,7 +32,7 @@ const LoginContainer: React.FC = () => {
         <KakaoLoginButton />
         <NaverLoginButton />
       </StyledWrapper>
-    </LoginLayout>
+    </OnBoardingLayout>
   );
 };
 
