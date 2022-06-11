@@ -12,12 +12,7 @@ interface Props {
   onSubmit: () => void;
 }
 
-const ProfileModifyModal = ({
-  isModifyModalOpen,
-  openModifyModal,
-  closeModifyModal,
-  onSubmit,
-}: Props) => {
+const ProfileModifyModal = ({ isModifyModalOpen, closeModifyModal, onSubmit }: Props) => {
   const [nickname, setNickname] = useState('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

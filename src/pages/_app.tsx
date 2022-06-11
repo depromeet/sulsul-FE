@@ -1,7 +1,9 @@
 import { ThemeProvider } from '@emotion/react';
 import { RecoilRoot } from 'recoil';
-import type { AppProps } from 'next/app';
+import App from 'next/app';
+import type { AppProps, AppContext } from 'next/app';
 import { QueryClientProvider } from 'react-query';
+import axios from 'axios';
 import { NextSeo } from 'next-seo';
 
 import awesome from '@/utils/awesome';
@@ -32,5 +34,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const { ctx } = appContext;
+  const cookie = ctx.req ? ctx.req.headers.cookie : null;
+  if (cookie) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (axios.defaults.headers as any).Cookie = cookie;
+  }
+  const appProps = await App.getInitialProps(appContext);
+
+  return { ...appProps };
+};
 
 export default MyApp;

@@ -18,18 +18,8 @@ interface ModalProps {
 }
 
 const Modal = (props: ModalProps) => {
-  const {
-    openModal,
-    closeModal,
-    open,
-    setOpen,
-    buttons,
-    header,
-    title,
-    description,
-    withCloseButton,
-    noMoreSee,
-  } = props;
+  const { closeModal, open, buttons, header, title, description, withCloseButton, noMoreSee } =
+    props;
 
   return (
     <ModalLayout open={open} onClose={closeModal}>

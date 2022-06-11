@@ -11,7 +11,7 @@ export interface ReviewProps {
 
 const Review = (props: ReviewProps) => {
   const {
-    review: { content, feel, memberRecordDto, createdAt, updatedAt, flavorDtos },
+    review: { content, feel, memberRecordDto, createdAt, flavorDtos },
   } = props;
 
   return (

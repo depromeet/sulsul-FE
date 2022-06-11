@@ -39,7 +39,7 @@ const BeerDetailContainer = () => {
 
   const router = useRouter();
   const beerId = Number(router.query.id);
-  const { beer } = useGetBeer(beerId);
+  const { contents: beer } = useGetBeer(beerId);
   const { beerFlavor } = useGetTop3BeerFlavor(beerId);
 
   const payload = {
