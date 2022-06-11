@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import { IRecord } from '@/apis/record';
 import Icon from '@/components/commons/Icon';
@@ -76,10 +76,10 @@ const RecordListItem: React.FC<RecordListItemProps> = ({ record, className }) =>
         <p className="record-sub-title">{record.beerResponseDto.nameKor}</p>
         <div className="record-item-field-wrapper">
           <StyledBeerTicketField title="date" className="beer-ticket-date">
-            {format(record.createdAt, 'dd/LLL/yyyy')}
+            {format(parseISO(record.createdAt), 'dd/LLL/yyyy')}
           </StyledBeerTicketField>
           <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
-            {format(record.createdAt, 'p')}
+            {format(parseISO(record.createdAt), 'p')}
           </StyledBeerTicketField>
         </div>
         <div className="ticket-background-img" />

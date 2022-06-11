@@ -8,3 +8,4 @@ export * from './useGetContinents';
 export * from './useGetCountries';
 export * from './useGetRecordsByBeer';
 export * from './useGetTop3BeerFlavor';
+export * from './useGetRecord';

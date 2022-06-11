@@ -11,6 +11,7 @@ export interface ICreateRecordPayload {
   feel: number;
   imageUrl: string;
   isPublic: boolean;
+  flavorIds: number[];
 }
 
 export const createRecord = async (payload: ICreateRecordPayload) => {

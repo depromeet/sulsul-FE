@@ -80,7 +80,7 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
         <p className="body-2">{beerName}</p>
         <p className="body-5">{'최대 3개까지 선택이 가능해요!'}</p>
         <MultiSelectField
-          name="flavor"
+          name="flavorIds"
           height="calc(100vh - 295px)"
           maxLength={3}
           options={dummyOptions}

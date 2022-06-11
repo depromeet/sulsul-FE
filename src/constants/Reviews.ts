@@ -15,8 +15,8 @@ export const Reviews: IRecordsByBeer[] = [
       '날씨도 좋은데 놀러가지도 못하고..! 기분 내려고 한 잔 한다. 이순간 만큼은 제주다 이거야~',
     feel: 5,
     memberRecordDto: { id: 1, name: '호딩' },
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: '2022-06-11T02:55:12.151Z',
+    updatedAt: '2022-06-11T02:55:12.151Z',
     flavorDtos: [
       { id: 1, content: '목넘김이 부드러워요' },
       { id: 2, content: '목넘김이 안부드러워요' },
