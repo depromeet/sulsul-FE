@@ -1,5 +1,6 @@
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import Header from '@/components/Header';
 import { BackButton, WriteButton, SaveButton } from '@/components/Header/extras';
@@ -7,6 +8,8 @@ import { IRecord } from '@/apis/record';
 import BeerTicket from '@/components/BeerTicket';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
+import { getRecord } from '@/apis/record';
+import { useGetRecord } from '@/queries';
 
 interface CompletedRecordContainerProps {
   record: IRecord;
@@ -35,7 +38,11 @@ const StyledCompletedRecordContainer = styled.div`
   }
 `;
 
-const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ record }) => {
+const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ record: _record }) => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { contents: record } = useGetRecord(Number(id), _record);
+
   return (
     <StyledCompletedRecordContainer>
       <Header
@@ -49,7 +56,7 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
       />
       <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
       <p className="complete-record-sub-title">{'친구들에게 이미지로 공유해보세요!'}</p>
-      <BeerTicket record={record} className="completed-record-ticket" />
+      {record && <BeerTicket record={record} className="completed-record-ticket" />}
       <BottomFloatingButtonArea
         withHomeButton
         button={
@@ -63,11 +70,14 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: {
-      // TODO: 추후 api 연결
-    },
-  };
+  if (context.query.id && typeof context.query.id === 'string' && Number(context.query.id)) {
+    const { id } = context.query;
+    const contents = await getRecord(Number(id));
+
+    return { props: { beer: contents } };
+  }
+
+  return { props: {} };
 };
 
 export default CompletedRecordContainer;
