@@ -9,3 +9,5 @@ export * from './useGetCountries';
 export * from './useGetRecordsByBeer';
 export * from './useGetTop3BeerFlavor';
 export * from './useGetRecord';
+export * from './useGetMyRecords';
+export * from './useGetRecentlyVisitedCountry';
