@@ -85,7 +85,6 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   const { mutateAsync: uploadImageMutation } = useMutation(uploadImage);
   const { mutateAsync: createRecordMutation } = useMutation(createRecord, {
     onSuccess: (data) => {
-      console.log(data);
       router.push(`/record/ticket/${data.id}`);
     },
   });

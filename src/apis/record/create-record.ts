@@ -15,6 +15,5 @@ export interface ICreateRecordPayload {
 
 export const createRecord = async (payload: ICreateRecordPayload) => {
   const res = await axios.post<ICreateRecordResponseData>('/api/v1/records', payload);
-  console.log(res);
   return res.data.contents;
 };
