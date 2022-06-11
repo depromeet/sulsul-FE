@@ -1,16 +1,8 @@
-import { IContinent } from './continent';
-
-import { IBaseResponse } from '.';
+import { IBaseResponse } from '..';
+import { ICountry } from './country';
+import { IContinent } from '../continent';
 
 import axios from '@/configs/axios';
-
-export interface ICountry {
-  id: number;
-  nameKor: string;
-  nameEng: string;
-  imageUrl: string;
-  continent?: IContinent;
-}
 
 interface IGetContinentResponseData extends IBaseResponse<ICountry[]> {}
 
