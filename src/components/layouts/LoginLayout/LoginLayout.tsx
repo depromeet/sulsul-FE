@@ -1,16 +1,18 @@
-import { ReactChild } from 'react';
+import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 import { Cloud } from '@/assets/icon';
 import Icon from '@/components/commons/Icon';
+import { ColorTheme } from '@/themes/types';
 
 interface LoginLayoutProps {
-  children: ReactChild;
+  children: ReactNode;
   title?: string;
+  cloudColor?: keyof ColorTheme['color'];
 }
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.div<{ cloudColor: LoginLayoutProps['cloudColor'] }>`
   position: relative;
 
   width: 100%;
@@ -31,7 +33,7 @@ const StyledContainer = styled.div`
     position: absolute;
     bottom: 0;
     width: 100% !important;
-    fill: ${(p) => p.theme.color.whiteOpacity35};
+    fill: ${(p) => p.theme.color[p.cloudColor || 'white']};
   }
 `;
 
@@ -64,9 +66,9 @@ const StyledWrapper = styled.div`
   z-index: 1;
 `;
 
-const LoginLayout = ({ title, children }: LoginLayoutProps) => {
+const LoginLayout = ({ title, children, cloudColor = 'white' }: LoginLayoutProps) => {
   return (
-    <StyledContainer>
+    <StyledContainer cloudColor={cloudColor}>
       <Icon name="Logo" className="logo" size={80} />
       {Boolean(title) && <StyledTitle>{title}</StyledTitle>}
       <StyledWrapper>{children}</StyledWrapper>

@@ -50,7 +50,7 @@ const SignUpContainer = () => {
   ];
 
   return (
-    <LoginLayout title={`사용하실 닉네임을\n입력해 주세요.`}>
+    <LoginLayout title={`사용하실 닉네임을\n입력해 주세요.`} cloudColor="whiteOpacity35">
       <StyledWrapper>
         <label htmlFor="nickname">닉네임</label>
         <StyledInput

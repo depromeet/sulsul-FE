@@ -23,7 +23,10 @@ const StyledWrapper = styled.div`
 
 const LoginContainer: React.FC = () => {
   return (
-    <LoginLayout title={`계정을 등록하면\n맥주에 대한 평가를\n기록하고 공유할 수 있습니다!`}>
+    <LoginLayout
+      title={`계정을 등록하면\n맥주에 대한 평가를\n기록하고 공유할 수 있습니다!`}
+      cloudColor="whiteOpacity35"
+    >
       <StyledWrapper>
         <p className="subtitle">간편 로그인</p>
         <KakaoLoginButton />
