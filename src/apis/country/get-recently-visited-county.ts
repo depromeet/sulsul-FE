@@ -12,7 +12,7 @@ export type IGetRecentlyVisitedCountryResponseData = IBaseResponse<IRecentlyVisi
 
 export const getRecentlyVisitedCountry = async () => {
   const res = await axios.get<IGetRecentlyVisitedCountryResponseData>(
-    '/api/v1/records/recently-country',
+    '/api/v1/records/recently-visited-country',
   );
   return res.data.contents;
 };
