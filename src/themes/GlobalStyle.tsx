@@ -87,6 +87,12 @@ const global = (theme: Readonly<ColorTheme & FontTheme>) => css`
     font-size: 2.6667vw;
   }
 
+  @media (min-width: 768px) {
+    html {
+      font-size: 20.477px;
+    }
+  }
+
   body {
     // https://github.com/orioncactus/pretendard
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue',
