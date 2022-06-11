@@ -7,8 +7,4 @@ export default {
   component: LoginContainer,
 } as ComponentMeta<typeof LoginContainer>;
 
-export const 로그인: ComponentStoryObj<typeof LoginContainer> = {
-  args: {
-    step: 1,
-  },
-};
+export const 로그인: ComponentStoryObj<typeof LoginContainer> = {};
