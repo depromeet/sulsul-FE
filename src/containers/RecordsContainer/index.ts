@@ -1,1 +1,1 @@
-export { default } from './RecordsContainer';
+export { default, getServerSideProps } from './RecordsContainer';

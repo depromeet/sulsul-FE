@@ -13,7 +13,13 @@ const Template: ComponentStory<typeof RecordsContainer> = (args) => <RecordsCont
 
 export const 기록목록_페이지 = Template.bind({});
 기록목록_페이지.args = {
-  records: [{ ...Record }, { ...Record, id: 2 }, { ...Record, id: 3 }, { ...Record, id: 4 }],
+  myRecordResponse: {
+    success: true,
+    resultCount: 10,
+    hasNext: false,
+    nextCursor: 10,
+    contents: [{ ...Record }, { ...Record, id: 2 }, { ...Record, id: 3 }, { ...Record, id: 4 }],
+  },
   recentlyVisitedCountry: {
     nameKor: '테스트',
     nameEng: 'test',
