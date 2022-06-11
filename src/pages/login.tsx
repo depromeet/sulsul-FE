@@ -7,12 +7,7 @@ import { PAGE_TITLES } from '@/constants';
 const LoginPage = () => {
   useGtagPageView(PAGE_TITLES.LOGIN);
 
-  const router = useRouter();
-  const {
-    query: { step = 1 },
-  } = router;
-
-  return <LoginContainer step={Number(step)} />;
+  return <LoginContainer />;
 };
 
 export default LoginPage;

@@ -8,6 +8,7 @@ const PAGE_TITLES = {
   ETC: '프로필: 기타',
   HOME: '홈',
   LOGIN: '로그인',
+  SIGNUP: '회원가입',
   ON_BOARDING: '시작하기',
   PRIVACY_POLICY: '개인정보 처리방침',
   PROFILE: '프로필',
