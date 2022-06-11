@@ -1,5 +1,12 @@
 cd ~/sulsul-FE
 
+git checkout master
+
+git pull
+
+yarn install
+yarn build
+
 # pm2 ecosystem deploy
 if pm2 list | grep -q sulsul-fe
 then
