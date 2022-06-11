@@ -6,7 +6,9 @@ export const useGetBeersRecommend = () => {
   /** @todo recoil value 사용 */
   const user = undefined;
 
-  const result = useQuery('beersRecommend', () => getBeersRecommend(!!user));
+  const result = useQuery('beersRecommend', () => getBeersRecommend(!!user), {
+    refetchOnMount: false,
+  });
 
   return {
     ...result,
