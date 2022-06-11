@@ -72,8 +72,8 @@ const BeerRecommendAndLikedContainer: React.FC<BeerRecommendAndLikedContainerPro
   activatedIndex,
   setActivatedIndex,
 }) => {
-  const { contents: beersRecommend, refetch: refetchBeersRecommend } = useGetBeersRecommend();
-  const { contents: beersLiked } = useGetBeersLiked();
+  const { contents: beersRecommend = [], refetch: refetchBeersRecommend } = useGetBeersRecommend();
+  const { contents: beersLiked = [] } = useGetBeersLiked({});
 
   const handleRecommendClick = () => {
     refetchBeersRecommend();
@@ -93,8 +93,8 @@ const BeerRecommendAndLikedContainer: React.FC<BeerRecommendAndLikedContainerPro
         />
       </StyledFixedArea>
       <StyledSwiper selectedItem={activatedIndex} onChange={setActivatedIndex}>
-        <BeerList beers={beersRecommend?.beers || []} />
-        <BeerList beers={beersLiked?.beers || []} />
+        <BeerList beers={beersRecommend} />
+        <BeerList beers={beersLiked} />
       </StyledSwiper>
       {activatedIndex === 0 && <BeerRecommendButton onClick={handleRecommendClick} />}
     </>

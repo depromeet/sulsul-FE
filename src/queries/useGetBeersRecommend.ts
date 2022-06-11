@@ -3,10 +3,13 @@ import { useQuery } from 'react-query';
 import { getBeersRecommend } from '@/apis';
 
 export const useGetBeersRecommend = () => {
-  const result = useQuery('beersRecommend', getBeersRecommend);
+  /** @todo recoil value 사용 */
+  const user = undefined;
+
+  const result = useQuery('beersRecommend', () => getBeersRecommend(!!user));
 
   return {
     ...result,
-    contents: result.data?.contents,
+    contents: result.data,
   };
 };
