@@ -6,6 +6,7 @@ import RecordListItem from '@/components/RecordListItem';
 
 interface RecordListProps {
   records: IRecord[];
+  lastItemRef?: any;
 }
 
 const StyledRecordList = styled.section`
@@ -26,11 +27,16 @@ const StyledRecordList = styled.section`
   }
 `;
 
-const RecordList: React.FC<RecordListProps> = ({ records }) => {
+const RecordList: React.FC<RecordListProps> = ({ records, lastItemRef }) => {
   return (
     <StyledRecordList>
-      {records.map((record) => (
-        <RecordListItem key={record.id} record={record} className="records-list-item" />
+      {records.map((record, i) => (
+        <RecordListItem
+          key={record.id}
+          record={record}
+          className="records-list-item"
+          ref={i === records.length - 1 ? lastItemRef : undefined}
+        />
       ))}
     </StyledRecordList>
   );

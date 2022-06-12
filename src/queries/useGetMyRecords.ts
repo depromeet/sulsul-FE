@@ -1,14 +1,14 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 
-import { getMyRecords, IGetMyRecordsResponseData, IRecord } from '@/apis';
+import { getMyRecords, IGetMyRecordsResponseData } from '@/apis';
 
-export const useGetMyRecords = (
-  cursorId?: IRecord['id'],
-  initialData?: IGetMyRecordsResponseData,
-) => {
-  const result = useQuery('myRecords', () => getMyRecords(cursorId), {
+export const useGetMyRecords = (initialData?: IGetMyRecordsResponseData) => {
+  const result = useInfiniteQuery('myRecords', getMyRecords, {
     cacheTime: Infinity,
-    initialData,
+    initialData: initialData ? { pages: [initialData], pageParams: [undefined] } : undefined,
+    getNextPageParam(lastPage) {
+      return lastPage.nextCursor || undefined;
+    },
   });
 
   return {

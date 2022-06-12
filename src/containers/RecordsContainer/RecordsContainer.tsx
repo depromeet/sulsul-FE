@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
+import { useInView } from 'react-intersection-observer';
 
 import {
   IRecentlyVisitedCountry,
   getRecentlyVisitedCountry,
   getMyRecords,
   IGetMyRecordsResponseData,
+  IRecord,
 } from '@/apis';
 import BottomNavigation from '@/components/BottomNavigation';
 import RecordList from '@/components/RecordList';
@@ -35,11 +37,37 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
   myRecordResponse: _myRecordResponse,
   recentlyVisitedCountry: _recentlyVisitedCountry,
 }) => {
-  const { contents: myRecordResponse } = useGetMyRecords(undefined, _myRecordResponse);
+  const {
+    contents: myRecordResponses,
+    fetchNextPage,
+    isLoading,
+  } = useGetMyRecords(_myRecordResponse);
   const { contents: recentlyVisitedCountry } =
     useGetRecentlyVisitedCountry(_recentlyVisitedCountry);
 
-  const { contents: records = [] } = myRecordResponse || {};
+  const { ref } = useInView({
+    onChange: (inView) => {
+      if (!myRecordResponses) {
+        return;
+      }
+
+      const { nextCursor, hasNext } = myRecordResponses.pages[myRecordResponses.pages.length - 1];
+
+      if (inView && nextCursor && hasNext && !isLoading) {
+        fetchNextPage({ pageParam: nextCursor });
+      }
+    },
+    triggerOnce: true,
+  });
+
+  const records = useMemo(() => {
+    return (
+      myRecordResponses?.pages.reduce<IRecord[]>(
+        (_records, page) => [..._records, ...page.contents],
+        [],
+      ) || []
+    );
+  }, [myRecordResponses?.pages]);
 
   return (
     <>
@@ -53,7 +81,8 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
           <span>{`${recentlyVisitedCountry?.count}개`}</span>
           <span className="slim-weight">{` 있어요.`}</span>
         </h5>
-        <RecordList records={records} />
+
+        <RecordList records={records} lastItemRef={ref} />
       </StyledRecordsContainer>
       <BottomNavigation />
     </>
