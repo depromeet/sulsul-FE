@@ -3,7 +3,10 @@ import { useQuery } from 'react-query';
 import { getBeerTypes } from '@/apis';
 
 export const useGetBeerTypes = () => {
-  const result = useQuery('beerTypes', getBeerTypes, {
+  /** @todo recoil value 사용 */
+  const user = undefined;
+
+  const result = useQuery('beerTypes', () => getBeerTypes(!!user), {
     cacheTime: Infinity,
   });
 

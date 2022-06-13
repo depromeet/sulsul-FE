@@ -10,7 +10,7 @@ interface Props {
   closeLevelModal: () => void;
 }
 
-const LevelModal = ({ isLevelModalOpen, openLevelModal, closeLevelModal }: Props) => {
+const LevelModal = ({ isLevelModalOpen, closeLevelModal }: Props) => {
   return (
     <ModalLayout open={isLevelModalOpen} onClose={closeLevelModal}>
       <StyledModal open={isLevelModalOpen}>

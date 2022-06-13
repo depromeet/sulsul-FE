@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { FieldValues } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { useRouter } from 'next/router';
 
 import { $recordForm } from '../atoms';
 import { dummyOptions } from '../RecordSecondStepContainer/RecordSecondStepContainer';
@@ -18,6 +19,7 @@ import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 import Icon from '@/components/commons/Icon';
 import { IBeer } from '@/apis';
 import { uploadImage } from '@/apis';
+import { createRecord, ICreateRecordPayload } from '@/apis/record/create-record';
 
 interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {
   beer: IBeer;
@@ -78,24 +80,31 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   onMovePrev,
   onMoveNext,
 }) => {
-  const [{ flavor }, setRecordForm] = useRecoilState($recordForm);
-  const { mutateAsync } = useMutation(uploadImage);
+  const router = useRouter();
+  const recordForm = useRecoilValue($recordForm);
+  const { mutateAsync: uploadImageMutation } = useMutation(uploadImage);
+  const { mutateAsync: createRecordMutation } = useMutation(createRecord, {
+    onSuccess: (data) => {
+      router.push(`/record/ticket/${data.id}`);
+    },
+  });
+
+  const { flavor } = recordForm;
 
   const handleImageUpload = useCallback(
     async (data: FormData) => {
-      const { contents } = await mutateAsync(data);
+      const { contents } = await uploadImageMutation(data);
 
       return contents?.imageUrl;
     },
-    [mutateAsync],
+    [uploadImageMutation],
   );
 
   const handleSubmit = useCallback(
     (data: FieldValues) => {
-      setRecordForm((prev) => ({ ...prev, ...data }));
-      onMoveNext?.();
+      createRecordMutation({ ...recordForm, ...data, beerId: beer.id } as ICreateRecordPayload);
     },
-    [setRecordForm, onMoveNext],
+    [createRecordMutation, recordForm, beer.id],
   );
 
   const beforeText =

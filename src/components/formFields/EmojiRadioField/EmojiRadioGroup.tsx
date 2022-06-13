@@ -123,7 +123,13 @@ const EmojiRadioGroup: React.FC<EmojiRadioGroupProps> = ({
             data-value={emojiValue}
             onClick={handleClick}
           >
-            <input type="radio" name={name} value={emojiValue} checked={value === emojiValue} />
+            <input
+              type="radio"
+              name={name}
+              value={emojiValue}
+              checked={value === emojiValue}
+              onChange={handleChangeNull}
+            />
             <Emoji
               feel={emojiValue}
               size={EMOJI_INPUT_SIZE}
@@ -135,5 +141,7 @@ const EmojiRadioGroup: React.FC<EmojiRadioGroupProps> = ({
     </StyledEmojiRadioGroup>
   );
 };
+
+const handleChangeNull = () => null;
 
 export default EmojiRadioGroup;

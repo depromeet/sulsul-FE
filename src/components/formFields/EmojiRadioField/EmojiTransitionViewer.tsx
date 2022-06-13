@@ -1,7 +1,7 @@
 import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from '@emotion/styled';
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 
 import { EmojiValue } from './EmojiRadioGroup';
 

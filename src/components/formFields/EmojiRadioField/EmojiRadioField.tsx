@@ -15,7 +15,15 @@ const EmojiRadioField: React.FC<EmojiRadioFieldProps> = ({ name, className }) =>
     <Controller
       control={control}
       name={name}
-      render={({ field }) => <EmojiRadioGroup {...field} name={name} className={className} />}
+      render={({ field: { value, onChange, onBlur } }) => (
+        <EmojiRadioGroup
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          name={name}
+          className={className}
+        />
+      )}
     />
   );
 };

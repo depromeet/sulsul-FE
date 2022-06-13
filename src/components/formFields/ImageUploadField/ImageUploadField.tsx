@@ -13,6 +13,7 @@ interface ImageUploadFieldProps {
   className?: string;
   required?: boolean;
   uploadFieldName?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uploadCallback?: (data: FormData) => Promise<any>;
 }
 
@@ -58,6 +59,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
 
   const triggerChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange: (...event: any[]) => void,
   ) => {
     const imageFile = e.target.files?.[0];

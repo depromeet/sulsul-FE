@@ -7,6 +7,7 @@ import MultiSelect from './MultiSelect';
 
 import { SelectOption } from '@/types/select';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface MultiSelectFieldProps<T = any> {
   name: string;
   options: SelectOption<T>[];
@@ -17,6 +18,7 @@ interface MultiSelectFieldProps<T = any> {
 
 const StyledMultiSelectField = styled.div``;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MultiSelectField: React.FC<MultiSelectFieldProps> = <T extends any>({
   name,
   options,

@@ -12,9 +12,16 @@ export default {
   },
 } as ComponentMeta<typeof BeerRecommendAndLikedContainer>;
 
-const Template: ComponentStory<typeof BeerRecommendAndLikedContainer> = () => (
-  <BeerRecommendAndLikedContainer />
+const Template: ComponentStory<typeof BeerRecommendAndLikedContainer> = (args) => (
+  <BeerRecommendAndLikedContainer {...args} />
 );
 
-export const 맥주_추천과_반한_맥주_목록 = Template.bind({});
-맥주_추천과_반한_맥주_목록.args = {};
+export const 맥주_추천_목록 = Template.bind({});
+맥주_추천_목록.args = {
+  activatedIndex: 0,
+};
+
+export const 반한_맥주_목록 = Template.bind({});
+반한_맥주_목록.args = {
+  activatedIndex: 1,
+};

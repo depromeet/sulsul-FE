@@ -1,5 +1,26 @@
+const intercept = require('intercept-stdout');
+
+const rewrites =
+  process.env.NODE_ENV === 'development'
+    ? async () => {
+        return {
+          fallback: [
+            {
+              source: '/api/:path*',
+              destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/:path*`,
+            },
+            {
+              source: '/guest/api/:path*',
+              destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/guest/api/:path*`,
+            },
+          ],
+        };
+      }
+    : undefined;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  rewrites,
   reactStrictMode: true,
   webpack(config) {
     /**
@@ -16,5 +37,16 @@ const nextConfig = {
     return config;
   },
 };
+
+// safely ignore recoil stdout warning messages
+function interceptStdout(text) {
+  if (text.includes('Duplicate atom key')) {
+    return '';
+  }
+  return text;
+}
+
+// Intercept in dev and prod
+intercept(interceptStdout);
 
 module.exports = nextConfig;
