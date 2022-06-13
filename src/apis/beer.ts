@@ -92,7 +92,7 @@ export interface IGetBeersCountResponseData extends IBaseResponse<{ totalCount: 
  * 맥주 개수 조회
  */
 export const getBeersCount = async (auth: boolean) => {
-  const res = await axios.post<IGetBeersCountResponseData>(
+  const res = await axios.get<IGetBeersCountResponseData>(
     auth ? '/api/v2/beers/count' : '/guest/api/v1/beers/count',
   );
   return res.data;
