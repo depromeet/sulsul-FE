@@ -5,6 +5,7 @@ import { forwardRef, Ref, useCallback, useImperativeHandle, useRef, useState } f
 import BeerTicket from '@/components/BeerTicket';
 import Button from '@/components/commons/Button';
 import { IRecord } from '@/apis/record';
+import { BEER_TICKET_WIDTH } from '@/components/BeerTicket/BeerTicket';
 
 interface Props {
   record: IRecord;
@@ -35,7 +36,8 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
       const canvas = await html2canvas(containerRef.current, {
         useCORS: true,
         backgroundColor: 'transparent',
-        onclone: function (clonedDoc) {
+        width: BEER_TICKET_WIDTH,
+        onclone: (clonedDoc) => {
           const clonedContainerElem = clonedDoc.getElementById(CONTAINER_ID);
           if (clonedContainerElem) {
             clonedContainerElem.style.display = 'block';
@@ -107,8 +109,10 @@ const CreatedContainer = styled.div`
   overflow: hidden;
 
   & > img {
-    width: 100%;
+    width: 90%;
     height: auto;
+    max-height: 80%;
+    object-fit: contain;
     z-index: 1001;
     margin-bottom: 10px;
   }
@@ -122,10 +126,4 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   overflow: hidden;
-`;
-
-const H2 = styled.h2`
-  ${({ theme }) => theme.fonts.H2}
-  text-align: center;
-  margin-top: 10px;
 `;

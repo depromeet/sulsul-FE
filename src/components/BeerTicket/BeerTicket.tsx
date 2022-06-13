@@ -12,6 +12,8 @@ import BeerTicketTitle from '@/components/BeerTicketTitle';
 import Emoji from '@/components/Emoji';
 import { IRecord } from '@/apis/record';
 
+export const BEER_TICKET_WIDTH = 300;
+
 interface BeerTicketProps {
   record: IRecord;
   type?: 'default' | 'stamp';
@@ -20,10 +22,11 @@ interface BeerTicketProps {
 }
 
 const StyledBeerTicket = styled.article`
-  width: 300px;
+  width: ${BEER_TICKET_WIDTH}px;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 16px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   & .beer-ticket-header {
     display: flex;
