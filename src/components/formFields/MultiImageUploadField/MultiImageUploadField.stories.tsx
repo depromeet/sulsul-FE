@@ -24,4 +24,5 @@ const Template: ComponentStory<typeof MultiImageUploadField> = (args) => (
 export const BasicMultiImageUploadField = Template.bind({});
 BasicMultiImageUploadField.args = {
   maxLength: 2,
+  name: 'imageUploadField',
 };

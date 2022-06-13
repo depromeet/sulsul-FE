@@ -1,11 +1,21 @@
 import { useCallback, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { isNil } from 'lodash';
+import { Controller, useFormContext, ControllerProps } from 'react-hook-form';
 
 import Icon from '@/components/commons/Icon';
 
 interface MultiImageUploadFieldProps {
   maxLength?: number;
+  name: string;
+  className?: string;
+  required?: boolean;
+  uploadFieldName?: string;
+  uploadCallback?: (data: FormData) => Promise<
+    {
+      imageUrl: string;
+    }[]
+  >;
 }
 
 const StyledMultiImageUploadField = styled.div`
@@ -27,6 +37,7 @@ const StyledMultiImageUploadField = styled.div`
       width: 80px;
       height: 80px;
       border-radius: 10px;
+      object-fit: cover;
     }
   }
 
@@ -37,49 +48,97 @@ const StyledMultiImageUploadField = styled.div`
   }
 `;
 
-const MOCK_IMAGE_URLS = [
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyJAvcMkYUWruGNPzJzMxHDbs8ko50Ycz4VA&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc5GxqbNiR_y_oBEhB03dAf1QS0Va944QD6g&usqp=CAU',
-];
-
-/**
- * @todo react hook form 적용
- * @todo 최대 {maxLength}개까지만 선택 가능하도록 수정
- */
-const MultiImageUploadField: React.FC<MultiImageUploadFieldProps> = ({ maxLength }) => {
+const MultiImageUploadField: React.FC<MultiImageUploadFieldProps> = ({
+  name,
+  maxLength = 2,
+  required,
+  uploadFieldName = 'files',
+  uploadCallback,
+}) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const { control } = useFormContext<Record<string, string[]>>();
 
-  const [imageUrls, setImageUrls] = useState(MOCK_IMAGE_URLS);
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleClick = useCallback(() => {
     imageInputRef.current?.click();
   }, []);
 
-  const handleRemoveClick = useCallback(
-    (imageUrl: string) => () => {
-      setImageUrls(imageUrls.filter((v) => v !== imageUrl));
-    },
-    [imageUrls],
-  );
+  const triggerChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onChange: (...event: any[]) => void,
+  ) => {
+    if (
+      !e.target.files ||
+      !Array.from(e.target.files).every((imageFile) => imageFile.type.startsWith('image/')) ||
+      !uploadCallback ||
+      files.length >= maxLength
+    ) {
+      return;
+    }
+
+    const imageFiles = [...Array.from(e.target.files).slice(0, maxLength - files.length), ...files];
+    setFiles(imageFiles);
+
+    const imageFormData = new FormData();
+    for (let i = 0; i < imageFiles.length; i++) {
+      imageFormData.append(uploadFieldName, imageFiles[i]);
+    }
+
+    try {
+      const imageUrls = (await uploadCallback(imageFormData)).map(({ imageUrl }) => imageUrl);
+      if (imageUrls) {
+        onChange(imageUrls);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRemoveClick =
+    (selectedIndex: number, fieldValue: string[], onChange: (...event: any[]) => void) => () => {
+      onChange(fieldValue.filter((_, index) => index !== selectedIndex));
+      setFiles((prevFiles) => prevFiles.filter((_, index) => index !== selectedIndex));
+    };
+
+  const renderMultiImageUploadField: ControllerProps<Record<string, string[]>>['render'] = ({
+    field: { value, onChange },
+  }) => {
+    return (
+      <StyledMultiImageUploadField>
+        <input
+          ref={imageInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          hidden
+          onChange={(e) => triggerChange(e, onChange)}
+        />
+        <ul className="uploaded-images">
+          {(!value || value.length < maxLength) && (
+            <UploadButton onClick={handleClick} size={!value?.length ? 'large' : 'small'} />
+          )}
+          {value?.map((imageUrl, index) => (
+            <li key={imageUrl} className="uploaded-image">
+              <img src={imageUrl} alt={`업로드한 이미지 ${maxLength}개 중 ${index}번째`} />
+              <RemoveButton onClick={handleRemoveClick(index, value, onChange)} />
+            </li>
+          ))}
+        </ul>
+        {!isNil(maxLength) && (
+          <p className="helper-text">사진은 최대 {maxLength}장까지 첨부 할 수 있습니다.</p>
+        )}
+      </StyledMultiImageUploadField>
+    );
+  };
 
   return (
-    <StyledMultiImageUploadField>
-      <input ref={imageInputRef} type="file" accept="image/*" multiple hidden />
-      <ul className="uploaded-images">
-        {imageUrls.length < 2 && (
-          <UploadButton onClick={handleClick} size={!imageUrls.length ? 'large' : 'small'} />
-        )}
-        {imageUrls.map((imageUrl, index) => (
-          <li key={imageUrl} className="uploaded-image">
-            <img src={imageUrl} alt={`업로드한 이미지 ${maxLength}개 중 ${index}번째`} />
-            <RemoveButton onClick={handleRemoveClick(imageUrl)} />
-          </li>
-        ))}
-      </ul>
-      {!isNil(maxLength) && (
-        <p className="helper-text">사진은 최대 {maxLength}장까지 첨부 할 수 있습니다.</p>
-      )}
-    </StyledMultiImageUploadField>
+    <Controller
+      control={control}
+      name={name}
+      rules={{ required }}
+      render={renderMultiImageUploadField}
+    />
   );
 };
 
