@@ -110,14 +110,14 @@ export const getBeersRecommend = async (auth: boolean) => {
   return res.data.contents;
 };
 
-export interface IGetBeersLikedPaylosd extends IGetBeersPayload {}
+export interface IGetBeersLikedPayload extends IGetBeersPayload {}
 
 export interface IGetBeersLikedResponseData extends IBaseResponse<IBeer[]> {}
 
 /**
  * 찜한 맥주 목록 조회
  */
-export const getBeersLiked = async (payload: IGetBeersLikedPaylosd) => {
+export const getBeersLiked = async (payload: IGetBeersLikedPayload) => {
   const res = await axios.post<IGetBeersLikedResponseData>('/api/v2/beers/liked', payload);
   return res.data.contents;
 };

@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
-import { getBeersLiked, IGetBeersLikedPaylosd } from '@/apis';
+import { getBeersLiked, IGetBeersLikedPayload } from '@/apis';
 
 export const useGetBeersLiked = (
-  payload: Pick<IGetBeersLikedPaylosd, 'query' | 'filter' | 'sortBy'>,
+  payload: Pick<IGetBeersLikedPayload, 'query' | 'filter' | 'sortBy'>,
 ) => {
   const result = useQuery(['beersLiked', payload], () =>
     getBeersLiked({
