@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { $recordForm } from '../atoms';
 import { dummyOptions } from '../RecordSecondStepContainer/RecordSecondStepContainer';
 
+import { NEW_TYPE } from '@/containers/RecordTicketContainer';
 import EntityForm from '@/components/EntityForm';
 import ImageUploadField from '@/components/formFields/ImageUploadField';
 import SelectField from '@/components/formFields/SelectField';
@@ -85,7 +86,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   const { mutateAsync: uploadImageMutation } = useMutation(uploadImage);
   const { mutateAsync: createRecordMutation } = useMutation(createRecord, {
     onSuccess: (data) => {
-      router.push(`/record/ticket/${data.id}`);
+      router.push(`/record/ticket/${data.id}?type=${NEW_TYPE}`);
     },
   });
 

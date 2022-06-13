@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from './RecordTicketContainer';
+export { default, getServerSideProps, NEW_TYPE } from './RecordTicketContainer';
