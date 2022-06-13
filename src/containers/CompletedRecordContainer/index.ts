@@ -1,2 +1,2 @@
-export { default } from './CompletedRecordContainer';
-export { default } from './CreateImage';
+export { default as CompletedRecordContainer } from './CompletedRecordContainer';
+export { default as CreateImage } from './CreateImage';
