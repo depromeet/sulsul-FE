@@ -35,9 +35,9 @@ export default function BottomNavigation() {
           </a>
         </Link>
         <PlusIconButton />
-        <Link href="/travel-list" passHref>
-          <a className={`nav-link ${router.pathname === '/travel-list' ? 'active' : ''}`}>
-            {router.pathname === '/travel-list' ? (
+        <Link href="/records/my" passHref>
+          <a className={`nav-link ${router.pathname === '/records/my' ? 'active' : ''}`}>
+            {router.pathname === '/records/my' ? (
               <Icon name="NavTravelActive" size={36} />
             ) : (
               <Icon name="NavTravel" size={36} />

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
 import { useInView } from 'react-intersection-observer';
@@ -8,7 +8,6 @@ import {
   getRecentlyVisitedCountry,
   getMyRecords,
   IGetMyRecordsResponseData,
-  IRecord,
 } from '@/apis';
 import BottomNavigation from '@/components/BottomNavigation';
 import RecordList from '@/components/RecordList';

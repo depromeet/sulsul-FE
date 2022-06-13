@@ -22,6 +22,7 @@ const StyledRecordListItem = styled.div<StyledRecordListItemProps>`
 
   & .record-item-country {
     ${({ theme }) => theme.fonts.BarlowBig}
+    color: ${({ theme }) => theme.color.white};
     transform: rotate(-90deg) translateY(30%);
   }
 

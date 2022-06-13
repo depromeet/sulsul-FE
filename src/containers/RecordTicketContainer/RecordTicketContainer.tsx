@@ -11,11 +11,11 @@ import Button from '@/components/commons/Button';
 import { getRecord } from '@/apis/record';
 import { useGetRecord } from '@/queries';
 
-interface CompletedRecordContainerProps {
+interface RecordTicketContainerProps {
   record: IRecord;
 }
 
-const StyledCompletedRecordContainer = styled.div`
+const StyledRecordTicketContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,23 +30,27 @@ const StyledCompletedRecordContainer = styled.div`
     ${({ theme }) => theme.fonts.Body2}
     color: ${({ theme }) => theme.semanticColor.secondary};
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
   }
 
   & .completed-record-ticket {
+    margin-top: 16px;
     margin-bottom: 100px;
   }
 `;
 
-const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ record: _record }) => {
+export const NEW_TYPE = 'new';
+
+const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _record }) => {
   const router = useRouter();
-  const { id } = router.query;
+  const { type, id } = router.query;
+
   const { contents: record } = useGetRecord(Number(id), _record);
 
   return (
-    <StyledCompletedRecordContainer>
+    <StyledRecordTicketContainer>
       <Header
-        leftExtras={<BackButton />}
+        leftExtras={<>{type !== NEW_TYPE && <BackButton />}</>}
         rightExtras={
           <>
             <WriteButton />
@@ -54,8 +58,12 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
           </>
         }
       />
-      <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
-      <p className="complete-record-sub-title">{'친구들에게 이미지로 공유해보세요!'}</p>
+      {type === NEW_TYPE && (
+        <>
+          <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
+          <p className="complete-record-sub-title">{'친구들에게 이미지로 공유해보세요!'}</p>
+        </>
+      )}
       {record && <BeerTicket record={record} className="completed-record-ticket" />}
       <BottomFloatingButtonArea
         withHomeButton
@@ -65,7 +73,7 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
           </Button>
         }
       />
-    </StyledCompletedRecordContainer>
+    </StyledRecordTicketContainer>
   );
 };
 
@@ -80,4 +88,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} };
 };
 
-export default CompletedRecordContainer;
+export default RecordTicketContainer;
