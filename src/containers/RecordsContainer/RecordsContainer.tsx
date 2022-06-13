@@ -38,7 +38,8 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
   recentlyVisitedCountry: _recentlyVisitedCountry,
 }) => {
   const {
-    contents: myRecordResponses,
+    contents: myRecords,
+    pageInfo,
     fetchNextPage,
     isLoading,
   } = useGetMyRecords(_myRecordResponse);
@@ -47,11 +48,7 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
 
   const { ref } = useInView({
     onChange: (inView) => {
-      if (!myRecordResponses) {
-        return;
-      }
-
-      const { nextCursor, hasNext } = myRecordResponses.pages[myRecordResponses.pages.length - 1];
+      const { nextCursor, hasNext } = pageInfo;
 
       if (inView && nextCursor && hasNext && !isLoading) {
         fetchNextPage({ pageParam: nextCursor });
@@ -59,15 +56,6 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
     },
     triggerOnce: true,
   });
-
-  const records = useMemo(() => {
-    return (
-      myRecordResponses?.pages.reduce<IRecord[]>(
-        (_records, page) => [..._records, ...page.contents],
-        [],
-      ) || []
-    );
-  }, [myRecordResponses?.pages]);
 
   return (
     <>
@@ -82,7 +70,7 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
           <span className="slim-weight">{` 있어요.`}</span>
         </h5>
 
-        <RecordList records={records} lastItemRef={ref} />
+        <RecordList records={myRecords} lastItemRef={ref} />
       </StyledRecordsContainer>
       <BottomNavigation />
     </>

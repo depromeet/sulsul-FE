@@ -11,3 +11,11 @@ export * from './useGetTop3BeerFlavor';
 export * from './useGetRecord';
 export * from './useGetMyRecords';
 export * from './useGetRecentlyVisitedCountry';
+
+export interface BasePagenationQueryHooksResponse<T extends any> {
+  contents: T[];
+  pageInfo: {
+    hasNext?: boolean;
+    nextCursor?: number;
+  };
+}
