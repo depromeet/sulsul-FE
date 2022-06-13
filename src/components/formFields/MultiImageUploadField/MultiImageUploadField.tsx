@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { isNil } from 'lodash';
 import { Controller, useFormContext, ControllerProps } from 'react-hook-form';
@@ -58,37 +58,34 @@ const MultiImageUploadField: React.FC<MultiImageUploadFieldProps> = ({
   const imageInputRef = useRef<HTMLInputElement>(null);
   const { control } = useFormContext<Record<string, string[]>>();
 
-  const [files, setFiles] = useState<File[]>([]);
-
   const handleClick = useCallback(() => {
     imageInputRef.current?.click();
   }, []);
 
   const triggerChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
+    fieldValue: string[] = [],
     onChange: (...event: any[]) => void,
   ) => {
-    if (
-      !e.target.files ||
-      !Array.from(e.target.files).every((imageFile) => imageFile.type.startsWith('image/')) ||
-      !uploadCallback ||
-      files.length >= maxLength
-    ) {
+    if (!e.target.files || !uploadCallback || fieldValue.length >= maxLength) {
       return;
     }
 
-    const imageFiles = [...Array.from(e.target.files).slice(0, maxLength - files.length), ...files];
-    setFiles(imageFiles);
+    const newImageFiles = Array.from(e.target.files).slice(0, maxLength - fieldValue.length);
 
-    const imageFormData = new FormData();
-    for (let i = 0; i < imageFiles.length; i++) {
-      imageFormData.append(uploadFieldName, imageFiles[i]);
+    if (!newImageFiles.every((imageFile) => imageFile.type.startsWith('image/'))) {
+      return;
     }
 
     try {
-      const imageUrls = (await uploadCallback(imageFormData)).map(({ imageUrl }) => imageUrl);
-      if (imageUrls) {
-        onChange(imageUrls);
+      const imageFormData = new FormData();
+      for (let i = 0; i < newImageFiles.length; i++) {
+        imageFormData.append(uploadFieldName, newImageFiles[i]);
+      }
+
+      const newImageUrls = (await uploadCallback(imageFormData)).map(({ imageUrl }) => imageUrl);
+      if (newImageUrls) {
+        onChange([...newImageUrls, ...fieldValue]);
       }
     } catch (error) {
       console.error(error);
@@ -98,7 +95,6 @@ const MultiImageUploadField: React.FC<MultiImageUploadFieldProps> = ({
   const handleRemoveClick =
     (selectedIndex: number, fieldValue: string[], onChange: (...event: any[]) => void) => () => {
       onChange(fieldValue.filter((_, index) => index !== selectedIndex));
-      setFiles((prevFiles) => prevFiles.filter((_, index) => index !== selectedIndex));
     };
 
   const renderMultiImageUploadField: ControllerProps<Record<string, string[]>>['render'] = ({
@@ -112,7 +108,7 @@ const MultiImageUploadField: React.FC<MultiImageUploadFieldProps> = ({
           accept="image/*"
           multiple
           hidden
-          onChange={(e) => triggerChange(e, onChange)}
+          onChange={(e) => triggerChange(e, value, onChange)}
         />
         <ul className="uploaded-images">
           {(!value || value.length < maxLength) && (
