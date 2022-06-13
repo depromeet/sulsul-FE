@@ -11,11 +11,11 @@ import Button from '@/components/commons/Button';
 import { getRecord } from '@/apis/record';
 import { useGetRecord } from '@/queries';
 
-interface CompletedRecordContainerProps {
+interface RecordTicketContainerProps {
   record: IRecord;
 }
 
-const StyledCompletedRecordContainer = styled.div`
+const StyledRecordTicketContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,13 +38,13 @@ const StyledCompletedRecordContainer = styled.div`
   }
 `;
 
-const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ record: _record }) => {
+const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _record }) => {
   const router = useRouter();
   const { id } = router.query;
   const { contents: record } = useGetRecord(Number(id), _record);
 
   return (
-    <StyledCompletedRecordContainer>
+    <StyledRecordTicketContainer>
       <Header
         leftExtras={<BackButton />}
         rightExtras={
@@ -65,7 +65,7 @@ const CompletedRecordContainer: NextPage<CompletedRecordContainerProps> = ({ rec
           </Button>
         }
       />
-    </StyledCompletedRecordContainer>
+    </StyledRecordTicketContainer>
   );
 };
 
@@ -80,4 +80,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} };
 };
 
-export default CompletedRecordContainer;
+export default RecordTicketContainer;

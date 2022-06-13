@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from '@/containers/CompletedRecordContainer';
+export { default, getServerSideProps } from '@/containers/RecordTicketContainer';
