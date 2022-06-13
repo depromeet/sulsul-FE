@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas';
 import { forwardRef, Ref, useCallback, useImperativeHandle, useRef, useState } from 'react';
 
 import BeerTicket from '@/components/BeerTicket';
+import Button from '@/components/commons/Button';
 import { IRecord } from '@/apis/record';
 
 interface Props {
@@ -19,6 +20,7 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
   const containerRef = useRef<null | HTMLDivElement>(null);
   const canvasRef = useRef<null | HTMLCanvasElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [isCreateContainerOpen, setIsCreateContainerOpen] = useState(true);
 
   useImperativeHandle(ref, () => ({
     create,
@@ -79,10 +81,10 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
         <BeerTicket record={record} />
       </Container>
 
-      {imageSrc && (
-        <CreatedContainer className={className}>
-          <img src={imageSrc} alt="" width="100%" height="auto" style={{ zIndex: 1001 }} />
-          <H2>이미지를 꾹 눌러 저장해보세요</H2>
+      {imageSrc && isCreateContainerOpen && (
+        <CreatedContainer className={className} onClick={() => setIsCreateContainerOpen(false)}>
+          <img src={imageSrc} alt="" />
+          <Button onClick={download}>이미지를 꾹 눌러 저장해보세요</Button>
         </CreatedContainer>
       )}
     </>
@@ -103,16 +105,27 @@ const CreatedContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   overflow: hidden;
+
+  & > img {
+    width: 100%;
+    height: auto;
+    z-index: 1001;
+    margin-bottom: 10px;
+  }
 `;
 
 const Container = styled.div`
-  width: 500px;
-  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
   overflow: hidden;
 `;
 
 const H2 = styled.h2`
   ${({ theme }) => theme.fonts.H2}
   text-align: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
 `;

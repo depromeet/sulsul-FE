@@ -99,7 +99,12 @@ const StyledBeerTicket = styled.article`
   }
 `;
 
-const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', id, className }) => {
+const BeerTicket: React.FC<BeerTicketProps> = ({
+  record,
+  type = 'default',
+  id = '',
+  className,
+}) => {
   return (
     <StyledBeerTicket className={className} id={id}>
       <header className="beer-ticket-header">
