@@ -14,3 +14,9 @@ export interface IBaseResponse<T extends any> {
   contents: T;
   error?: IError | null;
 }
+
+export interface IBasePageNationResponse<T extends any> extends IBaseResponse<T> {
+  resultCount: number;
+  hasNext: boolean;
+  nextCursor: number;
+}

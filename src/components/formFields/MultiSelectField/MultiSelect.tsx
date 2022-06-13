@@ -9,6 +9,7 @@ type ClickEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
 type ClickEventHandler<T> = (value: T[] | undefined, event: ClickEvent) => void;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface MultiSelectProps<T = any> {
   options: SelectOption<T>[];
   value: T[];

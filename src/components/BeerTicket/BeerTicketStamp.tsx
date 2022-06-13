@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
+import { parseISO } from 'date-fns';
 
 import Icon from '@/components/commons/Icon';
 
 interface BeerTicketStampProps {
   feel: 1 | 2 | 3 | 4 | 5;
-  recordedAt: Date;
+  recordedAt: string;
 }
 
 interface StyledBeerTicketStampProps {
@@ -32,8 +33,8 @@ const SALT = 118;
 const BeerTicketStamp: React.FC<BeerTicketStampProps> = ({ feel, recordedAt }) => {
   const { top, left } = useMemo(
     () => ({
-      top: getHashStampLocation(recordedAt, MAX_ICON_TOP),
-      left: getHashStampLocation(recordedAt, MAX_ICON_LEFT),
+      top: getHashStampLocation(parseISO(recordedAt), MAX_ICON_TOP),
+      left: getHashStampLocation(parseISO(recordedAt), MAX_ICON_LEFT),
     }),
     [recordedAt],
   );

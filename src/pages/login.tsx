@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router';
 
 import LoginContainer from '@/containers/LoginContainer';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
 const LoginPage = () => {
-  const router = useRouter();
-  const {
-    query: { step = 1 },
-  } = router;
+  useGtagPageView(PAGE_TITLES.LOGIN);
 
-  return <LoginContainer step={Number(step)} />;
+  return <LoginContainer />;
 };
 
 export default LoginPage;

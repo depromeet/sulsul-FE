@@ -1,12 +1,20 @@
 import { useQuery } from 'react-query';
 
-import { getBeersLiked } from '@/apis';
+import { getBeersLiked, IGetBeersLikedPayload } from '@/apis';
 
-export const useGetBeersLiked = () => {
-  const result = useQuery('beersLiked', () => getBeersLiked());
+export const useGetBeersLiked = (
+  payload: Pick<IGetBeersLikedPayload, 'query' | 'filter' | 'sortBy'>,
+) => {
+  const result = useQuery(['beersLiked', payload], () =>
+    getBeersLiked({
+      ...payload,
+      cursor: 0,
+      limit: 20,
+    }),
+  );
 
   return {
     ...result,
-    contents: result.data?.contents,
+    contents: result.data,
   };
 };

@@ -15,7 +15,9 @@ const SelectField: React.FC<SelectFieldProps> = ({ name, className }) => {
     <Controller
       control={control}
       name={name}
-      render={({ field }) => <Switch {...field} className={className} />}
+      render={({ field: { value, onChange } }) => (
+        <Switch onChange={onChange} defaultValue={value} className={className} />
+      )}
     />
   );
 };

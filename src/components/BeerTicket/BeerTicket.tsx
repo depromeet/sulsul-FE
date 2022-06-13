@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import StyledBeerTicketField from './BeerTicketField';
 import BeerTicketFlight from './BeerTicketFlight';
@@ -99,13 +99,14 @@ const StyledBeerTicket = styled.article`
 `;
 
 const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', className }) => {
+  console.log(record);
   return (
     <StyledBeerTicket className={className}>
       <header className="beer-ticket-header">
         <Icon name="Logo" semanticColor="primary" size={60} />
-        <span className="barlow-small">{`BR118001`}</span>
+        <span className="barlow-small">{`BR118${record.id.toString().padStart(3, '0')}`}</span>
       </header>
-      <BeerTicketTitle beer={record.beerResponseDto} />
+      <BeerTicketTitle beer={record.beerResponseDto} background={record.imageUrl} />
       <section className="beer-ticket-middle">
         <BeerTicketFlight
           prevCountryNameEng={record.startCountryEng}
@@ -116,10 +117,10 @@ const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', class
       </section>
       <section className="beer-ticket-middle ticket-has-dashed-border">
         <StyledBeerTicketField title="date" className="beer-ticket-date">
-          {format(record.createdAt, 'dd/LLL/yyyy')}
+          {format(parseISO(record.createdAt), 'dd/LLL/yyyy')}
         </StyledBeerTicketField>
         <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
-          {format(record.createdAt, 'p')}
+          {format(parseISO(record.createdAt), 'p')}
         </StyledBeerTicketField>
         {type === 'stamp' && (
           <>
