@@ -20,6 +20,7 @@ const BeerDetailContainer = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
 
       // TODO: scrollY 값 수정 필요
+
       if (scrollY > 198) {
         setIsScrolled(true);
         setIsTransparent(false);
@@ -33,6 +34,7 @@ const BeerDetailContainer = () => {
       window.removeEventListener('scroll', scrollEventListener);
     };
   }, []);
+
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTransparent, setIsTransparent] = useState(true);

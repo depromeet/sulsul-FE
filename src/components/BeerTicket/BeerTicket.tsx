@@ -12,17 +12,21 @@ import BeerTicketTitle from '@/components/BeerTicketTitle';
 import Emoji from '@/components/Emoji';
 import { IRecord } from '@/apis/record';
 
+export const BEER_TICKET_WIDTH = 300;
+
 interface BeerTicketProps {
   record: IRecord;
   type?: 'default' | 'stamp';
+  id?: string;
   className?: string;
 }
 
 const StyledBeerTicket = styled.article`
-  width: 300px;
+  width: ${BEER_TICKET_WIDTH}px;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 16px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   & .beer-ticket-header {
     display: flex;
@@ -98,10 +102,14 @@ const StyledBeerTicket = styled.article`
   }
 `;
 
-const BeerTicket: React.FC<BeerTicketProps> = ({ record, type = 'default', className }) => {
-  console.log(record);
+const BeerTicket: React.FC<BeerTicketProps> = ({
+  record,
+  type = 'default',
+  id = '',
+  className,
+}) => {
   return (
-    <StyledBeerTicket className={className}>
+    <StyledBeerTicket className={className} id={id}>
       <header className="beer-ticket-header">
         <Icon name="Logo" semanticColor="primary" size={60} />
         <span className="barlow-small">{`BR118${record.id.toString().padStart(3, '0')}`}</span>
