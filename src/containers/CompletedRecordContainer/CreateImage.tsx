@@ -7,6 +7,8 @@ import Button from '@/components/commons/Button';
 import { IRecord } from '@/apis/record';
 import { BEER_TICKET_WIDTH } from '@/components/BeerTicket/BeerTicket';
 
+const CONTAINER_ID = 'beerair-ticket-image';
+
 interface Props {
   record: IRecord;
   className?: string;
@@ -17,7 +19,6 @@ export interface CreateImageRef {
   download: () => boolean;
 }
 function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
-  const CONTAINER_ID = 'beerair-ticket-image';
   const containerRef = useRef<null | HTMLDivElement>(null);
   const canvasRef = useRef<null | HTMLCanvasElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -29,7 +30,7 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
   }));
 
   const create = useCallback(async () => {
-    if (containerRef.current == null) {
+    if (!containerRef.current) {
       return false;
     }
     try {
@@ -37,7 +38,7 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
         useCORS: true,
         backgroundColor: 'transparent',
         width: BEER_TICKET_WIDTH,
-        onclone: (clonedDoc) => {
+        onclone: (clonedDoc: any) => {
           const clonedContainerElem = clonedDoc.getElementById(CONTAINER_ID);
           if (clonedContainerElem) {
             clonedContainerElem.style.display = 'block';
@@ -61,7 +62,7 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
   }, []);
 
   const download = useCallback(() => {
-    if (imageSrc == null) {
+    if (!imageSrc) {
       return false;
     }
     try {
@@ -85,7 +86,7 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
 
       {imageSrc && isCreateContainerOpen && (
         <CreatedContainer className={className} onClick={() => setIsCreateContainerOpen(false)}>
-          <img src={imageSrc} alt="" />
+          <img src={imageSrc} alt="created-beer-ticket-image" />
           <Button onClick={download}>이미지를 꾹 눌러 저장해보세요</Button>
         </CreatedContainer>
       )}
