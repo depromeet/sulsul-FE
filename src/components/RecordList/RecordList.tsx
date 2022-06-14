@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from '@emotion/styled';
 
 import { IRecord } from '@/apis';
@@ -10,7 +11,8 @@ interface RecordListProps {
 }
 
 const StyledRecordList = styled.section`
-  & > .records-list-item {
+  & .records-list-item {
+    display: block;
     margin-bottom: 36px;
     position: relative;
 
@@ -31,12 +33,14 @@ const RecordList: React.FC<RecordListProps> = ({ records, lastItemRef }) => {
   return (
     <StyledRecordList>
       {records.map((record, i) => (
-        <RecordListItem
-          key={record.id}
-          record={record}
-          className="records-list-item"
-          ref={i === records.length - 1 ? lastItemRef : undefined}
-        />
+        <Link href={`/record/ticket/${record.id}`} passHref key={record.id}>
+          <a className="records-list-item">
+            <RecordListItem
+              record={record}
+              ref={i === records.length - 1 ? lastItemRef : undefined}
+            />
+          </a>
+        </Link>
       ))}
     </StyledRecordList>
   );

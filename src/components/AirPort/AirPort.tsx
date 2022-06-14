@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { isNil } from 'lodash';
 
 import Icon from '@/components/commons/Icon';
 import { sliceAndUpperCase } from '@/utils/string';
@@ -15,8 +16,8 @@ const AirPortItem = (props: AirPortItemProps) => {
   return (
     <StyledAirPortItem>
       <Title>{title}</Title>
-      <Eng>{sliceAndUpperCase(eng, 3)}</Eng>
-      <Kor>{sliceAndUpperCase(kor, 3)}</Kor>
+      <Eng>{!isNil(kor) && sliceAndUpperCase(eng, 3)}</Eng>
+      <Kor>{!isNil(eng) && sliceAndUpperCase(kor, 3)}</Kor>
     </StyledAirPortItem>
   );
 };
@@ -52,9 +53,9 @@ const AirPort = (props: AirPortProps) => {
 
   return (
     <StyledAirPort {...rest} className={className}>
-      <AirPortItem title="출발지" kor={startCountry.nameKor} eng={startCountry.nameEng} />
+      <AirPortItem title="출발지" kor={startCountry?.nameKor} eng={startCountry?.nameEng} />
       <Icon name="FlyingAirplane" width="33%" />
-      <AirPortItem title="도착지" kor={endCountry.nameKor} eng={endCountry.nameEng} />
+      <AirPortItem title="도착지" kor={endCountry?.nameKor} eng={endCountry?.nameEng} />
     </StyledAirPort>
   );
 };

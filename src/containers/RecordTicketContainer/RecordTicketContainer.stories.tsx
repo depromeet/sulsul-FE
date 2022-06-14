@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Record } from '@/constants/Record';
 
-import CompletedRecordContainer from './CompletedRecordContainer';
+import CompletedRecordContainer from './RecordTicketContainer';
 
 export default {
   title: 'Pages/기록 완료 페이지',

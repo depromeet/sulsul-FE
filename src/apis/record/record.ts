@@ -32,7 +32,7 @@ export type IRecordsByBeer = Pick<
 
 export interface IGetRecordsByBeerPayload {
   beerId: number;
-  recordId: number;
+  recordId?: number;
 }
 
 export interface IGetRecordsByBeer extends IBaseResponse<IRecordsByBeer[]> {}

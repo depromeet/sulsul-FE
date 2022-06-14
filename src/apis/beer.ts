@@ -92,30 +92,34 @@ export interface IGetBeersCountResponseData extends IBaseResponse<{ totalCount: 
  * 맥주 개수 조회
  */
 export const getBeersCount = async (auth: boolean) => {
-  const res = await axios.post<IGetBeersCountResponseData>(
+  const res = await axios.get<IGetBeersCountResponseData>(
     auth ? '/api/v2/beers/count' : '/guest/api/v1/beers/count',
   );
   return res.data;
 };
 
-export interface IGetBeersRecommendResponseData extends IBaseResponse<{ beers: IBeer[] }> {}
+export interface IGetBeersRecommendResponseData extends IBaseResponse<IBeer[]> {}
 
 /**
  * 추천 맥주 목록 조회
  */
-export const getBeersRecommend = async () => {
-  const res = await axios.get<IGetBeersRecommendResponseData>('/api/v1/beers/recommend');
-  return res.data;
+export const getBeersRecommend = async (auth: boolean) => {
+  const res = await axios.get<IGetBeersRecommendResponseData>(
+    auth ? '/api/v2/beers/recommend' : '/guest/api/v1/beers/recommend',
+  );
+  return res.data.contents;
 };
 
-export interface IGetBeersLikedResponseData extends IBaseResponse<{ beers: IBeer[] }> {}
+export interface IGetBeersLikedPayload extends IGetBeersPayload {}
+
+export interface IGetBeersLikedResponseData extends IBaseResponse<IBeer[]> {}
 
 /**
  * 찜한 맥주 목록 조회
  */
-export const getBeersLiked = async () => {
-  const res = await axios.get<IGetBeersLikedResponseData>('/api/v1/beers/liked');
-  return res.data;
+export const getBeersLiked = async (payload: IGetBeersLikedPayload) => {
+  const res = await axios.post<IGetBeersLikedResponseData>('/api/v2/beers/liked', payload);
+  return res.data.contents;
 };
 
 export interface IGetBeerResponseData extends IBaseResponse<IBeer> {}
@@ -123,8 +127,10 @@ export interface IGetBeerResponseData extends IBaseResponse<IBeer> {}
 /**
  * 맥주 상세정보 조회
  */
-export const getBeer = async (beerId: number) => {
-  const res = await axios.get<IGetBeerResponseData>(`/api/v1/beers/${beerId}`);
+export const getBeer = async (beerId: number, auth?: boolean) => {
+  const res = await axios.get<IGetBeerResponseData>(
+    auth ? `/api/v1/beers/${beerId}` : `/guest/api/v1/beers/${beerId}`,
+  );
   return res.data.contents;
 };
 
