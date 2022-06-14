@@ -6,6 +6,7 @@ import BeerTicket from '@/components/BeerTicket';
 import Button from '@/components/commons/Button';
 import { IRecord } from '@/apis/record';
 import { BEER_TICKET_WIDTH } from '@/components/BeerTicket/BeerTicket';
+import { getOSByUserAgent } from '@/utils/getUserAgentByOS';
 
 const CONTAINER_ID = 'beerair-ticket-image';
 
@@ -18,7 +19,8 @@ export interface CreateImageRef {
   create: () => Promise<boolean>;
   download: () => boolean;
 }
-function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
+const CreateImage = ({ record, className }: Props, ref: Ref<CreateImageRef>) => {
+  const os = getOSByUserAgent();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const canvasRef = useRef<null | HTMLCanvasElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -87,12 +89,13 @@ function CreateImage({ record, className }: Props, ref: Ref<CreateImageRef>) {
       {imageSrc && isCreateContainerOpen && (
         <CreatedContainer className={className} onClick={() => setIsCreateContainerOpen(false)}>
           <img src={imageSrc} alt="created-beer-ticket-image" />
-          <Button onClick={download}>이미지를 꾹 눌러 저장해보세요</Button>
+          {os === 'ios' && <Button onClick={download}>이미지를 꾹 눌러 저장해보세요</Button>}
+          {(os === 'android' || os === 'web') && <Button onClick={download}>다운로드</Button>}
         </CreatedContainer>
       )}
     </>
   );
-}
+};
 export default forwardRef(CreateImage);
 
 const CreatedContainer = styled.div`
