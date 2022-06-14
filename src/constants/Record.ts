@@ -42,7 +42,14 @@ export const Record: IRecord = {
       nameKor: '미국',
       nameEng: 'usa',
     },
-    country: { id: 1, nameKor: '테스트', nameEng: 'test', imageUrl: 'test' },
+    country: {
+      id: 1,
+      nameKor: '테스트',
+      nameEng: 'test',
+      imageUrl: 'test',
+      backgroundImageUrl:
+        'https://sulsul-media-bucket.s3.ap-northeast-2.amazonaws.com/COUNTRY/background/korea.png',
+    },
     nameKor: '평양',
     nameEng: 'peng',
     imageUrl: 'https://www.naver.com',

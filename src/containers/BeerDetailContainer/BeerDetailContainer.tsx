@@ -44,7 +44,6 @@ const BeerDetailContainer = () => {
 
   const payload = {
     beerId: beerId,
-    recordId: 0,
   };
 
   const { recordsByBeer = [] } = useGetRecordsByBeer(payload);
@@ -83,8 +82,7 @@ const BeerDetailContainer = () => {
       </Header>
       <BackgroundImage isScrolled={isScrolled}>
         <div className="image-container">
-          <img src={country?.imageUrl} alt="" />
-          <div className="gradient" />
+          <img src={country?.backgroundImageUrl} alt="" />
         </div>
       </BackgroundImage>
       <div className="container">

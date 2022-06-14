@@ -5,5 +5,6 @@ export interface ICountry {
   nameKor: string;
   nameEng: string;
   imageUrl: string;
+  backgroundImageUrl: string;
   continent?: IContinent;
 }
