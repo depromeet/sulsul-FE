@@ -20,7 +20,15 @@ global.console = mutedConsole(global.console);
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <NextSeo title="맥주로 떠나는 세계 여행 | BeerAir" description="맥주로 떠나는 세계 여행" />
+      <NextSeo
+        title="[비어에어] 같이 떠나요!"
+        description="비어에어와 함께 세계 맥주를 정복해 보세요!"
+        openGraph={{
+          title: '[비어에어] 같이 떠나요!',
+          description: '비어에어와 함께 세계 맥주를 정복해 보세요!',
+          images: [{ url: 'images/beerair_og.png', width: 1200, height: 600, alt: '비어에어' }],
+        }}
+      />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
