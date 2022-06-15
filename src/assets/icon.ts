@@ -64,3 +64,4 @@ export { ReactComponent as Stamp3 } from './stamp_3.svg';
 export { ReactComponent as Stamp4 } from './stamp_4.svg';
 export { ReactComponent as Stamp5 } from './stamp_5.svg';
 export { ReactComponent as Naver } from './naver.svg';
+export { ReactComponent as Camera } from './camera.svg';
