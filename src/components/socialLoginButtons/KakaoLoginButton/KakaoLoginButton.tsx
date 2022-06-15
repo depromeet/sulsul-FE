@@ -30,7 +30,7 @@ const StyledButton = styled.a`
 
 const KakaoLoginButton = () => {
   return (
-    <StyledButton href={`${BASE_URL}oauth2/authorization/kakao`}>
+    <StyledButton href={`${BASE_URL}/oauth2/authorization/kakao`}>
       <img src="/images/kakao.png" alt="" />
       <p>카카오로 시작하기</p>
     </StyledButton>
