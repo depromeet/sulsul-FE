@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import TermsOfServiceContainer from './TermsOfServiceContainer';
 
 export default {
-  title: 'Pages/TermsOfServiceContainer',
+  title: 'Pages/이용약관',
   component: TermsOfServiceContainer,
   args: {},
 } as ComponentMeta<typeof TermsOfServiceContainer>;
