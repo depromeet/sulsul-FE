@@ -29,6 +29,7 @@ const StyledHeader = styled.header<Pick<HeaderProps, 'isTransparent'>>`
   z-index: 100;
 
   background-color: ${(p) => (p.isTransparent ? 'transparent' : p.theme.color.black100)};
+  transition: background-color 0.5s;
 
   > div {
     display: flex;
