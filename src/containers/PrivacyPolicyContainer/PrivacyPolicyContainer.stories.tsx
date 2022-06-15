@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import PrivacyPolicyContainer from './PrivacyPolicyContainer';
 
 export default {
-  title: 'Pages/PrivacyPolicyContainer',
+  title: 'Pages/개인정보 처리방침',
   component: PrivacyPolicyContainer,
   args: {},
 } as ComponentMeta<typeof PrivacyPolicyContainer>;
