@@ -1,3 +1,10 @@
+export interface IUserLevel {
+  id: number;
+  imageUrl: string;
+  req: number;
+  tier: number;
+}
+
 export interface IUser {
   id: number;
   email: string;
@@ -6,4 +13,5 @@ export interface IUser {
   profileUrl: string;
   role: string;
   social: string;
+  memberLevelResponseDto: IUserLevel;
 }
