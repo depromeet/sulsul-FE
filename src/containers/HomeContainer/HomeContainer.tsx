@@ -1,17 +1,20 @@
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import React from 'react';
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
+import Link from 'next/link';
 
 import HomeSearchBar from './HomeSearchBar';
 
-import { IGetMyRecordsResponseData, IUser } from '@/apis';
-import Icon from '@/components/commons/Icon';
+import { useGtagPageView } from '@/hooks';
+import { IGetMyRecordsResponseData, IUser, getMyRecords, getUser } from '@/apis';
+import Icon, { IconNameType } from '@/components/commons/Icon';
 import BottomNavigation from '@/components/BottomNavigation';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
-import { useGetMyRecords } from '@/queries';
+import { useGetMyRecords, useGetUser } from '@/queries';
 import HomeBeerTicket from '@/components/HomeBeerTicket';
+import { PAGE_TITLES } from '@/constants';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -51,6 +54,10 @@ const StyledHomeContainer = styled.div`
     & .slick-list {
       overflow: visible;
     }
+
+    @media (min-width: 768px) {
+      padding-left: 244px;
+    }
   }
 `;
 
@@ -60,10 +67,12 @@ interface HomeContainerProps {
 }
 
 const HomeContainer: NextPage<HomeContainerProps> = ({
-  user,
+  user: _user,
   myRecordResponse: _myRecordResponse,
 }) => {
+  useGtagPageView(PAGE_TITLES.HOME);
   const { data } = useGetMyRecords(_myRecordResponse);
+  const { contents: user } = useGetUser(_user);
 
   const [myRecords] = data?.pages || [];
 
@@ -73,11 +82,15 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
         <Icon name="Logo" width="80px" height="17.11px" />
       </header>
       <div className="home-welcome-wrapper">
-        <Icon name="Level4" size={64} />
-        <p className="home-welcome-message">{`${user.name}님,\n이번 맥주 여행은 어떠셨나요?`}</p>
+        <Icon name={`Level${user?.memberLevelResponseDto.tier || 1}` as IconNameType} size={64} />
+        <p className="home-welcome-message">{`${user?.name}님,\n이번 맥주 여행은 어떠셨나요?`}</p>
       </div>
       <div className="home-search-wrapper">
-        <HomeSearchBar />
+        <Link href="/search">
+          <a>
+            <HomeSearchBar />
+          </a>
+        </Link>
       </div>
       <Slider
         arrows={false}
@@ -97,20 +110,31 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
         className="record-floating-area"
         bottomOffset={64}
         button={
-          <Button
-            type="secondary"
-            line
-            rightAddon={<Icon name="Airplane" color="yellow" />}
-            iconMargin={14}
-            width="large"
-          >
-            {'이런 맥주는 어떠세요?'}
-          </Button>
+          <Link href="/beer/recommend-and-liked">
+            <a>
+              <Button
+                type="secondary"
+                line
+                rightAddon={<Icon name="Airplane" color="yellow" />}
+                iconMargin={14}
+                width="large"
+              >
+                {'이런 맥주는 어떠세요?'}
+              </Button>
+            </a>
+          </Link>
         }
       ></BottomFloatingButtonArea>
       <BottomNavigation />
     </StyledHomeContainer>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const myRecordResponse = await getMyRecords();
+  const user = await getUser();
+
+  return { props: { myRecordResponse, user } };
 };
 
 export default HomeContainer;
