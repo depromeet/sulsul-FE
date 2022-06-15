@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import type { HTMLAttributes } from 'react';
 
@@ -26,7 +27,13 @@ const BottomFloatingButtonArea = (props: Props) => {
     <StyledBottomFloatingButton className={className} bottomOffset={bottomOffset}>
       {children}
       {!isOnlyHomeButton && button}
-      {withHomeButton && <HomeIconButton />}
+      {withHomeButton && (
+        <Link href="/">
+          <a>
+            <HomeIconButton />
+          </a>
+        </Link>
+      )}
     </StyledBottomFloatingButton>
   );
 };
