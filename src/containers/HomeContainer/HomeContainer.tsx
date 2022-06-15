@@ -98,6 +98,7 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
         slidesToShow={1}
         slidesToScroll={1}
         variableWidth
+        swipeToSlide
         className="home-record-slider"
       >
         {myRecords?.contents?.map((record) => (
