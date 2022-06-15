@@ -4,6 +4,7 @@ export * from './country';
 export * from './upload';
 export * from './user';
 export * from './record';
+export * from './user';
 
 export interface IError {
   message: string;
