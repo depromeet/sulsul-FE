@@ -9,13 +9,21 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   isOnlyHomeButton?: boolean;
   className?: string;
   children?: React.ReactNode;
+  bottomOffset?: number;
 }
 
 const BottomFloatingButtonArea = (props: Props) => {
-  const { button, withHomeButton = false, isOnlyHomeButton = false, className, children } = props;
+  const {
+    button,
+    withHomeButton = false,
+    isOnlyHomeButton = false,
+    className,
+    bottomOffset = 0,
+    children,
+  } = props;
 
   return (
-    <StyledBottomFloatingButton className={className}>
+    <StyledBottomFloatingButton className={className} bottomOffset={bottomOffset}>
       {children}
       {!isOnlyHomeButton && button}
       {withHomeButton && <HomeIconButton />}
@@ -25,9 +33,9 @@ const BottomFloatingButtonArea = (props: Props) => {
 
 export default BottomFloatingButtonArea;
 
-const StyledBottomFloatingButton = styled.div`
+const StyledBottomFloatingButton = styled.div<{ bottomOffset: number }>`
   position: fixed;
-  bottom: 0;
+  bottom: ${({ bottomOffset }) => bottomOffset}px;
   left: 0;
   right: 0;
   display: flex;
