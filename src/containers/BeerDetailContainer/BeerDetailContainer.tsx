@@ -19,8 +19,6 @@ const BeerDetailContainer = () => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
 
-      // TODO: scrollY 값 수정 필요
-
       if (scrollY > 190) {
         setIsScrolled(true);
         setIsTransparent(false);
@@ -142,7 +140,6 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
 
   & > .image-container {
     position: relative;
-    //display: ${({ isScrolled }) => (isScrolled ? 'none' : 'block')};
 
     & > img {
       width: 100%;
