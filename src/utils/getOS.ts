@@ -1,6 +1,6 @@
 import { isServer } from './isServer';
 
-export function getOSByUserAgent() {
+export function getOS() {
   if (isServer()) {
     return 'web';
   }

@@ -6,7 +6,7 @@ import BeerTicket from '@/components/BeerTicket';
 import Button from '@/components/commons/Button';
 import { IRecord } from '@/apis/record';
 import { BEER_TICKET_WIDTH } from '@/components/BeerTicket/BeerTicket';
-import { getOSByUserAgent } from '@/utils/getUserAgentByOS';
+import { getOS } from '@/utils/getOS';
 
 const CONTAINER_ID = 'beerair-ticket-image';
 
@@ -20,7 +20,7 @@ export interface CreateImageRef {
   download: () => boolean;
 }
 const CreateImage = ({ record, className }: Props, ref: Ref<CreateImageRef>) => {
-  const os = getOSByUserAgent();
+  const os = getOS();
   const containerRef = useRef<null | HTMLDivElement>(null);
   const canvasRef = useRef<null | HTMLCanvasElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
