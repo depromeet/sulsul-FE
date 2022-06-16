@@ -1,20 +1,40 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { GetServerSideProps, NextPage } from 'next';
+import { useInView } from 'react-intersection-observer';
 
 import BeerDetail from '@/components/BeerDetail';
 import AirPort from '@/components/AirPort';
-import TasteBoxAndBadge from '@/components/TasteBoxAndBadge';
+import Top3BeerFlavorList from '@/components/Top3BeerFlavorList';
 import Button from '@/components/commons/Button';
 import Icon from '@/components/commons/Icon';
-import Review from '@/components/Review';
+import ReviewList from '@/components/ReviewList';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { share } from '@/utils/share';
 import { useGetBeer, useGetRecordsByBeer, useGetTop3BeerFlavor } from '@/queries';
+import {
+  IBeer,
+  IGetRecordsByBeer,
+  ITop3BeerFlavor,
+  getBeer,
+  getTop3BeerFlavor,
+  getRecordsByBeer,
+} from '@/apis';
 
-const BeerDetailContainer = () => {
+interface BeerDetailContainerProps {
+  beerResponse: IBeer;
+  top3BeerFlavor: ITop3BeerFlavor[];
+  recordsByBeer: IGetRecordsByBeer;
+}
+
+const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
+  beerResponse: _beerResponse,
+  top3BeerFlavor: _top3BeerFlavor,
+  recordsByBeer: _recordsByBeer,
+}) => {
   useEffect(() => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
@@ -38,14 +58,32 @@ const BeerDetailContainer = () => {
 
   const router = useRouter();
   const beerId = Number(router.query.id);
-  const { contents: beer } = useGetBeer(beerId);
-  const { beerFlavor } = useGetTop3BeerFlavor(beerId);
+  const { contents: beer } = useGetBeer(beerId, _beerResponse);
+  const { contents: beerFlavor } = useGetTop3BeerFlavor(beerId, _top3BeerFlavor);
 
-  const payload = {
-    beerId: beerId,
-  };
+  const {
+    contents: recordsByBeer,
+    pageInfo,
+    fetchNextPage,
+    isLoading,
+  } = useGetRecordsByBeer(
+    {
+      beerId: beerId,
+      //recordId: 0,
+    },
+    _recordsByBeer,
+  );
 
-  const { recordsByBeer = [] } = useGetRecordsByBeer(payload);
+  const { ref } = useInView({
+    onChange: (inView) => {
+      const { nextCursor, hasNext } = pageInfo;
+
+      if (inView && nextCursor && hasNext && !isLoading) {
+        fetchNextPage({ pageParam: nextCursor });
+      }
+    },
+    triggerOnce: true,
+  });
 
   if (!beer || !beerFlavor) {
     return null;
@@ -84,24 +122,14 @@ const BeerDetailContainer = () => {
           <img src={country?.backgroundImageUrl} alt="" />
         </div>
       </BackgroundImage>
-      <div className="container">
+      <section className="container">
         <BeerDetail beerData={beer} />
         <AirPort startCountry={startCountry} endCountry={endCountry} />
         <BeerContent>{content}</BeerContent>
-        <TasteBoxAndBadgeContainer>
-          {beerFlavor?.map(({ content, count }) => (
-            <TasteBoxAndBadge key={content} content={content} count={count} />
-          ))}
-        </TasteBoxAndBadgeContainer>
-      </div>
+        <Top3BeerFlavorList beerFlavor={beerFlavor} />
+      </section>
       <HorizontalDivider />
-      <div className="container" style={{ backgroundColor: 'black' }}>
-        <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
-        {recordsByBeer?.map((review) => (
-          <Review review={review} key={review.id} />
-        ))}
-        <div style={{ height: '90px' }} />
-      </div>
+      <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
       <BottomFloatingButtonArea
         button={
           <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
@@ -111,6 +139,20 @@ const BeerDetailContainer = () => {
       />
     </StyledBeerDetailPage>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (context.query.id && typeof context.query.id === 'string' && Number(context.query.id)) {
+    const { id } = context.query;
+
+    const beerResponse = await getBeer(Number(id));
+    const top3BeerFlavor = await getTop3BeerFlavor(Number(id));
+    const recordsByBeer = await getRecordsByBeer({ beerId: Number(id) });
+
+    return { props: { beerResponse, top3BeerFlavor, recordsByBeer } };
+  }
+
+  return { props: {} };
 };
 
 export default BeerDetailContainer;
@@ -169,13 +211,6 @@ const HorizontalDivider = styled.div`
   width: 100%;
   height: 8px;
   background-color: ${({ theme }) => theme.color.whiteOpacity10};
-`;
-
-const ThisBeer = styled.p`
-  ${({ theme }) => theme.fonts.SubTitle2};
-  color: ${({ theme }) => theme.color.white};
-  margin-right: auto;
-  margin: 26px 0;
 `;
 
 const StyledBackButton = styled(BackButton)<{ isScrolled: boolean }>`

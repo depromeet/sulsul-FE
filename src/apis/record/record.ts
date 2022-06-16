@@ -1,5 +1,5 @@
 import { IBeer } from '../beer';
-import { IBaseResponse } from '..';
+import { IBasePageNationResponse } from '..';
 
 import axios from '@/configs/axios';
 
@@ -35,13 +35,16 @@ export interface IGetRecordsByBeerPayload {
   recordId?: number;
 }
 
-export interface IGetRecordsByBeer extends IBaseResponse<IRecordsByBeer[]> {}
+export interface IGetRecordsByBeer extends IBasePageNationResponse<IRecordsByBeer[]> {}
 
 /**
  * 맥주별 record 조회
  */
 
-export const getRecordsByBeer = async (payload: IGetRecordsByBeerPayload) => {
-  const res = await axios.post<IGetRecordsByBeer>('/api/v1/records/find', payload);
+export const getRecordsByBeer = async (payload: IGetRecordsByBeerPayload, auth?: boolean) => {
+  const res = await axios.post<IGetRecordsByBeer>(
+    auth ? '/api/v1/records/find' : '/guest/api/v1/records/find',
+    payload,
+  );
   return res.data;
 };

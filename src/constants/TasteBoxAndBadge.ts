@@ -1,4 +1,4 @@
-import { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
+import { TasteBoxAndBadgeProps } from '@/components/Top3BeerFlavorListItem';
 
 export const TasteBoxAndBadges: TasteBoxAndBadgeProps[] = [
   {

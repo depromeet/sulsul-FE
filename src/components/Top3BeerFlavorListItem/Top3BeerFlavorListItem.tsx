@@ -5,25 +5,25 @@ import type { HTMLAttributes } from 'react';
 import LikeBadge from '@/components/commons/LikeBadge';
 import TasteBox from '@/components/commons/TasteBox';
 
-export interface TasteBoxAndBadgeProps extends HTMLAttributes<HTMLDivElement> {
+export interface Top3BeerFlavorListItemProps extends HTMLAttributes<HTMLDivElement> {
   content?: string;
   count?: number;
   className?: string;
 }
 
-const TasteBoxAndBadge = (props: TasteBoxAndBadgeProps) => {
+const Top3BeerFlavorListItem = (props: Top3BeerFlavorListItemProps) => {
   const { content, count, className, ...rest } = props;
   return (
-    <StyledTasteBoxAndBadge type="default" className={className} {...rest}>
+    <StyledTop3BeerFlavorListItem type="default" className={className} {...rest}>
       {content}
       <LikeBadge count={count} />
-    </StyledTasteBoxAndBadge>
+    </StyledTop3BeerFlavorListItem>
   );
 };
 
-export default TasteBoxAndBadge;
+export default Top3BeerFlavorListItem;
 
-const StyledTasteBoxAndBadge = styled(TasteBox)`
+const StyledTop3BeerFlavorListItem = styled(TasteBox)`
   justify-content: space-between;
   box-sizing: border-box;
 `;
