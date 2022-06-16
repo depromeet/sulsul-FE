@@ -15,6 +15,7 @@ export * from './useGetUser';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];
+  resultCount?: number;
   pageInfo: {
     hasNext?: boolean;
     nextCursor?: number;
