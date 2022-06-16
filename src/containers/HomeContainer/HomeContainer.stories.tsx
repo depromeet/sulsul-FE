@@ -28,5 +28,11 @@ export const 홈: ComponentStory<typeof HomeContainer> = (args) => <HomeContaine
     profileUrl: '',
     role: 'test',
     social: 'test',
+    memberLevelResponseDto: {
+      id: 1,
+      imageUrl: '',
+      req: 50,
+      tier: 4,
+    },
   },
 };

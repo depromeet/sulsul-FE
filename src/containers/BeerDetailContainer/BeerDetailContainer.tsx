@@ -35,7 +35,6 @@ const BeerDetailContainer = () => {
     };
   }, []);
 
-
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTransparent, setIsTransparent] = useState(true);
 
