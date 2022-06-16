@@ -118,9 +118,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
         {nameKor}
       </Header>
       <BackgroundImage isScrolled={isScrolled}>
-        <div className="image-container">
-          <img src={country?.backgroundImageUrl} alt="" />
-        </div>
+        <img src={country?.backgroundImageUrl} alt={country?.nameKor} />
       </BackgroundImage>
       <section className="container">
         <BeerDetail beerData={beer} />
@@ -180,31 +178,18 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
   width: 100%;
   z-index: -1;
 
-  & > .image-container {
-    position: relative;
-
-    & > img {
-      width: 100%;
-      height: 237px;
-      opacity: ${({ isScrolled }) => (isScrolled ? 0 : 1)};
-      object-fit: cover;
-      transition: opacity 0.5s;
-    }
+  & > img {
+    width: 100%;
+    height: 237px;
+    opacity: ${({ isScrolled }) => (isScrolled ? 0 : 1)};
+    object-fit: cover;
+    transition: opacity 0.5s;
   }
 `;
 
 const BeerContent = styled.p`
   ${({ theme }) => theme.fonts.Body5};
   color: ${({ theme }) => theme.color.grey1};
-`;
-
-const TasteBoxAndBadgeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  margin: 26px 0;
 `;
 
 const HorizontalDivider = styled.div`
