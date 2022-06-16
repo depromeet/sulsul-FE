@@ -42,7 +42,6 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
     isLoading,
   } = useGetBeers({ query, filter, sortBy: [sortBy], limit: 21 }, _beersData);
 
-  console.log({ query, filter, sortBy: [sortBy], limit: 21 });
   const { ref } = useInView({
     onChange: (inView) => {
       const { nextCursor, hasNext } = pageInfo;
