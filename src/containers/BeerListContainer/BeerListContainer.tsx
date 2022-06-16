@@ -78,12 +78,6 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
   );
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(
-    context.query[BEER_LIST_FILTER_ATOM_KEY],
-    '||',
-    (context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string)?.replace(/["]/g, ''),
-  );
-
   const beersData = await getBeers({
     pageParam: {
       payload: {
