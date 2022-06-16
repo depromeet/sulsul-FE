@@ -17,9 +17,9 @@ const BeerList = ({ beers, ...rest }: Props) => {
     <StyledBeerList className={beerListViewType} {...rest}>
       {beers?.map((beer) =>
         beerListViewType === 'list' ? (
-          <BeerListItem key={`${beer.id}${beerListViewType}`} beer={beer} />
+          <BeerListItem key={`list-${beer.id}`} beer={beer} />
         ) : (
-          <BeerGridItem key={`${beer.id}${beerListViewType}`} beer={beer} />
+          <BeerGridItem key={`grid-${beer.id}`} beer={beer} />
         ),
       )}
     </StyledBeerList>

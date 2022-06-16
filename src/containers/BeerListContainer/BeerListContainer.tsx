@@ -52,6 +52,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
       }
     },
   });
+
   return (
     <>
       <BeerListPageHeader />
@@ -60,15 +61,19 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
         totalCount={beersCountData?.contents?.totalCount}
       />
       <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData} />
-      <div ref={ref}>
-        <Icon name="AirPlaneLoading" size={40} style={{ margin: '50px auto' }} />
-      </div>
+
+      {pageInfo.hasNext && (
+        <div ref={ref}>
+          <Icon name="AirPlaneLoading" size={40} style={{ margin: '50px auto' }} />
+        </div>
+      )}
+
       <BottomNavigation />
     </>
   );
 };
 export const getServerSideProps: GetServerSideProps = async () => {
-  // TODO: recoil url로 변경, any 제거 
+  // TODO: recoil url로 변경, any 제거
   const beersData = await getBeers({
     pageParam: {
       payload: { limit: 21 },
