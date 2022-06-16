@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 import { useSearchHistory } from '@/hooks';
 import Icon from '@/components/commons/Icon';
@@ -27,6 +28,7 @@ const StyledSearchInput = styled.div`
 `;
 
 const SearchInput: React.FC<SearchInputProps> = ({ searchText, setSearchText }) => {
+  const router = useRouter();
   const { addSearchHistory } = useSearchHistory();
 
   const handleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
@@ -41,7 +43,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchText, setSearchText }) 
     (e) => {
       e.preventDefault();
       addSearchHistory(searchText);
-      setSearchText('');
+      router.push(`/beers?query=${encodeURI(searchText)}`);
     },
     [addSearchHistory, searchText],
   );
