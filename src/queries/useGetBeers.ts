@@ -26,7 +26,7 @@ export const useGetBeers = ({
         {
           ...payload,
           cursor: 0,
-          limit: 20,
+          limit: 21,
         },
         !!user,
       ),

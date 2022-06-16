@@ -16,19 +16,11 @@ const BeerList = ({ beers, lastItemRef, ...rest }: Props) => {
 
   return (
     <StyledBeerList className={beerListViewType} {...rest}>
-      {beers?.map((beer, i) =>
+      {beers?.map((beer) =>
         beerListViewType === 'list' ? (
-          <BeerListItem
-            key={beer.id}
-            beer={beer}
-            ref={i === beers.length - 1 ? lastItemRef : undefined}
-          />
+          <BeerListItem key={beer.id} beer={beer} />
         ) : (
-          <BeerGridItem
-            key={beer.id}
-            beer={beer}
-            ref={i === beers.length - 1 ? lastItemRef : undefined}
-          />
+          <BeerGridItem key={beer.id} beer={beer} />
         ),
       )}
     </StyledBeerList>
@@ -46,7 +38,7 @@ const StyledBeerList = styled.div`
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
     gap: 26px 15px;
-    padding: 20px 20px 20vh;
+    padding: 20px;
   }
 
   &.list {
@@ -54,6 +46,6 @@ const StyledBeerList = styled.div`
     grid-template-columns: 1fr;
     grid-auto-rows: 1fr;
     gap: 16px;
-    padding: 20px 20px 20vh 14px;
+    padding: 20px 20px 20px 14px;
   }
 `;

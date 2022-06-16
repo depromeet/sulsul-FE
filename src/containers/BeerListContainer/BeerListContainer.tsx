@@ -5,6 +5,8 @@ import { useInView } from 'react-intersection-observer';
 
 import { $beerListFilter, $beerListSortBy } from './recoil/atoms';
 
+import Icon from '@/components/commons/Icon';
+import LoadingIcon from '@/components/LoadingIcon';
 import BeerListPageHeader from '@/components/BeerListPageHeader';
 import BeerListFilterAndSorter from '@/components/BeerListFilterAndSorter';
 import BeerListSearchResult from '@/components/BeerSearchResultList';
@@ -38,7 +40,6 @@ const BeerListContainer = () => {
         fetchNextPage({ pageParam: nextCursor });
       }
     },
-    triggerOnce: true,
   });
 
   return (
@@ -48,12 +49,11 @@ const BeerListContainer = () => {
         resultCount={pageInfo?.resultCount}
         totalCount={beersCountData?.contents?.totalCount}
       />
-      <BeerListSearchResult
-        query={query}
-        isLoading={isLoading}
-        beers={beersData}
-        lastItemRef={ref}
-      />
+      <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData} />
+      <div ref={ref}>
+        <Icon name="AirPlaneLoading" size={40} style={{ margin: '50px auto' }} />
+      </div>
+      {/* <LoadingIcon ref={ref} /> */}
       <BottomNavigation />
     </>
   );
