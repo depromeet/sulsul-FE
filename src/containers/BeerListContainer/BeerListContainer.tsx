@@ -98,15 +98,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       auth: undefined,
     },
   } as any);
-  console.log({
-    filter: context.query[BEER_LIST_FILTER_ATOM_KEY]
-      ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
-      : undefined,
-    sortBy: context.query[BEER_LIST_SORT_BY_ATOM_KEY]
-      ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
-      : undefined,
-    limit: 21,
-  });
 
   return { props: { beersData } };
 };
