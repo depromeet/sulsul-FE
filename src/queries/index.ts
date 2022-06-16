@@ -11,6 +11,7 @@ export * from './useGetTop3BeerFlavor';
 export * from './useGetRecord';
 export * from './useGetMyRecords';
 export * from './useGetRecentlyVisitedCountry';
+export * from './useGetUser';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];

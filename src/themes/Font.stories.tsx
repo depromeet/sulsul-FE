@@ -60,6 +60,9 @@ const H5 = styled.p`
 const H6 = styled.p`
   ${({ theme }) => theme.fonts.H6}
 `;
+const H7 = styled.p`
+  ${({ theme }) => theme.fonts.H7}
+`;
 const SubTitle1 = styled.p`
   ${({ theme }) => theme.fonts.SubTitle1}
 `;
