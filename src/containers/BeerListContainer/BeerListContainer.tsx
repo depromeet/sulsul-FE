@@ -4,7 +4,12 @@ import { useRecoilValue } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import { GetServerSideProps, NextPage } from 'next';
 
-import { $beerListFilter, $beerListSortBy } from './recoil/atoms';
+import {
+  $beerListFilter,
+  $beerListSortBy,
+  BEER_LIST_FILTER_ATOM_KEY,
+  BEER_LIST_SORT_BY_ATOM_KEY,
+} from './recoil/atoms';
 
 import Icon from '@/components/commons/Icon';
 import BeerListPageHeader from '@/components/BeerListPageHeader';
@@ -35,8 +40,9 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
     pageInfo,
     fetchNextPage,
     isLoading,
-  } = useGetBeers({ limit: 21 }, _beersData);
+  } = useGetBeers({ query, filter, sortBy: [sortBy], limit: 21 }, _beersData);
 
+  console.log({ query, filter, sortBy: [sortBy], limit: 21 });
   const { ref } = useInView({
     onChange: (inView) => {
       const { nextCursor, hasNext } = pageInfo;
@@ -72,14 +78,36 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
     </>
   );
 };
-export const getServerSideProps: GetServerSideProps = async () => {
-  // TODO: recoil url로 변경, any 제거
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log(
+    context.query[BEER_LIST_FILTER_ATOM_KEY],
+    '||',
+    (context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string)?.replace(/["]/g, ''),
+  );
+
   const beersData = await getBeers({
     pageParam: {
-      payload: { limit: 21 },
+      payload: {
+        filter: context.query[BEER_LIST_FILTER_ATOM_KEY]
+          ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
+          : undefined,
+        sortBy: context.query[BEER_LIST_SORT_BY_ATOM_KEY]
+          ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
+          : undefined,
+        limit: 21,
+      },
       auth: undefined,
     },
   } as any);
+  console.log({
+    filter: context.query[BEER_LIST_FILTER_ATOM_KEY]
+      ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
+      : undefined,
+    sortBy: context.query[BEER_LIST_SORT_BY_ATOM_KEY]
+      ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
+      : undefined,
+    limit: 21,
+  });
 
   return { props: { beersData } };
 };
