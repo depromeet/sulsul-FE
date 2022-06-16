@@ -1,20 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import type { HTMLAttributes } from 'react';
 
 import LikeBadge from '@/components/commons/LikeBadge';
 import TasteBox from '@/components/commons/TasteBox';
+import { ITop3BeerFlavor } from '@/apis';
 
-export interface Top3BeerFlavorListItemProps extends HTMLAttributes<HTMLDivElement> {
-  content?: string;
-  count?: number;
-  className?: string;
-}
-
-const Top3BeerFlavorListItem = (props: Top3BeerFlavorListItemProps) => {
-  const { content, count, className, ...rest } = props;
+const Top3BeerFlavorListItem = ({ count, content }: ITop3BeerFlavor) => {
   return (
-    <StyledTop3BeerFlavorListItem type="default" className={className} {...rest}>
+    <StyledTop3BeerFlavorListItem type="default">
       {content}
       <LikeBadge count={count} />
     </StyledTop3BeerFlavorListItem>

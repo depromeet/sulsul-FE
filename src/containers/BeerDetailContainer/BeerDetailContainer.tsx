@@ -23,6 +23,8 @@ import {
   getTop3BeerFlavor,
   getRecordsByBeer,
 } from '@/apis';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
 interface BeerDetailContainerProps {
   beerResponse: IBeer;
@@ -35,6 +37,8 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   top3BeerFlavor: _top3BeerFlavor,
   recordsByBeer: _recordsByBeer,
 }) => {
+  useGtagPageView(PAGE_TITLES.BEER_DETAIL);
+
   useEffect(() => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
