@@ -69,7 +69,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   } = useGetRecordsByBeer(
     {
       beerId: beerId,
-      //recordId: 0,
+      //recordId: pageInfo.nextCursor,
     },
     _recordsByBeer,
   );
