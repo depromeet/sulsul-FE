@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, Ref, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
@@ -14,7 +14,7 @@ interface Props {
   beer: BeerGridItemProps;
 }
 
-const BeerGridItem = (props: Props) => {
+const BeerGridItem = (props: Props, ref: Ref<any>) => {
   const {
     beer: { id, nameKor, imageUrl, feel, isLiked },
   } = props;
@@ -27,7 +27,7 @@ const BeerGridItem = (props: Props) => {
   };
 
   return (
-    <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
+    <StyledBeerGridItem onClick={() => goToBeerDetail(id)} ref={ref}>
       <BeerGridItemContainer feel={feel}>
         <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
           {isLiked || isBookMarked ? (
@@ -48,7 +48,7 @@ const BeerGridItem = (props: Props) => {
   );
 };
 
-export default BeerGridItem;
+export default forwardRef(BeerGridItem);
 
 const StyledBeerGridItem = styled.div`
   display: flex;

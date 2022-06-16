@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { isNil } from 'lodash';
 import { useRecoilValue } from 'recoil';
+import { useInView } from 'react-intersection-observer';
 
 import { $beerListFilter, $beerListSortBy } from './recoil/atoms';
 
@@ -18,20 +19,41 @@ const BeerListContainer = () => {
   const sortBy = useRecoilValue($beerListSortBy);
 
   const { data: beersCountData } = useGetBeersCount();
-  const { data: beersData, isLoading } = useGetBeers({
+  const {
+    contents: beersData,
+    pageInfo,
+    fetchNextPage,
+    isLoading,
+  } = useGetBeers({
     query,
     filter,
     sortBy: [sortBy],
+  });
+
+  const { ref } = useInView({
+    onChange: (inView) => {
+      const { nextCursor, hasNext } = pageInfo;
+
+      if (inView && nextCursor && hasNext && !isLoading) {
+        fetchNextPage({ pageParam: nextCursor });
+      }
+    },
+    triggerOnce: true,
   });
 
   return (
     <>
       <BeerListPageHeader />
       <BeerListFilterAndSorter
-        resultCount={beersData?.resultCount}
+        resultCount={pageInfo?.resultCount}
         totalCount={beersCountData?.contents?.totalCount}
       />
-      <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData?.contents} />
+      <BeerListSearchResult
+        query={query}
+        isLoading={isLoading}
+        beers={beersData}
+        lastItemRef={ref}
+      />
       <BottomNavigation />
     </>
   );

@@ -7,9 +7,15 @@ interface BeerSearchResultListProps {
   query?: string;
   isLoading: boolean;
   beers?: IBeer[];
+  lastItemRef?: any;
 }
 
-const BeerSearchResultList = ({ query, isLoading, beers }: BeerSearchResultListProps) => {
+const BeerSearchResultList = ({
+  query,
+  isLoading,
+  beers,
+  lastItemRef,
+}: BeerSearchResultListProps) => {
   if (isLoading || !beers) {
     return null;
   }
@@ -27,7 +33,7 @@ const BeerSearchResultList = ({ query, isLoading, beers }: BeerSearchResultListP
     );
   }
 
-  return <BeerList beers={beers} />;
+  return <BeerList beers={beers} lastItemRef={lastItemRef} />;
 };
 
 export default BeerSearchResultList;

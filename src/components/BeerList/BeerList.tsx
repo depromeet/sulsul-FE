@@ -8,18 +8,27 @@ import { $beerListViewType } from '@/recoil/atoms';
 
 interface Props {
   beers: IBeer[];
+  lastItemRef?: any;
 }
 
-const BeerList = ({ beers, ...rest }: Props) => {
+const BeerList = ({ beers, lastItemRef, ...rest }: Props) => {
   const beerListViewType = useRecoilValue($beerListViewType);
 
   return (
     <StyledBeerList className={beerListViewType} {...rest}>
-      {beers?.map((beer) =>
+      {beers?.map((beer, i) =>
         beerListViewType === 'list' ? (
-          <BeerListItem key={beer.id} beer={beer} />
+          <BeerListItem
+            key={beer.id}
+            beer={beer}
+            ref={i === beers.length - 1 ? lastItemRef : undefined}
+          />
         ) : (
-          <BeerGridItem key={beer.id} beer={beer} />
+          <BeerGridItem
+            key={beer.id}
+            beer={beer}
+            ref={i === beers.length - 1 ? lastItemRef : undefined}
+          />
         ),
       )}
     </StyledBeerList>

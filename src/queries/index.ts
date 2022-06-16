@@ -15,6 +15,7 @@ export * from './useGetRecentlyVisitedCountry';
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];
   pageInfo: {
+    resultCount?: number;
     hasNext?: boolean;
     nextCursor?: number;
   };

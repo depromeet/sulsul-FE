@@ -1,6 +1,9 @@
-import { useQuery } from 'react-query';
+import { useMemo } from 'react';
+import { useInfiniteQuery } from 'react-query';
 
-import { getBeers, IGetBeersPayload } from '@/apis';
+import { BasePagenationQueryHooksResponse } from '.';
+
+import { getBeers, IGetBeersPayload, IBeer } from '@/apis';
 
 export const useGetBeers = ({
   query,
@@ -16,14 +19,46 @@ export const useGetBeers = ({
     sortBy,
   };
 
-  return useQuery(['beers', payload], () =>
-    getBeers(
-      {
-        ...payload,
-        cursor: 0,
-        limit: 20,
+  const result = useInfiniteQuery(
+    ['beers', payload],
+    () =>
+      getBeers(
+        {
+          ...payload,
+          cursor: 0,
+          limit: 20,
+        },
+        !!user,
+      ),
+    {
+      cacheTime: Infinity,
+      //enabled: pageInfo.hasNext,
+      getNextPageParam(lastPage) {
+        return lastPage.nextCursor || undefined;
       },
-      !!user,
-    ),
+    },
   );
+
+  const { data } = result;
+
+  const { contents, pageInfo } = useMemo(
+    () =>
+      data?.pages.reduce<BasePagenationQueryHooksResponse<IBeer>>(
+        (responseAcc, response) => ({
+          contents: [...responseAcc.contents, ...response.contents],
+          pageInfo: {
+            hasNext: response.hasNext,
+            nextCursor: response.nextCursor,
+          },
+        }),
+        { contents: [], pageInfo: {} },
+      ) || { contents: [], pageInfo: {} },
+    [data?.pages],
+  );
+
+  return {
+    ...result,
+    contents,
+    pageInfo,
+  };
 };
