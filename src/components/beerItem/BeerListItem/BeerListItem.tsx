@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
@@ -17,7 +17,7 @@ interface Props {
   beer: BeerListItemProps;
 }
 
-const BeerListItem = (props: Props, ref: Ref<any>) => {
+const BeerListItem = (props: Props) => {
   const {
     beer: { id, nameKor, type, alcohol, country, imageUrl, feel, isLiked },
   } = props;
@@ -30,7 +30,7 @@ const BeerListItem = (props: Props, ref: Ref<any>) => {
   };
 
   return (
-    <StyledBeerListItem onClick={() => goToBeerDetail(id)} ref={ref}>
+    <StyledBeerListItem onClick={() => goToBeerDetail(id)}>
       <ColorBar feel={feel} />
       <StyledEmoji>
         <Emoji feel={feel} />
@@ -55,7 +55,7 @@ const BeerListItem = (props: Props, ref: Ref<any>) => {
   );
 };
 
-export default forwardRef(BeerListItem);
+export default BeerListItem;
 
 const StyledBeerListItem = styled.div`
   width: calc(100% - 26px);

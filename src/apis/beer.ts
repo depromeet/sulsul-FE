@@ -1,3 +1,5 @@
+import { QueryFunctionContext } from 'react-query';
+
 import { ICountry } from './country';
 
 import { IBasePageNationResponse, IBaseResponse } from '.';
@@ -74,7 +76,9 @@ export interface IGetBeersResponseData extends IBasePageNationResponse<IBeer[]> 
 /**
  * 맥주 목록 조회
  */
-export const getBeers = async (payload: IGetBeersPayload, auth: boolean) => {
+export const getBeers = async (context?: QueryFunctionContext) => {
+  const { pageParam } = context || {};
+  const { payload, auth } = pageParam;
   const res = await axios.post<IGetBeersResponseData>(
     auth ? '/api/v3/beers' : '/guest/api/v1/beers',
     payload,

@@ -16,7 +16,7 @@ export interface IBaseResponse<T extends any> {
 }
 
 export interface IBasePageNationResponse<T extends any> extends IBaseResponse<T> {
-  resultCount: number;
   hasNext: boolean;
   nextCursor: number;
+  resultCount: number;
 }
