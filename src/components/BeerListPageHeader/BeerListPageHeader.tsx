@@ -45,7 +45,7 @@ const SearchBox = () => {
   const router = useRouter();
   const query = isNil(router.query.query) ? undefined : decodeURI(String(router.query.query));
 
-  const handleSearchBoxClick = () => router.push('/beer-search');
+  const handleSearchBoxClick = () => router.push('/search');
 
   const handleClearButtonClick = (e: MouseEvent) => {
     e.stopPropagation();
