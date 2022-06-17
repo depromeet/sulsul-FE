@@ -3,11 +3,7 @@ import { forwardRef, Ref } from 'react';
 
 import Icon from '@/components/commons/Icon';
 
-interface Props {
-  ref: any;
-}
-
-const LoadingIcon = ({ ref }: Props) => {
+const LoadingIcon = (ref: Ref<HTMLDivElement | any>) => {
   return (
     <StyledLoadingIcon ref={ref}>
       <Icon name="AirPlaneLoading" size={40} />
@@ -15,7 +11,9 @@ const LoadingIcon = ({ ref }: Props) => {
   );
 };
 
-export default LoadingIcon;
+export default forwardRef(LoadingIcon);
+
+LoadingIcon.displayName = 'LoadingIcon';
 
 const StyledLoadingIcon = styled.div`
   & > svg {

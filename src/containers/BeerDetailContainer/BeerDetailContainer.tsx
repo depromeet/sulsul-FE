@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 import { useInView } from 'react-intersection-observer';
 
+import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
 import AirPort from '@/components/AirPort';
 import Top3BeerFlavorList from '@/components/Top3BeerFlavorList';
@@ -127,6 +128,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
       </section>
       <HorizontalDivider />
       <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
+      {/* <LoadingIcon ref={ref} /> */}
       <BottomFloatingButtonArea
         button={
           <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
