@@ -1,3 +1,4 @@
+const { withSentryConfig } = require('@sentry/nextjs');
 const intercept = require('intercept-stdout');
 
 const rewrites =
@@ -38,6 +39,18 @@ const nextConfig = {
   },
 };
 
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
+
+  silent: true, // Suppresses all logs
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+};
+
 // safely ignore recoil stdout warning messages
 function interceptStdout(text) {
   if (text.includes('Duplicate atom key')) {
@@ -49,4 +62,4 @@ function interceptStdout(text) {
 // Intercept in dev and prod
 intercept(interceptStdout);
 
-module.exports = nextConfig;
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
