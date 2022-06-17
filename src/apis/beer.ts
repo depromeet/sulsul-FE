@@ -2,7 +2,7 @@ import { QueryFunctionContext } from 'react-query';
 
 import { ICountry } from './country';
 
-import { IBasePageNationResponse, IBaseResponse } from '.';
+import { IBasePaginationResponse, IBaseResponse } from '.';
 
 import axios from '@/configs/axios';
 
@@ -71,7 +71,7 @@ export interface IGetBeersPayload {
   sortBy?: EBeerSortBy[];
 }
 
-export interface IGetBeersResponseData extends IBasePageNationResponse<IBeer[]> {}
+export interface IGetBeersResponseData extends IBasePaginationResponse<IBeer[]> {}
 
 /**
  * 맥주 목록 조회

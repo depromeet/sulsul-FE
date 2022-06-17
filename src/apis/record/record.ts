@@ -1,7 +1,7 @@
 import { QueryFunctionContext } from 'react-query';
 
 import { IBeer } from '../beer';
-import { IBasePageNationResponse } from '..';
+import { IBasePaginationResponse } from '..';
 
 import axios from '@/configs/axios';
 
@@ -37,7 +37,7 @@ export interface IGetRecordsByBeerPayload {
   recordId?: number;
 }
 
-export interface IGetRecordsByBeer extends IBasePageNationResponse<IRecordsByBeer[]> {}
+export interface IGetRecordsByBeer extends IBasePaginationResponse<IRecordsByBeer[]> {}
 
 /**
  * 맥주별 record 조회
