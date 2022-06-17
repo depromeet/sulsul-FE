@@ -12,3 +12,14 @@ export const uploadImage = async (payload: FormData) => {
   });
   return res.data;
 };
+
+export type IImagesUploadResponseData = IBaseResponse<Array<{ imageUrl: string }>>;
+
+export const uploadImages = async (payload: FormData) => {
+  const res = await axios.post<IImagesUploadResponseData>('/api/v1/request-beers/images', payload, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res.data.contents;
+};

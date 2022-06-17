@@ -36,7 +36,7 @@ const EtcContainer = () => {
       <Header leftExtras={<BackButton />}>기타</Header>
       <ListRowContainer>
         <ListRow>
-          <a href="mailto:gywls00100@gmail.com" target="_blank" rel="noreferrer">
+          <a href="mailto:beerair.official@gmail.com" target="_blank" rel="noreferrer">
             문의하기
           </a>
         </ListRow>

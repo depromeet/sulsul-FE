@@ -53,7 +53,11 @@ const SearchItem: React.FC<SearchItemProps> = ({
     <StyledSearchItem onClick={onClick} className={className}>
       <div className="search-item-side">
         <span className="search-item-icon-wrapper">
-          {type === DEFAULT_ICON_TYPE ? <Icon name="Search" /> : <Icon name="History" />}
+          {type === DEFAULT_ICON_TYPE ? (
+            <Icon name="Search" color="whiteOpacity50" />
+          ) : (
+            <Icon name="History" />
+          )}
         </span>
         <span className="search-item-content">{renderedText}</span>
       </div>

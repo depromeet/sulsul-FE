@@ -4,6 +4,7 @@ export * from './country';
 export * from './upload';
 export * from './user';
 export * from './record';
+export * from './user';
 
 export interface IError {
   message: string;
@@ -16,7 +17,7 @@ export interface IBaseResponse<T extends any> {
 }
 
 export interface IBasePageNationResponse<T extends any> extends IBaseResponse<T> {
-  resultCount: number;
   hasNext: boolean;
   nextCursor: number;
+  resultCount: number;
 }

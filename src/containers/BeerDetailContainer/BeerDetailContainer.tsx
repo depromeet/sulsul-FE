@@ -19,12 +19,10 @@ const BeerDetailContainer = () => {
     const scrollEventListener = () => {
       const scrollY = window.scrollY ?? window.pageYOffset;
 
-      // TODO: scrollY 값 수정 필요
-
-      if (scrollY > 198) {
+      if (scrollY > 190) {
         setIsScrolled(true);
         setIsTransparent(false);
-      } else if (scrollY < 198) {
+      } else if (scrollY < 190) {
         setIsScrolled(false);
         setIsTransparent(true);
       }
@@ -34,7 +32,6 @@ const BeerDetailContainer = () => {
       window.removeEventListener('scroll', scrollEventListener);
     };
   }, []);
-
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTransparent, setIsTransparent] = useState(true);
@@ -65,8 +62,8 @@ const BeerDetailContainer = () => {
             <ShareButton
               onClick={() =>
                 share({
-                  title: `BEER:AiR`,
-                  text: `맥주 상세정보 페이지입니다.`,
+                  title: `[비어에어] 같이 떠나요!`,
+                  text: `‘${nameKor}’ 이 맥주가 궁금하신가요? 지금 바로 비어에어에서 확인해 보세요!`,
                   url: window.location.href,
                 })
               }
@@ -143,22 +140,13 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
 
   & > .image-container {
     position: relative;
-    display: ${({ isScrolled }) =>
-      isScrolled ? 'none' : 'block'}; // TODO: scroll 인터랙션 추가하며 수정 필요
 
     & > img {
       width: 100%;
       height: 237px;
+      opacity: ${({ isScrolled }) => (isScrolled ? 0 : 1)};
       object-fit: cover;
-    }
-
-    & > .gradient {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 79px;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 76.88%);
+      transition: opacity 0.5s;
     }
   }
 `;
