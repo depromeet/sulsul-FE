@@ -73,6 +73,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
           <Icon name="AirPlaneLoading" size={40} style={{ margin: '50px auto' }} />
         </div>
       )}
+      {/* <LoadingIcon ref={ref} /> */}
 
       <BottomNavigation />
     </>

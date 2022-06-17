@@ -3,7 +3,7 @@ import { forwardRef, Ref } from 'react';
 
 import Icon from '@/components/commons/Icon';
 
-const LoadingIcon = (ref: Ref<HTMLDivElement | any>) => {
+const LoadingIcon = (ref: Ref<HTMLDivElement>) => {
   return (
     <StyledLoadingIcon ref={ref}>
       <Icon name="AirPlaneLoading" size={40} />
