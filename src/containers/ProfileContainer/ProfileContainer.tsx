@@ -75,7 +75,7 @@ const ProfileContainer = (props: Props) => {
         <ListButtonBoxContainer>
           <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={likedBeerCount} />
           <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestBeerCount} />
-          <Link href="./etc" passHref>
+          <Link href="/profile/etc" passHref>
             <ListButtonBox iconName="ThreeDot" text="기타" />
           </Link>
         </ListButtonBoxContainer>
