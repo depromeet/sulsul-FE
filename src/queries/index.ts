@@ -1,3 +1,4 @@
+export * from './useDeleteUser';
 export * from './useGetBeer';
 export * from './useGetBeers';
 export * from './useGetBeersCount';

@@ -8,10 +8,12 @@ import Modal from '@/components/Modal';
 import Button from '@/components/commons/Button';
 import { BackButton } from '@/components/Header/extras';
 import { BASE_URL } from '@/configs/axios';
-import { deleteMember } from '@/apis';
+import { useDeleteUser } from '@/queries';
 
 const EtcContainer = () => {
   const router = useRouter();
+
+  const { mutateAsync: deleteUserMutation } = useDeleteUser();
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
@@ -24,7 +26,7 @@ const EtcContainer = () => {
   const closeWithdrawalModal = async () => {
     setIsWithdrawalModalOpen(false);
     try {
-      await deleteMember();
+      await deleteUserMutation();
       alert('회원탈퇴 되었습니다');
     } catch (error) {
       console.error(error);
