@@ -21,10 +21,10 @@ const ProfileModifyModal = ({ isModifyModalOpen, closeModifyModal, onSubmit }: P
     setNickname(e.target.value);
   };
 
-  const handleComplete = () => [
-    closeModifyModal(),
+  const handleComplete = () => {
     /** @todo api 호출: 유저 닉네임 업데이트 */
-  ];
+    closeModifyModal();
+  };
 
   return (
     <ModalLayout open={isModifyModalOpen} onClose={closeModifyModal}>

@@ -45,9 +45,9 @@ const SignUpContainer = () => {
     setNickname(e.target.value);
   };
 
-  const handleComplete = () => [
+  const handleComplete = () => {
     /** @todo api 호출: 유저 닉네임 업데이트 */
-  ];
+  };
 
   return (
     <OnBoardingLayout title={`사용하실 닉네임을\n입력해 주세요.`} cloudColor="whiteOpacity35">
