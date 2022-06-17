@@ -70,20 +70,15 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
     pageInfo,
     fetchNextPage,
     isLoading,
-  } = useGetRecordsByBeer(
-    {
-      beerId: beerId,
-      //recordId: pageInfo.nextCursor,
-    },
-    _recordsByBeer,
-  );
+  } = useGetRecordsByBeer({ beerId }, _recordsByBeer);
 
   const { ref } = useInView({
     onChange: (inView) => {
       const { nextCursor, hasNext } = pageInfo;
+      const auth = undefined;
 
       if (inView && nextCursor && hasNext && !isLoading) {
-        fetchNextPage({ pageParam: nextCursor });
+        fetchNextPage({ pageParam: { payload: { beerId: beerId, recordId: nextCursor }, auth } });
       }
     },
     triggerOnce: true,
@@ -149,7 +144,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const beerResponse = await getBeer(Number(id));
     const top3BeerFlavor = await getTop3BeerFlavor(Number(id));
-    const recordsByBeer = await getRecordsByBeer({ beerId: Number(id) });
+    const recordsByBeer = await getRecordsByBeer({
+      pageParam: { payload: { beerId: Number(id) }, auth: undefined },
+    } as any);
 
     return { props: { beerResponse, top3BeerFlavor, recordsByBeer } };
   }

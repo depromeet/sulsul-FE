@@ -56,6 +56,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
         });
       }
     },
+    triggerOnce: true,
   });
 
   return (
@@ -78,22 +79,25 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
   );
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const beersData = await getBeers({
-    pageParam: {
-      payload: {
-        filter: context.query[BEER_LIST_FILTER_ATOM_KEY]
-          ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
-          : undefined,
-        sortBy: context.query[BEER_LIST_SORT_BY_ATOM_KEY]
-          ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
-          : undefined,
-        limit: 21,
+  if (context.query) {
+    const beersData = await getBeers({
+      pageParam: {
+        payload: {
+          filter: context.query[BEER_LIST_FILTER_ATOM_KEY]
+            ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
+            : undefined,
+          sortBy: context.query[BEER_LIST_SORT_BY_ATOM_KEY]
+            ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
+            : undefined,
+          limit: 21,
+        },
+        auth: undefined,
       },
-      auth: undefined,
-    },
-  } as any);
+    } as any);
 
-  return { props: { beersData } };
+    return { props: { beersData } };
+  }
+  return { props: {} };
 };
 
 export default BeerListContainer;

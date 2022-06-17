@@ -1,3 +1,5 @@
+import { QueryFunctionContext } from 'react-query';
+
 import { IBeer } from '../beer';
 import { IBasePageNationResponse } from '..';
 
@@ -41,7 +43,9 @@ export interface IGetRecordsByBeer extends IBasePageNationResponse<IRecordsByBee
  * 맥주별 record 조회
  */
 
-export const getRecordsByBeer = async (payload: IGetRecordsByBeerPayload, auth?: boolean) => {
+export const getRecordsByBeer = async (context?: QueryFunctionContext) => {
+  const { pageParam } = context || {};
+  const { payload, auth } = pageParam;
   const res = await axios.post<IGetRecordsByBeer>(
     auth ? '/api/v1/records/find' : '/guest/api/v1/records/find',
     payload,

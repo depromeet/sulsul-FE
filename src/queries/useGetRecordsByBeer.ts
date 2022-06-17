@@ -11,20 +11,23 @@ import {
 } from '@/apis';
 
 export const useGetRecordsByBeer = (
-  payload: IGetRecordsByBeerPayload,
+  { beerId, recordId }: IGetRecordsByBeerPayload,
   initialData?: IGetRecordsByBeer,
 ) => {
-  const result = useInfiniteQuery(
-    ['recordsByBeer', payload.beerId],
-    async () => await getRecordsByBeer(payload),
-    {
-      cacheTime: Infinity,
-      initialData: initialData ? { pages: [initialData], pageParams: [undefined] } : undefined,
-      getNextPageParam(lastPage) {
-        return lastPage.nextCursor || undefined;
-      },
+  /** @todo const user = useRecoilValue($userInfo); */
+  const auth = undefined;
+
+  const payload = { beerId, recordId };
+
+  const result = useInfiniteQuery(['recordsByBeer', beerId], getRecordsByBeer, {
+    cacheTime: Infinity,
+    initialData: initialData
+      ? { pages: [initialData], pageParams: [{ payload, auth }] }
+      : undefined,
+    getNextPageParam(lastPage) {
+      return lastPage.nextCursor || undefined;
     },
-  );
+  });
 
   const { data } = result;
 
@@ -32,7 +35,7 @@ export const useGetRecordsByBeer = (
     () =>
       data?.pages.reduce<BasePagenationQueryHooksResponse<IRecordsByBeer>>(
         (responseAcc, response) => ({
-          contents: [...responseAcc.contents, ...response.contents],
+          contents: [...(responseAcc.contents || []), ...(response.contents || [])],
           pageInfo: {
             hasNext: response.hasNext,
             nextCursor: response.nextCursor,
