@@ -13,7 +13,7 @@ const PAGE_TITLES = {
   PRIVACY_POLICY: '개인정보 처리방침',
   PROFILE: '프로필',
   TEAM: '팀원 소개',
-  TERMS_OF_SERVICE: '이용약관',
+  TERMS_OF_SERVICE: '서비스 정책 약관',
 };
 
 export default PAGE_TITLES;
