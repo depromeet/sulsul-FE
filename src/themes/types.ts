@@ -54,6 +54,7 @@ export type FontToken =
   | 'H4'
   | 'H5'
   | 'H6'
+  | 'H7'
   | 'SubTitle1'
   | 'SubTitle2'
   | 'SubTitle3'

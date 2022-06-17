@@ -104,8 +104,8 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
             <ShareButton
               onClick={() =>
                 share({
-                  title: `BEER:AiR`,
-                  text: `맥주 상세정보 페이지입니다.`,
+                  title: `[비어에어] 같이 떠나요!`,
+                  text: `‘${nameKor}’ 이 맥주가 궁금하신가요? 지금 바로 비어에어에서 확인해 보세요!`,
                   url: window.location.href,
                 })
               }

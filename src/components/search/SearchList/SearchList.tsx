@@ -7,9 +7,14 @@ import { useSearchHistory } from '@/hooks';
 interface SearchListProps {
   type?: SearchIconType;
   searchList?: string[];
+  searchText?: string;
 }
 
-const SearchList: React.FC<SearchListProps> = ({ type = DEFAULT_ICON_TYPE, searchList }) => {
+const SearchList: React.FC<SearchListProps> = ({
+  type = DEFAULT_ICON_TYPE,
+  searchList,
+  searchText,
+}) => {
   const { searchHistories } = useSearchHistory();
 
   const renderedSearchList = searchList || searchHistories;
@@ -17,7 +22,13 @@ const SearchList: React.FC<SearchListProps> = ({ type = DEFAULT_ICON_TYPE, searc
   return (
     <div>
       {renderedSearchList.map((item) => (
-        <SearchItem key={item} text={item} type={type} hasDeleteButton={type === 'history'} />
+        <SearchItem
+          key={item}
+          text={item}
+          type={type}
+          searchText={searchText}
+          hasDeleteButton={type === 'history'}
+        />
       ))}
     </div>
   );

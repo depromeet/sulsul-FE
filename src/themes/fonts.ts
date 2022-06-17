@@ -37,6 +37,12 @@ export const fonts = {
     line-height: 140%;
     letter-spacing: -0.02em;
   `,
+  H7: css`
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 160%;
+    letter-spacing: -0.02em;
+  `,
 
   SubTitle1: css`
     font-size: 18px;

@@ -1,6 +1,8 @@
+import { QueryFunctionContext } from 'react-query';
+
 import { ICountry } from './country';
 
-import { IBaseResponse } from '.';
+import { IBasePageNationResponse, IBaseResponse } from '.';
 
 import axios from '@/configs/axios';
 
@@ -69,16 +71,14 @@ export interface IGetBeersPayload {
   sortBy?: EBeerSortBy[];
 }
 
-export interface IGetBeersResponseData extends IBaseResponse<IBeer[]> {
-  hasNext: boolean;
-  nextCursor: number;
-  resultCount: number;
-}
+export interface IGetBeersResponseData extends IBasePageNationResponse<IBeer[]> {}
 
 /**
  * 맥주 목록 조회
  */
-export const getBeers = async (payload: IGetBeersPayload, auth: boolean) => {
+export const getBeers = async (context?: QueryFunctionContext) => {
+  const { pageParam } = context || {};
+  const { payload, auth } = pageParam;
   const res = await axios.post<IGetBeersResponseData>(
     auth ? '/api/v3/beers' : '/guest/api/v1/beers',
     payload,
@@ -91,7 +91,7 @@ export interface IGetBeersCountResponseData extends IBaseResponse<{ totalCount: 
 /**
  * 맥주 개수 조회
  */
-export const getBeersCount = async (auth: boolean) => {
+export const getBeersCount = async (auth?: boolean) => {
   const res = await axios.get<IGetBeersCountResponseData>(
     auth ? '/api/v2/beers/count' : '/guest/api/v1/beers/count',
   );
