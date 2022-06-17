@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import styled from '@emotion/styled';
 
 import Button from '@/components/commons/Button';
@@ -32,21 +32,19 @@ const StyledWrapper = styled.div`
 `;
 
 const OnBoardingContainer = () => {
-  const router = useRouter();
-
-  const goToSignIn = () => {
-    router.push('/signin');
-  };
-
   return (
     <OnBoardingLayout>
       <StyledWrapper>
         <img src="images/onboarding-hero.png" alt="" />
         <p>세계 맥주, 어디까지 마셔봤나요?{'\n'}Beer Air와 함께 세계 맥주를 정복해보세요!</p>
         <b>맥주로 떠나는 세계 여행</b>
-        <Button type="primary" width="244px" onClick={goToSignIn}>
-          시작하기
-        </Button>
+        <Link href="/login">
+          <a>
+            <Button type="primary" width="244px">
+              시작하기
+            </Button>
+          </a>
+        </Link>
       </StyledWrapper>
     </OnBoardingLayout>
   );
