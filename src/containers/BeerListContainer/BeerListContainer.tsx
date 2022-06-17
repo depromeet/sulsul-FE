@@ -20,6 +20,7 @@ import { useGetBeersCount, useGetBeers } from '@/queries';
 import { getBeers, IGetBeersResponseData } from '@/apis';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
+import LoadingIcon from '@/components/LoadingIcon';
 
 interface BeerListContainerProps {
   beersData: IGetBeersResponseData;
@@ -68,12 +69,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
       />
       <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData} />
 
-      {pageInfo.hasNext && (
-        <div ref={ref}>
-          <Icon name="AirPlaneLoading" size={40} style={{ margin: '50px auto' }} />
-        </div>
-      )}
-      {/* <LoadingIcon ref={ref} /> */}
+      {pageInfo.hasNext && <LoadingIcon ref={ref} />}
 
       <BottomNavigation />
     </>

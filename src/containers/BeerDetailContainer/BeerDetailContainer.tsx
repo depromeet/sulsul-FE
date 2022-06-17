@@ -128,12 +128,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
       </section>
       <HorizontalDivider />
       <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
-      {pageInfo.hasNext && (
-        <div ref={ref}>
-          <Icon name="AirPlaneLoading" size={40} style={{ margin: '50px auto' }} />
-        </div>
-      )}
-      {/* <LoadingIcon ref={ref} /> */}
+      {pageInfo.hasNext && <LoadingIcon ref={ref} />}
       <BottomFloatingButtonArea
         button={
           <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
