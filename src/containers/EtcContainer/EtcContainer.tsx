@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import Header, { HEADER_HEIGHT } from '@/components/Header';
 import Modal from '@/components/Modal';
 import Button from '@/components/commons/Button';
 import { BackButton } from '@/components/Header/extras';
+import { BASE_URL } from '@/configs/axios';
 
 const EtcContainer = () => {
+  const router = useRouter();
+
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
 
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => {
-    setIsLogoutModalOpen(false);
-    alert('로그아웃 되었습니다');
+    router.push(`${BASE_URL}/logout`);
   };
   const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
   const closeWithdrawalModal = () => {
