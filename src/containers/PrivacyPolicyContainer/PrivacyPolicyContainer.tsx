@@ -12,7 +12,21 @@ interface PrivacyPolicyContainerProps {
   html: string;
 }
 
-const StyledPrivacyPolicyContainer = styled.div``;
+const StyledPrivacyPolicyContainer = styled.div`
+  white-space: pre-line;
+  & > section {
+    padding: 0 20px;
+
+    & > h1 {
+      ${({ theme }) => theme.fonts.SubTitle1};
+    }
+
+    & > p {
+      ${({ theme }) => theme.fonts.Body1};
+      font-weight: 400;
+    }
+  }
+`;
 
 const StyledMarkdown = styled(Markdown)`
   padding: 20px;
