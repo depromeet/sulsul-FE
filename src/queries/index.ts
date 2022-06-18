@@ -13,6 +13,7 @@ export * from './useGetRecord';
 export * from './useGetMyRecords';
 export * from './useGetRecentlyVisitedCountry';
 export * from './useGetUser';
+export * from './useGetProfile';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];

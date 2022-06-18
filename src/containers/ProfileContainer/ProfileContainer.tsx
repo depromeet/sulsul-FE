@@ -1,33 +1,23 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import Link from 'next/link';
+import { GetServerSideProps, NextPage } from 'next';
 
 import ListButtonBox from '@/components/ListButtonBox';
 import BottomNavigation from '@/components/BottomNavigation';
 import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
 import Icon from '@/components/commons/Icon';
+import { getProfile, IProfile } from '@/apis';
+import { useGetProfile } from '@/queries';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
-interface Props {
-  nickname: string;
-  email: string;
-  drankBeerCount: number;
-  ticketCount: number;
-  travelCount: number;
-  likedBeerCount: number;
-  requestBeerCount: number;
+interface ProfileContainerProps {
+  profileData: IProfile;
 }
-const ProfileContainer = (props: Props) => {
-  const {
-    nickname,
-    email,
-    drankBeerCount,
-    ticketCount,
-    travelCount,
-    likedBeerCount,
-    requestBeerCount,
-  } = props;
-
+const ProfileContainer: NextPage<ProfileContainerProps> = ({ profileData: _profileData }) => {
+  useGtagPageView(PAGE_TITLES.PROFILE);
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
 
@@ -35,6 +25,17 @@ const ProfileContainer = (props: Props) => {
   const closeModifyModal = () => setIsModifyModalOpen(false);
   const openLevelModal = () => setIsLevelModalOpen(true);
   const closeLevelModal = () => setIsLevelModalOpen(false);
+
+  const { contents: profileData } = useGetProfile(_profileData);
+
+  if (!profileData) {
+    return null;
+  }
+
+  const { beerCount, countryCount, memberBeerCount, name, recordCount, requestbeerCount } =
+    profileData;
+
+  const email = 'beerair.official@gmail.com'; //TODO: user data에서 받아와야함
 
   return (
     <>
@@ -45,36 +46,40 @@ const ProfileContainer = (props: Props) => {
         </ToolTip>
         <Icon name="Level1" size={160} />
         <NickName>
-          {nickname}
+          {name}
           <ModifyIcon name="Modify" size={24} onClick={openModifyModal} />
         </NickName>
         <Email>{email}</Email>
         <TextItemContainer>
           <TextItem>
             <NumberAndUnit>
-              <Number>{drankBeerCount}</Number>
+              <Number>{beerCount}</Number>
               <Unit>캔</Unit>
             </NumberAndUnit>
             <Title>마신 맥주</Title>
           </TextItem>
           <TextItem>
             <NumberAndUnit>
-              <Number>{ticketCount}</Number>
+              <Number>{recordCount}</Number>
               <Unit>개</Unit>
             </NumberAndUnit>
             <Title>기록한 티켓</Title>
           </TextItem>
           <TextItem>
             <NumberAndUnit>
-              <Number>{travelCount}</Number>
+              <Number>{countryCount}</Number>
               <Unit>개국</Unit>
             </NumberAndUnit>
             <Title>여행한 나라</Title>
           </TextItem>
         </TextItemContainer>
         <ListButtonBoxContainer>
-          <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={likedBeerCount} />
-          <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestBeerCount} />
+          <Link href={`/beer/recommend-and-liked?tab="liked"`} passHref>
+            <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={memberBeerCount} />
+          </Link>
+          <Link href="" passHref>
+            <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestbeerCount} />
+          </Link>
           <Link href="/profile/etc" passHref>
             <ListButtonBox iconName="ThreeDot" text="기타" />
           </Link>
@@ -98,6 +103,11 @@ const ProfileContainer = (props: Props) => {
       <BottomNavigation />
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const profileData = await getProfile();
+  return { props: { profileData } };
 };
 
 export default ProfileContainer;
