@@ -15,6 +15,7 @@ export interface EntityFormProps extends UseFormProps {
   footer?: React.ReactNode;
   showDebug?: boolean;
   onSubmit: SubmitHandler<FieldValues>;
+  className?: string;
 }
 
 const EntityForm: React.FC<EntityFormProps> = ({
@@ -23,6 +24,7 @@ const EntityForm: React.FC<EntityFormProps> = ({
   footer,
   showDebug = true,
   onSubmit,
+  className,
   ...useFormProps
 }: EntityFormProps) => {
   const methods = useForm({ mode: 'onChange', ...useFormProps });
@@ -46,7 +48,7 @@ const EntityForm: React.FC<EntityFormProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={hookFormHandleSubmit(handleSubmit)}>
+      <form className={className} onSubmit={hookFormHandleSubmit(handleSubmit)}>
         {children}
         {footer}
       </form>

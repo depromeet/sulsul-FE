@@ -1,20 +1,22 @@
-import { ReactChild } from 'react';
+import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
 interface BeerRequestLayoutProps {
   title: string;
-  children: ReactChild;
+  children: ReactNode;
 }
 
 const StyledBeerRequestLayout = styled.article`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
-  height: 520px;
+  width: calc(100% - 40px);
+  max-width: 500px;
+  min-height: 520px;
   padding: 70px 0 90px 0;
+  margin: 26px auto;
   border-radius: 20px;
 
   background-color: ${(p) => p.theme.color.white};
