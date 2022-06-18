@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
+import { useMutation } from 'react-query';
 
 import ModalLayout from '@/components/layouts/ModalLayout';
 import Icon from '@/components/commons/Icon';
 import Button from '@/components/commons/Button';
+import { updateUser } from '@/apis';
 
 interface Props {
   isModifyModalOpen: boolean;
@@ -15,14 +17,16 @@ interface Props {
 const ProfileModifyModal = ({ isModifyModalOpen, closeModifyModal, onSubmit }: Props) => {
   const [nickname, setNickname] = useState('');
 
+  const { mutateAsync: updateUserMutation } = useMutation(updateUser);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (nickname.length > 15) return;
 
     setNickname(e.target.value);
   };
 
-  const handleComplete = () => {
-    /** @todo api 호출: 유저 닉네임 업데이트 */
+  const handleComplete = async () => {
+    await updateUserMutation({ name: nickname });
     closeModifyModal();
   };
 
