@@ -16,7 +16,7 @@ export interface IBaseResponse<T extends any> {
   error?: IError | null;
 }
 
-export interface IBasePageNationResponse<T extends any> extends IBaseResponse<T> {
+export interface IBasePaginationResponse<T extends any> extends IBaseResponse<T> {
   hasNext: boolean;
   nextCursor: number;
   resultCount: number;
