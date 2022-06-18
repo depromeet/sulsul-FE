@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useQueryClient } from 'react-query';
 
 import Header, { HEADER_HEIGHT } from '@/components/Header';
 import Modal from '@/components/Modal';
@@ -11,6 +12,8 @@ import { BASE_URL } from '@/configs/axios';
 import { useDeleteUser } from '@/queries';
 
 const EtcContainer = () => {
+  const queryClient = useQueryClient();
+
   const router = useRouter();
 
   const { mutateAsync: deleteUserMutation } = useDeleteUser();
@@ -20,6 +23,7 @@ const EtcContainer = () => {
 
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => {
+    queryClient.clear();
     router.push(`${BASE_URL}/logout`);
   };
   const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
