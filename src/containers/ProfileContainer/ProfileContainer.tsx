@@ -8,18 +8,20 @@ import BottomNavigation from '@/components/BottomNavigation';
 import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
 import Icon from '@/components/commons/Icon';
-import { getProfile, IProfile, getLevels, ILevel } from '@/apis';
-import { useGetProfile, useGetLevels } from '@/queries';
+import { getProfile, IProfile, getLevels, ILevel, getUserLevel } from '@/apis';
+import { useGetProfile, useGetLevels, useGetUserLevel } from '@/queries';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
 
 interface ProfileContainerProps {
   profileData: IProfile;
   levels: ILevel[];
+  userLevel: ILevel;
 }
 const ProfileContainer: NextPage<ProfileContainerProps> = ({
   profileData: _profileData,
   levels: _levels,
+  userLevel: _userLevel,
 }) => {
   useGtagPageView(PAGE_TITLES.PROFILE);
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
@@ -32,8 +34,9 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
 
   const { contents: profileData } = useGetProfile(_profileData);
   const { contents: levels } = useGetLevels(_levels);
+  const { contents: userLevel } = useGetUserLevel(_userLevel);
 
-  if (!profileData) {
+  if (!profileData || !levels || !userLevel) {
     return null;
   }
 
@@ -42,15 +45,16 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
 
   const email = 'beerair.official@gmail.com'; //TODO: user data에서 받아와야함
 
-  console.log(levels);
+  const REQUIRED_RECORD = levels[userLevel.tier].req - recordCount;
+
   return (
     <>
       <StyledProfileContainer>
         <ToolTip>
-          여행 1번만 더 하면 Level UP!
+          여행 {REQUIRED_RECORD}번만 더 하면 Level UP!
           <InfoIcon name="Info" size={20} onClick={openLevelModal} />
         </ToolTip>
-        <Icon name="Level1" size={160} />
+        <LevelImage src={userLevel?.imageUrl} alt={userLevel?.tier?.toString()} />
         <NickName>
           {nickname}
           <ModifyIcon name="Modify" size={24} onClick={openModifyModal} />
@@ -115,7 +119,9 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
 export const getServerSideProps: GetServerSideProps = async () => {
   const profileData = await getProfile();
   const levels = await getLevels();
-  return { props: { profileData, levels } };
+  const userLevel = await getUserLevel();
+
+  return { props: { profileData, levels, userLevel } };
 };
 
 export default ProfileContainer;
@@ -128,6 +134,12 @@ const StyledProfileContainer = styled.div`
 
 const InfoIcon = styled(Icon)`
   cursor: pointer;
+`;
+
+const LevelImage = styled.img`
+  width: 100px;
+  height: auto;
+  margin: 30px 0 40px 0;
 `;
 
 const NickName = styled.div`
