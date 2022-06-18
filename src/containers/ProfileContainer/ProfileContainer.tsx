@@ -37,7 +37,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
     return null;
   }
 
-  const { beerCount, countryCount, memberBeerCount, name, recordCount, requestbeerCount } =
+  const { beerCount, countryCount, memberBeerCount, nickname, recordCount, requestBeerCount } =
     profileData;
 
   const email = 'beerair.official@gmail.com'; //TODO: user data에서 받아와야함
@@ -52,7 +52,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
         </ToolTip>
         <Icon name="Level1" size={160} />
         <NickName>
-          {name}
+          {nickname}
           <ModifyIcon name="Modify" size={24} onClick={openModifyModal} />
         </NickName>
         <Email>{email}</Email>
@@ -84,7 +84,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
             <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={memberBeerCount} />
           </Link>
           <Link href="" passHref>
-            <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestbeerCount} />
+            <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestBeerCount} />
           </Link>
           <Link href="/profile/etc" passHref>
             <ListButtonBox iconName="ThreeDot" text="기타" />

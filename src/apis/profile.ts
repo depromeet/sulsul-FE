@@ -7,8 +7,8 @@ export interface IProfile {
   recordCount: string;
   countryCount: string;
   memberBeerCount: string;
-  requestbeerCount: string;
-  name: string;
+  requestBeerCount: string;
+  nickname: string;
 }
 
 export interface IGetProfile extends IBaseResponse<IProfile> {}
