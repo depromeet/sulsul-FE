@@ -1,1 +1,1 @@
-export { default } from './TermsOfServiceContainer';
+export { default, getStaticProps } from './TermsOfServiceContainer';

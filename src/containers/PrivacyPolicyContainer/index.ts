@@ -1,1 +1,1 @@
-export { default } from './PrivacyPolicyContainer';
+export { default, getStaticProps } from './PrivacyPolicyContainer';
