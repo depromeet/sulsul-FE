@@ -19,9 +19,9 @@ interface ProfileContainerProps {
   userLevel: ILevel;
 }
 const ProfileContainer: NextPage<ProfileContainerProps> = ({
-  profileData: _profileData,
-  levels: _levels,
-  userLevel: _userLevel,
+  profileData: initialProfileData,
+  levels: initialLevels,
+  userLevel: initialUserLevel,
 }) => {
   useGtagPageView(PAGE_TITLES.PROFILE);
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
@@ -32,9 +32,9 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
   const openLevelModal = () => setIsLevelModalOpen(true);
   const closeLevelModal = () => setIsLevelModalOpen(false);
 
-  const { contents: profileData } = useGetProfile(_profileData);
-  const { contents: levels } = useGetLevels(_levels);
-  const { contents: userLevel } = useGetUserLevel(_userLevel);
+  const { contents: profileData } = useGetProfile(initialProfileData);
+  const { contents: levels } = useGetLevels(initialLevels);
+  const { contents: userLevel } = useGetUserLevel(initialUserLevel);
 
   if (!profileData || !levels || !userLevel) {
     return null;

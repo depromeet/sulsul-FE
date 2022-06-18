@@ -34,9 +34,9 @@ interface BeerDetailContainerProps {
 }
 
 const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
-  beerResponse: _beerResponse,
-  top3BeerFlavor: _top3BeerFlavor,
-  recordsByBeer: _recordsByBeer,
+  beerResponse: initialBeerResponse,
+  top3BeerFlavor: initialTop3BeerFlavor,
+  recordsByBeer: initialRecordsByBeer,
 }) => {
   useGtagPageView(PAGE_TITLES.BEER_DETAIL);
 
@@ -63,15 +63,15 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
 
   const router = useRouter();
   const beerId = Number(router.query.id);
-  const { contents: beer } = useGetBeer(beerId, _beerResponse);
-  const { contents: beerFlavor } = useGetTop3BeerFlavor(beerId, _top3BeerFlavor);
+  const { contents: beer } = useGetBeer(beerId, initialBeerResponse);
+  const { contents: beerFlavor } = useGetTop3BeerFlavor(beerId, initialTop3BeerFlavor);
 
   const {
     contents: recordsByBeer,
     pageInfo,
     fetchNextPage,
     isLoading,
-  } = useGetRecordsByBeer({ beerId }, _recordsByBeer);
+  } = useGetRecordsByBeer({ beerId }, initialRecordsByBeer);
 
   const { ref } = useInView({
     onChange: (inView) => {
