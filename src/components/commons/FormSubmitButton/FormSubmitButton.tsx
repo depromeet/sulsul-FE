@@ -7,12 +7,16 @@ interface FormSubmitButtonProps extends ButtonProps {
   autoDisabled?: boolean;
 }
 
-const FormSubmitButton: React.FC<FormSubmitButtonProps> = ({ autoDisabled = false, ...props }) => {
+const FormSubmitButton: React.FC<FormSubmitButtonProps> = ({
+  autoDisabled = false,
+  htmlType = 'submit',
+  ...props
+}) => {
   const { errors } = useFormState();
 
   const hasError = !!Object.keys(errors).length;
 
-  return <Button {...props} disabled={autoDisabled ? hasError : undefined} />;
+  return <Button {...props} htmlType={htmlType} disabled={autoDisabled ? hasError : undefined} />;
 };
 
 export default FormSubmitButton;
