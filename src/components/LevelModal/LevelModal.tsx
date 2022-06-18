@@ -17,7 +17,6 @@ const LevelModal = ({ isLevelModalOpen, closeLevelModal, levels }: Props) => {
     return null;
   }
 
-  // const { id, imageUrl, req, tier } = levels;
   return (
     <ModalLayout open={isLevelModalOpen} onClose={closeLevelModal}>
       <StyledModal open={isLevelModalOpen}>
