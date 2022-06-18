@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 
-import { Level as LevelList } from '@/constants/Level';
 import ModalLayout from '@/components/layouts/ModalLayout';
 import Icon from '@/components/commons/Icon';
 import { ILevel } from '@/apis';

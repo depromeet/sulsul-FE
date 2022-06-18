@@ -26,7 +26,7 @@ const StyledButton = styled.a`
 
 const NaverLoginButton = () => {
   return (
-    <StyledButton href={`${BASE_URL}/oauth2/authorization/naver`} onClick={() => null}>
+    <StyledButton href={`${BASE_URL}/oauth2/authorization/kakao`} onClick={() => null}>
       <Icon name="Naver" color="white" size={18} />
       <p>네이버로 시작하기</p>
     </StyledButton>
