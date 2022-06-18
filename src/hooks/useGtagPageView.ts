@@ -9,11 +9,13 @@ const useGtagPageView = (pageTitle: PageTitleType) => {
   useEffect(() => {
     const { href, pathname } = window.location;
 
-    window.gtag('config', gaMeasurementId, {
-      page_title: pageTitle,
-      page_location: href,
-      page_path: pathname,
-    });
+    if (window.gtag) {
+      window.gtag('config', gaMeasurementId, {
+        page_title: pageTitle,
+        page_location: href,
+        page_path: pathname,
+      });
+    }
   }, []);
 };
 
