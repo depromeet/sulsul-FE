@@ -47,9 +47,14 @@ const PrivacyPolicyContainer: NextPage<PrivacyPolicyContainerProps> = ({
 
 export default PrivacyPolicyContainer;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getPrivacyPolicyHtml = async () => {
   const { default: markdown } = await import('contents/privacy-policy.md');
   const { html } = parseMarkdown(markdown);
+  return html;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const html = await getPrivacyPolicyHtml();
 
   return {
     props: {

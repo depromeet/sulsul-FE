@@ -47,9 +47,14 @@ const TermsOfServiceContainer: NextPage<TermsOfServiceContainerProps> = ({
 
 export default TermsOfServiceContainer;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getTermsOfServiceHtml = async () => {
   const { default: markdown } = await import('contents/terms-of-service.md');
   const { html } = parseMarkdown(markdown);
+  return html;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const html = await getTermsOfServiceHtml();
 
   return {
     props: {

@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import TermsOfServiceContainer from './TermsOfServiceContainer';
+import TermsOfServiceContainer, { getTermsOfServiceHtml } from './TermsOfServiceContainer';
 
 export default {
   title: 'Pages/이용약관',
@@ -8,7 +9,17 @@ export default {
   args: {},
 } as ComponentMeta<typeof TermsOfServiceContainer>;
 
-const Template: ComponentStory<typeof TermsOfServiceContainer> = () => <TermsOfServiceContainer />;
+const Template: ComponentStory<typeof TermsOfServiceContainer> = () => {
+  const [html, setHtml] = useState('');
 
+  useEffect(() => {
+    (async () => {
+      const html = await getTermsOfServiceHtml();
+      setHtml(html);
+    })();
+  }, []);
+
+  return <TermsOfServiceContainer html={html} />;
+};
 export const Default = Template.bind({});
 Default.args = {};
