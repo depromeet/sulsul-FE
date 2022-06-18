@@ -3,14 +3,21 @@ import styled from '@emotion/styled';
 import { Level as LevelList } from '@/constants/Level';
 import ModalLayout from '@/components/layouts/ModalLayout';
 import Icon from '@/components/commons/Icon';
+import { ILevel } from '@/apis';
 
 interface Props {
   isLevelModalOpen: boolean;
   openLevelModal: () => void;
   closeLevelModal: () => void;
+  levels?: ILevel[];
 }
 
-const LevelModal = ({ isLevelModalOpen, closeLevelModal }: Props) => {
+const LevelModal = ({ isLevelModalOpen, closeLevelModal, levels }: Props) => {
+  if (!levels) {
+    return null;
+  }
+
+  // const { id, imageUrl, req, tier } = levels;
   return (
     <ModalLayout open={isLevelModalOpen} onClose={closeLevelModal}>
       <StyledModal open={isLevelModalOpen}>
@@ -20,10 +27,12 @@ const LevelModal = ({ isLevelModalOpen, closeLevelModal }: Props) => {
           <Icon name="Close" size={24} color="white" />
         </Header>
         <LevelContainer>
-          {LevelList.map(({ level, count }) => (
-            <Level key={level}>
-              <Icon name={level} size={64} />
-              <p>기록한 티켓 {count}개 이상 Level</p>
+          {levels.map(({ id, imageUrl, req, tier }) => (
+            <Level key={id}>
+              <img src={imageUrl} alt={tier.toString()} width="64px" height="auto" />
+              <p>
+                기록한 티켓 {req}개 이상 Level {tier}
+              </p>
             </Level>
           ))}
         </LevelContainer>
@@ -44,7 +53,7 @@ const StyledModal = styled.div<{ open: boolean }>`
   align-items: center;
   justify-content: space-between;
   width: 300px;
-  height: 400px;
+  height: 470px;
   padding: 16px 16px 20px 16px;
   border-radius: 12px;
   background-color: ${(p) => p.theme.color.white};
@@ -69,10 +78,13 @@ const LevelContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  color: ${({ theme }) => theme.color.grey4};
+  margin-top: 20px;
 `;
 
 const Level = styled.div`
   display: flex;
   align-items: center;
+  ${({ theme }) => theme.fonts.Body4};
+  color: ${({ theme }) => theme.color.grey4};
+  margin-bottom: 15px;
 `;

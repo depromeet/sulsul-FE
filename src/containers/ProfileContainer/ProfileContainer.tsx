@@ -8,15 +8,19 @@ import BottomNavigation from '@/components/BottomNavigation';
 import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
 import Icon from '@/components/commons/Icon';
-import { getProfile, IProfile } from '@/apis';
-import { useGetProfile } from '@/queries';
+import { getProfile, IProfile, getLevels, ILevel } from '@/apis';
+import { useGetProfile, useGetLevels } from '@/queries';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
 
 interface ProfileContainerProps {
   profileData: IProfile;
+  levels: ILevel[];
 }
-const ProfileContainer: NextPage<ProfileContainerProps> = ({ profileData: _profileData }) => {
+const ProfileContainer: NextPage<ProfileContainerProps> = ({
+  profileData: _profileData,
+  levels: _levels,
+}) => {
   useGtagPageView(PAGE_TITLES.PROFILE);
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
@@ -27,6 +31,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({ profileData: _profi
   const closeLevelModal = () => setIsLevelModalOpen(false);
 
   const { contents: profileData } = useGetProfile(_profileData);
+  const { contents: levels } = useGetLevels(_levels);
 
   if (!profileData) {
     return null;
@@ -37,6 +42,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({ profileData: _profi
 
   const email = 'beerair.official@gmail.com'; //TODO: user data에서 받아와야함
 
+  console.log(levels);
   return (
     <>
       <StyledProfileContainer>
@@ -98,6 +104,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({ profileData: _profi
           isLevelModalOpen={isLevelModalOpen}
           openLevelModal={openLevelModal}
           closeLevelModal={closeLevelModal}
+          levels={levels}
         />
       )}
       <BottomNavigation />
@@ -107,7 +114,8 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({ profileData: _profi
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const profileData = await getProfile();
-  return { props: { profileData } };
+  const levels = await getLevels();
+  return { props: { profileData, levels } };
 };
 
 export default ProfileContainer;

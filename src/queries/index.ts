@@ -14,6 +14,7 @@ export * from './useGetMyRecords';
 export * from './useGetRecentlyVisitedCountry';
 export * from './useGetUser';
 export * from './useGetProfile';
+export * from './useGetLevels';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];

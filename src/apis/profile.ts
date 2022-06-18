@@ -20,3 +20,20 @@ export const getProfile = async () => {
   const res = await axios.get<IGetProfile>('/api/v1/profile');
   return res.data.contents;
 };
+
+export interface ILevel {
+  id: number;
+  tier: number;
+  imageUrl: string;
+  req: number;
+}
+
+export interface IGetLevels extends IBaseResponse<ILevel[]> {}
+
+/**
+ * 레벨 정보 조회
+ */
+export const getLevels = async () => {
+  const res = await axios.get<IGetLevels>('/api/v1/member-levels/all');
+  return res.data.contents;
+};
