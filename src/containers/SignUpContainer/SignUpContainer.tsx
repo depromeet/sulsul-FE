@@ -1,8 +1,11 @@
 import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
 
 import OnBoardingLayout from '@/components/layouts/OnBoardingLayout';
 import Button from '@/components/commons/Button';
+import { updateUser } from '@/apis';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -37,7 +40,11 @@ const StyledInput = styled.input`
 `;
 
 const SignUpContainer = () => {
+  const router = useRouter();
+
   const [nickname, setNickname] = useState('');
+
+  const { mutateAsync: updateUserMutation } = useMutation(updateUser);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (nickname.length > 15) return;
@@ -45,9 +52,10 @@ const SignUpContainer = () => {
     setNickname(e.target.value);
   };
 
-  const handleComplete = () => [
-    /** @todo api 호출: 유저 닉네임 업데이트 */
-  ];
+  const handleComplete = async () => {
+    await updateUserMutation({ name: nickname });
+    router.replace('/');
+  };
 
   return (
     <OnBoardingLayout title={`사용하실 닉네임을\n입력해 주세요.`} cloudColor="whiteOpacity35">

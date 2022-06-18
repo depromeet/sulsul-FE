@@ -1,6 +1,6 @@
-import { TasteBoxAndBadgeProps } from '@/components/TasteBoxAndBadge';
+import { ITop3BeerFlavor } from '@/apis';
 
-export const TasteBoxAndBadges: TasteBoxAndBadgeProps[] = [
+export const Top3BeerFlavorList: ITop3BeerFlavor[] = [
   {
     content: '목넘김이 부드러워요',
     count: 30,

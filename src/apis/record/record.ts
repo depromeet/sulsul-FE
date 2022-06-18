@@ -1,5 +1,7 @@
+import { QueryFunctionContext } from 'react-query';
+
 import { IBeer } from '../beer';
-import { IBaseResponse } from '..';
+import { IBasePaginationResponse } from '..';
 
 import axios from '@/configs/axios';
 
@@ -35,13 +37,18 @@ export interface IGetRecordsByBeerPayload {
   recordId?: number;
 }
 
-export interface IGetRecordsByBeer extends IBaseResponse<IRecordsByBeer[]> {}
+export interface IGetRecordsByBeer extends IBasePaginationResponse<IRecordsByBeer[]> {}
 
 /**
  * 맥주별 record 조회
  */
 
-export const getRecordsByBeer = async (payload: IGetRecordsByBeerPayload) => {
-  const res = await axios.post<IGetRecordsByBeer>('/api/v1/records/find', payload);
+export const getRecordsByBeer = async (context?: QueryFunctionContext) => {
+  const { pageParam } = context || {};
+  const { payload, auth } = pageParam;
+  const res = await axios.post<IGetRecordsByBeer>(
+    auth ? '/api/v1/records/find' : '/guest/api/v1/records/find',
+    payload,
+  );
   return res.data;
 };

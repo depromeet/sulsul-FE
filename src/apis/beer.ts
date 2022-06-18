@@ -2,7 +2,7 @@ import { QueryFunctionContext } from 'react-query';
 
 import { ICountry } from './country';
 
-import { IBasePageNationResponse, IBaseResponse } from '.';
+import { IBasePaginationResponse, IBaseResponse } from '.';
 
 import axios from '@/configs/axios';
 
@@ -71,7 +71,7 @@ export interface IGetBeersPayload {
   sortBy?: EBeerSortBy[];
 }
 
-export interface IGetBeersResponseData extends IBasePageNationResponse<IBeer[]> {}
+export interface IGetBeersResponseData extends IBasePaginationResponse<IBeer[]> {}
 
 /**
  * 맥주 목록 조회
@@ -146,17 +146,19 @@ export const getBeerTypes = async (auth: boolean) => {
   return res.data;
 };
 
-export interface IGetTop3BeerFlavor {
+export interface ITop3BeerFlavor {
   content: string;
   count: number;
 }
 
-export interface IGetTop3BeerFlavorResponseData extends IBaseResponse<IGetTop3BeerFlavor[]> {}
+export interface ITop3BeerFlavorResponseData extends IBaseResponse<ITop3BeerFlavor[]> {}
 
 /**
  * 맥주 맛 TOP3 조회
  */
-export const getTop3BeerFlavor = async (beerId: number) => {
-  const res = await axios.get<IGetTop3BeerFlavorResponseData>(`/api/v1/flavors/${beerId}`);
-  return res.data;
+export const getTop3BeerFlavor = async (beerId: number, auth?: boolean) => {
+  const res = await axios.get<ITop3BeerFlavorResponseData>(
+    auth ? `/api/v1/flavors/${beerId}` : `/guest/api/v1/flavors/${beerId}`,
+  );
+  return res.data.contents;
 };

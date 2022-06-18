@@ -1,10 +1,10 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Review from './Review';
+import Review from './ReviewListItem';
 import { Reviews } from '@/constants/Reviews';
 
 export default {
-  title: 'Components/Review',
+  title: 'Components/ReviewListItem',
   component: Review,
   argTypes: {
     me: { control: 'boolean' },

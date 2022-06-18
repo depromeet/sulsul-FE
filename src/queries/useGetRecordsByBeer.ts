@@ -1,18 +1,54 @@
-import { useQuery } from 'react-query';
+import { useMemo } from 'react';
+import { useInfiniteQuery } from 'react-query';
 
-import { getRecordsByBeer, IGetRecordsByBeerPayload } from '@/apis';
+import { BasePagenationQueryHooksResponse } from '.';
 
-export const useGetRecordsByBeer = (payload: IGetRecordsByBeerPayload) => {
-  const result = useQuery(
-    ['recordsByBeer', payload.beerId],
-    async () => await getRecordsByBeer(payload),
-    {
-      cacheTime: Infinity,
+import {
+  getRecordsByBeer,
+  IGetRecordsByBeerPayload,
+  IRecordsByBeer,
+  IGetRecordsByBeer,
+} from '@/apis';
+
+export const useGetRecordsByBeer = (
+  { beerId, recordId }: IGetRecordsByBeerPayload,
+  initialData?: IGetRecordsByBeer,
+) => {
+  /** @todo const user = useRecoilValue($userInfo); */
+  const auth = undefined;
+
+  const payload = { beerId, recordId };
+
+  const result = useInfiniteQuery(['recordsByBeer', beerId], getRecordsByBeer, {
+    cacheTime: Infinity,
+    initialData: initialData
+      ? { pages: [initialData], pageParams: [{ payload, auth }] }
+      : undefined,
+    getNextPageParam(lastPage) {
+      return lastPage.nextCursor || undefined;
     },
+  });
+
+  const { data } = result;
+
+  const { contents, pageInfo } = useMemo(
+    () =>
+      data?.pages.reduce<BasePagenationQueryHooksResponse<IRecordsByBeer>>(
+        (responseAcc, response) => ({
+          contents: [...(responseAcc.contents || []), ...(response.contents || [])],
+          pageInfo: {
+            hasNext: response.hasNext,
+            nextCursor: response.nextCursor,
+          },
+        }),
+        { contents: [], pageInfo: {} },
+      ) || { contents: [], pageInfo: {} },
+    [data?.pages],
   );
 
   return {
     ...result,
-    recordsByBeer: result.data?.contents,
+    contents,
+    pageInfo,
   };
 };

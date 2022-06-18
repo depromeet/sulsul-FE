@@ -1,25 +1,40 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useQueryClient } from 'react-query';
 
 import Header, { HEADER_HEIGHT } from '@/components/Header';
 import Modal from '@/components/Modal';
 import Button from '@/components/commons/Button';
 import { BackButton } from '@/components/Header/extras';
+import { BASE_URL } from '@/configs/axios';
+import { useDeleteUser } from '@/queries';
 
 const EtcContainer = () => {
+  const queryClient = useQueryClient();
+
+  const router = useRouter();
+
+  const { mutateAsync: deleteUserMutation } = useDeleteUser();
+
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
 
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => {
-    setIsLogoutModalOpen(false);
-    alert('로그아웃 되었습니다');
+    queryClient.clear();
+    router.push(`${BASE_URL}/logout`);
   };
   const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
-  const closeWithdrawalModal = () => {
+  const closeWithdrawalModal = async () => {
     setIsWithdrawalModalOpen(false);
-    alert('회원탈퇴 되었습니다');
+    try {
+      await deleteUserMutation();
+      alert('회원탈퇴 되었습니다');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

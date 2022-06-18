@@ -1,10 +1,10 @@
-export * from './beer';
-export * from './continent';
 export * from './country';
+export * from './record';
+export * from './request-beer';
 export * from './upload';
 export * from './user';
-export * from './record';
-export * from './user';
+export * from './beer';
+export * from './continent';
 
 export interface IError {
   message: string;
@@ -16,7 +16,7 @@ export interface IBaseResponse<T extends any> {
   error?: IError | null;
 }
 
-export interface IBasePageNationResponse<T extends any> extends IBaseResponse<T> {
+export interface IBasePaginationResponse<T extends any> extends IBaseResponse<T> {
   hasNext: boolean;
   nextCursor: number;
   resultCount: number;

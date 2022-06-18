@@ -1,3 +1,4 @@
+import React, { forwardRef, Ref } from 'react';
 import styled from '@emotion/styled';
 
 import Emoji from '@/components/Emoji';
@@ -5,17 +6,17 @@ import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
 import { IRecordsByBeer } from '@/apis/record';
 
-export interface ReviewProps {
+export interface ReviewListItemProps {
   review: IRecordsByBeer;
 }
 
-const Review = (props: ReviewProps) => {
+const ReviewListItem = (props: ReviewListItemProps, ref: Ref<any>) => {
   const {
     review: { content, feel, memberRecordDto, createdAt, flavorDtos },
   } = props;
 
   return (
-    <StyledReview border={true}>
+    <StyledReview border={true} ref={ref}>
       <StyledEmoji feel={feel} />
       <ReviewWrapper>
         <UserAndDate>
@@ -36,7 +37,7 @@ const Review = (props: ReviewProps) => {
   );
 };
 
-export default Review;
+export default forwardRef(ReviewListItem);
 
 const StyledReview = styled.div<{ border?: boolean }>`
   display: flex;
