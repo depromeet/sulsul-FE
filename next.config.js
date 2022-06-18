@@ -30,10 +30,8 @@ const nextConfig = {
      * export { ReactComponent as Icon } from './icon.svg -> 사용불가
      * export { default as Icon } from './icon.svg -> 사용가능 (이렇게 사용한 경우 스토리북에서 오류)
      */
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack', 'url-loader'],
-    });
+    config.module.rules.push({ test: /\.svg$/, use: ['@svgr/webpack', 'url-loader'] });
+    config.module.rules.push({ test: /\.md$/, use: 'raw-loader' });
 
     return config;
   },
