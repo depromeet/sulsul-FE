@@ -13,6 +13,10 @@ export * from './useGetRecord';
 export * from './useGetMyRecords';
 export * from './useGetRecentlyVisitedCountry';
 export * from './useGetUser';
+export * from './useGetProfile';
+export * from './useGetLevels';
+export * from './useGetUserLevel';
+export * from './useGetUserLevelByRecordCount';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];

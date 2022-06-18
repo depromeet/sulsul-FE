@@ -1,33 +1,29 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import Link from 'next/link';
+import { GetServerSideProps, NextPage } from 'next';
 
 import ListButtonBox from '@/components/ListButtonBox';
 import BottomNavigation from '@/components/BottomNavigation';
 import LevelModal from '@/components/LevelModal';
 import ProfileModifyModal from '@/components/ProfileModifyModal';
 import Icon from '@/components/commons/Icon';
+import { getProfile, IProfile, getLevels, ILevel, getUserLevel } from '@/apis';
+import { useGetProfile, useGetLevels, useGetUserLevel } from '@/queries';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
-interface Props {
-  nickname: string;
-  email: string;
-  drankBeerCount: number;
-  ticketCount: number;
-  travelCount: number;
-  likedBeerCount: number;
-  requestBeerCount: number;
+interface ProfileContainerProps {
+  profileData: IProfile;
+  levels: ILevel[];
+  userLevel: ILevel;
 }
-const ProfileContainer = (props: Props) => {
-  const {
-    nickname,
-    email,
-    drankBeerCount,
-    ticketCount,
-    travelCount,
-    likedBeerCount,
-    requestBeerCount,
-  } = props;
-
+const ProfileContainer: NextPage<ProfileContainerProps> = ({
+  profileData: initialProfileData,
+  levels: initialLevels,
+  userLevel: initialUserLevel,
+}) => {
+  useGtagPageView(PAGE_TITLES.PROFILE);
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
 
@@ -36,14 +32,35 @@ const ProfileContainer = (props: Props) => {
   const openLevelModal = () => setIsLevelModalOpen(true);
   const closeLevelModal = () => setIsLevelModalOpen(false);
 
+  const { contents: profileData } = useGetProfile(initialProfileData);
+  const { contents: levels } = useGetLevels(initialLevels);
+  const { contents: userLevel } = useGetUserLevel(initialUserLevel);
+
+  if (!profileData || !levels || !userLevel) {
+    return null;
+  }
+
+  const {
+    beerCount,
+    countryCount,
+    memberBeerCount,
+    nickname,
+    recordCount,
+    requestBeerCount,
+    email,
+    remainRecord,
+  } = profileData;
+
   return (
     <>
       <StyledProfileContainer>
         <ToolTip>
-          여행 1번만 더 하면 Level UP!
+          {remainRecord > 0
+            ? `여행 ${remainRecord}번만 더 하면 Level UP!`
+            : '만렙이 되신걸 축하합니다!'}
           <InfoIcon name="Info" size={20} onClick={openLevelModal} />
         </ToolTip>
-        <Icon name="Level1" size={160} />
+        <LevelImage src={userLevel?.imageUrl} alt={userLevel?.tier?.toString()} />
         <NickName>
           {nickname}
           <ModifyIcon name="Modify" size={24} onClick={openModifyModal} />
@@ -52,21 +69,21 @@ const ProfileContainer = (props: Props) => {
         <TextItemContainer>
           <TextItem>
             <NumberAndUnit>
-              <Number>{drankBeerCount}</Number>
+              <Number>{beerCount}</Number>
               <Unit>캔</Unit>
             </NumberAndUnit>
             <Title>마신 맥주</Title>
           </TextItem>
           <TextItem>
             <NumberAndUnit>
-              <Number>{ticketCount}</Number>
+              <Number>{recordCount}</Number>
               <Unit>개</Unit>
             </NumberAndUnit>
             <Title>기록한 티켓</Title>
           </TextItem>
           <TextItem>
             <NumberAndUnit>
-              <Number>{travelCount}</Number>
+              <Number>{countryCount}</Number>
               <Unit>개국</Unit>
             </NumberAndUnit>
             <Title>여행한 나라</Title>
@@ -74,7 +91,7 @@ const ProfileContainer = (props: Props) => {
         </TextItemContainer>
         <ListButtonBoxContainer>
           <Link href={`/beer/recommend-and-liked?tab="liked"`} passHref>
-            <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={likedBeerCount} />
+            <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={memberBeerCount} />
           </Link>
           <Link href="" passHref>
             <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestBeerCount} />
@@ -97,11 +114,20 @@ const ProfileContainer = (props: Props) => {
           isLevelModalOpen={isLevelModalOpen}
           openLevelModal={openLevelModal}
           closeLevelModal={closeLevelModal}
+          levels={levels}
         />
       )}
       <BottomNavigation />
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const profileData = await getProfile();
+  const levels = await getLevels();
+  const userLevel = await getUserLevel();
+
+  return { props: { profileData, levels, userLevel } };
 };
 
 export default ProfileContainer;
@@ -114,6 +140,12 @@ const StyledProfileContainer = styled.div`
 
 const InfoIcon = styled(Icon)`
   cursor: pointer;
+`;
+
+const LevelImage = styled.img`
+  width: 100px;
+  height: auto;
+  margin: 30px 0 40px 0;
 `;
 
 const NickName = styled.div`

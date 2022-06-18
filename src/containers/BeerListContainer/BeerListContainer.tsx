@@ -11,7 +11,6 @@ import {
   BEER_LIST_SORT_BY_ATOM_KEY,
 } from './recoil/atoms';
 
-import Icon from '@/components/commons/Icon';
 import BeerListPageHeader from '@/components/BeerListPageHeader';
 import BeerListFilterAndSorter from '@/components/BeerListFilterAndSorter';
 import BeerListSearchResult from '@/components/BeerSearchResultList';
@@ -26,7 +25,7 @@ interface BeerListContainerProps {
   beersData: IGetBeersResponseData;
 }
 
-const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beersData }) => {
+const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initialBeersData }) => {
   useGtagPageView(PAGE_TITLES.BEER_LIST);
   const router = useRouter();
   const query = isNil(router.query.query) ? undefined : decodeURI(String(router.query.query));
@@ -41,7 +40,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: _beers
     pageInfo,
     fetchNextPage,
     isLoading,
-  } = useGetBeers({ query, filter, sortBy: [sortBy], limit: 21 }, _beersData);
+  } = useGetBeers({ query, filter, sortBy: [sortBy], limit: 21 }, initialBeersData);
 
   const { ref } = useInView({
     onChange: (inView) => {

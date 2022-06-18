@@ -5,6 +5,7 @@ export * from './upload';
 export * from './user';
 export * from './beer';
 export * from './continent';
+export * from './profile';
 
 export interface IError {
   message: string;
