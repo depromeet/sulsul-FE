@@ -47,17 +47,17 @@ const EtcContainer = () => {
           </a>
         </ListRow>
         <ListRow>
-          <Link href="/terms" passHref>
-            <a>이용약관</a>
+          <Link href="/profile/terms" passHref>
+            <a>서비스 정책 약관</a>
           </Link>
         </ListRow>
         <ListRow>
-          <Link href="/privacy-policy" passHref>
+          <Link href="/profile/privacy-policy" passHref>
             <a>개인정보 처리방침</a>
           </Link>
         </ListRow>
         <ListRow>
-          <Link href="/team" passHref>
+          <Link href="/profile/team" passHref>
             <a>팀원 소개</a>
           </Link>
         </ListRow>
