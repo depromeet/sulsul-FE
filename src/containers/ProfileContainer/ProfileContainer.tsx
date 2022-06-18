@@ -40,18 +40,22 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
     return null;
   }
 
-  const { beerCount, countryCount, memberBeerCount, nickname, recordCount, requestBeerCount } =
-    profileData;
-
-  const email = 'beerair.official@gmail.com'; //TODO: user data에서 받아와야함
-
-  const REQUIRED_RECORD = levels[userLevel.tier].req - recordCount;
+  const {
+    beerCount,
+    countryCount,
+    memberBeerCount,
+    nickname,
+    recordCount,
+    requestBeerCount,
+    email,
+    remainRecord,
+  } = profileData;
 
   return (
     <>
       <StyledProfileContainer>
         <ToolTip>
-          여행 {REQUIRED_RECORD}번만 더 하면 Level UP!
+          여행 {remainRecord}번만 더 하면 Level UP!
           <InfoIcon name="Info" size={20} onClick={openLevelModal} />
         </ToolTip>
         <LevelImage src={userLevel?.imageUrl} alt={userLevel?.tier?.toString()} />

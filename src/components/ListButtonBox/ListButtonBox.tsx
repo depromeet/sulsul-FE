@@ -6,7 +6,7 @@ import Icon, { IconNameType } from '@/components/commons/Icon';
 interface ListButtonBoxProps {
   iconName: IconNameType;
   text: string;
-  count?: string;
+  count?: number;
   onClick?: () => void;
 }
 const ListButtonBox = (props: ListButtonBoxProps) => {

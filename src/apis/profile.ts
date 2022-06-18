@@ -3,12 +3,14 @@ import { IBaseResponse } from '.';
 import axios from '@/configs/axios';
 
 export interface IProfile {
-  beerCount: string;
-  recordCount: string;
-  countryCount: string;
-  memberBeerCount: string;
-  requestBeerCount: string;
+  beerCount: number;
+  recordCount: number;
+  countryCount: number;
+  memberBeerCount: number;
+  requestBeerCount: number;
   nickname: string;
+  email: string;
+  remainRecord: number;
 }
 
 export interface IGetProfile extends IBaseResponse<IProfile> {}
