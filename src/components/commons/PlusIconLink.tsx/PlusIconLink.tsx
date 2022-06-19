@@ -18,4 +18,5 @@ const StyledPlusIconLink = styled.a`
   height: 40px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.semanticColor.primary};
+  cursor: pointer;
 `;
