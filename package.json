@@ -44,7 +44,7 @@
     "intercept-stdout": "^0.1.2",
     "lodash": "^4.17.21",
     "marked": "^4.0.17",
-    "next": "12.1.2",
+    "next": "12.1.6",
     "next-seo": "^5.4.0",
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
