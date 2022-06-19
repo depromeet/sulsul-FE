@@ -14,6 +14,7 @@ import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
 import { useGetMyRecords, useGetUser } from '@/queries';
 import HomeBeerTicket from '@/components/HomeBeerTicket';
+import NoRecord from '@/components/NoRecord';
 import { PAGE_TITLES } from '@/constants';
 
 import 'slick-carousel/slick/slick.css';
@@ -92,21 +93,31 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
           </a>
         </Link>
       </div>
-      <Slider
-        arrows={false}
-        infinite={false}
-        slidesToShow={1}
-        slidesToScroll={1}
-        variableWidth
-        swipeToSlide
-        className="home-record-slider"
-      >
-        {myRecords?.contents?.map((record) => (
-          <div key={record.id} className="home-record-item">
-            {record && <HomeBeerTicket record={record} type="stamp" className="beer-ticket" />}
-          </div>
-        ))}
-      </Slider>
+      {myRecords?.contents.length > 0 ? (
+        <Slider
+          arrows={false}
+          infinite={false}
+          slidesToShow={1}
+          slidesToScroll={1}
+          variableWidth
+          swipeToSlide
+          className="home-record-slider"
+        >
+          {myRecords?.contents?.map((record) => (
+            <div key={record.id} className="home-record-item">
+              {record && <HomeBeerTicket record={record} type="stamp" className="beer-ticket" />}
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <img
+          src="images/no-record-ticket.png"
+          width="250px"
+          height="auto"
+          style={{ margin: '0 auto' }}
+          alt="기록된 티켓 없음"
+        />
+      )}
       <BottomFloatingButtonArea
         className="record-floating-area"
         bottomOffset={64}
