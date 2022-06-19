@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
-export default function PlusIconButton() {
+export default function PlusIconLink() {
   return (
-    <StyledPlusIconButton>
+    <StyledPlusIconLink>
       <Icon name="Plus" size={14} />
-    </StyledPlusIconButton>
+    </StyledPlusIconLink>
   );
 }
 
-const StyledPlusIconButton = styled.a`
+const StyledPlusIconLink = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;

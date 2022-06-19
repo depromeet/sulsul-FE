@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import PlusIconButton from './PlusIconButton';
+import PlusIconButton from './PlusIconLink';
 
 export default {
   title: 'Commons/PlusIconButton',
