@@ -1,8 +1,8 @@
+import axios from 'axios';
+
 import { IBaseResponse } from '..';
 import { ICountry } from './country';
 import { IContinent } from '../continent';
-
-import axios from '@/configs/axios';
 
 interface IGetContinentResponseData extends IBaseResponse<ICountry[]> {}
 
