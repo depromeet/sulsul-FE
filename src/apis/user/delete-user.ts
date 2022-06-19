@@ -1,6 +1,6 @@
-import { IBaseResponse } from '..';
+import axios from 'axios';
 
-import axios from '@/configs/axios';
+import { IBaseResponse } from '..';
 
 interface IDeleteUserResponse extends IBaseResponse<null> {}
 

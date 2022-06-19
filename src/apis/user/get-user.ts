@@ -1,7 +1,7 @@
+import axios from 'axios';
+
 import { IBaseResponse } from '..';
 import { IUser } from './user';
-
-import axios from '@/configs/axios';
 
 interface IGetUserResponse extends IBaseResponse<IUser> {}
 
