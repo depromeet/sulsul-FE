@@ -10,6 +10,7 @@ export * from './useGetCountries';
 export * from './useGetRecordsByBeer';
 export * from './useGetTop3BeerFlavor';
 export * from './useGetRecord';
+export * from './useDeleteRecord';
 export * from './useGetMyRecords';
 export * from './useGetRecentlyVisitedCountry';
 export * from './useGetUser';

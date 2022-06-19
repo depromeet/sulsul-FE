@@ -6,13 +6,13 @@ import { useRouter } from 'next/router';
 import CreateImage, { CreateImageRef } from './CreateImage';
 
 import Header from '@/components/Header';
-import { BackButton, WriteButton, SaveButton } from '@/components/Header/extras';
+import { BackButton, WriteButton, SaveButton, DeleteButton } from '@/components/Header/extras';
 import { IRecord } from '@/apis/record';
 import BeerTicket from '@/components/BeerTicket';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
-import { getRecord } from '@/apis/record';
-import { useGetRecord } from '@/queries';
+import { getRecord } from '@/apis';
+import { useGetRecord, useDeleteRecord } from '@/queries';
 
 interface RecordTicketContainerProps {
   record: IRecord;
@@ -49,6 +49,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const { type, id } = router.query;
 
   const { contents: record } = useGetRecord(Number(id), _record);
+  const { mutateAsync: deleteRecordMutation } = useDeleteRecord();
   const createImageRef = useRef<CreateImageRef>(null);
 
   return (
@@ -57,6 +58,9 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
         leftExtras={<>{type !== NEW_TYPE && <BackButton />}</>}
         rightExtras={
           <>
+            <DeleteButton
+              onClick={async () => await deleteRecordMutation(Number(id))}
+            />
             <WriteButton />
             <SaveButton
               onClick={async () => {
