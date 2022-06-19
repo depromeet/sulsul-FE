@@ -1,6 +1,6 @@
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import CreateImage, { CreateImageRef } from './CreateImage';
@@ -11,6 +11,7 @@ import { IRecord } from '@/apis/record';
 import BeerTicket from '@/components/BeerTicket';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
+import Modal from '@/components/Modal';
 import { getRecord } from '@/apis';
 import { useGetRecord, useDeleteRecord } from '@/queries';
 
@@ -52,17 +53,26 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const { mutateAsync: deleteRecordMutation } = useDeleteRecord();
   const createImageRef = useRef<CreateImageRef>(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleDeleteRecord = async () => {
     await deleteRecordMutation(Number(id));
+    setIsModalOpen(false);
     router.push('/records/my');
   };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <StyledRecordTicketContainer>
       <Header
         leftExtras={<>{type !== NEW_TYPE && <BackButton />}</>}
         rightExtras={
           <>
-            <DeleteButton onClick={handleDeleteRecord} />
+            <DeleteButton onClick={openModal} />
             <WriteButton />
             <SaveButton
               onClick={async () => {
@@ -93,6 +103,23 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
             맥주 정보 보기
           </Button>
         }
+      />
+      <Modal
+        open={isModalOpen}
+        openModal={openModal}
+        closeModal={closeModal}
+        buttons={
+          <>
+            <Button type="grey" onClick={closeModal}>
+              취소
+            </Button>
+            <Button type="primary" onClick={handleDeleteRecord}>
+              확인
+            </Button>
+          </>
+        }
+        title="기록을 삭제할까요?"
+        description="한번 기록을 삭제하면 되돌릴 수 없습니다."
       />
     </StyledRecordTicketContainer>
   );
