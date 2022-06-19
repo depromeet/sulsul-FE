@@ -62,7 +62,7 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
         <h5 className="records-title">
           <span className="slim-weight">{`최근에 `}</span>
           <span>{recentlyVisitedCountry?.nameKor}</span>
-          <span className="slim-weight">{`를 다녀오셨군요!\n`}</span>
+          <span className="slim-weight">{`에 다녀오셨군요!\n`}</span>
           <span>{recentlyVisitedCountry?.nameKor}</span>
           <span className="slim-weight">{` 여행 티켓은 총 `}</span>
           <span>{`${recentlyVisitedCountry?.count}개`}</span>
