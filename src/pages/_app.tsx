@@ -46,6 +46,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (axios.defaults.headers as any).Cookie = '';
   if (cookie) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (axios.defaults.headers as any).Cookie = cookie;
