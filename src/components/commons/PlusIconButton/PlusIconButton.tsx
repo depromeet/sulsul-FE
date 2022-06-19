@@ -10,7 +10,7 @@ export default function PlusIconButton() {
   );
 }
 
-const StyledPlusIconButton = styled.button`
+const StyledPlusIconButton = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
