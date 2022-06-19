@@ -34,7 +34,7 @@ export default function BottomNavigation() {
             <span>맥주목록</span>
           </a>
         </Link>
-        <PlusIconButton />
+        <PlusIconButton onClick={() => router.push('/search')} />
         <Link href="/records/my" passHref>
           <a className={`nav-link ${router.pathname === '/records/my' ? 'active' : ''}`}>
             {router.pathname === '/records/my' ? (
