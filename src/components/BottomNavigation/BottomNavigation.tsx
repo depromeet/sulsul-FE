@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
-import PlusIconLink from '@/components/commons/PlusIconLink.tsx';
+import PlusIconButton from '@/components/commons/PlusIconButton';
 import Icon from '@/components/commons/Icon';
 
 const BOTTOM_NAVIGATION_HEIGHT = 64;
@@ -34,9 +34,7 @@ export default function BottomNavigation() {
             <span>맥주목록</span>
           </a>
         </Link>
-        <Link href="/search" passHref>
-          <PlusIconLink />
-        </Link>
+        <PlusIconButton onClick={() => router.push('/search')} />
         <Link href="/records/my" passHref>
           <a className={`nav-link ${router.pathname === '/records/my' ? 'active' : ''}`}>
             {router.pathname === '/records/my' ? (

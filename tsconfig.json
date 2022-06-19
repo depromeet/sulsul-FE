@@ -16,6 +16,6 @@
     "incremental": true
   },
   "extends": "./tsconfig.paths.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/commons/TasteBox"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/commons/TasteBox", "src/components/commons/PlusIconButton"],
   "exclude": ["node_modules"]
 }

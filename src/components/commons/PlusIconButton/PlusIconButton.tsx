@@ -2,15 +2,19 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
-export default function PlusIconLink() {
+interface Props {
+  onClick?: () => void;
+}
+
+export default function PlusIconButton({ onClick }: Props) {
   return (
-    <StyledPlusIconLink>
+    <StyledPlusIconButton onClick={onClick}>
       <Icon name="Plus" size={14} />
-    </StyledPlusIconLink>
+    </StyledPlusIconButton>
   );
 }
 
-const StyledPlusIconLink = styled.a`
+const StyledPlusIconButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
