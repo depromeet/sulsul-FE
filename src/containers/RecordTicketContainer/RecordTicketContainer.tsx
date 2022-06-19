@@ -52,15 +52,17 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const { mutateAsync: deleteRecordMutation } = useDeleteRecord();
   const createImageRef = useRef<CreateImageRef>(null);
 
+  const handleDeleteRecord = async () => {
+    await deleteRecordMutation(Number(id));
+    router.push('/records/my');
+  };
   return (
     <StyledRecordTicketContainer>
       <Header
         leftExtras={<>{type !== NEW_TYPE && <BackButton />}</>}
         rightExtras={
           <>
-            <DeleteButton
-              onClick={async () => await deleteRecordMutation(Number(id))}
-            />
+            <DeleteButton onClick={handleDeleteRecord} />
             <WriteButton />
             <SaveButton
               onClick={async () => {
