@@ -79,6 +79,7 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
 
   const handleSubmit = useCallback(
     (data: FieldValues) => {
+      console.log(data);
       setRecordForm((prev) => ({ ...prev, ...data }));
       onMoveNext?.();
     },

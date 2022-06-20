@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { FieldValues } from 'react-hook-form';
@@ -6,8 +6,8 @@ import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 
 import { $recordForm } from '../atoms';
-import { dummyOptions } from '../RecordSecondStepContainer/RecordSecondStepContainer';
 
+import { useGetFlavors } from '@/queries';
 import { NEW_TYPE } from '@/containers/RecordTicketContainer';
 import EntityForm from '@/components/EntityForm';
 import ImageUploadField from '@/components/formFields/ImageUploadField';
@@ -83,6 +83,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
 }) => {
   const router = useRouter();
   const recordForm = useRecoilValue($recordForm);
+  const { contents: flavors } = useGetFlavors();
   const { mutateAsync: uploadImageMutation } = useMutation(uploadImage);
   const { mutateAsync: createRecordMutation } = useMutation(createRecord, {
     onSuccess: (data) => {
@@ -90,7 +91,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
     },
   });
 
-  const { flavor } = recordForm;
+  const { flavorIds: selectedFlavors } = recordForm;
 
   const handleImageUpload = useCallback(
     async (data: FormData) => {
@@ -109,7 +110,8 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   );
 
   const beforeText =
-    flavor?.[0] && dummyOptions.find((option) => Number(option.value) === flavor[0])?.label;
+    selectedFlavors?.[0] &&
+    flavors?.find((flavor) => flavor.flavorId === selectedFlavors?.[0])?.content;
 
   return (
     <StyledRecordThirdStepContainer>
@@ -137,7 +139,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
             onClick={onMovePrev}
             leftAddon={<Icon name="ArrowLeft" />}
             iconMargin={4}
-            count={flavor?.length as ButtonCount | undefined}
+            count={selectedFlavors?.length as ButtonCount | undefined}
             maxWidth="44vw"
           >
             {beforeText || '이전'}
