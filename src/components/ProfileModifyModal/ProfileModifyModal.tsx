@@ -25,8 +25,14 @@ const ProfileModifyModal = ({ isModifyModalOpen, closeModifyModal, onSubmit }: P
   };
 
   const handleComplete = async () => {
-    await updateUserMutation({ nickname });
-    closeModifyModal();
+    await updateUserMutation(
+      { nickname },
+      {
+        onSuccess: () => {
+          closeModifyModal();
+        },
+      },
+    );
   };
 
   return (

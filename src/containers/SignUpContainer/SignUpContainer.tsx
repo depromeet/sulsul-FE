@@ -52,8 +52,14 @@ const SignUpContainer = () => {
   };
 
   const handleComplete = async () => {
-    await updateUserMutation({ nickname });
-    router.replace('/');
+    await updateUserMutation(
+      { nickname },
+      {
+        onSuccess: () => {
+          router.replace('/');
+        },
+      },
+    );
   };
 
   return (
