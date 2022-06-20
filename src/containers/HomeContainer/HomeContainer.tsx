@@ -3,16 +3,20 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Slider from 'react-slick';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
 
 import HomeSearchBar from './HomeSearchBar';
 
+import hasAuth from '@/hocs/hasAuth';
+import { hasAuthHeader } from '@/utils/auth';
+import { $userSession } from '@/recoil/atoms';
 import { useGtagPageView } from '@/hooks';
-import { IGetMyRecordsResponseData, IUser, getMyRecords, getUser } from '@/apis';
+import { IGetMyRecordsResponseData, getMyRecords } from '@/apis';
 import Icon, { IconNameType } from '@/components/commons/Icon';
 import BottomNavigation from '@/components/BottomNavigation';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
-import { useGetMyRecords, useGetUser } from '@/queries';
+import { useGetMyRecords } from '@/queries';
 import HomeBeerTicket from '@/components/HomeBeerTicket';
 import { PAGE_TITLES } from '@/constants';
 
@@ -63,18 +67,15 @@ const StyledHomeContainer = styled.div`
 
 interface HomeContainerProps {
   myRecordResponse: IGetMyRecordsResponseData;
-  user: IUser;
 }
 
-const HomeContainer: NextPage<HomeContainerProps> = ({
-  user: _user,
-  myRecordResponse: _myRecordResponse,
-}) => {
-  useGtagPageView(PAGE_TITLES.HOME);
+const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myRecordResponse }) => {
+  const user = useRecoilValue($userSession);
   const { data } = useGetMyRecords(_myRecordResponse);
-  const { contents: user } = useGetUser(_user);
 
   const [myRecords] = data?.pages || [];
+
+  useGtagPageView(PAGE_TITLES.HOME);
 
   return (
     <StyledHomeContainer>
@@ -131,11 +132,13 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!hasAuthHeader(context)) {
+    return { props: {} };
+  }
   const myRecordResponse = await getMyRecords();
-  const user = await getUser();
 
-  return { props: { myRecordResponse, user } };
+  return { props: { myRecordResponse } };
 };
 
 export default HomeContainer;
