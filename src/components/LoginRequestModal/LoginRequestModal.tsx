@@ -56,7 +56,7 @@ const LoginRequestModal: React.FC<LoginRequestModalProps> = ({ isOpen, onClose }
       <StyledLoginRequestModal>
         <div className="login-modal-content">
           <p className="login-modal-title">{'이용하려면 로그인이 필요합니다.'}</p>
-          <p className="login-modal-description">{'계정 등록 후 이용해주세요'}</p>
+          <p className="login-modal-description">{'계정 등록 후 이용해주세요.'}</p>
         </div>
         <Button type="primary" width="large" onClick={handleClick}>
           {'로그인 하러가기'}
