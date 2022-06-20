@@ -1,5 +1,4 @@
 export type {
-  IFlavor,
   IRecord,
   IRecordsByBeer,
   IGetRecordsByBeerPayload,
