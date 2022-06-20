@@ -11,7 +11,7 @@ export const useDeleteRecord = (recordId: IRecord['id']) => {
       queryClient.resetQueries(['record', recordId]);
     },
     onError: () => {
-      openFailToast({ message: '여행 목록 삭제에 실패했어요. 잠시 후 다시 시도해주세요.' });
+      openFailToast({ message: '기록 삭제에 실패했어요. 잠시 후 다시 시도해주세요.' });
     },
   });
 };
