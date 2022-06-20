@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 import { useInView } from 'react-intersection-observer';
+import Link from 'next/link';
 
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
@@ -131,9 +132,11 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
       {pageInfo.hasNext && <LoadingIcon ref={ref} />}
       <BottomFloatingButtonArea
         button={
-          <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
-            기록하기
-          </Button>
+          <Link href={`/record/create/${beerId}`} passHref>
+            <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
+              기록하기
+            </Button>
+          </Link>
         }
       />
     </StyledBeerDetailPage>
