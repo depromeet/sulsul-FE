@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { format, parseISO } from 'date-fns';
+import Link from 'next/link';
 
 import StyledBeerTicketField from './BeerTicketField';
 import BeerTicketFlight from './BeerTicketFlight';
@@ -111,41 +112,45 @@ const BeerTicket: React.FC<BeerTicketProps> = ({
   className,
 }) => {
   return (
-    <StyledBeerTicket className={className} id={id}>
-      <header className="beer-ticket-header">
-        <Icon name="Logo" semanticColor="primary" width="54px" height="12px" />
-        <span className="barlow-small">{`BR118${record.id.toString().padStart(3, '0')}`}</span>
-      </header>
-      <BeerTicketTitle beer={record.beerResponseDto} background={record.imageUrl} />
-      <section className="beer-ticket-middle">
-        <BeerTicketFlight
-          prevCountryNameEng={record.startCountryEng}
-          prevCountryNameKor={record.startCountryKor}
-          nextCountryNameEng={record.endCountryEng}
-          nextCountryNameKor={record.endCountryKor}
-        />
-      </section>
-      <section className="beer-ticket-middle ticket-has-dashed-border over-padding">
-        <StyledBeerTicketField title="date" className="beer-ticket-date">
-          {format(parseISO(record.createdAt), 'dd/LLL/yyyy')}
-        </StyledBeerTicketField>
-        <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
-          {format(parseISO(record.createdAt), 'p')}
-        </StyledBeerTicketField>
-        {type === 'stamp' && (
-          <>
-            <div className="beer-ticket-dot left" />
-            <div className="beer-ticket-dot right" />
-          </>
-        )}
-      </section>
-      <section className="beer-ticket-middle">
-        <BeerTicketStamp feel={record.feel} recordedAt={record.createdAt} />
-      </section>
-      <footer className="beer-ticket-footer">
-        <Icon name="Logo" semanticColor="primary" size={60} />
-      </footer>
-    </StyledBeerTicket>
+    <Link href={`/record/ticket/${record.id}`} passHref>
+      <a>
+        <StyledBeerTicket className={className} id={id}>
+          <header className="beer-ticket-header">
+            <Icon name="Logo" semanticColor="primary" width="54px" height="12px" />
+            <span className="barlow-small">{`BR118${record.id.toString().padStart(3, '0')}`}</span>
+          </header>
+          <BeerTicketTitle beer={record.beerResponseDto} background={record.imageUrl} />
+          <section className="beer-ticket-middle">
+            <BeerTicketFlight
+              prevCountryNameEng={record.startCountryEng}
+              prevCountryNameKor={record.startCountryKor}
+              nextCountryNameEng={record.endCountryEng}
+              nextCountryNameKor={record.endCountryKor}
+            />
+          </section>
+          <section className="beer-ticket-middle ticket-has-dashed-border over-padding">
+            <StyledBeerTicketField title="date" className="beer-ticket-date">
+              {format(parseISO(record.createdAt), 'dd/LLL/yyyy')}
+            </StyledBeerTicketField>
+            <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
+              {format(parseISO(record.createdAt), 'p')}
+            </StyledBeerTicketField>
+            {type === 'stamp' && (
+              <>
+                <div className="beer-ticket-dot left" />
+                <div className="beer-ticket-dot right" />
+              </>
+            )}
+          </section>
+          <section className="beer-ticket-middle">
+            <BeerTicketStamp feel={record.feel} recordedAt={record.createdAt} />
+          </section>
+          <footer className="beer-ticket-footer">
+            <Icon name="Logo" semanticColor="primary" size={60} />
+          </footer>
+        </StyledBeerTicket>
+      </a>
+    </Link>
   );
 };
 

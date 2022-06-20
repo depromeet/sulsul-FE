@@ -125,7 +125,7 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
             </a>
           </Link>
         }
-      ></BottomFloatingButtonArea>
+      />
       <BottomNavigation />
     </StyledHomeContainer>
   );
