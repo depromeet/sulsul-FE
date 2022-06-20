@@ -43,6 +43,7 @@ const StyledBeerTicket = styled.article`
   & .beer-ticket-middle {
     position: relative;
     padding: 16px 30px;
+    width: 100%;
     display: flex;
   }
 

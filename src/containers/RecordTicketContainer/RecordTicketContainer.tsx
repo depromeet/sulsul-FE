@@ -83,7 +83,11 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
       <BottomFloatingButtonArea
         withHomeButton
         button={
-          <Button type="primary" width="large">
+          <Button
+            type="primary"
+            width="large"
+            onClick={() => router.push(`/beers/${record?.beerResponseDto.id}`)}
+          >
             맥주 정보 보기
           </Button>
         }
