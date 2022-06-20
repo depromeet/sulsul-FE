@@ -96,7 +96,7 @@ const EtcContainer = () => {
               <Button type="grey" onClick={closeWithdrawalModal}>
                 취소
               </Button>
-              <Button type="primary" onClick={closeWithdrawalModal}>
+              <Button type="red" onClick={closeWithdrawalModal}>
                 확인
               </Button>
             </>

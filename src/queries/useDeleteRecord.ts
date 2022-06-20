@@ -10,8 +10,9 @@ export const useDeleteRecord = (recordId: IRecord['id']) => {
     onSuccess: () => {
       queryClient.resetQueries(['record', recordId]);
     },
-    onError: () => {
+    onError: async () => {
       openFailToast({ message: '기록 삭제에 실패했어요. 잠시 후 다시 시도해주세요.' });
+      console.log('에러');
     },
   });
 };

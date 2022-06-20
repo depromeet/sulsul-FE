@@ -2,6 +2,8 @@ import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import CreateImage, { CreateImageRef } from './CreateImage';
 
@@ -56,8 +58,8 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteRecord = async () => {
-    await deleteRecordMutation(Number(id));
     setIsModalOpen(false);
+    await deleteRecordMutation(Number(id));
     router.push('/records/my');
   };
 
@@ -72,7 +74,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
         leftExtras={<>{type !== NEW_TYPE && <BackButton />}</>}
         rightExtras={
           <>
-            <DeleteButton onClick={openModal} />
+            {type !== NEW_TYPE && <DeleteButton onClick={openModal} />}
             <WriteButton />
             <SaveButton
               onClick={async () => {
@@ -84,6 +86,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
           </>
         }
       />
+      <ToastContainer />
       {type === NEW_TYPE && (
         <>
           <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
@@ -113,8 +116,8 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
             <Button type="grey" onClick={closeModal}>
               취소
             </Button>
-            <Button type="primary" onClick={handleDeleteRecord}>
-              확인
+            <Button type="red" onClick={handleDeleteRecord}>
+              삭제
             </Button>
           </>
         }

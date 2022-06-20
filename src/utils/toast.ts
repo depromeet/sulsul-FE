@@ -13,6 +13,7 @@ export function openSuccessToast({ message = '' }: Props) {
     pauseOnHover: true,
     draggable: false,
     progress: undefined,
+    theme: 'dark',
   });
 }
 
@@ -25,5 +26,6 @@ export function openFailToast({ message = '' }: Props) {
     pauseOnHover: true,
     draggable: false,
     progress: undefined,
+    theme: 'dark',
   });
 }
