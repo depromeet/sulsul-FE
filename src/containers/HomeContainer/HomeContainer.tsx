@@ -83,7 +83,7 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
       </header>
       <div className="home-welcome-wrapper">
         <Icon name={`Level${user?.memberLevelResponseDto.tier || 1}` as IconNameType} size={64} />
-        <p className="home-welcome-message">{`${user?.name}님,\n이번 맥주 여행은 어떠셨나요?`}</p>
+        <p className="home-welcome-message">{`${user?.nickname}님,\n이번 맥주 여행은 어떠셨나요?`}</p>
       </div>
       <div className="home-search-wrapper">
         <Link href="/search">

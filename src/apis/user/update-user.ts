@@ -1,9 +1,8 @@
 import { IBaseResponse } from '..';
-import { IProfile } from '../profile';
 
 import axios from '@/configs/axios';
 
-export interface IUpdateUserResponse extends IBaseResponse<IProfile> {}
+export interface IUpdateUserResponse extends IBaseResponse<string> {}
 
 export interface IUpdateUserPayload {
   nickname: string;

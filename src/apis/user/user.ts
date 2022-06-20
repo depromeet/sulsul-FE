@@ -8,7 +8,7 @@ export interface IUserLevel {
 export interface IUser {
   id: number;
   email: string;
-  name: string;
+  nickname: string;
   phoneNumber: string;
   profileUrl: string;
   role: string;
