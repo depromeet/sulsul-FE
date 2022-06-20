@@ -7,9 +7,7 @@ import BeerTicketFlight from './BeerTicketFlight';
 import BeerTicketStamp from './BeerTicketStamp';
 
 import Icon from '@/components/commons/Icon';
-import { FEEL_MESSAGES } from '@/constants/Reviews';
 import BeerTicketTitle from '@/components/BeerTicketTitle';
-import Emoji from '@/components/Emoji';
 import { IRecord } from '@/apis/record';
 
 export const BEER_TICKET_WIDTH = 250;
