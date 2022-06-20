@@ -118,7 +118,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
       <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
         <p className="body-1">{beer.nameKor}</p>
-        <ImageUploadField name="imageUrl" beer={beer} uploadCallback={handleImageUpload} required />
+        <ImageUploadField name="imageUrl" beer={beer} uploadCallback={handleImageUpload} />
         <div className="switch-wrapper">
           <span>{'맥주 여행 소감 공개 여부'}</span>
           <SelectField name="isPublic" />
