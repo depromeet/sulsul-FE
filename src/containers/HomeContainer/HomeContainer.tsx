@@ -7,6 +7,8 @@ import { useRecoilValue } from 'recoil';
 
 import HomeSearchBar from './HomeSearchBar';
 
+import hasAuth from '@/hocs/hasAuth';
+import { hasAuthHeader } from '@/utils/auth';
 import { $userSession } from '@/recoil/atoms';
 import { useGtagPageView } from '@/hooks';
 import { IGetMyRecordsResponseData, getMyRecords } from '@/apis';
@@ -130,10 +132,14 @@ const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myReco
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!hasAuthHeader(context)) {
+    return { props: {} };
+    // return { props: {}, redirect: { destination: '/login', permanent: false } };
+  }
   const myRecordResponse = await getMyRecords();
 
   return { props: { myRecordResponse } };
 };
 
-export default HomeContainer;
+export default hasAuth(HomeContainer);

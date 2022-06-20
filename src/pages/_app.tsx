@@ -15,6 +15,7 @@ import mutedConsole from '@/utils/muteConsole';
 import { theme, GlobalStyle } from '@/themes';
 import queryClient from '@/configs/queryClient';
 import MainLayout from '@/components/layouts/MainLayout';
+import { setAuthHeader } from '@/utils/auth';
 
 awesome();
 initAxiosConfig();
@@ -73,6 +74,10 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
     user = await getUser();
   }
+  if (!user) {
+    setAuthHeader(ctx);
+  }
+
   const appProps = await App.getInitialProps(appContext);
 
   return { ...appProps, userSession: user };
