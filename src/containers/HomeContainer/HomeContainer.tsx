@@ -141,4 +141,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { myRecordResponse } };
 };
 
-export default hasAuth(HomeContainer);
+export default HomeContainer;
