@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
 import RequestedBeerItem from '@/components/RequestedBeerItem';
 import { useGetRequestBeers } from '@/queries';
+import { IRequestBeer } from '@/apis';
 
 const StyledTotalNumber = styled.p`
   margin: 10px 22px 16px;
@@ -19,20 +20,9 @@ const BeerRequestListContainer = () => {
     <>
       <Header leftExtras={<BackButton />}>요청한 맥주 현황</Header>
       <StyledTotalNumber>총 {resultCount}건</StyledTotalNumber>
-      <RequestedBeerItem
-        id={2}
-        beerNameKor="성산 일출봉"
-        createdAt={new Date()}
-        status="approved"
-        completedAt={new Date()}
-      />
-      <RequestedBeerItem
-        id={2}
-        beerNameKor="성산 일출봉"
-        createdAt={new Date()}
-        status="approved"
-        completedAt={new Date()}
-      />
+      {requestBeers?.map((requestBeer: IRequestBeer) => (
+        <RequestedBeerItem key={requestBeer.beerId} {...requestBeer} />
+      ))}
     </>
   );
 };

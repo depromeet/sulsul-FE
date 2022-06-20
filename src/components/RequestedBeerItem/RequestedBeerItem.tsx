@@ -1,59 +1,56 @@
 import { useCallback, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import Icon from '../commons/Icon';
 
 import { ColorTheme } from '@/themes/types';
+import { IRequestBeer, IRequestBeerStatus } from '@/apis';
 
-/** @todo 임시 타입 (심사중, 등록완료, 반려) */
-type BeerRequestStatus = 'pending' | 'approved' | 'rejected';
+const DEFAULT_REQUEST_REJECTION_REASON = '요청하신 맥주가 존재하지 않습니다.';
 
-/** @todo IBeerRequest(확정시)로 pick 해도록 리팩토링 */
-interface RequestedBeerItemProps {
-  id: number;
-  beerNameKor: string;
-  createdAt: Date;
-  status: BeerRequestStatus;
-  completedAt: Date;
-}
+interface RequestedBeerItemProps
+  extends Pick<
+    IRequestBeer,
+    'beerName' | 'createdAt' | 'requestCompletedAt' | 'requestRejectionReason' | 'status'
+  > {}
 
-const getBackgroundColor = (status: BeerRequestStatus, theme: ColorTheme) =>
+const getBackgroundColor = (status: IRequestBeerStatus, theme: ColorTheme) =>
   ({
-    pending: theme.color.yellow,
-    approved: theme.color.blue,
-    rejected: theme.color.white,
+    [IRequestBeerStatus.PENDING]: theme.color.yellow,
+    [IRequestBeerStatus.APPROVED]: theme.color.blue,
+    [IRequestBeerStatus.REJECTED]: theme.color.white,
   }[status]);
 
-const getNameColor = (status: BeerRequestStatus, theme: ColorTheme) =>
+const getNameColor = (status: IRequestBeerStatus, theme: ColorTheme) =>
   ({
-    pending: theme.color.black100,
-    approved: theme.color.white,
-    rejected: theme.color.black100,
+    [IRequestBeerStatus.PENDING]: theme.color.black100,
+    [IRequestBeerStatus.APPROVED]: theme.color.white,
+    [IRequestBeerStatus.REJECTED]: theme.color.black100,
   }[status]);
 
-const getCreatedAtColor = (status: BeerRequestStatus, theme: ColorTheme) =>
+const getCreatedAtColor = (status: IRequestBeerStatus, theme: ColorTheme) =>
   ({
-    pending: theme.color.grey4,
-    approved: theme.color.whiteOpacity80,
-    rejected: theme.color.grey3,
+    [IRequestBeerStatus.PENDING]: theme.color.grey4,
+    [IRequestBeerStatus.APPROVED]: theme.color.whiteOpacity80,
+    [IRequestBeerStatus.REJECTED]: theme.color.grey3,
   }[status]);
 
-const getStatusColor = (status: BeerRequestStatus, theme: ColorTheme) =>
+const getStatusColor = (status: IRequestBeerStatus, theme: ColorTheme) =>
   ({
-    pending: theme.color.grey5,
-    approved: theme.color.white,
-    rejected: theme.color.grey5,
+    [IRequestBeerStatus.PENDING]: theme.color.grey5,
+    [IRequestBeerStatus.APPROVED]: theme.color.white,
+    [IRequestBeerStatus.REJECTED]: theme.color.grey5,
   }[status]);
 
-const getStatusText = (status: BeerRequestStatus) =>
+const getStatusText = (status: IRequestBeerStatus) =>
   ({
-    pending: '심사중',
-    approved: '등록완료',
-    rejected: '반려',
+    [IRequestBeerStatus.PENDING]: '심사중',
+    [IRequestBeerStatus.APPROVED]: '등록완료',
+    [IRequestBeerStatus.REJECTED]: '반려',
   }[status]);
 
-const StyledRequestedBeerItem = styled.li<{ status: BeerRequestStatus }>`
+const StyledRequestedBeerItem = styled.li<{ status: IRequestBeerStatus }>`
   display: flex;
   flex-direction: column;
   width: calc(100% - 40px);
@@ -88,7 +85,7 @@ const StyledRequestedBeerItem = styled.li<{ status: BeerRequestStatus }>`
     .status {
       ${(p) => p.theme.fonts.Body2};
       color: ${(p) => getStatusColor(p.status, p.theme)};
-      ${(p) => (p.status !== 'rejected' ? 'margin: 0 25px 0 0;' : '')}
+      ${(p) => (p.status !== IRequestBeerStatus.REJECTED ? 'margin: 0 25px 0 0;' : '')}
     }
 
     .toggle-open-button {
@@ -117,10 +114,11 @@ const StyledDetailInfo = styled.div<{ isOpen: boolean }>`
 `;
 
 const RequestedBeerItem: React.FC<RequestedBeerItemProps> = ({
-  beerNameKor,
+  beerName,
   createdAt,
   status,
-  completedAt,
+  requestCompletedAt,
+  requestRejectionReason,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -134,27 +132,29 @@ const RequestedBeerItem: React.FC<RequestedBeerItemProps> = ({
       <div className="info">
         <Icon name="BarcodeVertical" width="22px" height="54px" />
         <div className="name-and-date">
-          <b className="name">{beerNameKor}</b>
-          <p className="created-at">요청일자 | {format(createdAt, 'yyyy-MM-dd')}</p>
+          <b className="name">{beerName}</b>
+          <p className="created-at">요청일자 | {format(parseISO(createdAt), 'yyyy.MM.dd')}</p>
         </div>
         <p className="status">{getStatusText(status)}</p>
-        {status === 'rejected' && (
+        {status === IRequestBeerStatus.REJECTED && (
           <button type="button" className="toggle-open-button" onClick={toggleOpen}>
             <Icon name={isOpen ? 'ChevronUp' : 'ChevronDown'} color="black100" size={20} />
           </button>
         )}
       </div>
-      {status === 'rejected' && (
+      {status === IRequestBeerStatus.REJECTED && (
         <StyledDetailInfo ref={ref} isOpen={isOpen}>
           {isOpen && (
             <>
               <Icon name="CheckCircleOutline" color="black100" size={24} />
-              {!!completedAt && (
-                <p>
-                  {format(completedAt, 'yyyy-MM-dd')} 기준 등록 반려되었습니다.{'\n'}요청하신 맥주가
-                  존재하지 않습니다.
-                </p>
-              )}
+              <p>
+                {!!requestCompletedAt &&
+                  `${format(
+                    parseISO(requestCompletedAt),
+                    'yyyy.MM.dd',
+                  )} 기준 등록 반려되었습니다.\n`}
+                {requestRejectionReason || DEFAULT_REQUEST_REJECTION_REASON}
+              </p>
             </>
           )}
         </StyledDetailInfo>
