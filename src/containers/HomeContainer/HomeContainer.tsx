@@ -14,7 +14,6 @@ import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
 import { useGetMyRecords, useGetUser } from '@/queries';
 import HomeBeerTicket from '@/components/HomeBeerTicket';
-import NoRecord from '@/components/NoRecord';
 import { PAGE_TITLES } from '@/constants';
 
 import 'slick-carousel/slick/slick.css';
