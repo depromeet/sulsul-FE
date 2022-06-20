@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
+import { useMutation } from 'react-query';
 
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
@@ -16,7 +17,13 @@ import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
 import { share } from '@/utils/share';
-import { useGetBeer, useGetRecordsByBeer, useGetTop3BeerFlavor } from '@/queries';
+import {
+  useGetBeer,
+  useGetRecordsByBeer,
+  useGetTop3BeerFlavor,
+  useUnLikeBeer,
+  useLikeBeer,
+} from '@/queries';
 import {
   IBeer,
   IGetRecordsByBeer,
@@ -27,6 +34,7 @@ import {
 } from '@/apis';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
+import { $isLikeBeer } from '@/recoil/atoms';
 
 interface BeerDetailContainerProps {
   beerResponse: IBeer;
@@ -64,6 +72,18 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
 
   const router = useRouter();
   const beerId = Number(router.query.id);
+
+  const { mutateAsync: likeBeerMutation } = useLikeBeer();
+  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
+
+  const handleLikeBeer = async () => {
+    await likeBeerMutation(beerId);
+  };
+
+  const handleUnLikeBeer = async () => {
+    await UnLikeBeerMutation(beerId);
+  };
+
   const { contents: beer } = useGetBeer(beerId, initialBeerResponse);
   const { contents: beerFlavor } = useGetTop3BeerFlavor(beerId, initialTop3BeerFlavor);
 
@@ -108,9 +128,9 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
               }
             />
             <LikeToggleButton
-              defaultIsLiking={true}
-              onLike={async () => alert('좋아요')}
-              onUnLike={async () => alert('좋아요 해제')}
+              defaultIsLiking={$isLikeBeer}
+              onLike={handleLikeBeer}
+              onUnLike={handleUnLikeBeer}
             />
           </>
         }

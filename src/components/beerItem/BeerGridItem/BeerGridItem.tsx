@@ -7,6 +7,8 @@ import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
+import { useLikeBeer, useUnLikeBeer } from '@/queries';
+import { LikeToggleButton } from '@/components/Header/extras';
 
 type BeerGridItemProps = Pick<IBeer, 'id' | 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
@@ -16,9 +18,8 @@ interface Props {
 
 const BeerGridItem = (props: Props) => {
   const {
-    beer: { id, nameKor, imageUrl, feel, isLiked },
+    beer: { id, nameKor, imageUrl, feel },
   } = props;
-  const [isBookMarked, setIsBookmarked] = useState(false);
 
   const router = useRouter();
 
@@ -26,16 +27,27 @@ const BeerGridItem = (props: Props) => {
     router.push(`/beers/${beerId}`);
   };
 
+  const { mutateAsync: likeBeerMutation } = useLikeBeer();
+  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
+
+  const handleLikeBeer = async () => {
+    await likeBeerMutation(id);
+  };
+
+  const handleUnLikeBeer = async () => {
+    await UnLikeBeerMutation(id);
+  };
+
   return (
     <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
       <BeerGridItemContainer feel={feel}>
-        <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-          {isLiked || isBookMarked ? (
-            <Icon name="Heart" size={30} color="white" />
-          ) : (
-            <Icon name="HeartOutlined" size={30} color="white" />
-          )}
-        </BookmarkButton>
+        <LikeToggleButtonWrapper>
+          <LikeToggleButton
+            defaultIsLiking={false}
+            onLike={handleLikeBeer}
+            onUnLike={handleUnLikeBeer}
+          />
+        </LikeToggleButtonWrapper>
         <StyledEmoji>
           <Emoji feel={feel} />
         </StyledEmoji>
@@ -77,7 +89,7 @@ const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
   align-items: center;
 `;
 
-const BookmarkButton = styled.button`
+const LikeToggleButtonWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: absolute;

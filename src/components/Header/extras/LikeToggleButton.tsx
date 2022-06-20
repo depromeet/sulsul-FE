@@ -1,15 +1,16 @@
 import { MouseEvent, useState } from 'react';
 
 import Icon from '@/components/commons/Icon';
+import { $isLikeBeer } from '@/recoil/atoms';
 
 interface LikeToggleButtonProps {
-  defaultIsLiking: boolean;
+  defaultIsLiking?: boolean;
   onLike: (e?: MouseEvent) => Promise<void>;
   onUnLike: (e?: MouseEvent) => Promise<void>;
 }
 
 const LikeToggleButton = ({ defaultIsLiking, onLike, onUnLike }: LikeToggleButtonProps) => {
-  const [isLiking, setIsLiking] = useState(defaultIsLiking);
+  const [isLiking, setIsLiking] = useState($isLikeBeer);
 
   const handleLike = async () => {
     await onLike();
