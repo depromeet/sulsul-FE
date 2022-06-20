@@ -4,7 +4,7 @@ const ATOM_KEY = 'record-form';
 
 interface RecordFormAtom {
   feel?: number;
-  flavor?: number[];
+  flavorIds?: number[];
   imageUrl?: string;
   isPublic?: boolean;
   content?: string;

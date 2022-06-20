@@ -18,6 +18,7 @@ export * from './useGetLevels';
 export * from './useGetUserLevel';
 export * from './useGetUserLevelByRecordCount';
 export * from './useUpdateUser';
+export * from './useGetFlavors';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];

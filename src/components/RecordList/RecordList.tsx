@@ -26,6 +26,18 @@ const StyledRecordList = styled.section`
       left: 17px;
       transform: translateY(100%);
     }
+
+    &:first-child::after {
+      position: absolute;
+      content: ' ';
+      width: 20px;
+      height: 20px;
+      background: url('/images/airplane_top.svg') no-repeat center;
+      background-size: contain;
+      bottom: -5px;
+      left: 8px;
+      transform: translateY(100%);
+    }
   }
 `;
 

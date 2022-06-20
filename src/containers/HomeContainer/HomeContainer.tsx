@@ -126,7 +126,7 @@ const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myReco
             </a>
           </Link>
         }
-      ></BottomFloatingButtonArea>
+      />
       <BottomNavigation />
     </StyledHomeContainer>
   );

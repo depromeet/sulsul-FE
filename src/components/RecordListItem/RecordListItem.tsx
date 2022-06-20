@@ -5,6 +5,7 @@ import { format, parseISO } from 'date-fns';
 import { IRecord } from '@/apis/record';
 import Icon from '@/components/commons/Icon';
 import StyledBeerTicketField from '@/components/BeerTicket/BeerTicketField';
+import Emoji from '@/components/Emoji';
 import { sliceAndUpperCase } from '@/utils/string';
 
 interface RecordListItemProps {
@@ -65,6 +66,12 @@ const StyledRecordListItem = styled.div<StyledRecordListItemProps>`
     mask-image: linear-gradient(253.61deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 65.72%);`
           : ''}
     }
+
+    & > .emoji-wrapper {
+      position: absolute;
+      bottom: -4px;
+      right: -8px;
+    }
   }
 `;
 
@@ -85,6 +92,7 @@ const RecordListItem = forwardRef<HTMLDivElement, RecordListItemProps>(
             </StyledBeerTicketField>
           </div>
           <div className="ticket-background-img" />
+          <Emoji feel={record.feel} className="emoji-wrapper" />
         </article>
       </StyledRecordListItem>
     );
