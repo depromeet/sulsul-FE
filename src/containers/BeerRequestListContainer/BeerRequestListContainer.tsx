@@ -6,6 +6,8 @@ import { BackButton } from '@/components/Header/extras';
 import RequestedBeerItem from '@/components/RequestedBeerItem';
 import { useGetRequestBeers } from '@/queries';
 import { getRequestBeers, IGetRequestBeersResponse } from '@/apis';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
 interface IBeerRequestListContainerProps {
   requestBeersData?: IGetRequestBeersResponse;
@@ -21,6 +23,8 @@ const StyledTotalNumber = styled.p`
 const BeerRequestListContainer: NextPage<IBeerRequestListContainerProps> = ({
   requestBeersData: initialRequestBeersData,
 }) => {
+  useGtagPageView(PAGE_TITLES.BEER_REQUEST_LIST);
+
   const { contents: requestBeers, resultCount } = useGetRequestBeers(initialRequestBeersData);
 
   return (
