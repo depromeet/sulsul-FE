@@ -135,7 +135,6 @@ const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myReco
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!hasAuthHeader(context)) {
     return { props: {} };
-    // return { props: {}, redirect: { destination: '/login', permanent: false } };
   }
   const myRecordResponse = await getMyRecords();
 

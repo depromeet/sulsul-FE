@@ -1,20 +1,19 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { useRouter } from 'next/router';
 
 import { $userSession } from '@/recoil/atoms';
+import { useModal } from '@/hooks';
+import LoginRequestModal from '@/components/LoginRequestModal';
 
 const hasAuth =
   <T extends any>(Component: React.FC<T>): React.FC<T> =>
   // eslint-disable-next-line react/display-name
   (props) => {
-    const router = useRouter();
+    const { isOpen, close } = useModal(true);
     const userSession = useRecoilValue($userSession);
 
     if (!userSession) {
-      // TODO: 추후에 로그인 모달 추가
-      router.replace('/login');
-      return null;
+      return <LoginRequestModal isOpen={isOpen} onClose={close} />;
     }
 
     return <Component {...props} />;
