@@ -1,7 +1,7 @@
+import axios from 'axios';
+
 import { IRecord } from './record';
 import { IBaseResponse } from '..';
-
-import axios from '@/configs/axios';
 
 export type ICreateRecordResponseData = IBaseResponse<IRecord>;
 

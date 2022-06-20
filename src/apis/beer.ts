@@ -1,10 +1,9 @@
 import { QueryFunctionContext } from 'react-query';
+import axios from 'axios';
 
 import { ICountry } from './country';
 
 import { IBasePaginationResponse, IBaseResponse } from '.';
-
-import axios from '@/configs/axios';
 
 export enum EBeerType {
   LIGHT_ALE = 'LIGHT_ALE',

@@ -1,7 +1,7 @@
+import axios from 'axios';
+
 import { IBaseResponse } from '..';
 import { IRequestBeer } from './request-beer';
-
-import axios from '@/configs/axios';
 
 export interface ICreateRequestBeerResponseData extends IBaseResponse<IRequestBeer> {}
 

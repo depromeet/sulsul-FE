@@ -2,9 +2,13 @@ import styled from '@emotion/styled';
 
 import Icon from '@/components/commons/Icon';
 
-export default function PlusIconButton() {
+interface Props {
+  onClick?: () => void;
+}
+
+export default function PlusIconButton({ onClick }: Props) {
   return (
-    <StyledPlusIconButton>
+    <StyledPlusIconButton onClick={onClick}>
       <Icon name="Plus" size={14} />
     </StyledPlusIconButton>
   );
@@ -18,4 +22,5 @@ const StyledPlusIconButton = styled.button`
   height: 40px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.semanticColor.primary};
+  cursor: pointer;
 `;

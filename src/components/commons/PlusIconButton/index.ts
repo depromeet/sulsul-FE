@@ -1,1 +1,1 @@
-export { default } from './PlusIconButton'
+export { default } from './PlusIconButton';

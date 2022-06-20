@@ -1,9 +1,8 @@
 import { QueryFunctionContext } from 'react-query';
+import axios from 'axios';
 
 import { IRecord } from './record';
 import { IBasePaginationResponse } from '..';
-
-import axios from '@/configs/axios';
 
 export interface IGetMyRecordsResponseData extends IBasePaginationResponse<IRecord[]> {}
 
