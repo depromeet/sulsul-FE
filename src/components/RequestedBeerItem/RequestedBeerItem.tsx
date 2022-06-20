@@ -56,8 +56,9 @@ const getStatusText = (status: BeerRequestStatus) =>
 const StyledRequestedBeerItem = styled.li<{ status: BeerRequestStatus }>`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% - 40px);
   border-radius: 10px;
+  margin: 0 20px 12px;
 
   background-color: ${(p) => getBackgroundColor(p.status, p.theme)};
 

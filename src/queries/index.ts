@@ -8,6 +8,7 @@ export * from './useGetBeerTypes';
 export * from './useGetContinents';
 export * from './useGetCountries';
 export * from './useGetRecordsByBeer';
+export * from './useGetRequestBeers';
 export * from './useGetTop3BeerFlavor';
 export * from './useGetRecord';
 export * from './useGetMyRecords';

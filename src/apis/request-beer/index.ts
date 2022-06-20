@@ -4,3 +4,4 @@ export type {
   ICreateRequestBeerResponseData,
 } from './create-request-beer';
 export { createRequestBeer } from './create-request-beer';
+export { getRequestBeers } from './get-request-beers';
