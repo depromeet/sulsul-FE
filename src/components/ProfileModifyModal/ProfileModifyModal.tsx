@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
-import { useMutation } from 'react-query';
 
 import ModalLayout from '@/components/layouts/ModalLayout';
 import Icon from '@/components/commons/Icon';
 import Button from '@/components/commons/Button';
-import { updateUser } from '@/apis';
+import { useUpdateUser } from '@/queries';
 
 interface Props {
   isModifyModalOpen: boolean;
@@ -17,7 +16,7 @@ interface Props {
 const ProfileModifyModal = ({ isModifyModalOpen, closeModifyModal, onSubmit }: Props) => {
   const [nickname, setNickname] = useState('');
 
-  const { mutateAsync: updateUserMutation } = useMutation(updateUser);
+  const { mutateAsync: updateUserMutation } = useUpdateUser();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (nickname.length > 15) return;
@@ -26,8 +25,14 @@ const ProfileModifyModal = ({ isModifyModalOpen, closeModifyModal, onSubmit }: P
   };
 
   const handleComplete = async () => {
-    await updateUserMutation({ name: nickname });
-    closeModifyModal();
+    await updateUserMutation(
+      { nickname },
+      {
+        onSuccess: () => {
+          closeModifyModal();
+        },
+      },
+    );
   };
 
   return (

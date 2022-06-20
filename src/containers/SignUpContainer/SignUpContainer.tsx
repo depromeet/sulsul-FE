@@ -1,11 +1,10 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
 
 import OnBoardingLayout from '@/components/layouts/OnBoardingLayout';
 import Button from '@/components/commons/Button';
-import { updateUser } from '@/apis';
+import { useUpdateUser } from '@/queries';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -44,7 +43,7 @@ const SignUpContainer = () => {
 
   const [nickname, setNickname] = useState('');
 
-  const { mutateAsync: updateUserMutation } = useMutation(updateUser);
+  const { mutateAsync: updateUserMutation } = useUpdateUser();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (nickname.length > 15) return;
@@ -53,8 +52,14 @@ const SignUpContainer = () => {
   };
 
   const handleComplete = async () => {
-    await updateUserMutation({ name: nickname });
-    router.replace('/');
+    await updateUserMutation(
+      { nickname },
+      {
+        onSuccess: () => {
+          router.replace('/');
+        },
+      },
+    );
   };
 
   return (

@@ -16,7 +16,7 @@ export default {
           set($userSession, {
             id: 1,
             email: 'zizon@zizon.com',
-            name: '퇴근하고싶다',
+            nickname: '퇴근하고싶다',
             phoneNumber: '010-0000-0000',
             profileUrl: '',
             role: 'test',
