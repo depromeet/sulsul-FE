@@ -2,7 +2,7 @@ import { QueryFunctionContext } from 'react-query';
 import axios from 'axios';
 
 import { IBeer } from '../beer';
-import { IBasePaginationResponse } from '..';
+import { IBasePaginationResponse, IBaseResponse } from '..';
 
 export interface IFlavor {
   id: number;
@@ -50,4 +50,15 @@ export const getRecordsByBeer = async (context?: QueryFunctionContext) => {
     payload,
   );
   return res.data;
+};
+
+export interface IDeleteRecord extends IBaseResponse<boolean> {}
+
+/**
+ * 맥주 record 삭제
+ */
+
+export const deleteRecord = async (beerId: number) => {
+  const res = await axios.delete<IDeleteRecord>(`/api/v1/records/${beerId}`);
+  return res.data.contents;
 };

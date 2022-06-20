@@ -90,7 +90,9 @@ const BeerTicketTitle: React.FC<BeerTicketTitleProps> = ({
         <Icon name="Airplane" size={type === 'default' ? 18 : 20} color="whiteOpacity35" />
       </div>
       <div className="ticket-main-title">
-        <span className="ticket-country">{sliceAndUpperCase(beer?.country?.nameEng || '', 3)}</span>
+        <span className="ticket-country">
+          {sliceAndUpperCase(beer?.country?.nameEng || 'non', 3)}
+        </span>
         <div className="ticket-detail">
           {`${beer?.alcohol?.toFixed(1)}%`}
           <span className="ticket-detail-split-dot">{'•'}</span>

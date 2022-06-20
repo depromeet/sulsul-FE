@@ -1,18 +1,21 @@
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import CreateImage, { CreateImageRef } from './CreateImage';
 
 import Header from '@/components/Header';
-import { BackButton, WriteButton, SaveButton } from '@/components/Header/extras';
+import { BackButton, WriteButton, SaveButton, DeleteButton } from '@/components/Header/extras';
 import { IRecord } from '@/apis/record';
 import BeerTicket from '@/components/BeerTicket';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
 import Button from '@/components/commons/Button';
-import { getRecord } from '@/apis/record';
-import { useGetRecord } from '@/queries';
+import Modal from '@/components/Modal';
+import { getRecord } from '@/apis';
+import { useGetRecord, useDeleteRecord } from '@/queries';
 
 interface RecordTicketContainerProps {
   record: IRecord;
@@ -49,7 +52,21 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const { type, id } = router.query;
 
   const { contents: record } = useGetRecord(Number(id), _record);
+  const { mutateAsync: deleteRecordMutation } = useDeleteRecord(Number(id));
   const createImageRef = useRef<CreateImageRef>(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDeleteRecord = async () => {
+    setIsModalOpen(false);
+    await deleteRecordMutation(Number(id));
+    router.push('/records/my');
+  };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <StyledRecordTicketContainer>
@@ -57,6 +74,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
         leftExtras={<>{type !== NEW_TYPE && <BackButton />}</>}
         rightExtras={
           <>
+            {type !== NEW_TYPE && <DeleteButton onClick={openModal} />}
             <WriteButton />
             <SaveButton
               onClick={async () => {
@@ -68,6 +86,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
           </>
         }
       />
+      <ToastContainer />
       {type === NEW_TYPE && (
         <>
           <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
@@ -91,6 +110,23 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
             맥주 정보 보기
           </Button>
         }
+      />
+      <Modal
+        open={isModalOpen}
+        openModal={openModal}
+        closeModal={closeModal}
+        buttons={
+          <>
+            <Button type="grey" onClick={closeModal}>
+              취소
+            </Button>
+            <Button type="red" onClick={handleDeleteRecord}>
+              삭제
+            </Button>
+          </>
+        }
+        title="기록을 삭제할까요?"
+        description="한번 기록을 삭제하면 되돌릴 수 없습니다."
       />
     </StyledRecordTicketContainer>
   );

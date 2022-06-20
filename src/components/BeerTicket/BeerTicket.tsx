@@ -145,7 +145,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({
               <Emoji feel={record.feel} size={24} className="ticket-feel-emoji" />
               <p>{FEEL_MESSAGES[record.feel]}</p>
             </StyledBeerTicketField>
-            <StyledBeerTicketField title="feel">
+            <StyledBeerTicketField title="taste">
               {record.flavorDtos.map((flavor) => (
                 <span key={flavor.id} className="beer-ticket-flavor">
                   {flavor.content}

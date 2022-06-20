@@ -6,3 +6,4 @@ export { default as OKTextButton } from './OKTextButton';
 export { default as SaveButton } from './SaveButton';
 export { default as ShareButton } from './ShareButton';
 export { default as WriteButton } from './WriteButton';
+export { default as DeleteButton } from './DeleteButton';

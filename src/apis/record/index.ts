@@ -3,8 +3,9 @@ export type {
   IRecordsByBeer,
   IGetRecordsByBeerPayload,
   IGetRecordsByBeer,
+  IDeleteRecord,
 } from './record';
-export { getRecordsByBeer } from './record';
+export { getRecordsByBeer, deleteRecord } from './record';
 export type { ICreateRecordResponseData } from './create-record';
 export { getRecord } from './get-record';
 export { getMyRecords } from './get-my-records';

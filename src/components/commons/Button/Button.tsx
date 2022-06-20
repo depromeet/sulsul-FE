@@ -12,7 +12,8 @@ type ButtonType =
   | 'secondary-line'
   | 'ghost'
   | 'default'
-  | 'grey';
+  | 'grey'
+  | 'red';
 
 export type ButtonCount = 1 | 2 | 3 | 4 | 5 | 7 | 8 | 9;
 
@@ -96,6 +97,8 @@ const getColorByType = (type: ButtonType, theme: ColorTheme) => {
       return theme.color.whiteOpacity0;
     case 'grey':
       return theme.color.grey4;
+    case 'red':
+      return theme.color.red;
     default:
       return theme.color.white;
   }

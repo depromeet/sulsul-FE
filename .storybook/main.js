@@ -9,7 +9,7 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     'storybook-dark-mode',
-    "storybook-addon-next-router",
+    'storybook-addon-next-router',
     {
       name: '@storybook/addon-storysource',
       options: {
@@ -30,6 +30,16 @@ module.exports = {
         extensions: config.resolve.extensions,
       }),
     ];
+
+    /**
+     * 동일한 이슈가 있어 comment에 있는 solution대로 적용
+     * https://github.com/storybookjs/storybook/issues/16690
+     */
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    });
 
     config.module.rules.unshift({
       test: /\.svg$/,

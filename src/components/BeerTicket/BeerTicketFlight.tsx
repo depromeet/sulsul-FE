@@ -44,12 +44,16 @@ const BeerTicketFlight: React.FC<BeerTicketFlightProps> = ({
   return (
     <StyledBeerTicketFlight>
       <div>
-        <div className="ticket-country-eng">{sliceAndUpperCase(prevCountryNameEng, 3)}</div>
+        <div className="ticket-country-eng">
+          {sliceAndUpperCase(prevCountryNameEng || 'non', 3)}
+        </div>
         <div className="ticket-country-kor">{prevCountryNameKor}</div>
       </div>
       <Icon name="Airplane" size={20} />
       <div>
-        <div className="ticket-country-eng">{sliceAndUpperCase(nextCountryNameEng, 3)}</div>
+        <div className="ticket-country-eng">
+          {sliceAndUpperCase(nextCountryNameEng || 'non', 3)}
+        </div>
         <div className="ticket-country-kor">{nextCountryNameKor}</div>
       </div>
     </StyledBeerTicketFlight>
