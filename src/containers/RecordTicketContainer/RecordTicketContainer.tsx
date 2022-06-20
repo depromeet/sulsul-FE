@@ -50,7 +50,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const { type, id } = router.query;
 
   const { contents: record } = useGetRecord(Number(id), _record);
-  const { mutateAsync: deleteRecordMutation } = useDeleteRecord();
+  const { mutateAsync: deleteRecordMutation } = useDeleteRecord(Number(id));
   const createImageRef = useRef<CreateImageRef>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
