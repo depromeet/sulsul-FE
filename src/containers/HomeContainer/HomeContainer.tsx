@@ -93,7 +93,7 @@ const HomeContainer: NextPage<HomeContainerProps> = ({
           </a>
         </Link>
       </div>
-      {myRecords?.contents.length > 0 ? (
+      {myRecords.contents?.length > 0 ? (
         <Slider
           arrows={false}
           infinite={false}
