@@ -16,11 +16,11 @@ import SwiperLayout from '@/components/layouts/SwiperLayout';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
 
-interface CreateRecordContainerProps {
+interface UpsertRecordContainerProps {
   beer: IBeer;
 }
 
-const StyledCreateRecordContainer = styled.div`
+const StyledUpsertRecordContainer = styled.div`
   height: 100%;
 
   & .record-layout {
@@ -28,7 +28,7 @@ const StyledCreateRecordContainer = styled.div`
   }
 `;
 
-const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer: _beer }) => {
+const UpsertRecordContainer: NextPage<UpsertRecordContainerProps> = ({ beer: _beer }) => {
   const router = useRouter();
   const { id } = router.query;
   const { contents: beer } = useGetBeer(Number(id), _beer);
@@ -38,23 +38,23 @@ const CreateRecordContainer: NextPage<CreateRecordContainerProps> = ({ beer: _be
   }
 
   return (
-    <StyledCreateRecordContainer>
+    <StyledUpsertRecordContainer>
       <Header leftExtras={<BackButton />} />
       <SwiperLayout className="record-layout">
         <RecordFirstStepContainer beerName={beer.nameKor} />
         <RecordSecondStepContainer beerName={beer.nameKor} />
         <RecordThirdStepContainer beer={beer} />
       </SwiperLayout>
-    </StyledCreateRecordContainer>
+    </StyledUpsertRecordContainer>
   );
 };
 
-const CreateRecordRecoilWrapper: NextPage<CreateRecordContainerProps> = (props) => {
+const UpsertRecordRecoilWrapper: NextPage<UpsertRecordContainerProps> = (props) => {
   useGtagPageView(PAGE_TITLES.CREATE_RECORD);
 
   return (
     <RecoilRoot>
-      <CreateRecordContainer {...props} />
+      <UpsertRecordContainer {...props} />
     </RecoilRoot>
   );
 };
@@ -70,4 +70,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} };
 };
 
-export default CreateRecordRecoilWrapper;
+export default UpsertRecordRecoilWrapper;

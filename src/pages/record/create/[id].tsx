@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from '@/containers/CreateRecordContainer';
+export { default, getServerSideProps } from '@/containers/UpsertRecordContainer';
