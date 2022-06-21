@@ -93,7 +93,7 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
           <Link href={`/beer/recommend-and-liked?tab="liked"`} passHref>
             <ListButtonBox iconName="Heart" text="내가 반한 맥주" count={memberBeerCount} />
           </Link>
-          <Link href="" passHref>
+          <Link href="/beer/requests" passHref>
             <ListButtonBox iconName="PlusCircle" text="요청한 맥주 현황" count={requestBeerCount} />
           </Link>
           <Link href="/profile/etc" passHref>

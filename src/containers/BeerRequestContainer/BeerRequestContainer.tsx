@@ -13,8 +13,12 @@ import TextField from '@/components/formFields/TextField';
 import EntityForm from '@/components/EntityForm';
 import { uploadImages, createRequestBeer, ICreateRequestBeerPayload } from '@/apis';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
 
 const BeerRequestContainer: NextPage = () => {
+  useGtagPageView(PAGE_TITLES.BEER_REQUEST);
+
   const router = useRouter();
 
   const { mutateAsync: uploadImagesMutation } = useMutation(uploadImages);

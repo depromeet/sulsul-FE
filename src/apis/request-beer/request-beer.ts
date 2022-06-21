@@ -8,7 +8,7 @@ export interface IRequestBeer {
   beerId: number;
   beerImageUrls: string[];
   beerName: string;
-  createAt: string;
+  createdAt: string;
   requestCompletedAt: string;
   requestRejectionReason: string;
   status: IRequestBeerStatus;
