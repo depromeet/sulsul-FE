@@ -14,6 +14,7 @@ import Button from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import Icon from '@/components/commons/Icon';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
+import { IFlavor } from '@/apis';
 
 const StyledRecordSecondStepContainer = styled.div`
   display: flex;
@@ -56,9 +57,11 @@ const StyledRecordSecondStepContainer = styled.div`
 interface RecordSecondStepContainerProps extends SwiperLayoutChildProps {
   beerName: string;
   className?: string;
+  defaultFlavorValue?: { id: number }[];
 }
 
 const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
+  defaultFlavorValue,
   beerName,
   className,
   onMovePrev,
@@ -88,7 +91,11 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
 
   return (
     <StyledRecordSecondStepContainer className={className}>
-      <EntityForm onSubmit={handleSubmit} showDebug={false}>
+      <EntityForm
+        onSubmit={handleSubmit}
+        defaultValues={{ flavorIds: defaultFlavorValue?.map((flavor) => flavor.id) }}
+        showDebug={false}
+      >
         <h2>{'맥주 맛은 어땠나요?'}</h2>
         <p className="body-2">{beerName}</p>
         <p className="body-5">{'최대 3개까지 선택이 가능해요!'}</p>

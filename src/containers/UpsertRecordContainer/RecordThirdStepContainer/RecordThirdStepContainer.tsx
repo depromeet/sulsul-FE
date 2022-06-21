@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { FieldValues } from 'react-hook-form';
@@ -18,12 +18,18 @@ import Button, { ButtonCount } from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 import Icon from '@/components/commons/Icon';
-import { IBeer } from '@/apis';
+import { IBeer, IRecord } from '@/apis';
 import { uploadImage } from '@/apis';
-import { createRecord, ICreateRecordPayload } from '@/apis/record/create-record';
+import {
+  createRecord,
+  ICreateRecordPayload,
+  updateRecord,
+  IUpdateRecordPayload,
+} from '@/apis/record';
 
 interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {
   beer: IBeer;
+  record?: IRecord;
   className?: string;
 }
 
@@ -72,12 +78,9 @@ const StyledRecordThirdStepContainer = styled.div`
   }
 `;
 
-const defaultValues = {
-  isPublic: false,
-};
-
 const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   beer,
+  record,
   onMovePrev,
   onMoveNext,
 }) => {
@@ -90,8 +93,22 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
       router.push(`/record/ticket/${data.id}?type=${NEW_TYPE}`);
     },
   });
+  const { mutateAsync: updateRecordMutation } = useMutation(updateRecord, {
+    onSuccess: (data) => {
+      router.back();
+    },
+  });
 
   const { flavorIds: selectedFlavors } = recordForm;
+
+  const defaultValues = useMemo(
+    () => ({
+      content: record?.content,
+      isPublic: record?.isPublic || false,
+      imageUrl: record?.imageUrl,
+    }),
+    [record],
+  );
 
   const handleImageUpload = useCallback(
     async (data: FormData) => {
@@ -102,11 +119,30 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
     [uploadImageMutation],
   );
 
-  const handleSubmit = useCallback(
+  const handleCreateSubmit = useCallback(
     (data: FieldValues) => {
-      createRecordMutation({ ...recordForm, ...data, beerId: beer.id } as ICreateRecordPayload);
+      createRecordMutation({
+        ...recordForm,
+        ...data,
+        beerId: beer.id,
+      } as ICreateRecordPayload);
     },
     [createRecordMutation, recordForm, beer.id],
+  );
+
+  const handleUpdateSubmit = useCallback(
+    (data: FieldValues) => {
+      if (!record) {
+        return;
+      }
+
+      updateRecordMutation({
+        ...recordForm,
+        ...data,
+        recordId: record.id,
+      } as IUpdateRecordPayload);
+    },
+    [updateRecordMutation, recordForm, record],
   );
 
   const beforeText =
@@ -115,10 +151,19 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
 
   return (
     <StyledRecordThirdStepContainer>
-      <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
+      <EntityForm
+        onSubmit={!record ? handleCreateSubmit : handleUpdateSubmit}
+        defaultValues={defaultValues}
+        showDebug={false}
+      >
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
         <p className="body-1">{beer.nameKor}</p>
-        <ImageUploadField name="imageUrl" beer={beer} uploadCallback={handleImageUpload} />
+        <ImageUploadField
+          name="imageUrl"
+          beer={beer}
+          uploadCallback={handleImageUpload}
+          defaultBackground={record?.imageUrl}
+        />
         <div className="switch-wrapper">
           <span>{'맥주 여행 소감 공개 여부'}</span>
           <SelectField name="isPublic" />

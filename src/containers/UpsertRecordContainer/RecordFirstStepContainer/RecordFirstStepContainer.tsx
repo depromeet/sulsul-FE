@@ -14,6 +14,7 @@ import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
 interface RecordFirstStepContainerProps extends SwiperLayoutChildProps {
   beerName: string;
   className?: string;
+  defaultFeelValue?: number;
 }
 
 const StyledRecordFirstStepContainer = styled.div`
@@ -36,11 +37,8 @@ const StyledRecordFirstStepContainer = styled.div`
   }
 `;
 
-const defaultValues = {
-  feel: 3,
-};
-
 const RecordFirstStepContainer: React.FC<RecordFirstStepContainerProps> = ({
+  defaultFeelValue,
   beerName,
   className,
   onMoveNext,
@@ -57,7 +55,11 @@ const RecordFirstStepContainer: React.FC<RecordFirstStepContainerProps> = ({
 
   return (
     <StyledRecordFirstStepContainer className={className}>
-      <EntityForm onSubmit={handleSubmit} defaultValues={defaultValues} showDebug={false}>
+      <EntityForm
+        onSubmit={handleSubmit}
+        defaultValues={{ feel: defaultFeelValue || 3 }}
+        showDebug={false}
+      >
         <h2>{'이번 맥주는 어땠나요?'}</h2>
         <p className="body-2">{beerName}</p>
         <EmojiRadioField name="feel" />

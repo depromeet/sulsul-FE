@@ -15,6 +15,9 @@ export interface IUpdateRecordPayload {
 }
 
 export const updateRecord = async (payload: IUpdateRecordPayload) => {
-  const res = await axios.patch<ICreateRecordResponseData>('/api/v1/records', payload);
+  const res = await axios.patch<ICreateRecordResponseData>(
+    `/api/v1/records/${payload.recordId}`,
+    payload,
+  );
   return res.data.contents;
 };

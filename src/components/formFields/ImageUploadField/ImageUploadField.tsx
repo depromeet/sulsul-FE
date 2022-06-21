@@ -13,6 +13,7 @@ interface ImageUploadFieldProps {
   className?: string;
   required?: boolean;
   uploadFieldName?: string;
+  defaultBackground?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uploadCallback?: (data: FormData) => Promise<any>;
 }
@@ -48,6 +49,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
   className,
   required,
   uploadFieldName = 'file',
+  defaultBackground,
   uploadCallback,
 }) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -93,7 +95,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
             className={className}
             hidden
           />
-          <BeerTicketTitle beer={beer} background={field.value} type="form" />
+          <BeerTicketTitle beer={beer} background={field.value || defaultBackground} type="form" />
           <div className="photo-upload-button">
             <PhotoIconButton onClick={handleClick} />
             <span className="upload-field-title">{title}</span>
