@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
+import cx from 'classnames';
 
 import { IRecord } from '@/apis';
 import RecordListItem from '@/components/RecordListItem';
@@ -27,7 +28,7 @@ const StyledRecordList = styled.section`
       transform: translateY(100%);
     }
 
-    &:first-child::after {
+    &:not(.single-item):first-child::after {
       position: absolute;
       content: ' ';
       width: 20px;
@@ -46,7 +47,9 @@ const RecordList: React.FC<RecordListProps> = ({ records, lastItemRef }) => {
     <StyledRecordList>
       {records.map((record, i) => (
         <Link href={`/record/ticket/${record.id}`} passHref key={record.id}>
-          <a className="records-list-item">
+          <a
+            className={cx(['records-list-item', i === 0 && records.length === 1 && 'single-item'])}
+          >
             <RecordListItem
               record={record}
               ref={i === records.length - 1 ? lastItemRef : undefined}
