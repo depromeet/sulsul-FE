@@ -24,6 +24,7 @@ export interface IRecord {
   flavorDtos: IFlavor[];
   beerResponseDto: IBeer;
   recordCount: number;
+  isPublic: boolean;
 }
 
 export type IRecordsByBeer = Pick<
