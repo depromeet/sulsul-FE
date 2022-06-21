@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useRecoilValue } from 'recoil';
+
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
 import AirPort from '@/components/AirPort';
@@ -74,14 +76,18 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   const router = useRouter();
   const beerId = Number(router.query.id);
 
+  const isLikeBeer = useRecoilValue($isLikeBeer);
+
   const { mutateAsync: likeBeerMutation } = useLikeBeer();
   const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
 
-  const handleLikeBeer = async () => {
+  const handleLikeBeer = async (e?: MouseEvent | any) => {
+    e?.stopPropagation();
     await likeBeerMutation(beerId);
   };
 
-  const handleUnLikeBeer = async () => {
+  const handleUnLikeBeer = async (e?: MouseEvent | any) => {
+    e?.stopPropagation();
     await UnLikeBeerMutation(beerId);
   };
 
@@ -111,7 +117,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
     return null;
   }
 
-  const { country, nameKor, startCountry, endCountry, content } = beer;
+  const { country, nameKor, startCountry, endCountry, content, isLiked } = beer;
 
   return (
     <StyledBeerDetailPage>
@@ -129,9 +135,9 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
               }
             />
             <LikeToggleButton
-              defaultIsLiking={false}
-              onLike={handleLikeBeer}
-              onUnLike={handleUnLikeBeer}
+              isLiked={isLiked}
+              onLike={(e) => handleLikeBeer(e)}
+              onUnLike={(e) => handleUnLikeBeer(e)}
             />
           </>
         }

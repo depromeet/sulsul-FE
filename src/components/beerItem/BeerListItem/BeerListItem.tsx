@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
+import { useLikeBeer, useUnLikeBeer } from '@/queries';
+import { LikeToggleButton } from '@/components/Header/extras';
+import { $isLikeBeer } from '@/recoil/atoms';
 
 type BeerListItemProps = Pick<
   IBeer,
@@ -21,12 +24,24 @@ const BeerListItem = (props: Props) => {
   const {
     beer: { id, nameKor, type, alcohol, country, imageUrl, feel, isLiked },
   } = props;
-  const [isBookMarked, setIsBookmarked] = useState(false);
 
   const router = useRouter();
 
   const goToBeerDetail = (beerId: number) => {
     router.push(`/beers/${beerId}`);
+  };
+
+  const likeBeerState = useRecoilValue($isLikeBeer);
+
+  const { mutateAsync: likeBeerMutation } = useLikeBeer();
+  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
+
+  const handleLikeBeer = async () => {
+    await likeBeerMutation(id);
+  };
+
+  const handleUnLikeBeer = async () => {
+    await UnLikeBeerMutation(id);
   };
 
   return (
@@ -35,13 +50,9 @@ const BeerListItem = (props: Props) => {
       <StyledEmoji>
         <Emoji feel={feel} />
       </StyledEmoji>
-      <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-        {isLiked || isBookMarked ? (
-          <Icon name="Heart" size={30} color="white" />
-        ) : (
-          <Icon name="HeartOutlined" size={30} color="white" />
-        )}
-      </BookmarkButton>
+      <LikeToggleButtonWrapper>
+        <LikeToggleButton isLiked={isLiked} onLike={handleLikeBeer} onUnLike={handleUnLikeBeer} />
+      </LikeToggleButtonWrapper>
       <StyledBeerImageMasking width="9%">
         <BeerImage src={imageUrl} />
       </StyledBeerImageMasking>
@@ -68,17 +79,18 @@ const StyledBeerListItem = styled.div`
   margin-left: 26px;
 `;
 
-const BookmarkButton = styled.button`
+const LikeToggleButtonWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 1px;
+  right: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
   margin: 0;
+  z-index: 1;
 `;
 
 const ColorBar = styled.div<{ feel?: number | null }>`

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
 import { useLikeBeer, useUnLikeBeer } from '@/queries';
 import { LikeToggleButton } from '@/components/Header/extras';
@@ -18,7 +17,7 @@ interface Props {
 
 const BeerGridItem = (props: Props) => {
   const {
-    beer: { id, nameKor, imageUrl, feel },
+    beer: { id, nameKor, imageUrl, feel, isLiked },
   } = props;
 
   const router = useRouter();
@@ -42,11 +41,7 @@ const BeerGridItem = (props: Props) => {
     <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
       <BeerGridItemContainer feel={feel}>
         <LikeToggleButtonWrapper>
-          <LikeToggleButton
-            defaultIsLiking={false}
-            onLike={handleLikeBeer}
-            onUnLike={handleUnLikeBeer}
-          />
+          <LikeToggleButton isLiked={isLiked} onLike={handleLikeBeer} onUnLike={handleUnLikeBeer} />
         </LikeToggleButtonWrapper>
         <StyledEmoji>
           <Emoji feel={feel} />

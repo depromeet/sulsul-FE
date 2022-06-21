@@ -65,7 +65,7 @@ export const extras = () => {
       {renderExtra(
         'LikeToggleButton',
         <LikeToggleButton
-          defaultIsLiking={true}
+          //defaultIsLiking={true}
           onLike={async () => alert('좋아요')}
           onUnLike={async () => alert('좋아요 해제')}
         />,
