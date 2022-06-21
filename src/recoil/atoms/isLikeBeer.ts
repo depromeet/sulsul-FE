@@ -1,13 +1,13 @@
 import { atom } from 'recoil';
 
-import { persistRecoilEffect } from '@/recoil/effects';
+import { urlSyncRecoilEffect } from '@/recoil/effects';
 
-const ATOM_KEY = 'is-like-beer';
+export const IS_LIKE_BEER = 'is-like-beer';
 
 const $isLikeBeer = atom<boolean>({
-  key: ATOM_KEY,
+  key: IS_LIKE_BEER,
   default: false,
-  effects: [persistRecoilEffect({ recoilAtomKey: ATOM_KEY })],
+  effects: [urlSyncRecoilEffect(IS_LIKE_BEER)],
 });
 
 export default $isLikeBeer;

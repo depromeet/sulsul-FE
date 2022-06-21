@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
-import { useMutation } from 'react-query';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
@@ -21,8 +22,8 @@ import {
   useGetBeer,
   useGetRecordsByBeer,
   useGetTop3BeerFlavor,
-  useUnLikeBeer,
   useLikeBeer,
+  useUnLikeBeer,
 } from '@/queries';
 import {
   IBeer,
@@ -128,7 +129,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
               }
             />
             <LikeToggleButton
-              defaultIsLiking={$isLikeBeer}
+              defaultIsLiking={false}
               onLike={handleLikeBeer}
               onUnLike={handleUnLikeBeer}
             />
@@ -138,6 +139,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
       >
         {nameKor}
       </Header>
+      <ToastContainer />
       <BackgroundImage isScrolled={isScrolled}>
         <img src={country?.backgroundImageUrl} alt={country?.nameKor} />
       </BackgroundImage>
