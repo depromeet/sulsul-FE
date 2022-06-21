@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Link from 'next/link';
 
 import CreateImage, { CreateImageRef } from './CreateImage';
 
@@ -51,7 +52,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const router = useRouter();
   const { type, id } = router.query;
 
-  const { contents: record } = useGetRecord(Number(id), _record);
+  const { contents: record } = useGetRecord(Number(id), { initialData: _record });
   const { mutateAsync: deleteRecordMutation } = useDeleteRecord(Number(id));
   const createImageRef = useRef<CreateImageRef>(null);
 
@@ -75,7 +76,11 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
         rightExtras={
           <>
             {type !== NEW_TYPE && <DeleteButton onClick={openModal} />}
-            <WriteButton />
+            <Link href={`/record/edit/${id}`}>
+              <a>
+                <WriteButton />
+              </a>
+            </Link>
             <SaveButton
               onClick={async () => {
                 if (createImageRef.current) {
