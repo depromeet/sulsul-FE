@@ -63,7 +63,9 @@ const StyledRecordListItem = styled.div<StyledRecordListItemProps>`
     top: 0;
     background-repeat: no-repeat;
     background-position: right;
-    mask-image: linear-gradient(253.61deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 65.72%);`
+    mask-image: linear-gradient(253.61deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 65.72%);
+    filter: grayscale(100%);
+    `
           : ''}
     }
 
