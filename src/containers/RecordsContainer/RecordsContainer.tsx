@@ -12,6 +12,7 @@ import {
 import BottomNavigation from '@/components/BottomNavigation';
 import RecordList from '@/components/RecordList';
 import { useGetMyRecords, useGetRecentlyVisitedCountry } from '@/queries';
+import { hasAuthHeader } from '@/utils/auth';
 
 interface RecordsContainerProps {
   myRecordResponse: IGetMyRecordsResponseData;
@@ -76,7 +77,10 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!hasAuthHeader(context)) {
+    return { props: {} };
+  }
   const myRecordResponse = await getMyRecords();
   const recentlyVisitedCountry = await getRecentlyVisitedCountry();
 

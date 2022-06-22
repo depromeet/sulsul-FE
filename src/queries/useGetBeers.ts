@@ -1,16 +1,17 @@
 import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
 import { BasePagenationQueryHooksResponse } from '.';
 
 import { getBeers, IGetBeersResponseData, IGetBeersPayload, IBeer } from '@/apis';
+import { $userSession } from '@/recoil/atoms';
 
 export const useGetBeers = (
   { query, filter, sortBy, limit }: Pick<IGetBeersPayload, 'query' | 'filter' | 'sortBy' | 'limit'>,
   initialData?: IGetBeersResponseData,
 ) => {
-  /** @todo const user = useRecoilValue($userInfo); */
-  const auth = undefined;
+  const user = useRecoilValue($userSession);
 
   const payload = {
     query,
@@ -24,7 +25,7 @@ export const useGetBeers = (
     initialData: initialData
       ? {
           pages: [initialData],
-          pageParams: [{ payload, auth }],
+          pageParams: [{ payload, user }],
         }
       : undefined,
     getNextPageParam(lastPage) {
