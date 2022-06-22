@@ -76,13 +76,11 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   const { mutateAsync: likeBeerMutation } = useLikeBeer(beerId);
   const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(beerId);
 
-  const handleLikeBeer = async (e?: MouseEvent | any) => {
-    e?.stopPropagation();
+  const handleLikeBeer = async () => {
     likeBeerMutation(beerId);
   };
 
-  const handleUnLikeBeer = async (e?: MouseEvent | any) => {
-    e?.stopPropagation();
+  const handleUnLikeBeer = async () => {
     UnLikeBeerMutation(beerId);
   };
 
@@ -131,8 +129,8 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
             />
             <LikeToggleButton
               isLiked={isLiked}
-              onLike={(e) => handleLikeBeer(e)}
-              onUnLike={(e) => handleUnLikeBeer(e)}
+              onLike={handleLikeBeer}
+              onUnLike={handleUnLikeBeer}
             />
           </>
         }
