@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from 'react-query';
 
-import { unLikeBeer, IBeer } from '@/apis';
+import { toggleLikeBeer, IBeer } from '@/apis';
 import { openSuccessToast, openFailToast } from '@/utils/toast';
 
-export const useUnLikeBeer = (beerId: IBeer['id']) => {
+export const useUnLikeBeer = (beerId: IBeer['id'], isLiked: boolean) => {
   const queryClient = useQueryClient();
 
-  return useMutation((beerId: IBeer['id']) => unLikeBeer(beerId), {
-    onMutate: (data) => {
+  return useMutation((beerId: IBeer['id']) => toggleLikeBeer(beerId, isLiked), {
+    onMutate: () => {
       queryClient.cancelQueries(['beer', beerId]);
       const previousBeer = queryClient.getQueryData<IBeer>(['beer', beerId]);
       if (previousBeer) {

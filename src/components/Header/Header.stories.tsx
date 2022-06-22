@@ -9,7 +9,7 @@ import {
   WriteButton,
   SaveButton,
   ShareButton,
-  LikeToggleButton,
+  LikeBeerToggleButton,
 } from './extras';
 import Header from './Header';
 
@@ -83,8 +83,7 @@ export const 맥주_상세_페이지: ComponentStoryObj<typeof Header> = {
   args: {
     rightExtras: [
       <ShareButton />,
-      <LikeToggleButton
-        //defaultIsLiking={true}
+      <LikeBeerToggleButton
         onLike={async () => alert('좋아요')}
         onUnLike={async () => alert('좋아요 해제')}
       />,

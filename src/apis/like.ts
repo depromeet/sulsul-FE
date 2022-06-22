@@ -2,22 +2,14 @@ import axios from 'axios';
 
 import { IBaseResponse, IBeer } from '.';
 
-export interface ILikeBeerResponseData extends IBaseResponse<boolean> {}
+export interface IToggleLikeBeerResponseData extends IBaseResponse<boolean> {}
 
 /**
- * 맥주 찜하기
+ * 맥주 찜하기 / 취소
  */
-export const likeBeer = async (beerId: IBeer['id']) => {
-  const res = await axios.post<ILikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`);
-  return res.data.contents;
-};
-
-export interface IUnLikeBeerResponseData extends IBaseResponse<boolean> {}
-
-/**
- * 맥주 찜하기 취소
- */
-export const unLikeBeer = async (beerId: IBeer['id']) => {
-  const res = await axios.delete<IUnLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`);
+export const toggleLikeBeer = async (beerId: IBeer['id'], isLiked: boolean) => {
+  const res = isLiked
+    ? await axios.delete<IToggleLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`)
+    : await axios.post<IToggleLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`);
   return res.data.contents;
 };

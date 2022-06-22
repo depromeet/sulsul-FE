@@ -6,8 +6,7 @@ import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import { ellipsis } from '@/styles/common';
-import { useLikeBeer, useUnLikeBeer } from '@/queries';
-import { LikeToggleButton } from '@/components/Header/extras';
+import { LikeBeerToggleButton } from '@/components/Header/extras';
 
 type BeerListItemProps = Pick<
   IBeer,
@@ -29,26 +28,15 @@ const BeerListItem = (props: Props) => {
     router.push(`/beers/${beerId}`);
   };
 
-  const { mutateAsync: likeBeerMutation } = useLikeBeer(id);
-  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(id);
-
-  const handleLikeBeer = async () => {
-    likeBeerMutation(id);
-  };
-
-  const handleUnLikeBeer = async () => {
-    UnLikeBeerMutation(id);
-  };
-
   return (
     <StyledBeerListItem onClick={() => goToBeerDetail(id)}>
       <ColorBar feel={feel} />
       <StyledEmoji>
         <Emoji feel={feel} />
       </StyledEmoji>
-      <LikeToggleButtonWrapper>
-        <LikeToggleButton isLiked={isLiked} onLike={handleLikeBeer} onUnLike={handleUnLikeBeer} />
-      </LikeToggleButtonWrapper>
+      <LikeBeerToggleButtonWrapper>
+        <LikeBeerToggleButton isLiked={isLiked} id={id} />
+      </LikeBeerToggleButtonWrapper>
       <StyledBeerImageMasking width="9%">
         <BeerImage src={imageUrl} />
       </StyledBeerImageMasking>
@@ -75,7 +63,7 @@ const StyledBeerListItem = styled.div`
   margin-left: 26px;
 `;
 
-const LikeToggleButtonWrapper = styled.div`
+const LikeBeerToggleButtonWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: absolute;

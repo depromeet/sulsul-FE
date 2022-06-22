@@ -10,7 +10,7 @@ export const useGetBeers = (
   initialData?: IGetBeersResponseData,
 ) => {
   /** @todo const user = useRecoilValue($userInfo); */
-  const auth = undefined;
+  const auth = true;
 
   const payload = {
     query,

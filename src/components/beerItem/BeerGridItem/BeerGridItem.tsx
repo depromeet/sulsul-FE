@@ -6,8 +6,7 @@ import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import { ellipsis } from '@/styles/common';
-import { useLikeBeer, useUnLikeBeer } from '@/queries';
-import { LikeToggleButton } from '@/components/Header/extras';
+import { LikeBeerToggleButton } from '@/components/Header/extras';
 
 type BeerGridItemProps = Pick<IBeer, 'id' | 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
@@ -26,23 +25,12 @@ const BeerGridItem = (props: Props) => {
     router.push(`/beers/${beerId}`);
   };
 
-  const { mutateAsync: likeBeerMutation } = useLikeBeer(id);
-  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(id);
-
-  const handleLikeBeer = async () => {
-    likeBeerMutation(id);
-  };
-
-  const handleUnLikeBeer = async () => {
-    UnLikeBeerMutation(id);
-  };
-
   return (
     <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
       <BeerGridItemContainer feel={feel}>
-        <LikeToggleButtonWrapper>
-          <LikeToggleButton isLiked={isLiked} onLike={handleLikeBeer} onUnLike={handleUnLikeBeer} />
-        </LikeToggleButtonWrapper>
+        <LikeBeerToggleButtonWrapper>
+          <LikeBeerToggleButton isLiked={isLiked} id={id} />
+        </LikeBeerToggleButtonWrapper>
         <StyledEmoji>
           <Emoji feel={feel} />
         </StyledEmoji>
@@ -84,7 +72,7 @@ const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
   align-items: center;
 `;
 
-const LikeToggleButtonWrapper = styled.div`
+const LikeBeerToggleButtonWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: absolute;

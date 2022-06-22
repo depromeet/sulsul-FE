@@ -16,15 +16,9 @@ import Icon from '@/components/commons/Icon';
 import ReviewList from '@/components/ReviewList';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
-import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
+import { ShareButton, LikeBeerToggleButton, BackButton } from '@/components/Header/extras';
 import { share } from '@/utils/share';
-import {
-  useGetBeer,
-  useGetRecordsByBeer,
-  useGetTop3BeerFlavor,
-  useLikeBeer,
-  useUnLikeBeer,
-} from '@/queries';
+import { useGetBeer, useGetRecordsByBeer, useGetTop3BeerFlavor } from '@/queries';
 import {
   IBeer,
   IGetRecordsByBeer,
@@ -73,17 +67,6 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   const router = useRouter();
   const beerId = Number(router.query.id);
 
-  const { mutateAsync: likeBeerMutation } = useLikeBeer(beerId);
-  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(beerId);
-
-  const handleLikeBeer = async () => {
-    likeBeerMutation(beerId);
-  };
-
-  const handleUnLikeBeer = async () => {
-    UnLikeBeerMutation(beerId);
-  };
-
   const { contents: beer } = useGetBeer(beerId, initialBeerResponse);
   const { contents: beerFlavor } = useGetTop3BeerFlavor(beerId, initialTop3BeerFlavor);
 
@@ -127,11 +110,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
                 })
               }
             />
-            <LikeToggleButton
-              isLiked={isLiked}
-              onLike={handleLikeBeer}
-              onUnLike={handleUnLikeBeer}
-            />
+            <LikeBeerToggleButton isLiked={isLiked} id={beerId} />
           </>
         }
         isTransparent={isTransparent}
