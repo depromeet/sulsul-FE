@@ -12,6 +12,7 @@ export const Record: IRecord = {
   startCountryEng: '서울',
   endCountryKor: '12',
   endCountryEng: 'Seoul',
+  isPublic: true,
   flavorDtos: [
     {
       id: 1,
