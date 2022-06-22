@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Review from '@/components/ReviewListItem';
+import ReviewListItem from '@/components/ReviewListItem';
 import { IRecordsByBeer } from '@/apis';
 
 interface Props {
@@ -13,7 +13,7 @@ const ReviewList = ({ recordsByBeer, lastItemRef }: Props) => {
     <StyledReviewList>
       <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
       {recordsByBeer?.map((review, idx) => (
-        <Review
+        <ReviewListItem
           review={review}
           key={review.id}
           ref={idx === recordsByBeer.length - 1 ? lastItemRef : undefined}
