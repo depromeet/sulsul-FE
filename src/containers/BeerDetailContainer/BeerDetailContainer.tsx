@@ -78,12 +78,12 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
 
   const handleLikeBeer = async (e?: MouseEvent | any) => {
     e?.stopPropagation();
-    await likeBeerMutation(beerId);
+    likeBeerMutation(beerId);
   };
 
   const handleUnLikeBeer = async (e?: MouseEvent | any) => {
     e?.stopPropagation();
-    await UnLikeBeerMutation(beerId);
+    UnLikeBeerMutation(beerId);
   };
 
   const { contents: beer } = useGetBeer(beerId, initialBeerResponse);

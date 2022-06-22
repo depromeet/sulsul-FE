@@ -30,11 +30,11 @@ const BeerGridItem = (props: Props) => {
   const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(id);
 
   const handleLikeBeer = async () => {
-    await likeBeerMutation(id);
+    likeBeerMutation(id);
   };
 
   const handleUnLikeBeer = async () => {
-    await UnLikeBeerMutation(id);
+    UnLikeBeerMutation(id);
   };
 
   return (
