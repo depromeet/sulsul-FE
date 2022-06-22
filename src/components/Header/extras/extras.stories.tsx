@@ -62,13 +62,7 @@ export const extras = () => {
       {renderExtra('BackButton', <BackButton />)}
       {renderExtra('CloseButton', <CloseButton />)}
       {renderExtra('ShareButton', <ShareButton />)}
-      {renderExtra(
-        'LikeBeerToggleButton',
-        <LikeBeerToggleButton
-          onLike={async () => alert('좋아요')}
-          onUnLike={async () => alert('좋아요 해제')}
-        />,
-      )}
+      {renderExtra('LikeBeerToggleButton', <LikeBeerToggleButton isLiked={true} id={2} />)}
       {renderExtra('BeerListViewToggleButton', <BeerListViewToggleButton />)}
       {renderExtra('OKTextButton', <OKTextButton />)}
       {renderExtra('SaveButton', <SaveButton />)}

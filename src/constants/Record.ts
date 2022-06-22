@@ -59,6 +59,7 @@ export const Record: IRecord = {
     volume: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
+    isLiked: true,
   },
   recordCount: 13,
 };
