@@ -88,13 +88,9 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   const recordForm = useRecoilValue($recordForm);
   const { contents: flavors } = useGetFlavors();
   const { mutateAsync: uploadImageMutation } = useMutation(uploadImage);
-  const { mutateAsync: createRecordMutation } = useMutation(createRecord, {
-    onSuccess: (data) => {
-      router.push(`/record/ticket/${data.id}?type=${NEW_TYPE}`);
-    },
-  });
+  const { mutateAsync: createRecordMutation } = useMutation(createRecord);
   const { mutateAsync: updateRecordMutation } = useMutation(updateRecord, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       router.back();
     },
   });
@@ -121,13 +117,16 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
 
   const handleCreateSubmit = useCallback(
     (data: FieldValues) => {
-      createRecordMutation({
-        ...recordForm,
-        ...data,
-        beerId: beer.id,
-      } as ICreateRecordPayload);
+      createRecordMutation(
+        {
+          ...recordForm,
+          ...data,
+          beerId: beer.id,
+        } as ICreateRecordPayload,
+        { onSuccess: (_data) => router.push(`/record/ticket/${_data.id}?type=${NEW_TYPE}`) },
+      );
     },
-    [createRecordMutation, recordForm, beer.id],
+    [createRecordMutation, recordForm, beer.id, router],
   );
 
   const handleUpdateSubmit = useCallback(
@@ -136,13 +135,16 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
         return;
       }
 
-      updateRecordMutation({
-        ...recordForm,
-        ...data,
-        recordId: record.id,
-      } as IUpdateRecordPayload);
+      updateRecordMutation(
+        {
+          ...recordForm,
+          ...data,
+          recordId: record.id,
+        } as IUpdateRecordPayload,
+        { onSuccess: () => router.back() },
+      );
     },
-    [updateRecordMutation, recordForm, record],
+    [updateRecordMutation, recordForm, record, router],
   );
 
   const beforeText =
