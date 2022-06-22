@@ -27,7 +27,7 @@ const LikeToggleButton = ({ isLiked, onLike, onUnLike }: LikeToggleButtonProps) 
     <button
       type="button"
       aria-label={isLiking ? '좋아요 해제' : '좋아요'}
-      onClick={(e) => (isLiking ? handleUnLike(e) : handleLike(e))}
+      onClick={isLiking ? handleUnLike : handleLike}
     >
       {isLiking ? <Icon name="Heart" color="white" /> : <Icon name="HeartOutlined" color="white" />}
     </button>

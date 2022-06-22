@@ -17,7 +17,7 @@ export interface IUnLikeBeerResponseData extends IBaseResponse<boolean> {}
 /**
  * 맥주 찜하기 취소
  */
-export const unLikeBeer = async (id: number) => {
-  const res = await axios.delete<IUnLikeBeerResponseData>(`/api/v1/beer/liked/${id}`);
+export const unLikeBeer = async (beerId: IBeer['id']) => {
+  const res = await axios.delete<IUnLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`);
   return res.data.contents;
 };
