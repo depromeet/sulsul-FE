@@ -12,13 +12,13 @@ const LikeToggleButton = ({ isLiked, onLike, onUnLike }: LikeToggleButtonProps) 
   const [isLiking, setIsLiking] = useState(isLiked);
 
   const handleLike = async (e: MouseEvent) => {
-    e?.stopPropagation();
+    e.stopPropagation();
     await onLike();
     setIsLiking(true);
   };
 
   const handleUnLike = async (e: MouseEvent) => {
-    e?.stopPropagation();
+    e.stopPropagation();
     await onUnLike();
     setIsLiking(false);
   };
