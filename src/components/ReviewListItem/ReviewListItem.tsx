@@ -1,16 +1,18 @@
 import React, { forwardRef, Ref } from 'react';
 import styled from '@emotion/styled';
+import { parseISO } from 'date-fns';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
 import { IRecordsByBeer } from '@/apis/record';
+import { formatDateDiff } from '@/utils/formatDateDiff';
 
 export interface ReviewListItemProps {
   review: IRecordsByBeer;
 }
 
-const ReviewListItem = (props: ReviewListItemProps, ref: Ref<any>) => {
+const ReviewListItem = (props: ReviewListItemProps, ref: Ref<HTMLDivElement>) => {
   const {
     review: { content, feel, memberRecordDto, createdAt, flavorDtos },
   } = props;
@@ -24,7 +26,7 @@ const ReviewListItem = (props: ReviewListItemProps, ref: Ref<any>) => {
             <MeBadge />
             {memberRecordDto.name}
           </User>
-          {!!createdAt && <Date>{createdAt}</Date>}
+          {!!createdAt && <Date>{formatDateDiff(parseISO(createdAt))}</Date>}
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>
