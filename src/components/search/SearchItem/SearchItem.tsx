@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
 import useSearchHistory from '@/hooks/useSearchHistory';
@@ -28,7 +29,8 @@ const SearchItem: React.FC<SearchItemProps> = ({
   hasDeleteButton = false,
   onClick,
 }) => {
-  const { removeSearchHistory } = useSearchHistory();
+  const router = useRouter();
+  const { removeSearchHistory, addSearchHistory } = useSearchHistory();
   const renderedText = useMemo(() => {
     if (!searchText?.trim()) {
       return text;
@@ -49,8 +51,13 @@ const SearchItem: React.FC<SearchItemProps> = ({
     [removeSearchHistory, text],
   );
 
+  const handleClick = useCallback(() => {
+    addSearchHistory(text);
+    router.push(`/beers?query=${encodeURI(text)}`);
+  }, [text, router, addSearchHistory]);
+
   return (
-    <StyledSearchItem onClick={onClick} className={className}>
+    <StyledSearchItem onClick={onClick || handleClick} className={className}>
       <div className="search-item-side">
         <span className="search-item-icon-wrapper">
           {type === DEFAULT_ICON_TYPE ? (
