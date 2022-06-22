@@ -5,8 +5,8 @@ import Header from '../Header';
 import { BackButton } from '../Header/extras';
 
 interface ErrorPageProp {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
 }
 
 const StyledWrapper = styled.div`
@@ -33,7 +33,7 @@ const StyledSubtitle = styled.b`
   text-align: center;
 `;
 
-const ErrorPage = ({ title, subtitle }: ErrorPageProp) => {
+const ErrorPage = ({ title = '앗!', subtitle = '일시적인 오류가 발생했어요.' }: ErrorPageProp) => {
   return (
     <StyledWrapper>
       <Header leftExtras={<BackButton />} />
