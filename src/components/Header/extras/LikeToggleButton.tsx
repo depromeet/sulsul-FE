@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 
 import Icon from '@/components/commons/Icon';
 
@@ -9,21 +9,27 @@ interface LikeToggleButtonProps {
 }
 
 const LikeToggleButton = ({ isLiked, onLike, onUnLike }: LikeToggleButtonProps) => {
-  const handleLike = async () => {
+  const [isLiking, setIsLiking] = useState(isLiked);
+
+  const handleLike = async (e: MouseEvent) => {
+    e?.stopPropagation();
     await onLike();
+    setIsLiking(true);
   };
 
-  const handleUnLike = async () => {
+  const handleUnLike = async (e: MouseEvent) => {
+    e?.stopPropagation();
     await onUnLike();
+    setIsLiking(false);
   };
 
   return (
     <button
       type="button"
-      aria-label={isLiked ? '좋아요 해제' : '좋아요'}
-      onClick={isLiked ? handleUnLike : handleLike}
+      aria-label={isLiking ? '좋아요 해제' : '좋아요'}
+      onClick={(e) => (isLiking ? handleUnLike(e) : handleLike(e))}
     >
-      {isLiked ? <Icon name="Heart" color="white" /> : <Icon name="HeartOutlined" color="white" />}
+      {isLiking ? <Icon name="Heart" color="white" /> : <Icon name="HeartOutlined" color="white" />}
     </button>
   );
 };

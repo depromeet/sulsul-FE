@@ -7,8 +7,6 @@ import Link from 'next/link';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useRecoilValue } from 'recoil';
-
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
 import AirPort from '@/components/AirPort';
@@ -37,7 +35,6 @@ import {
 } from '@/apis';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
-import { $isLikeBeer } from '@/recoil/atoms';
 
 interface BeerDetailContainerProps {
   beerResponse: IBeer;
@@ -76,10 +73,8 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   const router = useRouter();
   const beerId = Number(router.query.id);
 
-  const isLikeBeer = useRecoilValue($isLikeBeer);
-
-  const { mutateAsync: likeBeerMutation } = useLikeBeer();
-  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
+  const { mutateAsync: likeBeerMutation } = useLikeBeer(beerId);
+  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(beerId);
 
   const handleLikeBeer = async (e?: MouseEvent | any) => {
     e?.stopPropagation();

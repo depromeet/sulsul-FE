@@ -16,6 +16,7 @@ import { theme, GlobalStyle } from '@/themes';
 import queryClient from '@/configs/queryClient';
 import MainLayout from '@/components/layouts/MainLayout';
 import { setAuthHeader } from '@/utils/auth';
+import { IBeer } from '@/apis';
 
 awesome();
 initAxiosConfig();

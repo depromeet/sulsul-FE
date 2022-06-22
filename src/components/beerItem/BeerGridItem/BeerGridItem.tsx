@@ -26,8 +26,8 @@ const BeerGridItem = (props: Props) => {
     router.push(`/beers/${beerId}`);
   };
 
-  const { mutateAsync: likeBeerMutation } = useLikeBeer();
-  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
+  const { mutateAsync: likeBeerMutation } = useLikeBeer(id);
+  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(id);
 
   const handleLikeBeer = async () => {
     await likeBeerMutation(id);

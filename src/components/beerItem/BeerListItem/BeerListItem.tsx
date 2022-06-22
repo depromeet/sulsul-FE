@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
@@ -9,7 +8,6 @@ import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import { ellipsis } from '@/styles/common';
 import { useLikeBeer, useUnLikeBeer } from '@/queries';
 import { LikeToggleButton } from '@/components/Header/extras';
-import { $isLikeBeer } from '@/recoil/atoms';
 
 type BeerListItemProps = Pick<
   IBeer,
@@ -31,10 +29,8 @@ const BeerListItem = (props: Props) => {
     router.push(`/beers/${beerId}`);
   };
 
-  const likeBeerState = useRecoilValue($isLikeBeer);
-
-  const { mutateAsync: likeBeerMutation } = useLikeBeer();
-  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer();
+  const { mutateAsync: likeBeerMutation } = useLikeBeer(id);
+  const { mutateAsync: UnLikeBeerMutation } = useUnLikeBeer(id);
 
   const handleLikeBeer = async () => {
     await likeBeerMutation(id);

@@ -1,27 +1,36 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { useRecoilState } from 'recoil';
 
 import { unLikeBeer, IBeer } from '@/apis';
-import $beerSession from '@/recoil/atoms/beerSession';
 import { openSuccessToast, openFailToast } from '@/utils/toast';
 
-export const useUnLikeBeer = () => {
+export const useUnLikeBeer = (beerId: IBeer['id']) => {
   const queryClient = useQueryClient();
-  const [beerSession, setBeerSession] = useRecoilState($beerSession);
 
   return useMutation((beerId: IBeer['id']) => unLikeBeer(beerId), {
-    onSuccess: (isLiked) => {
-      queryClient.setQueryData<IBeer>(
-        ['beerId'],
-        (data) => ({ ...(data ? data : {}), isLiked } as IBeer),
-      );
-      beerSession && setBeerSession({ ...beerSession, isLiked });
+    onMutate: (data) => {
+      queryClient.cancelQueries(['beer', beerId]);
+      const previousBeer = queryClient.getQueryData<IBeer>(['beer', beerId]);
+      if (previousBeer) {
+        queryClient.setQueryData<IBeer>(
+          ['beer', beerId],
+          (oldBeerData) => ({ ...oldBeerData, isLiked: !oldBeerData?.isLiked } as IBeer),
+        );
+      }
+      return { previousBeer };
+    },
+    onSuccess: () => {
       openSuccessToast({ message: '맥주를 반한 목록에서 삭제했어요.' });
     },
-    onError: () => {
+    onError: (context?: { previousBeer: IBeer | undefined }) => {
+      if (context?.previousBeer) {
+        queryClient.setQueryData<IBeer>(['beer', beerId], context.previousBeer);
+      }
       openFailToast({
         message: '맥주를 반한 목록에서 삭제하지 못했어요. 잠시 후 다시 시도해주세요.',
       });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['beer', beerId]);
     },
   });
 };
