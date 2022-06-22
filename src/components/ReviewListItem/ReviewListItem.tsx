@@ -1,6 +1,5 @@
 import React, { forwardRef, Ref } from 'react';
 import styled from '@emotion/styled';
-import { format, parseISO } from 'date-fns';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
@@ -25,7 +24,7 @@ const ReviewListItem = (props: ReviewListItemProps, ref: Ref<any>) => {
             <MeBadge />
             {memberRecordDto.name}
           </User>
-          {!!createdAt && <Date>{format(parseISO(createdAt), 'yyyy.MM.dd')}</Date>}
+          {!!createdAt && <Date>{createdAt}</Date>}
         </UserAndDate>
         <Content>{content}</Content>
         <BadgeContainer>
