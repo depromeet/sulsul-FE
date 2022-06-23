@@ -1,59 +1,70 @@
-import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { BasePagenationQueryHooksResponse } from '.';
+import { getBeers, IGetBeersResponseData, IGetBeersPayload } from '@/apis';
 
-import { getBeers, IGetBeersResponseData, IGetBeersPayload, IBeer } from '@/apis';
+const DEFAULT_LIMIT = 21;
 
 export const useGetBeers = (
-  { query, filter, sortBy, limit }: Pick<IGetBeersPayload, 'query' | 'filter' | 'sortBy' | 'limit'>,
+  { query, filter, sortBy }: Omit<IGetBeersPayload, 'cursor' | 'limit'>,
   initialData?: IGetBeersResponseData,
 ) => {
   /** @todo const user = useRecoilValue($userInfo); */
   const auth = undefined;
 
-  const payload = {
-    query,
-    filter,
-    sortBy,
-    limit,
+  const queryKey = ['beers', { query, filter, sortBy }];
+  const initialPageParam: { payload: IGetBeersPayload; auth: boolean } = {
+    payload: {
+      ...{ query, filter, sortBy },
+      cursor: 0,
+      limit: DEFAULT_LIMIT,
+    },
+    auth: !!auth,
   };
 
-  const result = useInfiniteQuery(['beers', payload], getBeers, {
+  const result = useInfiniteQuery<
+    IGetBeersResponseData,
+    { payload: IGetBeersPayload; auth: boolean }
+  >(queryKey, ({ pageParam }) => getBeers(pageParam ?? initialPageParam), {
     cacheTime: Infinity,
-    initialData: initialData
+    ...(initialData
       ? {
-          pages: [initialData],
-          pageParams: [{ payload, auth }],
+          initialData: {
+            pages: initialData ? [initialData] : [],
+            pageParams: [initialPageParam],
+          },
         }
-      : undefined,
-    getNextPageParam(lastPage) {
-      return lastPage.nextCursor || undefined;
-    },
+      : {}),
+    getNextPageParam: (lastPage) =>
+      lastPage
+        ? {
+            ...initialPageParam,
+            payload: {
+              ...initialPageParam.payload,
+              ...(lastPage ? { cursor: lastPage.nextCursor } : {}),
+            },
+          }
+        : undefined,
   });
 
   const { data } = result;
 
-  const { contents, resultCount, pageInfo } = useMemo(
-    () =>
-      data?.pages.reduce<BasePagenationQueryHooksResponse<IBeer>>(
-        (responseAcc, response) => ({
-          contents: [...(responseAcc.contents || []), ...(response.contents || [])],
-          resultCount: response.resultCount,
-          pageInfo: {
-            hasNext: response.hasNext,
-            nextCursor: response.nextCursor,
-          },
-        }),
-        { contents: [], resultCount: 0, pageInfo: {} },
-      ) || { contents: [], resultCount: 0, pageInfo: {} },
-    [data?.pages],
-  );
+  const contents = data
+    ? data.pages
+        .map((page) => page.contents)
+        .reduce(
+          (mergedContents, currentContents) => [...mergedContents, ...(currentContents || [])],
+          [],
+        )
+    : undefined;
+
+  const lastPage = data ? data.pages[data.pages.length - 1] : undefined;
+  const resultCount = lastPage?.resultCount;
+  const hasNext = lastPage?.hasNext;
 
   return {
     ...result,
     contents,
     resultCount,
-    pageInfo,
+    hasNext,
   };
 };

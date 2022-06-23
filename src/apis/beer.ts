@@ -1,4 +1,3 @@
-import { QueryFunctionContext } from 'react-query';
 import axios from 'axios';
 
 import { ICountry } from './country';
@@ -75,9 +74,7 @@ export interface IGetBeersResponseData extends IBasePaginationResponse<IBeer[]> 
 /**
  * 맥주 목록 조회
  */
-export const getBeers = async (context?: QueryFunctionContext) => {
-  const { pageParam } = context || {};
-  const { payload, auth } = pageParam;
+export const getBeers = async ({ payload, auth }: { payload: IGetBeersPayload; auth: boolean }) => {
   const res = await axios.post<IGetBeersResponseData>(
     auth ? '/api/v3/beers' : '/guest/api/v1/beers',
     payload,
