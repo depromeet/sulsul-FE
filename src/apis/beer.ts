@@ -39,7 +39,7 @@ export interface IBeer {
   createdAt: Date | number;
   updatedAt: Date | number;
   feel?: number | null;
-  isLiked?: boolean;
+  isLiked: boolean;
 }
 
 export interface IBeerListFilter {
