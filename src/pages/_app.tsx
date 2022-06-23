@@ -15,6 +15,7 @@ import mutedConsole from '@/utils/muteConsole';
 import { theme, GlobalStyle } from '@/themes';
 import queryClient from '@/configs/queryClient';
 import MainLayout from '@/components/layouts/MainLayout';
+import ErrorBoundary, { ErrorPage } from '@/components/ErrorBoundary';
 import { setAuthHeader } from '@/utils/auth';
 
 awesome();
@@ -39,7 +40,7 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
   );
 
   return (
-    <>
+    <ErrorBoundary fallback={<ErrorPage />}>
       <NextSeo
         title="[비어에어] 같이 떠나요!"
         description="비어에어와 함께 세계 맥주를 정복해 보세요!"
@@ -59,7 +60,7 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
           </ThemeProvider>
         </QueryClientProvider>
       </RecoilRoot>
-    </>
+    </ErrorBoundary>
   );
 }
 
