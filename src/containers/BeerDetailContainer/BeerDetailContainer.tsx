@@ -69,21 +69,17 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
 
   const {
     contents: recordsByBeer,
-    pageInfo,
     fetchNextPage,
     isLoading,
+    hasNext,
   } = useGetRecordsByBeer({ beerId }, initialRecordsByBeer);
 
   const { ref } = useInView({
     onChange: (inView) => {
-      const { nextCursor, hasNext } = pageInfo;
-      const auth = undefined;
-
-      if (inView && nextCursor && hasNext && !isLoading) {
-        fetchNextPage({ pageParam: { payload: { beerId: beerId, recordId: nextCursor }, auth } });
+      if (inView && hasNext && !isLoading) {
+        fetchNextPage();
       }
     },
-    triggerOnce: true,
   });
 
   if (!beer || !beerFlavor) {
@@ -128,8 +124,8 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
         <Top3BeerFlavorList beerFlavor={beerFlavor} />
       </section>
       <HorizontalDivider />
-      <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
-      {pageInfo.hasNext && <LoadingIcon ref={ref} />}
+      {recordsByBeer && <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />}
+      {hasNext && <LoadingIcon ref={ref} />}
       <BottomFloatingButtonArea
         button={
           <Link href={`/record/create/${beerId}`} passHref>
@@ -150,8 +146,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const beerResponse = await getBeer(Number(id));
     const top3BeerFlavor = await getTop3BeerFlavor(Number(id));
     const recordsByBeer = await getRecordsByBeer({
-      pageParam: { payload: { beerId: Number(id) }, auth: undefined },
-    } as any);
+      payload: { beerId: Number(id) },
+      /** @todo auth 처리 */
+      auth: false,
+    });
 
     return { props: { beerResponse, top3BeerFlavor, recordsByBeer } };
   }

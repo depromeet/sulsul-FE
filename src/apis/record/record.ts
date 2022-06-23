@@ -43,9 +43,13 @@ export interface IGetRecordsByBeer extends IBasePaginationResponse<IRecordsByBee
  * 맥주별 record 조회
  */
 
-export const getRecordsByBeer = async (context?: QueryFunctionContext) => {
-  const { pageParam } = context || {};
-  const { payload, auth } = pageParam;
+export const getRecordsByBeer = async ({
+  payload,
+  auth,
+}: {
+  payload: IGetRecordsByBeerPayload;
+  auth: boolean;
+}) => {
   const res = await axios.post<IGetRecordsByBeer>(
     auth ? '/api/v1/records/find' : '/guest/api/v1/records/find',
     payload,
