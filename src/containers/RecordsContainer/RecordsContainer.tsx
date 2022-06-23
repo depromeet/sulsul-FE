@@ -14,7 +14,6 @@ import {
 import BottomNavigation from '@/components/BottomNavigation';
 import RecordList from '@/components/RecordList';
 import { useGetMyRecords, useGetRecentlyVisitedCountry } from '@/queries';
-import Icon from '@/components/commons/Icon';
 
 interface RecordsContainerProps {
   myRecordResponse: IGetMyRecordsResponseData;
@@ -48,25 +47,20 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
 }) => {
   const {
     contents: myRecords,
-    pageInfo,
     fetchNextPage,
     isLoading,
+    hasNext,
   } = useGetMyRecords(_myRecordResponse);
   const { contents: recentlyVisitedCountry } =
     useGetRecentlyVisitedCountry(_recentlyVisitedCountry);
 
   const { ref } = useInView({
     onChange: (inView) => {
-      const { nextCursor, hasNext } = pageInfo;
-
-      if (inView && nextCursor && hasNext && !isLoading) {
-        fetchNextPage({ pageParam: nextCursor });
+      if (inView && hasNext && !isLoading) {
+        fetchNextPage();
       }
     },
-    triggerOnce: true,
   });
-
-  console.log(myRecords);
 
   return (
     <>
