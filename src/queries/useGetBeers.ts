@@ -11,7 +11,7 @@ export const useGetBeers = (
   { query, filter, sortBy, limit }: Pick<IGetBeersPayload, 'query' | 'filter' | 'sortBy' | 'limit'>,
   initialData?: IGetBeersResponseData,
 ) => {
-  const auth = useRecoilValue($userSession);
+  const user = useRecoilValue($userSession);
 
   const payload = {
     query,
@@ -25,7 +25,7 @@ export const useGetBeers = (
     initialData: initialData
       ? {
           pages: [initialData],
-          pageParams: [{ payload, auth }],
+          pageParams: [{ payload, user }],
         }
       : undefined,
     getNextPageParam(lastPage) {

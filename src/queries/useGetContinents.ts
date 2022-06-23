@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
 import { getContinents } from '@/apis';
+import { $userSession } from '@/recoil/atoms';
 
 export const useGetContinents = () => {
-  /** @todo recoil value 사용 */
-  const user = undefined;
+  const user = useRecoilValue($userSession);
 
   return useQuery('continents', () => getContinents(!!user), { cacheTime: Infinity });
 };

@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
 import { getBeersRecommend } from '@/apis';
+import { $userSession } from '@/recoil/atoms';
 
 export const useGetBeersRecommend = () => {
-  /** @todo recoil value 사용 */
-  const user = undefined;
+  const user = useRecoilValue($userSession);
 
   const result = useQuery('beersRecommend', () => getBeersRecommend(!!user), {
     refetchOnMount: false,
