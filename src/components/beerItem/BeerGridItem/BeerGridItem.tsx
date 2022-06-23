@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
 import BeerImageMasking from '@/components/commons/BeerImageMasking';
-import Icon from '@/components/commons/Icon';
 import { ellipsis } from '@/styles/common';
+import { LikeBeerToggleButton } from '@/components/Header/extras';
 
 type BeerGridItemProps = Pick<IBeer, 'id' | 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
@@ -18,7 +18,6 @@ const BeerGridItem = (props: Props) => {
   const {
     beer: { id, nameKor, imageUrl, feel, isLiked },
   } = props;
-  const [isBookMarked, setIsBookmarked] = useState(false);
 
   const router = useRouter();
 
@@ -29,13 +28,9 @@ const BeerGridItem = (props: Props) => {
   return (
     <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
       <BeerGridItemContainer feel={feel}>
-        <BookmarkButton onClick={() => setIsBookmarked((prev) => !prev)}>
-          {isLiked || isBookMarked ? (
-            <Icon name="Heart" size={30} color="white" />
-          ) : (
-            <Icon name="HeartOutlined" size={30} color="white" />
-          )}
-        </BookmarkButton>
+        <LikeBeerToggleButtonWrapper>
+          <LikeBeerToggleButton isLiked={isLiked} id={id} />
+        </LikeBeerToggleButtonWrapper>
         <StyledEmoji>
           <Emoji feel={feel} />
         </StyledEmoji>
@@ -77,7 +72,7 @@ const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
   align-items: center;
 `;
 
-const BookmarkButton = styled.button`
+const LikeBeerToggleButtonWrapper = styled.div`
   width: 40px;
   height: 40px;
   position: absolute;

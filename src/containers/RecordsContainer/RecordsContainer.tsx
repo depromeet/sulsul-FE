@@ -3,6 +3,8 @@ import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
 import { useInView } from 'react-intersection-observer';
 
+import EmptyRecords from './EmptyRecords';
+
 import {
   IRecentlyVisitedCountry,
   getRecentlyVisitedCountry,
@@ -31,6 +33,13 @@ const StyledRecordsContainer = styled.section`
       font-weight: 400;
     }
   }
+
+  & > .empty-records-sad {
+    position: absolute;
+    bottom: 211px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const RecordsContainer: NextPage<RecordsContainerProps> = ({
@@ -57,20 +66,29 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
     triggerOnce: true,
   });
 
+  console.log(myRecords);
+
   return (
     <>
       <StyledRecordsContainer>
-        <h5 className="records-title">
-          <span className="slim-weight">{`최근에 `}</span>
-          <span>{recentlyVisitedCountry?.nameKor}</span>
-          <span className="slim-weight">{`에 다녀오셨군요!\n`}</span>
-          <span>{recentlyVisitedCountry?.nameKor}</span>
-          <span className="slim-weight">{` 여행 티켓은 총 `}</span>
-          <span>{`${recentlyVisitedCountry?.count}개`}</span>
-          <span className="slim-weight">{` 있어요.`}</span>
-        </h5>
-
-        <RecordList records={myRecords} lastItemRef={ref} />
+        {myRecords?.length ? (
+          <>
+            <h5 className="records-title">
+              <span className="slim-weight">{`최근에 `}</span>
+              <span>{recentlyVisitedCountry?.nameKor}</span>
+              <span className="slim-weight">{`에 다녀오셨군요!\n`}</span>
+              <span>{recentlyVisitedCountry?.nameKor}</span>
+              <span className="slim-weight">{` 여행 티켓은 총 `}</span>
+              <span>{`${recentlyVisitedCountry?.count}개`}</span>
+              <span className="slim-weight">{` 있어요.`}</span>
+            </h5>
+            <RecordList records={myRecords} lastItemRef={ref} />
+          </>
+        ) : (
+          <div className="empty-records-sad">
+            <EmptyRecords />
+          </div>
+        )}
       </StyledRecordsContainer>
       <BottomNavigation />
     </>

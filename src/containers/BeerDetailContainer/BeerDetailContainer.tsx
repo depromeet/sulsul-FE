@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
@@ -14,7 +16,7 @@ import Icon from '@/components/commons/Icon';
 import ReviewList from '@/components/ReviewList';
 import Header from '@/components/Header';
 import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
-import { ShareButton, LikeToggleButton, BackButton } from '@/components/Header/extras';
+import { ShareButton, LikeBeerToggleButton, BackButton } from '@/components/Header/extras';
 import { share } from '@/utils/share';
 import { useGetBeer, useGetRecordsByBeer, useGetTop3BeerFlavor } from '@/queries';
 import {
@@ -64,6 +66,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
 
   const router = useRouter();
   const beerId = Number(router.query.id);
+
   const { contents: beer } = useGetBeer(beerId, initialBeerResponse);
   const { contents: beerFlavor } = useGetTop3BeerFlavor(beerId, initialTop3BeerFlavor);
 
@@ -90,7 +93,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
     return null;
   }
 
-  const { country, nameKor, startCountry, endCountry, content } = beer;
+  const { country, nameKor, startCountry, endCountry, content, isLiked } = beer;
 
   return (
     <StyledBeerDetailPage>
@@ -107,17 +110,14 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
                 })
               }
             />
-            <LikeToggleButton
-              defaultIsLiking={true}
-              onLike={async () => alert('좋아요')}
-              onUnLike={async () => alert('좋아요 해제')}
-            />
+            <LikeBeerToggleButton isLiked={isLiked} id={beerId} />
           </>
         }
         isTransparent={isTransparent}
       >
         {nameKor}
       </Header>
+      <ToastContainer />
       <BackgroundImage isScrolled={isScrolled}>
         <img src={country?.backgroundImageUrl} alt={country?.nameKor} />
       </BackgroundImage>

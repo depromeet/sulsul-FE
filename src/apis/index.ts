@@ -7,6 +7,7 @@ export * from './beer';
 export * from './continent';
 export * from './profile';
 export * from './flavor';
+export * from './like';
 
 export interface IError {
   message: string;
