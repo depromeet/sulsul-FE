@@ -18,8 +18,26 @@ export const useLikeBeer = (beerId: IBeer['id'], isLiked: boolean) => {
       }
       return { previousBeer };
     },
-    onSuccess: () => {
+    onSuccess: (isLiked) => {
       openSuccessToast({ message: '맥주를 반한 목록에 추가했어요.' });
+      /** 맥주 목록 캐시 업데이트 */
+      queryClient.setQueryData<IBeer[]>(
+        ['beers'],
+        (data) =>
+          ({
+            ...(data ? data : {}),
+            isLiked,
+          } as IBeer[]),
+      );
+      /** 찜 목록 캐시 업데이트 */
+      queryClient.setQueryData<IBeer[]>(
+        ['beersLiked'],
+        (data) =>
+          ({
+            ...(data ? data : {}),
+            isLiked,
+          } as IBeer[]),
+      );
     },
     onError: (context?: { previousBeer: IBeer | undefined }) => {
       if (context?.previousBeer) {
