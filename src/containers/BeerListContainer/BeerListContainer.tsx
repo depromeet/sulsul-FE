@@ -3,6 +3,8 @@ import { isNil } from 'lodash';
 import { useRecoilValue } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import { GetServerSideProps, NextPage } from 'next';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   $beerListFilter,
@@ -54,6 +56,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
   return (
     <>
       <BeerListPageHeader />
+      <ToastContainer />
       <BeerListFilterAndSorter
         resultCount={resultCount}
         totalCount={beersCountData?.contents?.totalCount}

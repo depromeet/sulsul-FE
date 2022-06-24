@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
 import { getBeerTypes } from '@/apis';
+import { $userSession } from '@/recoil/atoms';
 
 export const useGetBeerTypes = () => {
-  /** @todo recoil value 사용 */
-  const user = undefined;
+  const user = useRecoilValue($userSession);
 
   const result = useQuery('beerTypes', () => getBeerTypes(!!user), {
     cacheTime: Infinity,

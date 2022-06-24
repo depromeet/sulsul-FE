@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import {
   BackButton,
   CloseButton,
-  LikeToggleButton,
+  LikeBeerToggleButton,
   BeerListViewToggleButton,
   OKTextButton,
   SaveButton,
@@ -62,14 +62,7 @@ export const extras = () => {
       {renderExtra('BackButton', <BackButton />)}
       {renderExtra('CloseButton', <CloseButton />)}
       {renderExtra('ShareButton', <ShareButton />)}
-      {renderExtra(
-        'LikeToggleButton',
-        <LikeToggleButton
-          defaultIsLiking={true}
-          onLike={async () => alert('좋아요')}
-          onUnLike={async () => alert('좋아요 해제')}
-        />,
-      )}
+      {renderExtra('LikeBeerToggleButton', <LikeBeerToggleButton isLiked={true} id={2} />)}
       {renderExtra('BeerListViewToggleButton', <BeerListViewToggleButton />)}
       {renderExtra('OKTextButton', <OKTextButton />)}
       {renderExtra('SaveButton', <SaveButton />)}

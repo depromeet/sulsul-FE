@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from '@/components/Header';
 import { BackButton, BeerListViewToggleButton } from '@/components/Header/extras';
@@ -84,6 +86,7 @@ const BeerRecommendAndLikedContainer: React.FC<BeerRecommendAndLikedContainerPro
     <>
       <StyledFixedArea>
         <Header leftExtras={<BackButton />} rightExtras={<BeerListViewToggleButton />} />
+        <ToastContainer />
         <StyledTitle>{TITLES[activatedIndex]}</StyledTitle>
         <Tab
           tabItems={TAB_ITEMS}

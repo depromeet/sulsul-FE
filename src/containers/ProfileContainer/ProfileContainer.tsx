@@ -12,6 +12,7 @@ import { getProfile, IProfile, getLevels, ILevel, getUserLevel } from '@/apis';
 import { useGetProfile, useGetLevels, useGetUserLevel } from '@/queries';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
+import { hasAuthHeader } from '@/utils/auth';
 
 interface ProfileContainerProps {
   profileData: IProfile;
@@ -122,7 +123,11 @@ const ProfileContainer: NextPage<ProfileContainerProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!hasAuthHeader(context)) {
+    return { props: {} };
+  }
+  
   const profileData = await getProfile();
   const levels = await getLevels();
   const userLevel = await getUserLevel();
