@@ -157,7 +157,7 @@ const BeerTicket: React.FC<BeerTicketProps> = ({
             <div className="beer-ticket-dot right" />
           </section>
           <section className="beer-ticket-middle">
-            <StyledBeerTicketField title="impression" className="beer-ticket-content">
+            <StyledBeerTicketField title="impression" size="max" className="beer-ticket-content">
               {record.content}
             </StyledBeerTicketField>
           </section>
