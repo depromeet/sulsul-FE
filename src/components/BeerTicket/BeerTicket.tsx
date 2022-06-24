@@ -57,6 +57,7 @@ const StyledBeerTicket = styled.article`
   }
 
   & footer.beer-ticket-footer {
+    height: 30px;
     display: flex;
     justify-content: center;
     padding-bottom: 16px;
