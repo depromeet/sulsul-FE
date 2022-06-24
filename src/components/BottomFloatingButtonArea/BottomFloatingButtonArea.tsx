@@ -4,6 +4,8 @@ import type { HTMLAttributes } from 'react';
 
 import HomeIconButton from '@/components/commons/HomeIconButton';
 
+const BOTTOM_FLOATING_BUTTON_AREA_HEIGHT = 100;
+
 interface Props extends HTMLAttributes<HTMLDivElement> {
   button?: React.ReactNode;
   withHomeButton?: boolean;
@@ -24,17 +26,20 @@ const BottomFloatingButtonArea = (props: Props) => {
   } = props;
 
   return (
-    <StyledBottomFloatingButton className={className} bottomOffset={bottomOffset}>
-      {children}
-      {!isOnlyHomeButton && button}
-      {withHomeButton && (
-        <Link href="/">
-          <a>
-            <HomeIconButton />
-          </a>
-        </Link>
-      )}
-    </StyledBottomFloatingButton>
+    <>
+      <div style={{ width: '100%', height: `${BOTTOM_FLOATING_BUTTON_AREA_HEIGHT}px` }} />
+      <StyledBottomFloatingButton className={className} bottomOffset={bottomOffset}>
+        {children}
+        {!isOnlyHomeButton && button}
+        {withHomeButton && (
+          <Link href="/">
+            <a>
+              <HomeIconButton />
+            </a>
+          </Link>
+        )}
+      </StyledBottomFloatingButton>
+    </>
   );
 };
 
@@ -50,7 +55,7 @@ const StyledBottomFloatingButton = styled.div<{ bottomOffset: number }>`
   align-items: center;
   gap: 18px;
   width: 100%;
-  height: 100px;
+  height: ${BOTTOM_FLOATING_BUTTON_AREA_HEIGHT}px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 40.1%);
   z-index: 1;
 `;
