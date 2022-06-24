@@ -23,7 +23,7 @@ export const useGetRecordsByBeer = (
     initialData,
     initialPageParam,
     getNextPageParam: (lastPage) => {
-      return lastPage
+      return lastPage?.nextCursor
         ? {
             ...initialPageParam,
             payload: { ...initialPageParam.payload, recordId: lastPage.nextCursor },
