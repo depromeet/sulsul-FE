@@ -40,12 +40,12 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
     resultCount,
     fetchNextPage,
     isLoading,
-    hasNext,
+    hasNextPage,
   } = useGetBeers({ query, filter, sortBy: [sortBy] }, initialBeersData);
 
   const { ref } = useInView({
     onChange: (inView) => {
-      if (inView && hasNext && !isLoading) {
+      if (inView && hasNextPage && !isLoading) {
         fetchNextPage();
       }
     },
@@ -59,7 +59,7 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
         totalCount={beersCountData?.contents?.totalCount}
       />
       <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData} />
-      {hasNext && <LoadingIcon ref={ref} />}
+      {hasNextPage && <LoadingIcon ref={ref} />}
       <BottomNavigation />
     </>
   );

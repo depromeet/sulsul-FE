@@ -29,12 +29,12 @@ export const useGetBeers = (
       initialData,
       initialPageParam,
       getNextPageParam: (lastPage) =>
-        lastPage
+        lastPage?.nextCursor
           ? {
               ...initialPageParam,
               payload: {
                 ...initialPageParam.payload,
-                ...(lastPage ? { cursor: lastPage.nextCursor } : {}),
+                cursor: lastPage.nextCursor,
               },
             }
           : undefined,

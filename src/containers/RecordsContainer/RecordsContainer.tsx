@@ -49,14 +49,14 @@ const RecordsContainer: NextPage<RecordsContainerProps> = ({
     contents: myRecords,
     fetchNextPage,
     isLoading,
-    hasNext,
+    hasNextPage,
   } = useGetMyRecords(_myRecordResponse);
   const { contents: recentlyVisitedCountry } =
     useGetRecentlyVisitedCountry(_recentlyVisitedCountry);
 
   const { ref } = useInView({
     onChange: (inView) => {
-      if (inView && hasNext && !isLoading) {
+      if (inView && hasNextPage && !isLoading) {
         fetchNextPage();
       }
     },

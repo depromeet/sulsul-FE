@@ -71,12 +71,12 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
     contents: recordsByBeer,
     fetchNextPage,
     isLoading,
-    hasNext,
+    hasNextPage,
   } = useGetRecordsByBeer({ beerId }, initialRecordsByBeer);
 
   const { ref } = useInView({
     onChange: (inView) => {
-      if (inView && hasNext && !isLoading) {
+      if (inView && hasNextPage && !isLoading) {
         fetchNextPage();
       }
     },
@@ -125,7 +125,7 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
       </section>
       <HorizontalDivider />
       {recordsByBeer && <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />}
-      {hasNext && <LoadingIcon ref={ref} />}
+      {hasNextPage && <LoadingIcon ref={ref} />}
       <BottomFloatingButtonArea
         button={
           <Link href={`/record/create/${beerId}`} passHref>

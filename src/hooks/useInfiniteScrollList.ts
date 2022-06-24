@@ -14,19 +14,19 @@ interface useInfiniteScrollListOptions<TPages = any, TPageParam = any>
   > {
   initialData?: TPages;
   initialPageParam?: TPageParam;
-  getNextPageParam?: (lastPage: TPages) => TPageParam | undefined;
+  /** getNextPageParam이 undefined를 반환하는 경우 hasNextPage가 false */
+  getNextPageParam: (lastPage: TPages) => TPageParam | undefined;
 }
 
 const useInfiniteScrollList = <TPage extends IBasePaginationResponse<any[]>, TPageParam = any>(
   queryKey: QueryKey,
   fetchPage: (pageParam: TPageParam) => Promise<TPage>,
-  options: useInfiniteScrollListOptions<TPage, TPageParam> = {},
+  options: useInfiniteScrollListOptions<TPage, TPageParam>,
 ): UseInfiniteQueryResult<TPage, any> & {
   contents?: any[];
   resultCount?: number;
-  hasNext?: boolean;
 } => {
-  const { initialData, initialPageParam, ...restOptions } = options;
+  const { initialData, initialPageParam, ...restOptions } = options || {};
 
   const result = useInfiniteQuery<TPage>(
     queryKey,
@@ -57,13 +57,11 @@ const useInfiniteScrollList = <TPage extends IBasePaginationResponse<any[]>, TPa
 
   const lastPage = data ? data.pages[data.pages.length - 1] : undefined;
   const resultCount = lastPage?.resultCount;
-  const hasNext = lastPage?.hasNext;
 
   return {
     ...result,
     contents,
     resultCount,
-    hasNext,
   };
 };
 
