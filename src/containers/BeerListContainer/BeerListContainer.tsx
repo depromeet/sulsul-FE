@@ -29,6 +29,7 @@ interface BeerListContainerProps {
 
 const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initialBeersData }) => {
   useGtagPageView(PAGE_TITLES.BEER_LIST);
+
   const router = useRouter();
   const query = isNil(router.query.query) ? undefined : decodeURI(String(router.query.query));
 
@@ -39,26 +40,17 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
   const {
     contents: beersData,
     resultCount,
-    pageInfo,
     fetchNextPage,
     isLoading,
-  } = useGetBeers({ query, filter, sortBy: [sortBy], limit: 21 }, initialBeersData);
+    hasNextPage,
+  } = useGetBeers({ query, filter, sortBy: [sortBy] }, initialBeersData);
 
   const { ref } = useInView({
     onChange: (inView) => {
-      const { nextCursor, hasNext } = pageInfo;
-      const auth = undefined;
-
-      if (inView && nextCursor && hasNext && !isLoading) {
-        fetchNextPage({
-          pageParam: {
-            payload: { query, filter, sortBy: [sortBy], cursor: nextCursor, limit: 21 },
-            auth,
-          },
-        });
+      if (inView && hasNextPage && !isLoading) {
+        fetchNextPage();
       }
     },
-    triggerOnce: true,
   });
 
   return (
@@ -70,29 +62,30 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
         totalCount={beersCountData?.contents?.totalCount}
       />
       <BeerListSearchResult query={query} isLoading={isLoading} beers={beersData} />
-
-      {pageInfo.hasNext && <LoadingIcon ref={ref} />}
-
+      {hasNextPage && <LoadingIcon ref={ref} />}
       <BottomNavigation />
     </>
   );
 };
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query) {
+    const filter = context.query[BEER_LIST_FILTER_ATOM_KEY]
+      ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
+      : undefined;
+    const sortBy = context.query[BEER_LIST_SORT_BY_ATOM_KEY]
+      ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
+      : undefined;
+
     const beersData = await getBeers({
-      pageParam: {
-        payload: {
-          filter: context.query[BEER_LIST_FILTER_ATOM_KEY]
-            ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
-            : undefined,
-          sortBy: context.query[BEER_LIST_SORT_BY_ATOM_KEY]
-            ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
-            : undefined,
-          limit: 21,
-        },
-        auth: undefined,
+      payload: {
+        ...(filter ? filter : {}),
+        ...(sortBy ? sortBy : {}),
+        limit: 21,
       },
-    } as any);
+      /** @todo auth */
+      auth: false,
+    });
 
     return { props: { beersData } };
   }

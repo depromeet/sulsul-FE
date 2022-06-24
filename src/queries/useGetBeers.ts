@@ -1,60 +1,43 @@
-import { useMemo } from 'react';
-import { useInfiniteQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-import { BasePagenationQueryHooksResponse } from '.';
-
-import { getBeers, IGetBeersResponseData, IGetBeersPayload, IBeer } from '@/apis';
+import { getBeers, IGetBeersResponseData, IGetBeersPayload } from '@/apis';
+import { useInfiniteScrollList } from '@/hooks';
 import { $userSession } from '@/recoil/atoms';
 
+const DEFAULT_LIMIT = 21;
+
 export const useGetBeers = (
-  { query, filter, sortBy, limit }: Pick<IGetBeersPayload, 'query' | 'filter' | 'sortBy' | 'limit'>,
+  { query, filter, sortBy }: Omit<IGetBeersPayload, 'cursor' | 'limit'>,
   initialData?: IGetBeersResponseData,
 ) => {
-  const user = useRecoilValue($userSession);
+  const userSession = useRecoilValue($userSession);
 
-  const payload = {
-    query,
-    filter,
-    sortBy,
-    limit,
-  };
-
-  const result = useInfiniteQuery(['beers', payload], getBeers, {
-    cacheTime: Infinity,
-    initialData: initialData
-      ? {
-          pages: [initialData],
-          pageParams: [{ payload, user }],
-        }
-      : undefined,
-    getNextPageParam(lastPage) {
-      return lastPage.nextCursor || undefined;
+  const initialPageParam: { payload: IGetBeersPayload; auth: boolean } = {
+    payload: {
+      ...{ query, filter, sortBy },
+      cursor: 0,
+      limit: DEFAULT_LIMIT,
     },
-  });
-
-  const { data } = result;
-
-  const { contents, resultCount, pageInfo } = useMemo(
-    () =>
-      data?.pages.reduce<BasePagenationQueryHooksResponse<IBeer>>(
-        (responseAcc, response) => ({
-          contents: [...(responseAcc.contents || []), ...(response.contents || [])],
-          resultCount: response.resultCount,
-          pageInfo: {
-            hasNext: response.hasNext,
-            nextCursor: response.nextCursor,
-          },
-        }),
-        { contents: [], resultCount: 0, pageInfo: {} },
-      ) || { contents: [], resultCount: 0, pageInfo: {} },
-    [data?.pages],
-  );
-
-  return {
-    ...result,
-    contents,
-    resultCount,
-    pageInfo,
+    auth: Boolean(userSession),
   };
+
+  return useInfiniteScrollList<IGetBeersResponseData, { payload: IGetBeersPayload; auth: boolean }>(
+    ['beers', { query, filter, sortBy }],
+    getBeers,
+    {
+      cacheTime: Infinity,
+      initialData,
+      initialPageParam,
+      getNextPageParam: (lastPage) =>
+        lastPage?.nextCursor
+          ? {
+              ...initialPageParam,
+              payload: {
+                ...initialPageParam.payload,
+                cursor: lastPage.nextCursor,
+              },
+            }
+          : undefined,
+    },
+  );
 };

@@ -1,54 +1,34 @@
-import { useMemo } from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
-import { BasePagenationQueryHooksResponse } from '.';
-
-import {
-  getRecordsByBeer,
-  IGetRecordsByBeerPayload,
-  IRecordsByBeer,
-  IGetRecordsByBeer,
-} from '@/apis';
+import { getRecordsByBeer, IGetRecordsByBeerPayload, IGetRecordsByBeer } from '@/apis';
+import { useInfiniteScrollList } from '@/hooks';
+import { $userSession } from '@/recoil/atoms';
 
 export const useGetRecordsByBeer = (
   { beerId, recordId }: IGetRecordsByBeerPayload,
   initialData?: IGetRecordsByBeer,
 ) => {
-  /** @todo const user = useRecoilValue($userInfo); */
-  const auth = undefined;
+  const userSession = useRecoilValue($userSession);
 
-  const payload = { beerId, recordId };
+  const initialPageParam = { payload: { beerId, recordId }, auth: Boolean(userSession) };
 
-  const result = useInfiniteQuery(['recordsByBeer', beerId], getRecordsByBeer, {
+  return useInfiniteScrollList<
+    IGetRecordsByBeer,
+    {
+      payload: IGetRecordsByBeerPayload;
+      auth: boolean;
+    }
+  >(['recordsByBeer', beerId], getRecordsByBeer, {
     cacheTime: Infinity,
-    initialData: initialData
-      ? { pages: [initialData], pageParams: [{ payload, auth }] }
-      : undefined,
-    getNextPageParam(lastPage) {
-      return lastPage.nextCursor || undefined;
+    initialData,
+    initialPageParam,
+    getNextPageParam: (lastPage) => {
+      return lastPage
+        ? {
+            ...initialPageParam,
+            payload: { ...initialPageParam.payload, recordId: lastPage.nextCursor },
+          }
+        : undefined;
     },
   });
-
-  const { data } = result;
-
-  const { contents, pageInfo } = useMemo(
-    () =>
-      data?.pages.reduce<BasePagenationQueryHooksResponse<IRecordsByBeer>>(
-        (responseAcc, response) => ({
-          contents: [...(responseAcc.contents || []), ...(response.contents || [])],
-          pageInfo: {
-            hasNext: response.hasNext,
-            nextCursor: response.nextCursor,
-          },
-        }),
-        { contents: [], pageInfo: {} },
-      ) || { contents: [], pageInfo: {} },
-    [data?.pages],
-  );
-
-  return {
-    ...result,
-    contents,
-    pageInfo,
-  };
 };
