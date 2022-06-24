@@ -11,7 +11,8 @@ interface BeerSearchResultListProps {
 
 const BeerSearchResultList = ({ query, isLoading, beers }: BeerSearchResultListProps) => {
   if (isLoading || !beers) {
-    return <p>로딩중...</p>;
+    /** @todo 로딩중 컴포넌트 또는 스켈레톤 */
+    return null;
   }
 
   if (!beers.length) {
