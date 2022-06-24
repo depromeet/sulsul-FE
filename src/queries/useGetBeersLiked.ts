@@ -1,20 +1,29 @@
-import { useQuery } from 'react-query';
+import { getBeersLiked, IGetBeersLikedPayload, IGetBeersLikedResponseData } from '@/apis';
+import { useInfiniteScrollList } from '@/hooks';
 
-import { getBeersLiked, IGetBeersLikedPayload } from '@/apis';
+const DEFAULT_LIMIT = 21;
 
 export const useGetBeersLiked = (
   payload: Pick<IGetBeersLikedPayload, 'query' | 'filter' | 'sortBy'>,
 ) => {
-  const result = useQuery(['beersLiked', payload], () =>
-    getBeersLiked({
-      ...payload,
-      cursor: 0,
-      limit: 20,
-    }),
-  );
-
-  return {
-    ...result,
-    contents: result.data,
+  const initialPageParam: IGetBeersLikedPayload = {
+    ...payload,
+    cursor: 0,
+    limit: DEFAULT_LIMIT,
   };
+
+  return useInfiniteScrollList<IGetBeersLikedResponseData, IGetBeersLikedPayload>(
+    ['beersLiked', payload],
+    getBeersLiked,
+    {
+      initialPageParam,
+      getNextPageParam: (lastPage) =>
+        lastPage?.nextCursor
+          ? {
+              ...initialPageParam,
+              cursor: lastPage.nextCursor,
+            }
+          : undefined,
+    },
+  );
 };

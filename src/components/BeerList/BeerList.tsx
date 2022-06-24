@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
+import { useInView } from 'react-intersection-observer';
 
 import { IBeer } from '@/apis';
 import BeerGridItem from '@/components/beerItem/BeerGridItem';
@@ -8,13 +9,24 @@ import { $beerListViewType } from '@/recoil/atoms';
 
 interface Props {
   beers: IBeer[];
+  hasNextPage?: boolean;
+  isLoading?: boolean;
+  fetchNextPage?: () => void;
 }
 
-const BeerList = ({ beers, ...rest }: Props) => {
+const BeerList = ({ beers, hasNextPage, isLoading, fetchNextPage }: Props) => {
   const beerListViewType = useRecoilValue($beerListViewType);
 
+  const { ref } = useInView({
+    onChange: (inView) => {
+      if (inView && hasNextPage && !isLoading && fetchNextPage) {
+        fetchNextPage();
+      }
+    },
+  });
+
   return (
-    <StyledBeerList className={beerListViewType} {...rest}>
+    <StyledBeerList className={beerListViewType}>
       {beers?.map((beer) =>
         beerListViewType === 'list' ? (
           <BeerListItem key={`list-${beer.id}`} beer={beer} />
@@ -22,6 +34,7 @@ const BeerList = ({ beers, ...rest }: Props) => {
           <BeerGridItem key={`grid-${beer.id}`} beer={beer} />
         ),
       )}
+      {hasNextPage && <div ref={ref} />}
     </StyledBeerList>
   );
 };
