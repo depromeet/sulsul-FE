@@ -26,12 +26,14 @@ const StyledEmojiRadioGroup = styled.div`
   align-items: center;
 
   & h1 {
-    margin: 30px 0 126px 0;
+    margin: 30px 0 0 0;
     ${({ theme }) => theme.fonts.H1};
     color: ${({ theme }) => theme.color.white};
   }
 
   & .emoji-radio-group-wrapper {
+    margin-top: auto;
+
     & .emoji-radio-wrapper {
       display: inline-block;
       position: relative;

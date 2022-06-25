@@ -14,7 +14,6 @@ import Button from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import Icon from '@/components/commons/Icon';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
-import { IFlavor } from '@/apis';
 
 const StyledRecordSecondStepContainer = styled.div`
   display: flex;

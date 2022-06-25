@@ -9,7 +9,7 @@ import RecordSecondStepContainer from './RecordSecondStepContainer';
 import RecordThirdStepContainer from './RecordThirdStepContainer';
 
 import { useGetBeer, useGetRecord } from '@/queries';
-import Header from '@/components/Header';
+import Header, { HEADER_HEIGHT } from '@/components/Header';
 import { BackButton } from '@/components/Header/extras';
 import { IBeer, getBeer, IRecord, getRecord } from '@/apis';
 import SwiperLayout from '@/components/layouts/SwiperLayout';
@@ -22,11 +22,13 @@ interface UpsertRecordContainerProps {
 }
 
 const StyledUpsertRecordContainer = styled.div`
+  position: absolute;
+  width: 100%;
   height: 100%;
+`;
 
-  & .record-layout {
-    height: calc(100vh - 60px);
-  }
+const StyledSwiperLayout = styled(SwiperLayout)`
+  height: ${`calc(100% - ${HEADER_HEIGHT}px)`};
 `;
 
 const UpsertRecordContainer: NextPage<UpsertRecordContainerProps> = ({
@@ -49,14 +51,14 @@ const UpsertRecordContainer: NextPage<UpsertRecordContainerProps> = ({
   return (
     <StyledUpsertRecordContainer>
       <Header leftExtras={<BackButton />} />
-      <SwiperLayout className="record-layout">
+      <StyledSwiperLayout>
         <RecordFirstStepContainer beerName={beer.nameKor} defaultFeelValue={record?.feel} />
         <RecordSecondStepContainer
           beerName={beer.nameKor}
           defaultFlavorValue={record?.flavorDtos}
         />
         <RecordThirdStepContainer beer={beer} record={record} />
-      </SwiperLayout>
+      </StyledSwiperLayout>
     </StyledUpsertRecordContainer>
   );
 };
