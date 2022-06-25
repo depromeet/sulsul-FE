@@ -13,7 +13,9 @@ import EntityForm from '@/components/EntityForm';
 import ImageUploadField from '@/components/formFields/ImageUploadField';
 import SelectField from '@/components/formFields/SelectField';
 import TextAreaField from '@/components/formFields/TextAreaField';
-import BottomFloatingButtonArea from '@/components/BottomFloatingButtonArea';
+import BottomFloatingButtonArea, {
+  BOTTOM_FLOATING_BUTTON_AREA_HEIGHT,
+} from '@/components/BottomFloatingButtonArea';
 import Button, { ButtonCount } from '@/components/commons/Button';
 import FormSubmitButton from '@/components/commons/FormSubmitButton';
 import { SwiperLayoutChildProps } from '@/components/layouts/SwiperLayout';
@@ -33,14 +35,16 @@ interface RecordThirdStepContainerProps extends SwiperLayoutChildProps {
   className?: string;
 }
 
-const StyledRecordThirdStepContainer = styled.div`
+const StyledEntityForm = styled(EntityForm)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
 
-  & form {
-    width: 100%;
-  }
+const StyledWrapper = styled.div`
+  padding-bottom: ${BOTTOM_FLOATING_BUTTON_AREA_HEIGHT}px;
+  overflow-y: auto;
 
   h2 {
     ${({ theme }) => theme.fonts.H2}
@@ -48,34 +52,38 @@ const StyledRecordThirdStepContainer = styled.div`
     margin-bottom: 10px;
   }
 
-  & p.body-1 {
+  & > p.body-1 {
     ${({ theme }) => theme.fonts.Body2}
     color: ${({ theme }) => theme.semanticColor.secondary};
     text-align: center;
     margin-bottom: 40px;
   }
 
-  & span.body-1 {
+  & > span.body-1 {
     ${({ theme }) => theme.fonts.Body2}
     color: ${({ theme }) => theme.color.white};
   }
 
-  & .switch-wrapper {
+  & > .switch-wrapper {
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    > label {
+      ${({ theme }) => theme.fonts.Body1}
+    }
   }
 
-  & .default-padding {
+  & > .default-padding {
     padding: 0 20px;
   }
+`;
 
-  & .record-floating-area {
-    left: 200vw;
-    justify-content: space-between;
-    padding: 0 20px;
-  }
+const StyledBottomFloatingButtonArea = styled(BottomFloatingButtonArea)`
+  left: 200vw;
+  justify-content: space-between;
+  padding: 0 20px;
 `;
 
 const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
@@ -152,12 +160,12 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
     flavors?.find((flavor) => flavor.flavorId === selectedFlavors?.[0])?.content;
 
   return (
-    <StyledRecordThirdStepContainer>
-      <EntityForm
-        onSubmit={!record ? handleCreateSubmit : handleUpdateSubmit}
-        defaultValues={defaultValues}
-        showDebug={false}
-      >
+    <StyledEntityForm
+      onSubmit={!record ? handleCreateSubmit : handleUpdateSubmit}
+      defaultValues={defaultValues}
+      showDebug={false}
+    >
+      <StyledWrapper>
         <h2>{'당신만의 맥주 이야기도 들려주세요'}</h2>
         <p className="body-1">{beer.nameKor}</p>
         <ImageUploadField
@@ -167,7 +175,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
           defaultBackground={record?.imageUrl}
         />
         <div className="switch-wrapper">
-          <span>{'맥주 여행 소감 공개 여부'}</span>
+          <label>{'맥주 여행 소감 공개 여부'}</label>
           <SelectField name="isPublic" />
         </div>
         <div className="default-padding">
@@ -179,31 +187,31 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
             required
           />
         </div>
-        <BottomFloatingButtonArea className="record-floating-area">
-          <Button
-            type="primary"
-            line
-            onClick={onMovePrev}
-            leftAddon={<Icon name="ArrowLeft" />}
-            iconMargin={4}
-            count={selectedFlavors?.length as ButtonCount | undefined}
-            maxWidth="44vw"
-          >
-            {beforeText || '이전'}
-          </Button>
-          <FormSubmitButton
-            type="primary"
-            htmlType="submit"
-            onClick={onMoveNext}
-            rightAddon={<Icon name="ArrowRight" />}
-            iconMargin={4}
-            autoDisabled
-          >
-            다음
-          </FormSubmitButton>
-        </BottomFloatingButtonArea>
-      </EntityForm>
-    </StyledRecordThirdStepContainer>
+      </StyledWrapper>
+      <StyledBottomFloatingButtonArea>
+        <Button
+          type="primary"
+          line
+          onClick={onMovePrev}
+          leftAddon={<Icon name="ArrowLeft" />}
+          iconMargin={4}
+          count={selectedFlavors?.length as ButtonCount | undefined}
+          maxWidth="44vw"
+        >
+          {beforeText || '이전'}
+        </Button>
+        <FormSubmitButton
+          type="primary"
+          htmlType="submit"
+          onClick={onMoveNext}
+          rightAddon={<Icon name="ArrowRight" />}
+          iconMargin={4}
+          autoDisabled
+        >
+          다음
+        </FormSubmitButton>
+      </StyledBottomFloatingButtonArea>
+    </StyledEntityForm>
   );
 };
 

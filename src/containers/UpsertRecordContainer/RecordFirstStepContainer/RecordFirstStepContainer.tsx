@@ -17,24 +17,29 @@ interface RecordFirstStepContainerProps extends SwiperLayoutChildProps {
   defaultFeelValue?: number;
 }
 
-const StyledRecordFirstStepContainer = styled.div`
+const StyledEntityForm = styled(EntityForm)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 110px);
+  height: 100%;
+`;
 
-  & h2 {
-    ${({ theme }) => theme.fonts.H2}
-    text-align: center;
-    margin-bottom: 10px;
-  }
+const StyledTitle = styled.h2`
+  ${({ theme }) => theme.fonts.H2}
+  text-align: center;
+  margin-bottom: 10px;
+`;
 
-  & p.body-2 {
-    ${({ theme }) => theme.fonts.Body2}
-    color: ${({ theme }) => theme.semanticColor.secondary};
-    text-align: center;
-    margin-bottom: 100px;
-  }
+const StyledBeerName = styled.p`
+  ${({ theme }) => theme.fonts.Body2}
+  color: ${({ theme }) => theme.semanticColor.secondary};
+  text-align: center;
+`;
+
+const StyledEmojiRadioField = styled(EmojiRadioField)`
+  flex: 1;
+  padding: 10vh 0 37px 0;
+  overflow-y: auto;
 `;
 
 const RecordFirstStepContainer: React.FC<RecordFirstStepContainerProps> = ({
@@ -54,24 +59,23 @@ const RecordFirstStepContainer: React.FC<RecordFirstStepContainerProps> = ({
   );
 
   return (
-    <StyledRecordFirstStepContainer className={className}>
-      <EntityForm
-        onSubmit={handleSubmit}
-        defaultValues={{ feel: defaultFeelValue || 3 }}
-        showDebug={false}
-      >
-        <h2>{'이번 맥주는 어땠나요?'}</h2>
-        <p className="body-2">{beerName}</p>
-        <EmojiRadioField name="feel" />
-        <BottomFloatingButtonArea
-          button={
-            <FormSubmitButton type="primary" htmlType="submit" width="large" autoDisabled>
-              다음
-            </FormSubmitButton>
-          }
-        />
-      </EntityForm>
-    </StyledRecordFirstStepContainer>
+    <StyledEntityForm
+      onSubmit={handleSubmit}
+      defaultValues={{ feel: defaultFeelValue || 3 }}
+      showDebug={false}
+      className={className}
+    >
+      <StyledTitle>이번 맥주는 어땠나요?</StyledTitle>
+      <StyledBeerName>{beerName}</StyledBeerName>
+      <StyledEmojiRadioField name="feel" />
+      <BottomFloatingButtonArea
+        button={
+          <FormSubmitButton type="primary" htmlType="submit" width="large" autoDisabled>
+            다음
+          </FormSubmitButton>
+        }
+      />
+    </StyledEntityForm>
   );
 };
 

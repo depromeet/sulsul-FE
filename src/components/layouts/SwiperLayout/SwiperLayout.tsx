@@ -5,44 +5,57 @@ import cx from 'classnames';
 
 import Swiper from '@/components/Swiper';
 
-const StyledSwiperLayout = styled.section`
-  position: relative;
-  height: 100%;
+const SWIPER_INDICATOR_HEIGHT = 50;
 
-  & > .swiper-section {
-    height: 100%;
+const StyledSwiperLayout = styled.section`
+  height: 100%;
+`;
+
+const StyledSwiper = styled(Swiper)`
+  height: ${`calc(100% - ${SWIPER_INDICATOR_HEIGHT}px)`};
+
+  .carousel-root,
+  .swiper-section {
   }
 
-  & > .swiper-layout-bottom {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .carousel,
+  .carousel-slider,
+  .slider-wrapper,
+  .slider,
+  .slide {
+    height: 100%;
+  }
+`;
 
-    & .swiper-layout-bottom-step {
-      display: block;
-      background-color: ${({ theme }) => theme.color.whiteOpacity50};
-      width: 8px;
-      height: 8px;
-      border-radius: 4px;
-      transition: background 0.3s;
+const StyledSwiperIndicator = styled.div`
+  position: absolute;
+  width: 100%;
+  height: ${SWIPER_INDICATOR_HEIGHT}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      &.active {
-        background-color: ${({ theme }) => theme.color.white};
-      }
+  & .swiper-layout-bottom-step {
+    display: block;
+    background-color: ${({ theme }) => theme.color.whiteOpacity50};
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 
-      &:not(:last-child) {
-        margin-right: 8px;
-      }
+    &.active {
+      background-color: ${({ theme }) => theme.color.white};
     }
 
-    /** 아이폰 하단 노치 영역 대응 */
-    @supports (padding-bottom: env(safe-area-inset-bottom)) {
-      padding-bottom: env(safe-area-inset-bottom);
+    &:not(:last-child) {
+      margin-right: 8px;
     }
+  }
+
+  padding-bottom: 20px;
+  /** 아이폰 하단 노치 영역 대응 */
+  @supports (padding-bottom: calc(env(safe-area-inset-bottom) + 20px)) {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
   }
 `;
 
@@ -85,7 +98,7 @@ const SwiperLayout: React.FC<SwiperLayoutProps> = ({
 
   return (
     <StyledSwiperLayout className={className}>
-      <Swiper swipeable={false} selectedItem={pageIndex} className="swiper-section" {...props}>
+      <StyledSwiper swipeable={false} selectedItem={pageIndex} {...props}>
         {React.Children.map(children || undefined, (child) => {
           return child
             ? React.createElement(child.type, {
@@ -95,15 +108,15 @@ const SwiperLayout: React.FC<SwiperLayoutProps> = ({
               })
             : null;
         })}
-      </Swiper>
-      <div className="swiper-layout-bottom">
+      </StyledSwiper>
+      <StyledSwiperIndicator>
         {new Array(length).fill(null).map((_, i) => (
           <span
             key={i}
             className={cx(['swiper-layout-bottom-step', i === pageIndex && 'active'])}
           />
         ))}
-      </div>
+      </StyledSwiperIndicator>
     </StyledSwiperLayout>
   );
 };

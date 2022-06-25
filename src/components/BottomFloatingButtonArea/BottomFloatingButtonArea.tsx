@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'react';
 
 import HomeIconButton from '@/components/commons/HomeIconButton';
 
-const BOTTOM_FLOATING_BUTTON_AREA_HEIGHT = 100;
+export const BOTTOM_FLOATING_BUTTON_AREA_HEIGHT = 100;
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   button?: React.ReactNode;
@@ -27,7 +27,9 @@ const BottomFloatingButtonArea = (props: Props) => {
 
   return (
     <>
-      <div style={{ width: '100%', height: `${BOTTOM_FLOATING_BUTTON_AREA_HEIGHT}px` }} />
+      <div
+        style={{ width: '100%', height: `${BOTTOM_FLOATING_BUTTON_AREA_HEIGHT + bottomOffset}px` }}
+      />
       <StyledBottomFloatingButton className={className} bottomOffset={bottomOffset}>
         {children}
         {!isOnlyHomeButton && button}
