@@ -15,6 +15,7 @@ const carouselInitialProps: Partial<CarouselProps> = {
   showIndicators: false,
   showThumbs: false,
   emulateTouch: true,
+  swipeScrollTolerance: 15,
 };
 
 const Swiper = ({
