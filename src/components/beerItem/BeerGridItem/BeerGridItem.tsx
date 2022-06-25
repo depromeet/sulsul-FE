@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
-import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import { ellipsis } from '@/styles/common';
 import { LikeBeerToggleButton } from '@/components/Header/extras';
+import { useElementSize } from '@/hooks';
 
 type BeerGridItemProps = Pick<IBeer, 'id' | 'nameKor' | 'imageUrl' | 'feel' | 'isLiked'>;
 
@@ -21,22 +21,23 @@ const BeerGridItem = (props: Props) => {
 
   const router = useRouter();
 
+  const { ref, size } = useElementSize<HTMLDivElement>();
+  const itemHeight = size?.width;
+
   const goToBeerDetail = (beerId: number) => {
     router.push(`/beers/${beerId}`);
   };
 
   return (
     <StyledBeerGridItem onClick={() => goToBeerDetail(id)}>
-      <BeerGridItemContainer feel={feel}>
+      <BeerGridItemContainer ref={ref} feel={feel} height={itemHeight}>
         <LikeBeerToggleButtonWrapper>
           <LikeBeerToggleButton isLiked={isLiked} id={id} />
         </LikeBeerToggleButtonWrapper>
         <StyledEmoji>
           <Emoji feel={feel} />
         </StyledEmoji>
-        <BeerImageMasking width="30%">
-          <BeerImage src={imageUrl} />
-        </BeerImageMasking>
+        <BeerImage src={imageUrl} maxHeight={itemHeight ? itemHeight - 20 : undefined} />
       </BeerGridItemContainer>
       <BeerName>{nameKor}</BeerName>
     </StyledBeerGridItem>
@@ -60,10 +61,10 @@ const BeerName = styled.div`
   ${ellipsis()};
 `;
 
-const BeerGridItemContainer = styled.div<{ feel?: number | null }>`
+const BeerGridItemContainer = styled.div<{ feel?: number | null; height?: number }>`
   position: relative;
-  aspect-ratio: 1 / 1;
   width: 100%;
+  ${({ height }) => (height ? `height: ${height}px;` : '')};
   background: ${({ feel, theme }) =>
     feel !== null ? theme.color.blue : theme.color.whiteOpacity20};
   border-radius: 10px;
@@ -86,10 +87,10 @@ const LikeBeerToggleButtonWrapper = styled.div`
   z-index: 1;
 `;
 
-const BeerImage = styled.img`
-  width: 100%;
+const BeerImage = styled.img<{ maxHeight?: number }>`
+  width: 30%;
   height: auto;
-  max-height: 100%;
+  ${({ maxHeight }) => `max-height: ${maxHeight ? `${maxHeight}px` : '100%'};`};
   object-fit: contain;
 `;
 
