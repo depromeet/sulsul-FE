@@ -16,8 +16,8 @@ const AirPortItem = (props: AirPortItemProps) => {
   return (
     <StyledAirPortItem>
       <Title>{title}</Title>
-      <Eng>{!isNil(kor) && sliceAndUpperCase(eng, 3)}</Eng>
-      <Kor>{!isNil(eng) && sliceAndUpperCase(kor, 3)}</Kor>
+      <Eng>{!isNil(eng) && sliceAndUpperCase(eng, 3)}</Eng>
+      <Kor>{!isNil(kor) && kor}</Kor>
     </StyledAirPortItem>
   );
 };
