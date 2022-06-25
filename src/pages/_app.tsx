@@ -5,9 +5,10 @@ import type { AppProps, AppContext } from 'next/app';
 import { QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
+import { setCookies, removeCookies } from 'cookies-next';
 
-import { getUser, IUser, refreshTokenUseHeader } from '@/apis/user';
+import { getUser, IUser, renewalAccessToken } from '@/apis/user';
 import { $userSession } from '@/recoil/atoms';
 import { initAxiosConfig } from '@/configs/axios';
 import awesome from '@/utils/awesome';
@@ -39,33 +40,6 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
     [userSession],
   );
 
-  useEffect(() => {
-    axios.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      async (error) => {
-        const {
-          config,
-          response: { status },
-        } = error;
-        if (status === 419) {
-          if (error.response.data.code === 'expired') {
-            const originalRequest = config;
-            const _refreshToken = undefined;
-            // token refresh 요청
-            await refreshTokenUseHeader(); // token refresh api
-            // 새로운 accessToken 저장
-            //originalRequest.headers.authorization = `Bearer ${data.data.accessToken}`;
-            // 419로 요청 실패했던 요청 새로운 토큰으로 재요청
-            return axios(originalRequest);
-          }
-        }
-        return Promise.reject(error);
-      },
-    );
-  }, []);
-
   return (
     <ErrorBoundary fallback={<ErrorPage />}>
       <NextSeo
@@ -94,7 +68,18 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
-  console.log(cookie);
+
+  removeCookies('accessToken', ctx);
+  //removeCookies('refreshToken', ctx);
+  // 개발환경에서는 자신의 토큰을 넣어주세요
+  setCookies(
+    'accessToken',
+    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjU2MTUyODc2LCJleHAiOjE2NTYyMzkyNzZ9.i_KV_nKe7-8mVhZnO9ZOCGHe3xriYWceNnfd2H_H5bDwANBtfAEbBguo9fqZqLevH82MfZrxywuCTLeFN3E-7A',
+    ctx,
+  );
+  const data = await renewalAccessToken();
+  console.log(data);
+
   let user: IUser | undefined;
 
   axios.defaults.headers.common['Cookie'] = '';
@@ -106,6 +91,28 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   if (!user) {
     setAuthHeader(ctx);
   }
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const {
+        config,
+        response: { status },
+      } = error;
+      if (status === 401) {
+        if (error.response.data.code === 'expired') {
+          const originalRequest = config;
+          // refreshToken으로 accessToken 갱신
+          await renewalAccessToken();
+          // 401로 요청 실패했던 요청 새로운 토큰으로 재요청
+          return axios(originalRequest);
+        }
+      }
+      return Promise.reject(error);
+    },
+  );
 
   const appProps = await App.getInitialProps(appContext);
 

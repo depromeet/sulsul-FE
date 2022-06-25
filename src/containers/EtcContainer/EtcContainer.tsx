@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQueryClient } from 'react-query';
+import { removeCookies } from 'cookies-next';
 
 import Header, { HEADER_HEIGHT } from '@/components/Header';
 import Modal from '@/components/Modal';
@@ -24,6 +25,7 @@ const EtcContainer = () => {
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => {
     queryClient.clear();
+    removeCookies('accessToken');
     router.push(`${BASE_URL}/logout`);
   };
   const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
