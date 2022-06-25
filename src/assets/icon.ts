@@ -1,4 +1,5 @@
 export { ReactComponent as ArrowDown } from './arrow_down.svg';
+export { ReactComponent as ArrowRight } from './arrow_right.svg';
 export { ReactComponent as AirPlaneLoading } from './airplane_loading.svg';
 export { ReactComponent as Check } from './check.svg';
 export { ReactComponent as CheckCircleOutline } from './check_circle_outline.svg';
@@ -50,7 +51,7 @@ export { ReactComponent as Next } from './next.svg';
 export { ReactComponent as PlusCircle } from './plus_circle.svg';
 export { ReactComponent as ThreeDot } from './three_dot.svg';
 export { ReactComponent as ArrowLeft } from './arrow_left.svg';
-export { ReactComponent as ArrowRight } from './arrow_right.svg';
+export { ReactComponent as ChevronRight } from './chevron_right.svg';
 export { ReactComponent as Level1 } from './level1.svg';
 export { ReactComponent as Level2 } from './level2.svg';
 export { ReactComponent as Level3 } from './level3.svg';

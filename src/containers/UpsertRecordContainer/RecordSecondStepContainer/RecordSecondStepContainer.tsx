@@ -118,7 +118,7 @@ const RecordSecondStepContainer: React.FC<RecordSecondStepContainerProps> = ({
           <FormSubmitButton
             type="primary"
             htmlType="submit"
-            rightAddon={<Icon name="ArrowRight" />}
+            rightAddon={<Icon name="ChevronRight" />}
             iconMargin={4}
             autoDisabled
           >
