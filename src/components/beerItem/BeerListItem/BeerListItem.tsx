@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 import { IBeer } from '@/apis';
 import Emoji from '@/components/Emoji';
-import BeerImageMasking from '@/components/commons/BeerImageMasking';
 import { ellipsis } from '@/styles/common';
 import { LikeBeerToggleButton } from '@/components/Header/extras';
 
@@ -37,9 +36,7 @@ const BeerListItem = (props: Props) => {
       <LikeBeerToggleButtonWrapper>
         <LikeBeerToggleButton isLiked={isLiked} id={id} />
       </LikeBeerToggleButtonWrapper>
-      <StyledBeerImageMasking width="9%">
-        <BeerImage src={imageUrl} />
-      </StyledBeerImageMasking>
+      <BeerImage src={imageUrl} />
       <TextContainer>
         <BeerName>{nameKor}</BeerName>
         <BeerInfo>
@@ -92,15 +89,12 @@ const StyledEmoji = styled.div`
   transform: translateY(-50%);
 `;
 
-const StyledBeerImageMasking = styled(BeerImageMasking)`
-  margin: 0 14px;
-`;
-
 const BeerImage = styled.img`
-  width: 100%;
+  width: 25px;
   height: auto;
   max-height: 100%;
   object-fit: contain;
+  margin: 0 14px;
 `;
 
 const TextContainer = styled.div`

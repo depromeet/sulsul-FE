@@ -27,9 +27,7 @@ const BeerDetail = ({ beerData }: Props) => {
         </BeerNameWrapper>
       </TitleAndIconContainer>
       <InfoAndBeerImage>
-        <BeerImageMaskingWrapper>
-          <BeerImage src={imageUrl} />
-        </BeerImageMaskingWrapper>
+        <BeerImage src={imageUrl} />
         <InfoTableWrapper>
           {beerInfo.map(({ title, content }) => (
             <InfoTable key={title}>
@@ -111,15 +109,7 @@ const Content = styled.p`
 `;
 
 const BeerImage = styled.img`
-  width: auto;
-  height: 100%;
-`;
-
-const BeerImageMaskingWrapper = styled.div`
-  width: 90px;
-  aspect-ratio: 1 / 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 70px;
+  height: auto;
   margin-right: 30px;
 `;
