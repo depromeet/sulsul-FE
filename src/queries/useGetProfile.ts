@@ -4,7 +4,7 @@ import { getProfile, IProfile } from '@/apis';
 
 export const useGetProfile = (initialData?: IProfile) => {
   const result = useQuery(['profile'], () => getProfile(), {
-    cacheTime: 60 * 60 * 1000, // 60 minutes
+    cacheTime: 5 * 60 * 1000, // 5 minutes
     initialData: initialData ? initialData : undefined,
   });
 
