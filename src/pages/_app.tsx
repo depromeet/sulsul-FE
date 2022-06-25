@@ -5,9 +5,9 @@ import type { AppProps, AppContext } from 'next/app';
 import { QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
-import { getUser, IUser } from '@/apis/user';
+import { getUser, IUser, refreshTokenUseHeader } from '@/apis/user';
 import { $userSession } from '@/recoil/atoms';
 import { initAxiosConfig } from '@/configs/axios';
 import awesome from '@/utils/awesome';
@@ -17,7 +17,6 @@ import queryClient from '@/configs/queryClient';
 import MainLayout from '@/components/layouts/MainLayout';
 import ErrorBoundary, { ErrorPage } from '@/components/ErrorBoundary';
 import { setAuthHeader } from '@/utils/auth';
-import { IBeer } from '@/apis';
 
 awesome();
 initAxiosConfig();
@@ -39,6 +38,33 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
       },
     [userSession],
   );
+
+  useEffect(() => {
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      async (error) => {
+        const {
+          config,
+          response: { status },
+        } = error;
+        if (status === 419) {
+          if (error.response.data.code === 'expired') {
+            const originalRequest = config;
+            const _refreshToken = undefined;
+            // token refresh 요청
+            await refreshTokenUseHeader(); // token refresh api
+            // 새로운 accessToken 저장
+            //originalRequest.headers.authorization = `Bearer ${data.data.accessToken}`;
+            // 419로 요청 실패했던 요청 새로운 토큰으로 재요청
+            return axios(originalRequest);
+          }
+        }
+        return Promise.reject(error);
+      },
+    );
+  }, []);
 
   return (
     <ErrorBoundary fallback={<ErrorPage />}>
@@ -68,6 +94,7 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
+  console.log(cookie);
   let user: IUser | undefined;
 
   axios.defaults.headers.common['Cookie'] = '';
