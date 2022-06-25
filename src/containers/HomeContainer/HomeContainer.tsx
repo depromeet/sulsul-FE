@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
 import React from 'react';
 import styled from '@emotion/styled';
@@ -19,9 +20,6 @@ import Button from '@/components/commons/Button';
 import { useGetMyRecords } from '@/queries';
 import HomeBeerTicket from '@/components/HomeBeerTicket';
 import { PAGE_TITLES } from '@/constants';
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 const StyledHomeContainer = styled.div`
   & > header {
@@ -79,6 +77,18 @@ const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myReco
 
   return (
     <StyledHomeContainer>
+      <Head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+      </Head>
       <header>
         <Icon name="Logo" width="80px" height="17.11px" />
       </header>
