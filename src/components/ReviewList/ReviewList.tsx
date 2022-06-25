@@ -9,10 +9,14 @@ interface Props {
 }
 
 const ReviewList = ({ recordsByBeer, lastItemRef }: Props) => {
+  if (!recordsByBeer?.length) {
+    return null;
+  }
+
   return (
     <StyledReviewList>
       <ThisBeer>이 맥주는 어땠냐면,</ThisBeer>
-      {recordsByBeer?.map((review, idx) => (
+      {recordsByBeer.map((review, idx) => (
         <ReviewListItem
           review={review}
           key={review.id}
