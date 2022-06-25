@@ -123,8 +123,12 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
         <BeerContent>{content}</BeerContent>
         <Top3BeerFlavorList beerFlavor={beerFlavor} />
       </section>
-      <HorizontalDivider />
-      {recordsByBeer && <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />}
+      {!!recordsByBeer?.length && (
+        <>
+          <HorizontalDivider />
+          <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
+        </>
+      )}
       {hasNextPage && <LoadingIcon ref={ref} />}
       <BottomFloatingButtonArea
         button={
