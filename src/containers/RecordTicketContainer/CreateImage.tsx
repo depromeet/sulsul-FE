@@ -24,7 +24,6 @@ const CreateImage = ({ record, className }: Props, ref: Ref<CreateImageRef>) => 
   const containerRef = useRef<null | HTMLDivElement>(null);
   const canvasRef = useRef<null | HTMLCanvasElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [isCreateContainerOpen, setIsCreateContainerOpen] = useState(true);
 
   useImperativeHandle(ref, () => ({
     create,
@@ -79,6 +78,10 @@ const CreateImage = ({ record, className }: Props, ref: Ref<CreateImageRef>) => 
     }
   }, [imageSrc]);
 
+  const handleClose = useCallback(() => {
+    setImageSrc(null);
+  }, []);
+
   return (
     <>
       {/* NOTE: inline style로 넣어야 htmlToCnavas가 숨김 상태로 동작. css X */}
@@ -86,8 +89,8 @@ const CreateImage = ({ record, className }: Props, ref: Ref<CreateImageRef>) => 
         <BeerTicket record={record} />
       </Container>
 
-      {imageSrc && isCreateContainerOpen && (
-        <CreatedContainer className={className} onClick={() => setIsCreateContainerOpen(false)}>
+      {imageSrc !== null && (
+        <CreatedContainer className={className} onClick={handleClose}>
           <img src={imageSrc} alt="created-beer-ticket-image" />
           {os === 'ios' && <Button onClick={download}>이미지를 꾹 눌러 저장해보세요</Button>}
           {(os === 'android' || os === 'web') && <Button onClick={download}>다운로드</Button>}
