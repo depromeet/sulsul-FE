@@ -46,7 +46,9 @@ const SignUpContainer = () => {
   const { mutateAsync: updateUserMutation } = useUpdateUser();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (nickname.length > 15) return;
+    if (e.target.value?.length > 15) {
+      return;
+    }
 
     setNickname(e.target.value);
   };
