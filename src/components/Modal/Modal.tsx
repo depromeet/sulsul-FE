@@ -15,14 +15,24 @@ interface ModalProps {
   description?: string | ReactNode;
   withCloseButton?: boolean;
   noMoreSee?: boolean;
+  disabledDimClick?: boolean;
 }
 
 const Modal = (props: ModalProps) => {
-  const { closeModal, open, buttons, header, title, description, withCloseButton, noMoreSee } =
-    props;
+  const {
+    closeModal,
+    open,
+    buttons,
+    header,
+    title,
+    description,
+    withCloseButton,
+    noMoreSee,
+    disabledDimClick,
+  } = props;
 
   return (
-    <ModalLayout open={open} onClose={closeModal}>
+    <ModalLayout open={open} {...(!disabledDimClick && { onClose: closeModal })}>
       <StyledModal open={open}>
         <Header>
           {withCloseButton ? (
@@ -59,14 +69,14 @@ const StyledModal = styled.div<{ open: boolean }>`
   background-color: ${(p) => p.theme.color.white};
 
   ${(p) => !p.open && `display:none;`}
-
-  > p {
-    height: 3rem;
-  }
 `;
 
 const Header = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  padding: 14px;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
@@ -77,20 +87,17 @@ const Header = styled.div`
 
 const Title = styled.p`
   width: 100%;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
+  margin: 46px 0 8px 0;
   text-align: center;
   color: #323232;
+  ${(p) => p.theme.fonts.SubTitle2};
 `;
 
 const Description = styled.p`
   width: 100%;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
   text-align: center;
   color: ${({ theme }) => theme.color.grey4};
+  ${(p) => p.theme.fonts.Body1};
 `;
 
 const ButtonContainer = styled.div`
@@ -98,7 +105,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 13px;
-  margin-bottom: 10px;
+  margin: 30px 0 10px 0;
 `;
 
 const NoMoreSee = styled.div`

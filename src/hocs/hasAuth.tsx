@@ -14,7 +14,7 @@ const hasAuth =
     const userSession = useRecoilValue($userSession);
 
     if (!userSession) {
-      return <LoginRequestModal isOpen={isOpen} onClose={close} />;
+      return <LoginRequestModal isOpen={isOpen} onClose={close} disabledDimClick />;
     }
 
     return <Component {...props} />;

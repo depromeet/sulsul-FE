@@ -204,7 +204,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
           type="primary"
           htmlType="submit"
           onClick={onMoveNext}
-          rightAddon={<Icon name="ArrowRight" />}
+          rightAddon={<Icon name="ChevronRight" />}
           iconMargin={4}
           autoDisabled
         >
