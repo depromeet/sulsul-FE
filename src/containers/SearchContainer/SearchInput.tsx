@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useSearchHistory } from '@/hooks';
 import Icon from '@/components/commons/Icon';
 
+const PLACEHOLDER_TEXT = '맥주 이름, 특징 검색';
 interface SearchInputProps {
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
@@ -23,6 +24,10 @@ const StyledSearchInput = styled.div`
       color: ${({ theme }) => theme.color.white};
       padding: 20px 10px;
       width: 100%;
+
+      &::placeholder {
+        ${({ theme }) => theme.color.whiteOpacity35};
+      }
     }
   }
 `;
@@ -51,7 +56,13 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchText, setSearchText }) 
   return (
     <StyledSearchInput onSubmit={handleSubmit}>
       <form onSubmit={handleSubmit}>
-        <input type="text" className="search-input" onChange={handleChange} value={searchText} />
+        <input
+          type="text"
+          className="search-input"
+          onChange={handleChange}
+          value={searchText}
+          placeholder={PLACEHOLDER_TEXT}
+        />
       </form>
       {searchText && (
         <button onClick={handleReset}>
