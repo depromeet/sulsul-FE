@@ -7,7 +7,7 @@ const TeamContainer = () => {
   return (
     <StyledTeamContainer>
       <Header leftExtras={<BackButton />}>팀원 소개</Header>
-      <img src="https://ifh.cc/g/RPsLAD.png" width="100%" height="auto" alt="프론트삼대장"/>
+      <img src="images/beerair_member.png" width="100%" height="auto" alt="비어에어멤버" />
     </StyledTeamContainer>
   );
 };
