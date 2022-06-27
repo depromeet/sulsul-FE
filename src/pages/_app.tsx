@@ -72,7 +72,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   // NOTE: 개발환경에서는 이 곳에 자신의 토큰을 넣어주세요
   // setCookies(
   //   'accessToken',
-  //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjU2MTgwMDM2LCJleHAiOjE2NTYyNjY0MzZ9.eBZ4otp-YlurqKHt3QMCAocjSpxOBj64XXuuWVXsHeFG3hohYFMb3WNcrz4HjbklY1_ADHkj_UFQegN77i1uoA',
+  //   '이곳에 토큰을 넣어주세요',
   //   ctx,
   // );
 
