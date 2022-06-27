@@ -1,12 +1,14 @@
 import React, { forwardRef, Ref } from 'react';
 import styled from '@emotion/styled';
 import { parseISO } from 'date-fns';
+import { useRecoilValue } from 'recoil';
 
 import Emoji from '@/components/Emoji';
 import MeBadge from '@/components/commons/MeBadge';
 import Badge from '@/components/commons/Badge';
 import { IRecordsByBeer } from '@/apis/record';
 import { formatDateDiff } from '@/utils/formatDateDiff';
+import { $userSession } from '@/recoil/atoms';
 
 export interface ReviewListItemProps {
   review: IRecordsByBeer;
@@ -17,13 +19,15 @@ const ReviewListItem = (props: ReviewListItemProps, ref: Ref<HTMLDivElement>) =>
     review: { content, feel, memberRecordDto, createdAt, flavorDtos },
   } = props;
 
+  const user = useRecoilValue($userSession);
+
   return (
     <StyledReview border={true} ref={ref}>
       <StyledEmoji feel={feel} />
       <ReviewWrapper>
         <UserAndDate>
           <User>
-            <MeBadge />
+            {user?.nickname === memberRecordDto.name && <MeBadge />}
             {memberRecordDto.name}
           </User>
           {!!createdAt && <Date>{formatDateDiff(parseISO(createdAt))}</Date>}
