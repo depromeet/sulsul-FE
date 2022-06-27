@@ -98,13 +98,11 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
         response: { status },
       } = error;
       if (status === 401) {
-        if (error.response.data.code === 'expired') {
-          const originalRequest = config;
-          // refreshToken으로 accessToken 갱신
-          await refreshAccessToken();
-          // 401로 요청 실패했던 요청 새로운 토큰으로 재요청
-          return axios(originalRequest);
-        }
+        const originalRequest = config;
+        // refreshToken으로 accessToken 갱신
+        await refreshAccessToken();
+        // 401로 요청 실패했던 요청 새로운 토큰으로 재요청
+        return axios(originalRequest);
       }
       return Promise.reject(error);
     },
