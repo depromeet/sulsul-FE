@@ -6,8 +6,9 @@ import { QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
 import { useMemo } from 'react';
+import { setCookies } from 'cookies-next';
 
-import { getUser, IUser } from '@/apis/user';
+import { getUser, IUser, refreshAccessToken } from '@/apis/user';
 import { $userSession } from '@/recoil/atoms';
 import { initAxiosConfig } from '@/configs/axios';
 import awesome from '@/utils/awesome';
@@ -67,6 +68,14 @@ function MyApp({ Component, pageProps, userSession }: MyAppProps) {
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
+
+  // NOTE: 개발환경에서는 이 곳에 자신의 토큰을 넣어주세요
+  // setCookies(
+  //   'accessToken',
+  //   '이곳에 토큰을 넣어주세요',
+  //   ctx,
+  // );
+
   let user: IUser | undefined;
 
   axios.defaults.headers.common['Cookie'] = '';
@@ -78,6 +87,26 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   if (!user) {
     setAuthHeader(ctx);
   }
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const {
+        config,
+        response: { status },
+      } = error;
+      if (status === 401) {
+        const originalRequest = config;
+        // refreshToken으로 accessToken 갱신
+        await refreshAccessToken();
+        // 401로 요청 실패했던 요청 새로운 토큰으로 재요청
+        return axios(originalRequest);
+      }
+      return Promise.reject(error);
+    },
+  );
 
   const appProps = await App.getInitialProps(appContext);
 
