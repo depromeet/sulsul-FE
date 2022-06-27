@@ -84,6 +84,10 @@ const StyledBottomFloatingButtonArea = styled(BottomFloatingButtonArea)`
   left: 200vw;
   justify-content: space-between;
   padding: 0 20px;
+
+  @media (min-width: 768px) {
+    left: 1536px;
+  }
 `;
 
 const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
