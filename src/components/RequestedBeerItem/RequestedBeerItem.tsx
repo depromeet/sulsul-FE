@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { format, parseISO } from 'date-fns';
-import { ko } from 'date-fns/locale';
 
 import Icon from '../commons/Icon';
 
@@ -150,9 +149,10 @@ const RequestedBeerItem: React.FC<RequestedBeerItemProps> = ({
               <Icon name="CheckCircleOutline" color="black100" size={24} />
               <p>
                 {!!requestCompletedAt &&
-                  `${format(parseISO(requestCompletedAt), 'yyyy.MM.dd', {
-                    locale: ko,
-                  })} 기준 등록 반려되었습니다.\n`}
+                  `${format(
+                    parseISO(requestCompletedAt),
+                    'yyyy.MM.dd',
+                  )} 기준 등록 반려되었습니다.\n`}
                 {requestRejectionReason || DEFAULT_REQUEST_REJECTION_REASON}
               </p>
             </>

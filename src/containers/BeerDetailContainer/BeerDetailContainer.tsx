@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { NextSeo } from 'next-seo';
 
 import LoadingIcon from '@/components/LoadingIcon';
 import BeerDetail from '@/components/BeerDetail';
@@ -92,54 +93,63 @@ const BeerDetailContainer: NextPage<BeerDetailContainerProps> = ({
   const { country, nameKor, startCountry, endCountry, content, isLiked } = beer;
 
   return (
-    <StyledBeerDetailPage>
-      <Header
-        leftExtras={<StyledBackButton isScrolled={isScrolled} />}
-        rightExtras={
-          <>
-            <ShareButton
-              onClick={() =>
-                share({
-                  title: `[비어에어] 같이 떠나요!`,
-                  text: `‘${nameKor}’ 이 맥주가 궁금하신가요? 지금 바로 비어에어에서 확인해 보세요!`,
-                  url: window.location.href,
-                })
-              }
-            />
-            <LikeBeerToggleButton isLiked={isLiked} id={beerId} />
-          </>
-        }
-        isTransparent={isTransparent}
-      >
-        {nameKor}
-      </Header>
-      <ToastContainer />
-      <BackgroundImage isScrolled={isScrolled}>
-        <img src={country?.backgroundImageUrl} alt={country?.nameKor} />
-      </BackgroundImage>
-      <section className="container">
-        <BeerDetail beerData={beer} />
-        <AirPort startCountry={startCountry} endCountry={endCountry} />
-        <BeerContent>{content}</BeerContent>
-        <Top3BeerFlavorList beerFlavor={beerFlavor} />
-      </section>
-      {!!recordsByBeer?.length && (
-        <>
-          <HorizontalDivider />
-          <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
-        </>
-      )}
-      {hasNextPage && <LoadingIcon ref={ref} />}
-      <BottomFloatingButtonArea
-        button={
-          <Link href={`/record/create/${beerId}`} passHref>
-            <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
-              기록하기
-            </Button>
-          </Link>
-        }
+    <>
+      <NextSeo
+        openGraph={{
+          title: '[비어에어] 같이 떠나요!',
+          description: '비어에어와 함께 세계 맥주를 정복해 보세요!',
+          images: [{ url: 'images/beerair_og.png', width: 1200, height: 600, alt: '비어에어' }],
+        }}
       />
-    </StyledBeerDetailPage>
+      <StyledBeerDetailPage>
+        <Header
+          leftExtras={<StyledBackButton isScrolled={isScrolled} />}
+          rightExtras={
+            <>
+              <ShareButton
+                onClick={() =>
+                  share({
+                    title: `[비어에어] 같이 떠나요!`,
+                    text: `‘${nameKor}’ 이 맥주가 궁금하신가요? 지금 바로 비어에어에서 확인해 보세요!`,
+                    url: window.location.href,
+                  })
+                }
+              />
+              <LikeBeerToggleButton isLiked={isLiked} id={beerId} />
+            </>
+          }
+          isTransparent={isTransparent}
+        >
+          {nameKor}
+        </Header>
+        <ToastContainer />
+        <BackgroundImage isScrolled={isScrolled}>
+          <img src={country?.backgroundImageUrl} alt={country?.nameKor} />
+        </BackgroundImage>
+        <section className="container">
+          <BeerDetail beerData={beer} />
+          <AirPort startCountry={startCountry} endCountry={endCountry} />
+          <BeerContent>{content}</BeerContent>
+          <Top3BeerFlavorList beerFlavor={beerFlavor} />
+        </section>
+        {!!recordsByBeer?.length && (
+          <>
+            <HorizontalDivider />
+            <ReviewList recordsByBeer={recordsByBeer} lastItemRef={ref} />
+          </>
+        )}
+        {hasNextPage && <LoadingIcon ref={ref} />}
+        <BottomFloatingButtonArea
+          button={
+            <Link href={`/record/create/${beerId}`} passHref>
+              <Button type="primary" width="244px" rightAddon={<Icon name="FlightTakeOff" />}>
+                기록하기
+              </Button>
+            </Link>
+          }
+        />
+      </StyledBeerDetailPage>
+    </>
   );
 };
 
@@ -198,6 +208,7 @@ const BackgroundImage = styled.div<{ isScrolled: boolean }>`
 const BeerContent = styled.p`
   ${({ theme }) => theme.fonts.Body5};
   color: ${({ theme }) => theme.color.grey1};
+  text-align: center;
 `;
 
 const HorizontalDivider = styled.div`
