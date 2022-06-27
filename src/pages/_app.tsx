@@ -6,7 +6,7 @@ import { QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
 import { useMemo } from 'react';
-import { setCookies, removeCookies } from 'cookies-next';
+import { setCookies } from 'cookies-next';
 
 import { getUser, IUser, refreshAccessToken } from '@/apis/user';
 import { $userSession } from '@/recoil/atoms';
@@ -69,7 +69,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
 
-  // 개발환경에서는 자신의 토큰을 넣어주세요
+  // NOTE: 개발환경에서는 이 곳에 자신의 토큰을 넣어주세요
   // setCookies(
   //   'accessToken',
   //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjU2MTgwMDM2LCJleHAiOjE2NTYyNjY0MzZ9.eBZ4otp-YlurqKHt3QMCAocjSpxOBj64XXuuWVXsHeFG3hohYFMb3WNcrz4HjbklY1_ADHkj_UFQegN77i1uoA',
