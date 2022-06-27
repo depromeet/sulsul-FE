@@ -8,7 +8,7 @@ import { NextSeo } from 'next-seo';
 import { useMemo } from 'react';
 import { setCookies, removeCookies } from 'cookies-next';
 
-import { getUser, IUser, renewalAccessToken } from '@/apis/user';
+import { getUser, IUser, refreshAccessToken } from '@/apis/user';
 import { $userSession } from '@/recoil/atoms';
 import { initAxiosConfig } from '@/configs/axios';
 import awesome from '@/utils/awesome';
@@ -69,16 +69,12 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
 
-  removeCookies('accessToken', ctx);
-  //removeCookies('refreshToken', ctx);
   // 개발환경에서는 자신의 토큰을 넣어주세요
   setCookies(
     'accessToken',
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjU2MTUyODc2LCJleHAiOjE2NTYyMzkyNzZ9.i_KV_nKe7-8mVhZnO9ZOCGHe3xriYWceNnfd2H_H5bDwANBtfAEbBguo9fqZqLevH82MfZrxywuCTLeFN3E-7A',
+    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjU2MTgwMDM2LCJleHAiOjE2NTYyNjY0MzZ9.eBZ4otp-YlurqKHt3QMCAocjSpxOBj64XXuuWVXsHeFG3hohYFMb3WNcrz4HjbklY1_ADHkj_UFQegN77i1uoA',
     ctx,
   );
-  const data = await renewalAccessToken();
-  console.log(data);
 
   let user: IUser | undefined;
 
@@ -105,7 +101,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
         if (error.response.data.code === 'expired') {
           const originalRequest = config;
           // refreshToken으로 accessToken 갱신
-          await renewalAccessToken();
+          await refreshAccessToken();
           // 401로 요청 실패했던 요청 새로운 토큰으로 재요청
           return axios(originalRequest);
         }

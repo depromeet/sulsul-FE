@@ -11,10 +11,14 @@ import Button from '@/components/commons/Button';
 import { BackButton } from '@/components/Header/extras';
 import { BASE_URL } from '@/configs/axios';
 import { useDeleteUser } from '@/queries';
+import { useGtagPageView } from '@/hooks';
+import { PAGE_TITLES } from '@/constants';
+import { openFailToast, openSuccessToast } from '@/utils/toast';
 
 const EtcContainer = () => {
-  const queryClient = useQueryClient();
+  useGtagPageView(PAGE_TITLES.ETC);
 
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const { mutateAsync: deleteUserMutation } = useDeleteUser();
@@ -25,16 +29,22 @@ const EtcContainer = () => {
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => {
     queryClient.clear();
-    removeCookies('accessToken');
-    router.push(`${BASE_URL}/logout`);
+    removeCookies('accessToken', { path: '/', domain: 'https://beerair.kr' });
+    removeCookies('refreshToken', { path: '/', domain: 'https://beerair.kr' });
+    openSuccessToast({ message: '로그아웃 되었습니다.' });
+    router.push(`${BASE_URL}`);
   };
   const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
   const closeWithdrawalModal = async () => {
     setIsWithdrawalModalOpen(false);
     try {
       await deleteUserMutation();
-      alert('회원탈퇴 되었습니다');
+      removeCookies('accessToken', { path: '/', domain: 'https://beerair.kr' });
+      removeCookies('refreshToken', { path: '/', domain: 'https://beerair.kr' });
+      openSuccessToast({ message: '회원탈퇴 되었습니다.' });
+      router.push(`${BASE_URL}`);
     } catch (error) {
+      openFailToast({ message: '회원탈퇴에 실패하였습니다.' });
       console.error(error);
     }
   };
