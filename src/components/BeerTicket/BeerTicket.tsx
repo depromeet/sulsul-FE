@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { format, parseISO } from 'date-fns';
-import { ko } from 'date-fns/locale';
 
 import StyledBeerTicketField from './BeerTicketField';
 import BeerTicketFlight from './BeerTicketFlight';
@@ -128,10 +127,10 @@ const BeerTicket: React.FC<BeerTicketProps> = ({
       </section>
       <section className="beer-ticket-middle ticket-has-dashed-border">
         <StyledBeerTicketField title="date" className="beer-ticket-date">
-          {format(parseISO(record.createdAt), 'dd/LLL/yyyy', { locale: ko })}
+          {format(parseISO(record.createdAt), 'dd/LLL/yyyy')}
         </StyledBeerTicketField>
         <StyledBeerTicketField title="boarding time" className="beer-ticket-date">
-          {format(parseISO(record.createdAt), 'p', { locale: ko })}
+          {format(parseISO(record.createdAt), 'p')}
         </StyledBeerTicketField>
         {type === 'stamp' && (
           <>
