@@ -45,6 +45,10 @@ const StyledRecordSecondStepContainer = styled.div`
     left: 100vw;
     justify-content: space-between;
     padding: 0 20px;
+
+    @media (min-width: 768px) {
+      left: 768px;
+    }
   }
 
   & .button-inner {
