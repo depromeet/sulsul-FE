@@ -12,6 +12,7 @@ interface HomeSearchBarProps {
 const StyledHomeSearchBar = styled.button`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   ${({ theme }) => theme.fonts.Body1};
   background-color: ${({ theme }) => theme.color.whiteOpacity20};
   width: 100%;
