@@ -6,6 +6,8 @@
 
 여행사 비어에어입니다 🛫
 
+<br/>
+
 ## 🍻 Intro: 서비스 소개
 
 ![intro2](https://user-images.githubusercontent.com/39763891/175971803-95e2b5ab-e03e-4cf4-abda-d65a3c845aa4.png)
@@ -26,6 +28,9 @@
 
 마신 맥주의 맛을 간편히 기록해보세요!
 
+<br/>
+
+
 ## 🌟 Key Features: 주요 기능 소개
 
 ![key-features](https://user-images.githubusercontent.com/39763891/175976419-6b45f520-c5b1-4e21-bf87-f3c2f4526874.png)
@@ -42,9 +47,13 @@
 
 간편하게 기록하고, 여행 티켓처럼 컨셉에 맞게 보관된다면, 기록하고 공유하는 과정에서 흥미를 느낄 수 있습니다.
 
+<br/>
+
 ## 👤 Userflow: 유저플로우
 
 ![userflow](https://user-images.githubusercontent.com/39763891/175976432-14920db5-e476-42ef-bf79-c11085bbdf8d.png)
+
+<br/>
 
 ## 📱 Pages: 주요 화면 소개
 
@@ -86,6 +95,8 @@
 
 ![MyBeerTour](https://user-images.githubusercontent.com/39763891/175993608-a7d17ef3-82c0-4de3-b77a-493f08c7e267.png)
 
+<br/>
+
 ## 🛠 Skills: 개발환경 및 기술스택
 
 ![개발환경및기술스택](https://user-images.githubusercontent.com/39763891/175996836-ea8a83b4-32c4-4315-906b-d06624ee34db.png)
@@ -104,6 +115,8 @@
 <img alt="Storybook" src="https://img.shields.io/badge/-GoogleAnalytics-E37400?style=flat-square&logo=googleanalytics&logoColor=white" />
 
 </p>
+
+<br/>
 
 ## 👨‍👩‍👧‍👦 Owner: 팀원 소개
 
