@@ -32,7 +32,7 @@ const EtcContainer = () => {
     removeCookies('accessToken', { path: '/', domain: 'https://beerair.kr' });
     removeCookies('refreshToken', { path: '/', domain: 'https://beerair.kr' });
     openSuccessToast({ message: '로그아웃 되었습니다.' });
-    router.push(`${BASE_URL}`);
+    router.push(`${BASE_URL}/logout`);
   };
   const openWithdrawalModal = () => setIsWithdrawalModalOpen(true);
   const closeWithdrawalModal = async () => {
