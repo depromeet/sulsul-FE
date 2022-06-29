@@ -11,6 +11,7 @@ import {
   $beerListSortBy,
   BEER_LIST_FILTER_ATOM_KEY,
   BEER_LIST_SORT_BY_ATOM_KEY,
+  DEFAULT_BEER_LIST_SORT_BY,
 } from './recoil/atoms';
 
 import BeerListPageHeader from '@/components/BeerListPageHeader';
@@ -18,7 +19,7 @@ import BeerListFilterAndSorter from '@/components/BeerListFilterAndSorter';
 import BeerListSearchResult from '@/components/BeerSearchResultList';
 import BottomNavigation from '@/components/BottomNavigation';
 import { useGetBeersCount, useGetBeers } from '@/queries';
-import { getBeers, IGetBeersResponseData } from '@/apis';
+import { EBeerSortBy, getBeers, IGetBeersResponseData } from '@/apis';
 import { useGtagPageView } from '@/hooks';
 import { PAGE_TITLES } from '@/constants';
 import LoadingIcon from '@/components/LoadingIcon';
@@ -70,17 +71,23 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (context.query) {
+    const query = isNil(context.query.query) ? undefined : decodeURI(String(context.query.query));
     const filter = context.query[BEER_LIST_FILTER_ATOM_KEY]
       ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
       : undefined;
     const sortBy = context.query[BEER_LIST_SORT_BY_ATOM_KEY]
-      ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '')]
+      ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '') as EBeerSortBy]
       : undefined;
+
+    const payload = {
+      ...(query ? { query } : {}),
+      ...(filter ? { filter } : {}),
+      sortBy: sortBy || [DEFAULT_BEER_LIST_SORT_BY],
+    };
 
     const beersData = await getBeers({
       payload: {
-        ...(filter ? filter : {}),
-        ...(sortBy ? sortBy : {}),
+        ...payload,
         limit: 21,
       },
       /** @todo auth */
