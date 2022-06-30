@@ -1,19 +1,42 @@
 import axios from 'axios';
+import { setCookies } from 'cookies-next';
+import { NextPageContext } from 'next';
 
 import { IBaseResponse } from '..';
 import { IUser } from './user';
+import { refreshAccessToken } from './refresh-access-token';
 
 interface IGetUserResponse extends IBaseResponse<IUser> {}
 
 /**
  * 국가 목록 조회
  */
-export const getUser = async () => {
+export const getUser = async (ctx?: NextPageContext) => {
   try {
     const res = await axios.get<IGetUserResponse>('/api/v1/members');
     return res.data.contents;
   } catch (error) {
-    console.error(error);
-    return undefined;
+    if (!ctx) {
+      return undefined;
+    }
+
+    const res = await refreshAccessToken();
+
+    if (!res?.contents) {
+      return;
+    }
+
+    const { accessToken, responseToken } = res.contents;
+
+    setCookies('accessToken', accessToken, ctx);
+    setCookies('responseToken', responseToken, ctx);
+    axios.defaults.headers.common['Cookie'] = `accessToken=${accessToken}`;
+
+    try {
+      const res = await axios.get<IGetUserResponse>('/api/v1/members');
+      return res.data.contents;
+    } catch (error) {
+      return undefined;
+    }
   }
 };

@@ -10,7 +10,7 @@ import { setCookies } from 'cookies-next';
 
 import { getUser, IUser, refreshAccessToken } from '@/apis/user';
 import { $userSession } from '@/recoil/atoms';
-import { initAxiosConfig } from '@/configs/axios';
+import { initAxiosConfig, initAxiosRefreshConfig } from '@/configs/axios';
 import awesome from '@/utils/awesome';
 import mutedConsole from '@/utils/muteConsole';
 import { theme, GlobalStyle } from '@/themes';
@@ -18,9 +18,14 @@ import queryClient from '@/configs/queryClient';
 import MainLayout from '@/components/layouts/MainLayout';
 import ErrorBoundary, { ErrorPage } from '@/components/ErrorBoundary';
 import { setAuthHeader } from '@/utils/auth';
+import { isServer } from '@/utils/isServer';
 
-awesome();
 initAxiosConfig();
+awesome();
+
+if (!isServer()) {
+  initAxiosRefreshConfig();
+}
 
 // ignore in-browser next/js recoil warnings until its fixed.
 global.console = mutedConsole(global.console);
@@ -69,12 +74,9 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const { ctx } = appContext;
   const cookie = ctx.req ? ctx.req.headers.cookie : null;
 
-  // NOTE: 개발환경에서는 이 곳에 자신의 토큰을 넣어주세요
-  // setCookies(
-  //   'accessToken',
-  //   '이곳에 토큰을 넣어주세요',
-  //   ctx,
-  // );
+  if (process.env.NEXT_PUBLIC_LOCAL_TOKEN) {
+    setCookies('accessToken', process.env.NEXT_PUBLIC_LOCAL_TOKEN, ctx);
+  }
 
   let user: IUser | undefined;
 
@@ -82,31 +84,11 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   if (cookie) {
     axios.defaults.headers.common['Cookie'] = cookie;
 
-    user = await getUser();
+    user = await getUser(ctx);
   }
   if (!user) {
     setAuthHeader(ctx);
   }
-
-  axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    async (error) => {
-      const {
-        config,
-        response: { status },
-      } = error;
-      if (status === 401) {
-        const originalRequest = config;
-        // refreshToken으로 accessToken 갱신
-        await refreshAccessToken();
-        // 401로 요청 실패했던 요청 새로운 토큰으로 재요청
-        return axios(originalRequest);
-      }
-      return Promise.reject(error);
-    },
-  );
 
   const appProps = await App.getInitialProps(appContext);
 
