@@ -29,8 +29,8 @@ const EtcContainer = () => {
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => {
     queryClient.clear();
-    removeCookies('accessToken', { path: '/', domain: 'https://beerair.kr' });
-    removeCookies('refreshToken', { path: '/', domain: 'https://beerair.kr' });
+    removeCookies('accessToken', { path: '/', domain: '.beerair.kr' });
+    removeCookies('refreshToken', { path: '/', domain: '.beerair.kr' });
     openSuccessToast({ message: '로그아웃 되었습니다.' });
     router.push(`${BASE_URL}/logout`);
   };
@@ -39,8 +39,8 @@ const EtcContainer = () => {
     setIsWithdrawalModalOpen(false);
     try {
       await deleteUserMutation();
-      removeCookies('accessToken', { path: '/', domain: 'https://beerair.kr' });
-      removeCookies('refreshToken', { path: '/', domain: 'https://beerair.kr' });
+      removeCookies('accessToken', { path: '/', domain: '.beerair.kr' });
+      removeCookies('refreshToken', { path: '/', domain: '.beerair.kr' });
       openSuccessToast({ message: '회원탈퇴 되었습니다.' });
       router.push(`${BASE_URL}`);
     } catch (error) {
