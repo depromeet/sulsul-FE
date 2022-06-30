@@ -5,7 +5,7 @@ import { IBaseResponse } from '..';
 interface IRefreshAccessTokenResponse
   extends IBaseResponse<{
     accessToken: string;
-    responseToken: string;
+    refreshToken: string;
   }> {}
 
 /**

@@ -26,10 +26,10 @@ export const getUser = async (ctx?: NextPageContext) => {
       return;
     }
 
-    const { accessToken, responseToken } = res.contents;
+    const { accessToken, refreshToken } = res.contents;
 
     setCookies('accessToken', accessToken, ctx);
-    setCookies('responseToken', responseToken, ctx);
+    setCookies('refreshToken', refreshToken, ctx);
     axios.defaults.headers.common['Cookie'] = `accessToken=${accessToken}`;
 
     try {
