@@ -1,5 +1,3 @@
-import styled from '@emotion/styled';
-
 import Icon from '@/components/commons/Icon';
 
 const getEmoji = (feel?: number) => {
@@ -26,31 +24,7 @@ interface EmojiProps {
 const Emoji = (props: EmojiProps) => {
   const { feel, className, size = 36 } = props;
 
-  return (
-    <>
-      {feel !== null ? (
-        <Icon name={getEmoji(feel)} size={size} className={className} />
-      ) : (
-        <EmptyEmoji />
-      )}
-    </>
-  );
+  return <>{feel !== null && <Icon name={getEmoji(feel)} size={size} className={className} />}</>;
 };
 
 export default Emoji;
-
-const EmptyEmoji = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.3) 6.25%,
-    rgba(255, 255, 255, 0.1) 87.5%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
-`;
