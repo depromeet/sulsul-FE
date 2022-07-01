@@ -65,7 +65,7 @@ const StyledHomeContainer = styled.div`
 `;
 
 interface HomeContainerProps {
-  myRecordResponse: IGetMyRecordsResponseData;
+  myRecordResponse?: IGetMyRecordsResponseData;
 }
 
 const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myRecordResponse }) => {
@@ -168,12 +168,17 @@ const HomeContainer: NextPage<HomeContainerProps> = ({ myRecordResponse: _myReco
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (!hasAuthHeader(context)) {
+  try {
+    if (!hasAuthHeader(context)) {
+      return { props: {} };
+    }
+
+    const myRecordResponse = await getMyRecords();
+
+    return { props: { myRecordResponse } };
+  } catch (error) {
     return { props: {} };
   }
-  const myRecordResponse = await getMyRecords();
-
-  return { props: { myRecordResponse } };
 };
 
 export default HomeContainer;
