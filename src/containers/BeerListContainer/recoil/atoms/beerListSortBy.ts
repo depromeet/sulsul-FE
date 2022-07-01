@@ -18,8 +18,10 @@ export const beerListSortTypeTextAlias: Record<BeerListSortType, string> = {
   [EBeerSortBy.ALCOHOL_ASC]: '낮은 도수 순',
 };
 
+export const DEFAULT_BEER_LIST_SORT_BY = EBeerSortBy.RECORD_DESC;
+
 export const $beerListSortBy = atom<BeerListSortType>({
   key: BEER_LIST_SORT_BY_ATOM_KEY,
-  default: EBeerSortBy.RECORD_DESC,
+  default: DEFAULT_BEER_LIST_SORT_BY,
   effects: [urlSyncRecoilEffect(BEER_LIST_SORT_BY_ATOM_KEY)],
 });

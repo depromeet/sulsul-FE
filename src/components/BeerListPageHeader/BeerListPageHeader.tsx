@@ -66,7 +66,7 @@ const SearchBox = () => {
 
 const BeerListPageHeader = () => {
   return (
-    <Header leftExtras={<BackButton />} rightExtras={<BeerListViewToggleButton />}>
+    <Header rightExtras={<BeerListViewToggleButton />}>
       <SearchBox />
     </Header>
   );

@@ -12,9 +12,15 @@ export const useGetBeers = (
 ) => {
   const userSession = useRecoilValue($userSession);
 
+  const payload = {
+    ...(query ? { query } : {}),
+    ...(filter ? { filter } : {}),
+    ...(sortBy ? { sortBy } : {}),
+  };
+
   const initialPageParam: { payload: IGetBeersPayload; auth: boolean } = {
     payload: {
-      ...{ query, filter, sortBy },
+      ...payload,
       cursor: 0,
       limit: DEFAULT_LIMIT,
     },
@@ -22,7 +28,7 @@ export const useGetBeers = (
   };
 
   return useInfiniteScrollList<IGetBeersResponseData, { payload: IGetBeersPayload; auth: boolean }>(
-    ['beers', { query, filter, sortBy }],
+    ['beers', payload],
     getBeers,
     {
       cacheTime: Infinity,
