@@ -10,58 +10,36 @@ export const useToggleLikeBeer = () => {
     const previousBeersPageData = queryClient.getQueriesData<InfiniteData<IGetBeersResponseData>>([
       'beers',
     ]);
-    if (previousBeersPageData) {
-      queryClient.setQueriesData<[QueryKey, InfiniteData<IGetBeersResponseData>][]>(
-        ['beers'],
-        (data) => {
-          if (!data) {
-            return previousBeersPageData;
-          }
 
-          return data.map(([key, previousPageData]) => [
-            key,
-            {
-              ...previousPageData,
-              pages: previousPageData.pages.map((page) => ({
-                ...page,
-                contents: page.contents.map((content) =>
-                  content.id === beerId ? { ...content, isLiked } : content,
-                ),
-              })),
-            },
-          ]);
-        },
-      );
+    if (!previousBeersPageData?.length) {
+      return;
     }
+
+    queryClient.setQueriesData<InfiniteData<IGetBeersResponseData>>(['beers'], (data) => {
+      if (!data) {
+        return data as unknown as InfiniteData<IGetBeersResponseData>;
+      }
+
+      return {
+        ...data,
+        pages: data.pages.map((page) => ({
+          ...page,
+          contents: page.contents.map((content) =>
+            content.id === beerId ? { ...content, isLiked } : content,
+          ),
+        })),
+      };
+    });
   };
 
-  const updateBeersLikedCache = (beerId: number, isLiked: boolean) => {
-    const previousBeersLikedPageData = queryClient.getQueriesData<
-      InfiniteData<IGetBeersLikedResponseData>
-    >(['beersLiked']);
-    if (previousBeersLikedPageData) {
-      queryClient.setQueriesData<[QueryKey, InfiniteData<IGetBeersLikedResponseData>][]>(
-        ['beersLiked'],
-        (data) => {
-          if (!data) {
-            return previousBeersLikedPageData;
-          }
+  const getSuccessMessage = (isLiked: boolean) => {
+    return isLiked ? '맥주를 반한 목록에 추가했어요.' : '맥주를 반한 목록에서 삭제했어요.';
+  };
 
-          return data.map(([key, previousPageData]) => [
-            key,
-            {
-              ...previousPageData,
-              pages: previousPageData.pages.map((page) => ({
-                ...page,
-                contents: page.contents.map((content) =>
-                  content.id === beerId ? { ...content, isLiked } : content,
-                ),
-              })),
-            },
-          ]);
-        },
-      );
-    }
+  const getFailMessage = (isLiked: boolean) => {
+    return isLiked
+      ? '맥주를 반한 목록 추가에 실패했어요. 잠시 후 다시 시도해주세요.'
+      : '맥주를 반한 목록에서 삭제하지 못했어요. 잠시 후 다시 시도해주세요.';
   };
 
   const result = useMutation(
@@ -69,7 +47,6 @@ export const useToggleLikeBeer = () => {
       toggleLikeBeer(beerId, isLiked),
     {
       onMutate: ({ beerId, isLiked }) => {
-        // queryClient.cancelQueries(['beer', id]); // 왜 있는 걸까?
         const previousBeer = queryClient.getQueryData<IBeer>(['beer', beerId]);
         if (previousBeer) {
           queryClient.setQueryData<IBeer>(['beer', beerId], {
@@ -80,22 +57,22 @@ export const useToggleLikeBeer = () => {
         return { previousBeer };
       },
       onSuccess: (_, { beerId, isLiked }) => {
-        openSuccessToast({ message: '맥주를 반한 목록에 추가했어요.' });
+        console.log('isLiked', isLiked);
+        openSuccessToast({ message: getSuccessMessage(isLiked) });
         /** 맥주 목록 캐시 업데이트 */
         updateBeersCache(beerId, isLiked);
-        /** 찜 목록 캐시 업데이트 */
-        updateBeersLikedCache(beerId, isLiked);
 
         // 또는
         // queryClient.invalidateQueries(['beers']);
-        // queryClient.invalidateQueries(['beersLiked']);
+        /** 반한 맥주 목록 다시 가져오기 */
+        queryClient.invalidateQueries(['beersLiked']);
       },
-      onError: (_err, { beerId }, context?: { previousBeer?: IBeer }) => {
+      onError: (_err, { beerId, isLiked }, context?: { previousBeer?: IBeer }) => {
         if (context?.previousBeer) {
           queryClient.setQueryData<IBeer>(['beer', beerId], context.previousBeer);
         }
         openFailToast({
-          message: '맥주를 반한 목록 추가에 실패했어요. 잠시 후 다시 시도해주세요.',
+          message: getFailMessage(isLiked),
         });
       },
     },
@@ -106,6 +83,6 @@ export const useToggleLikeBeer = () => {
   return {
     ...result,
     likeBeer: (beerId: number) => toggleLikeBeerMutation({ beerId, isLiked: true }),
-    unLikeBeer: (beerId: number) => toggleLikeBeerMutation({ beerId, isLiked: true }),
+    unLikeBeer: (beerId: number) => toggleLikeBeerMutation({ beerId, isLiked: false }),
   };
 };
