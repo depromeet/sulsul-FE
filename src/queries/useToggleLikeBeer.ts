@@ -1,6 +1,6 @@
-import { InfiniteData, QueryKey, useMutation, useQueryClient } from 'react-query';
+import { InfiniteData, useMutation, useQueryClient } from 'react-query';
 
-import { toggleLikeBeer, IBeer, IGetBeersResponseData, IGetBeersLikedResponseData } from '@/apis';
+import { toggleLikeBeer, IBeer, IGetBeersResponseData } from '@/apis';
 import { openSuccessToast, openFailToast } from '@/utils/toast';
 
 export const useToggleLikeBeer = () => {
@@ -57,13 +57,9 @@ export const useToggleLikeBeer = () => {
         return { previousBeer };
       },
       onSuccess: (_, { beerId, isLiked }) => {
-        console.log('isLiked', isLiked);
         openSuccessToast({ message: getSuccessMessage(isLiked) });
         /** 맥주 목록 캐시 업데이트 */
         updateBeersCache(beerId, isLiked);
-
-        // 또는
-        // queryClient.invalidateQueries(['beers']);
         /** 반한 맥주 목록 다시 가져오기 */
         queryClient.invalidateQueries(['beersLiked']);
       },
