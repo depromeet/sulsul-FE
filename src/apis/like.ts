@@ -9,7 +9,7 @@ export interface IToggleLikeBeerResponseData extends IBaseResponse<boolean> {}
  */
 export const toggleLikeBeer = async (beerId: IBeer['id'], isLiked: boolean) => {
   const res = isLiked
-    ? await axios.delete<IToggleLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`)
-    : await axios.post<IToggleLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`);
+    ? await axios.post<IToggleLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`)
+    : await axios.delete<IToggleLikeBeerResponseData>(`/api/v1/beer/liked/${beerId}`);
   return res.data.contents;
 };

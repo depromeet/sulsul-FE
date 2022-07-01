@@ -21,8 +21,7 @@ export * from './useGetUserLevel';
 export * from './useGetUserLevelByRecordCount';
 export * from './useUpdateUser';
 export * from './useGetFlavors';
-export * from './useLikeBeer';
-export * from './useUnLikeBeer';
+export * from './useToggleLikeBeer';
 
 export interface BasePagenationQueryHooksResponse<T extends any> {
   contents: T[];
