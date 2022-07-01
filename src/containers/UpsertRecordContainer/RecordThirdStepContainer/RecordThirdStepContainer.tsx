@@ -112,7 +112,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
   const defaultValues = useMemo(
     () => ({
       content: record?.content,
-      isPublic: record?.isPublic || false,
+      isPublic: record?.isPublic || true,
       imageUrl: record?.imageUrl,
     }),
     [record],
@@ -212,7 +212,7 @@ const RecordThirdStepContainer: React.FC<RecordThirdStepContainerProps> = ({
           iconMargin={4}
           autoDisabled
         >
-          다음
+          완료
         </FormSubmitButton>
       </StyledBottomFloatingButtonArea>
     </StyledEntityForm>
