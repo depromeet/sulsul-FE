@@ -25,7 +25,7 @@ import { PAGE_TITLES } from '@/constants';
 import LoadingIcon from '@/components/LoadingIcon';
 
 interface BeerListContainerProps {
-  beersData: IGetBeersResponseData;
+  beersData?: IGetBeersResponseData;
 }
 
 const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initialBeersData }) => {
@@ -70,32 +70,37 @@ const BeerListContainer: NextPage<BeerListContainerProps> = ({ beersData: initia
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (context.query) {
-    const query = isNil(context.query.query) ? undefined : decodeURI(String(context.query.query));
-    const filter = context.query[BEER_LIST_FILTER_ATOM_KEY]
-      ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
-      : undefined;
-    const sortBy = context.query[BEER_LIST_SORT_BY_ATOM_KEY]
-      ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '') as EBeerSortBy]
-      : undefined;
+  try {
+    if (context.query) {
+      const query = isNil(context.query.query) ? undefined : decodeURI(String(context.query.query));
+      const filter = context.query[BEER_LIST_FILTER_ATOM_KEY]
+        ? JSON.parse(context.query[BEER_LIST_FILTER_ATOM_KEY] as string)
+        : undefined;
+      const sortBy = context.query[BEER_LIST_SORT_BY_ATOM_KEY]
+        ? [(context.query[BEER_LIST_SORT_BY_ATOM_KEY] as string).replace(/["]/g, '') as EBeerSortBy]
+        : undefined;
 
-    const payload = {
-      ...(query ? { query } : {}),
-      ...(filter ? { filter } : {}),
-      sortBy: sortBy || [DEFAULT_BEER_LIST_SORT_BY],
-    };
+      const payload = {
+        ...(query ? { query } : {}),
+        ...(filter ? { filter } : {}),
+        sortBy: sortBy || [DEFAULT_BEER_LIST_SORT_BY],
+      };
 
-    const beersData = await getBeers({
-      payload: {
-        ...payload,
-        limit: 21,
-      },
-      /** @todo auth */
-      auth: false,
-    });
+      const beersData = await getBeers({
+        payload: {
+          ...payload,
+          limit: 21,
+        },
+        /** @todo auth */
+        auth: false,
+      });
 
-    return { props: { beersData } };
+      return { props: { beersData } };
+    }
+  } catch {
+    return { props: {} };
   }
+
   return { props: {} };
 };
 
