@@ -1,10 +1,11 @@
 import { NextPage, GetServerSideProps } from 'next';
 import styled from '@emotion/styled';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
+import { useReward } from 'react-rewards';
 
 import CreateImage, { CreateImageRef } from './CreateImage';
 
@@ -46,6 +47,12 @@ const StyledRecordTicketContainer = styled.div`
   }
 `;
 
+const StyledConfetti = styled.span`
+  position: fixed;
+  top: 70%;
+  left: 50%;
+`;
+
 export const NEW_TYPE = 'new';
 
 const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _record }) => {
@@ -57,6 +64,14 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
   const createImageRef = useRef<CreateImageRef>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { reward } = useReward('rewardId', 'confetti');
+
+  useEffect(() => {
+    if (type === NEW_TYPE) {
+      reward();
+    }
+  }, []);
 
   const handleDeleteRecord = async () => {
     setIsModalOpen(false);
@@ -96,6 +111,7 @@ const RecordTicketContainer: NextPage<RecordTicketContainerProps> = ({ record: _
         <>
           <h2 className="complete-record-title">{'티켓 발행이 완료되었어요!'}</h2>
           <p className="complete-record-sub-title">{'친구들에게 이미지로 공유해보세요!'}</p>
+          <StyledConfetti id="rewardId" />
         </>
       )}
       {record && (
