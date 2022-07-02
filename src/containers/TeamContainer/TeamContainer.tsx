@@ -10,14 +10,9 @@ const TeamContainer = () => {
       <img src="/images/beerair_member.png" width="100%" height="auto" alt="비어에어멤버" />
       <section>
         <h1 className="top-margin">
-          <a
-            href="https://github.com/depromeet/sulsul-FE"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            FrontEnd Github{' '}
+          <a href="https://linktr.ee/beerair" target="_blank" rel="noopener noreferrer">
+            BeerAir가 더 궁금하시다면 클릭!
           </a>
-          에 놀러오세요!
         </h1>
       </section>
     </StyledTeamContainer>
@@ -44,6 +39,7 @@ const StyledTeamContainer = styled.div`
       text-decoration: none;
       ${({ theme }) => theme.fonts.Body1};
       color: white;
+      text-align: center;
     }
 
     & > .top-margin {
